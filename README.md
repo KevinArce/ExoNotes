@@ -1,5 +1,9 @@
 # ExoNotes
 
+<p align="center">
+  <img src="assets/exonotes_banner.jpg" alt="ExoNotes Banner" width="100%">
+</p>
+
 **Do the free-text comments astronomers write on TESS Objects of Interest carry
 disposition-relevant information that the numeric catalogue columns do not?**
 
