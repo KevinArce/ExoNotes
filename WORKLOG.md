@@ -602,3 +602,53 @@ of edit that rule exists to prevent. This is the user's call. Options:
 No other tracked file contains a local path.
 **Next:** initial commit (local only — NOT pushing; creating a public remote is the user's call).
 ---
+
+## [2026-09-19T23:56Z] STEP 6.4 PRE-PUBLICATION CHECKLIST — PARTIAL
+**Idempotent:** yes (checks are read-only; the banner edit below is a one-time content fix).
+**PLAN.md §11.6 results on the committed tree:**
+
+| # | check | result |
+| ---: | :--- | :--- |
+| 1 | key absent from git history | **PASS** |
+| 2 | `.env` not tracked | **PASS** |
+| 3 | `data/` not tracked (0 files) | **PASS** |
+| 4 | LICENSE / CITATION.cff / CONTRIBUTING.md / PROVENANCE.md / requirements.txt present | **PASS** |
+| 5 | README states the headline question is still open | **PASS** |
+| 6 | README carries ExoFOP + NASA Exoplanet Archive acknowledgements | **PASS** |
+| 7 | `research/01–02` marked superseded | **FIXED — see below** |
+| 8 | no local paths outside `WORKLOG.md` | **PASS** |
+| 9 | `CITATION.cff` repository URL | **PENDING** — `REPLACE_ME` until a remote exists |
+| 10 | clean-clone reproduction | **NOT VERIFIED — see 6.5** |
+
+**Item 7 was a real defect, not a grep artifact.** `research/01_*` and `research/02_*` had **no
+supersession banner in the files themselves** and opened by describing themselves as
+"Authoritative analysis" and "A Rigorous Technical Assessment". The warnings existed only in
+`research/README.md` and in document `03`. On a public repo, anyone arriving at those files
+directly — a search engine, a deep link, GitHub code search — would have read superseded,
+partly-wrong material presented as authoritative, with no signal at all.
+**Fixed:** added a prominent `⚠️ SUPERSEDED — DO NOT BUILD FROM THIS DOCUMENT` banner to the top
+of both, naming the three most consequential errors and pointing to `03` §1.4. The H1 is kept
+above the banner so GitHub still renders a sensible title.
+---
+
+## [2026-09-19T23:57Z] STEP 6.5 CLEAN-CLONE REPRODUCTION — **BLOCKED / IN PROGRESS**
+**Doing:** `git clone` to a scratch dir, fresh `uv venv --python 3.14`, install from
+`requirements.txt`, then `01_ingest.py` → verify the snapshot regenerates and G1 reproduces.
+**Idempotent:** yes — scratch clone, `rm -rf`'d and recreated each attempt. Touches nothing in
+the project.
+**Status:** clone OK (`.env` correctly absent, `data/` correctly absent), venv + install OK.
+**`01_ingest.py` then hung on the ExoFOP download for 8+ minutes with `data/raw/` still empty**
+(the same call took **22.6 s** at 22:57Z). Process confirmed alive, not crashed.
+**FINDING — `etta.download_toi()` takes no timeout argument.** A hung ExoFOP request is
+therefore indistinguishable from a slow one, and `01_ingest.py` inherits that: it can block
+forever with no output and no error. Probable cause here is ExoFOP throttling after four pulls
+from this host today, but **the robustness defect is real regardless of today's cause** and it
+lands on the *first* thing a new contributor runs.
+**Recommended fix (NOT applied — it is a code change beyond this session's remit, and the next
+session should decide):** bypass `etta.download_toi()` for the bulk table and fetch
+`https://exofop.ipac.caltech.edu/tess/download_toi.php?output=csv` with
+`requests.get(..., timeout=(10, 300))` plus a bounded retry, keeping `etta` for the per-TIC
+endpoints. Add it to PLAN.md §6 Step 1 and the release checklist.
+**Consequence for publication:** checklist item 10 is **NOT verified**. Do not claim
+reproducibility until a clean clone completes end to end. Everything else is verified.
+---

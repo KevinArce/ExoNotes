@@ -1,5 +1,25 @@
 # Jev in Astrophysics, Exoplanet Research, and Computational Scientific Discovery
 
+> # ⚠️ SUPERSEDED — DO NOT BUILD FROM THIS DOCUMENT
+>
+> This document was written **before** its claims were verified against the live TypeSafe
+> documentation and independent third-party evaluations. **Ten of its claims did not survive
+> that check**, and several would produce a scientifically unsound system if implemented.
+>
+> **Read [`03_jev_astrophysics_evidence_based_assessment.md`](./03_jev_astrophysics_evidence_based_assessment.md)
+> instead** — §1.4 itemizes every correction.
+>
+> The most consequential errors: calibration is **not** near-zero-ECE out of distribution
+> (measured ECE 0.107 against a 0.024 noise floor, refit temperature 2.74); `confidence` is a
+> distribution-shape statistic and **not** the probability an answer is correct, so any
+> confidence-gated policy here is unsound; and packing multiple items into one state degrades
+> ranking badly (Spearman 0.932 → 0.579).
+>
+> It is kept in this repository because the correction history is part of the record, **not**
+> because it is reliable.
+
+---
+
 > **A Rigorous Technical Assessment of System One Models for Astronomy and Autonomous Science**  
 > *Evaluating TypeSafe AI's Jev (`jev-1.13.0`) across transit vetting, multi-catalog synthesis, time-series anomaly detection, and automated discovery pipelines.*
 
