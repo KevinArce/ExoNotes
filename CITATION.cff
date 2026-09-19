@@ -4,7 +4,7 @@ message: "If you use this work, please cite it, and cite the ExoFOP and NASA Exo
 type: software
 authors:
   - name: "ExoNotes contributors"
-repository-code: "https://github.com/REPLACE_ME/ExoNotes"
+repository-code: "https://github.com/KevinArce/ExoNotes"
 license: MIT
 keywords:
   - exoplanets
