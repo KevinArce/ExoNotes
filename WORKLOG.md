@@ -652,3 +652,48 @@ endpoints. Add it to PLAN.md §6 Step 1 and the release checklist.
 **Consequence for publication:** checklist item 10 is **NOT verified**. Do not claim
 reproducibility until a clean clone completes end to end. Everything else is verified.
 ---
+
+## [2026-09-20T00:02Z] STEP 6.5 CLEAN-CLONE REPRODUCTION — **FAILED (external cause, diagnosed)**
+**Result:** Aborted after ~30 min. `data/raw/` never received a byte.
+**Root cause CONFIRMED by direct probe**, not inferred:
+```
+curl --max-time 20 "https://exofop.ipac.caltech.edu/tess/download_toi.php?output=csv"
+curl: (28) Operation timed out after 20004 ms with 0 bytes received
+http=000  connect=0.419s  total=20.004s  size=0
+```
+**TCP connects in 0.42 s, then the server sends zero bytes.** ExoFOP is accepting the connection
+and withholding the response — server-side throttling, almost certainly because this host pulled
+the full TOI table four times today (22:57Z, plus three `01_ingest.py` runs). The same call
+succeeded in **22.6 s** at 22:57Z.
+**This is not a defect in our code, but it exposes one.** `etta.download_toi()` accepts no
+timeout argument, so a withheld response hangs the process **indefinitely, silently, with no
+output and no error** — and it does so on the very first command a new contributor runs. A
+public repo whose quickstart can hang forever with no diagnostic is a bad first impression at
+best and a bug report at worst.
+**Two items handed to the next session (neither applied here — both are code/plan changes past
+this session's remit):**
+1. Add an explicit timeout + bounded retry with backoff to the ExoFOP fetch, and print a clear
+   "ExoFOP is throttling, retry later" message on timeout. Suggested: fetch the bulk CSV via
+   `requests.get(..., timeout=(10, 300))` directly and keep `etta` for per-TIC endpoints.
+2. **Re-run the clean-clone test once ExoFOP has cooled off**, before publishing. Checklist
+   item 10 remains **UNVERIFIED** and must not be claimed as passing.
+**Note on the existing snapshot:** unaffected. `data/exonotes.duckdb` and the three raw CSVs in
+the project are intact and checksum-verified; `01_ingest.py` is cached-by-date, so re-running it
+in the project does no network I/O. Only a *fresh* clone needs the download.
+**Jev spend:** $0.00 · **running total:** ~$0.0002
+**Next:** report to user. Publication is prepared but NOT pushed — creating the public remote is
+the user's call.
+---
+
+## [2026-09-20T00:03Z] SESSION END — Claude Opus 5
+**Completed this block:** PLAN.md revised (six defects fixed, §11 public-release section added),
+`HANDOFF_PROMPT.md` rewritten for the new state, full publication scaffolding, local git repo
+with two commits, pre-publication checklist 9/10 with one item blocked externally.
+**NOT done, deliberately:** no GitHub remote created, no push. Publishing is the user's call.
+**Jev spend this session: $0.00** · **project running total: ~$0.0002**
+**Two open items needing the user:**
+1. `WORKLOG.md` lines 31/39 contain `/Users/arce/...`. Append-only rule respected — not edited.
+   Leave it, or redact before first push and log the redaction.
+2. Clean-clone reproduction unverified (ExoFOP throttling). Re-test before publishing.
+**Resume at:** `HANDOFF_PROMPT.md` — Step 2.5 question gate, `PREREGISTRATION.md`, publication.
+---
