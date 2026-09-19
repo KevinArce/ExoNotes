@@ -697,3 +697,20 @@ with two commits, pre-publication checklist 9/10 with one item blocked externall
 2. Clean-clone reproduction unverified (ExoFOP throttling). Re-test before publishing.
 **Resume at:** `HANDOFF_PROMPT.md` — Step 2.5 question gate, `PREREGISTRATION.md`, publication.
 ---
+
+## [2026-09-20T00:12Z] HANDOFF TASK 3 REFRESH — DONE
+**Trigger:** User published the repo to https://github.com/KevinArce/ExoNotes between sessions,
+which made part of `HANDOFF_PROMPT.md` stale — TASK 3 still instructed the next session NOT to
+create the remote and to fill in the `CITATION.cff` URL. Both were already done by the user.
+**Verified on the pushed history (all PASS):** API key absent from `git log -p --all`; `.env`
+not tracked; `data/` 0 files tracked; `CITATION.cff` now carries the real repository URL.
+**Changed:** TASK 3 rewritten to state the repo is already public and to carry the two items
+that actually remain — (1) checklist item 10, clean-clone reproduction, still UNVERIFIED, with
+the exact commands and the pass criterion (G1 reproduces at B ~0.9154 vs A 0.5000); (2) the
+unfixed `etta.download_toi()` timeout bug, with the concrete fix. Also restates the WORKLOG
+local-path item as the user's decision, with the instruction that any redaction be recorded in
+a NEW entry rather than an amendment.
+**Idempotent:** n/a (document edit, assertion-checked anchor).
+**Jev spend:** $0.00 · **running total:** ~$0.0002
+**Not pushed** — commit is local. The user pushes.
+---

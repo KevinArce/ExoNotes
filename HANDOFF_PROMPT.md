@@ -97,16 +97,32 @@ with real trade-offs and it belongs to a human. Present it clearly and wait.
 
 ### TASK 3 — publication prep (no Jev spend)
 
-The user wants this repo PUBLIC on GitHub. Scaffolding is already in place: LICENSE (MIT),
-CITATION.cff, CONTRIBUTING.md, PROVENANCE.md, requirements.txt, hardened .gitignore, a
-rewritten README, and a local git repo with an initial commit.
+THE REPO IS ALREADY PUBLIC: https://github.com/KevinArce/ExoNotes
+Treat every commit as immediately visible. Scaffolding is done (LICENSE, CITATION.cff with the
+real URL, CONTRIBUTING.md, PROVENANCE.md, requirements.txt, hardened .gitignore, README).
 
-Your job:
-- Work through the pre-publication checklist in PLAN.md §11.6 and report each item.
-- Verify from a CLEAN CLONE that `01_ingest.py` + `02_baselines.py` reproduce G1.
-- Fill in the `repository-code` URL in `CITATION.cff` once the remote exists.
-- DO NOT create the GitHub remote or push without the user explicitly saying to. Publishing
-  is theirs to trigger. Prepare it; hand them the one command.
+PLAN.md §11.6 passed 9 of 10 items before publication. Two remain:
+
+- ITEM 10, UNVERIFIED — clean-clone reproduction. The test could not complete: ExoFOP began
+  throttling this host after four full-table pulls in one day (TCP connects in 0.42 s, then
+  zero bytes). Re-run it now that ExoFOP has cooled off:
+      git clone https://github.com/KevinArce/ExoNotes /tmp/cc && cd /tmp/cc
+      uv venv --python 3.14 .venv && VIRTUAL_ENV=.venv uv pip install -r requirements.txt
+      .venv/bin/python scripts/01_ingest.py && .venv/bin/python scripts/02_baselines.py
+  It passes when G1 reproduces (B ~0.9154 AUC vs A 0.5000). Until then, do not claim the repo
+  is reproducible.
+
+- ROBUSTNESS BUG, UNFIXED — `etta.download_toi()` accepts no timeout, so a withheld ExoFOP
+  response hangs `01_ingest.py` forever with no output and no error. This is the FIRST command
+  a new contributor runs on a public repo. Fix it: fetch the bulk CSV with
+  `requests.get("https://exofop.ipac.caltech.edu/tess/download_toi.php?output=csv",
+  timeout=(10, 300))` plus a bounded retry with backoff, print a clear "ExoFOP is throttling,
+  retry later" message on timeout, and keep `etta` for the per-TIC endpoints.
+
+OPEN ITEM FOR THE USER, not for you to decide: `WORKLOG.md` contains `/Users/arce/...` on four
+lines, now public. It was NOT edited, because PLAN.md §0.5 is append-only and silently
+rewriting history to tidy a repo is what that rule exists to prevent. If the user asks for a
+redaction, record it in a NEW worklog entry rather than quietly amending the old one.
 
 ## Expected spend this session
 
