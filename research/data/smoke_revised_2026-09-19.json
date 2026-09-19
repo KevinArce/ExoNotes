@@ -1,0 +1,86 @@
+{
+  "A_neb_retired": {
+    "model": "jev-1.13.0",
+    "answers": {
+      "names_alternate_eclipse_source": {
+        "type": "noul",
+        "noul": 0.59
+      },
+      "reports_offset_eclipsing_binary": {
+        "type": "noul",
+        "noul": 0.87
+      },
+      "asserts_ephemeris_problem": {
+        "type": "noul",
+        "noul": 0.05
+      }
+    },
+    "usage": {
+      "input_tokens": 509,
+      "output_tokens": 70
+    }
+  },
+  "B_doubt_vshape": {
+    "model": "jev-1.13.0",
+    "answers": {
+      "names_alternate_eclipse_source": {
+        "type": "noul",
+        "noul": 0.02
+      },
+      "reports_offset_eclipsing_binary": {
+        "type": "noul",
+        "noul": 0.07
+      },
+      "asserts_ephemeris_problem": {
+        "type": "noul",
+        "noul": 0.89
+      }
+    },
+    "usage": {
+      "input_tokens": 491,
+      "output_tokens": 70
+    }
+  },
+  "C_on_target_pub": {
+    "model": "jev-1.13.0",
+    "answers": {
+      "names_alternate_eclipse_source": {
+        "type": "noul",
+        "noul": 0.13
+      },
+      "reports_offset_eclipsing_binary": {
+        "type": "noul",
+        "noul": 0.07
+      },
+      "asserts_ephemeris_problem": {
+        "type": "noul",
+        "noul": 0.04
+      }
+    },
+    "usage": {
+      "input_tokens": 502,
+      "output_tokens": 70
+    }
+  },
+  "D_empty_ish": {
+    "model": "jev-1.13.0",
+    "answers": {
+      "names_alternate_eclipse_source": {
+        "type": "noul",
+        "noul": 0.02
+      },
+      "reports_offset_eclipsing_binary": {
+        "type": "noul",
+        "noul": 0.06
+      },
+      "asserts_ephemeris_problem": {
+        "type": "noul",
+        "noul": 0.05
+      }
+    },
+    "usage": {
+      "input_tokens": 467,
+      "output_tokens": 70
+    }
+  }
+}

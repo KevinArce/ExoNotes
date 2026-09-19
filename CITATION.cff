@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+title: "ExoNotes: do ExoFOP follow-up comments carry disposition signal beyond the numeric catalogue?"
+message: "If you use this work, please cite it, and cite the ExoFOP and NASA Exoplanet Archive sources it depends on."
+type: software
+authors:
+  - name: "ExoNotes contributors"
+repository-code: "https://github.com/REPLACE_ME/ExoNotes"
+license: MIT
+keywords:
+  - exoplanets
+  - TESS
+  - ExoFOP
+  - text-mining
+  - calibration
+  - negative-results
+abstract: >-
+  A pre-registered test of whether the free-text Comments astronomers write on TESS Objects of
+  Interest contain disposition-relevant information not already present in the numeric catalogue
+  columns. Free text is converted to numeric semantic features with a System One model (Jev,
+  TypeSafe AI) used strictly as a featurizer; gradient boosting is the predictor and grouped
+  cross-validation by host star is the arbiter. The study is designed so that a null result is
+  publishable, and documents a measured label-echo rate of 47.9% in the ExoFOP comment corpus.

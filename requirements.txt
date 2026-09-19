@@ -1,0 +1,16 @@
+# Pinned from the verified working environment (Python 3.14.7, 2026-09-19).
+# Reproduce: uv venv --python 3.14 .venv && uv pip install -r requirements.txt
+
+catboost==1.2.10
+duckdb==1.5.5
+pandas==3.0.6
+pyarrow==25.0.1
+scikit-learn==1.9.1
+scipy==1.18.1
+matplotlib==3.11.2
+etta==0.1.1
+requests==2.34.2
+python-dotenv==1.2.3
+
+# Added only when Step 3 begins (no API calls before then):
+# typesafe-sdk

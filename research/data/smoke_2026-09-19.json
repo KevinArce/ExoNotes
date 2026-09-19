@@ -1,0 +1,270 @@
+{
+  "A_neb_retired": {
+    "model": "jev-1.13.0",
+    "answers": {
+      "names_alternate_eclipse_source": {
+        "type": "noul",
+        "noul": 0.37
+      },
+      "reports_nearby_eclipsing_binary": {
+        "type": "noul",
+        "noul": 0.92
+      },
+      "reports_on_target_detection": {
+        "type": "noul",
+        "noul": 0.42
+      },
+      "expresses_doubt_about_ephemeris": {
+        "type": "noul",
+        "noul": 0.06
+      },
+      "references_other_object": {
+        "type": "noul",
+        "noul": 0.13
+      },
+      "author_certainty": {
+        "type": "score",
+        "score": 3.5,
+        "confidence": 0.58,
+        "legend": {
+          "0": "Purely speculative: raises a possibility with no supporting observation",
+          "1": "Tentative: hedged language, conclusion not settled",
+          "2": "Qualified: a conclusion stated together with explicit caveats",
+          "3": "Confident: a clear conclusion supported by a described observation",
+          "4": "Definitive: stated as settled fact, case closed"
+        },
+        "probabilities": {
+          "0": 0.0,
+          "1": 0.0,
+          "2": 0.0,
+          "3": 0.5,
+          "4": 0.5
+        }
+      },
+      "evidence_depth": {
+        "type": "score",
+        "score": 2.13,
+        "confidence": 0.89,
+        "legend": {
+          "0": "No observation described at all",
+          "1": "A remark or opinion with no data referenced",
+          "2": "One follow-up observation referenced",
+          "3": "Several follow-up observations referenced",
+          "4": "Multiple independent facilities or techniques described"
+        },
+        "probabilities": {
+          "0": 0.0,
+          "1": 0.0,
+          "2": 0.93,
+          "3": 0.01,
+          "4": 0.06
+        }
+      }
+    },
+    "usage": {
+      "input_tokens": 645,
+      "output_tokens": 144
+    }
+  },
+  "B_doubt_vshape": {
+    "model": "jev-1.13.0",
+    "answers": {
+      "names_alternate_eclipse_source": {
+        "type": "noul",
+        "noul": 0.48
+      },
+      "reports_nearby_eclipsing_binary": {
+        "type": "noul",
+        "noul": 0.71
+      },
+      "reports_on_target_detection": {
+        "type": "noul",
+        "noul": 0.05
+      },
+      "expresses_doubt_about_ephemeris": {
+        "type": "noul",
+        "noul": 0.94
+      },
+      "references_other_object": {
+        "type": "noul",
+        "noul": 0.04
+      },
+      "author_certainty": {
+        "type": "score",
+        "score": 1.32,
+        "confidence": 0.72,
+        "legend": {
+          "0": "Purely speculative: raises a possibility with no supporting observation",
+          "1": "Tentative: hedged language, conclusion not settled",
+          "2": "Qualified: a conclusion stated together with explicit caveats",
+          "3": "Confident: a clear conclusion supported by a described observation",
+          "4": "Definitive: stated as settled fact, case closed"
+        },
+        "probabilities": {
+          "0": 0.01,
+          "1": 0.67,
+          "2": 0.32,
+          "3": 0.0,
+          "4": 0.0
+        }
+      },
+      "evidence_depth": {
+        "type": "score",
+        "score": 1.19,
+        "confidence": 0.75,
+        "legend": {
+          "0": "No observation described at all",
+          "1": "A remark or opinion with no data referenced",
+          "2": "One follow-up observation referenced",
+          "3": "Several follow-up observations referenced",
+          "4": "Multiple independent facilities or techniques described"
+        },
+        "probabilities": {
+          "0": 0.06,
+          "1": 0.74,
+          "2": 0.18,
+          "3": 0.01,
+          "4": 0.01
+        }
+      }
+    },
+    "usage": {
+      "input_tokens": 627,
+      "output_tokens": 144
+    }
+  },
+  "C_on_target_pub": {
+    "model": "jev-1.13.0",
+    "answers": {
+      "names_alternate_eclipse_source": {
+        "type": "noul",
+        "noul": 0.2
+      },
+      "reports_nearby_eclipsing_binary": {
+        "type": "noul",
+        "noul": 0.05
+      },
+      "reports_on_target_detection": {
+        "type": "noul",
+        "noul": 0.94
+      },
+      "expresses_doubt_about_ephemeris": {
+        "type": "noul",
+        "noul": 0.08
+      },
+      "references_other_object": {
+        "type": "noul",
+        "noul": 0.95
+      },
+      "author_certainty": {
+        "type": "score",
+        "score": 3.78,
+        "confidence": 0.82,
+        "legend": {
+          "0": "Purely speculative: raises a possibility with no supporting observation",
+          "1": "Tentative: hedged language, conclusion not settled",
+          "2": "Qualified: a conclusion stated together with explicit caveats",
+          "3": "Confident: a clear conclusion supported by a described observation",
+          "4": "Definitive: stated as settled fact, case closed"
+        },
+        "probabilities": {
+          "0": 0.0,
+          "1": 0.0,
+          "2": 0.0,
+          "3": 0.21,
+          "4": 0.79
+        }
+      },
+      "evidence_depth": {
+        "type": "score",
+        "score": 2.71,
+        "confidence": 0.38,
+        "legend": {
+          "0": "No observation described at all",
+          "1": "A remark or opinion with no data referenced",
+          "2": "One follow-up observation referenced",
+          "3": "Several follow-up observations referenced",
+          "4": "Multiple independent facilities or techniques described"
+        },
+        "probabilities": {
+          "0": 0.0,
+          "1": 0.01,
+          "2": 0.52,
+          "3": 0.23,
+          "4": 0.24
+        }
+      }
+    },
+    "usage": {
+      "input_tokens": 638,
+      "output_tokens": 144
+    }
+  },
+  "D_empty_ish": {
+    "model": "jev-1.13.0",
+    "answers": {
+      "names_alternate_eclipse_source": {
+        "type": "noul",
+        "noul": 0.06
+      },
+      "reports_nearby_eclipsing_binary": {
+        "type": "noul",
+        "noul": 0.04
+      },
+      "reports_on_target_detection": {
+        "type": "noul",
+        "noul": 0.11
+      },
+      "expresses_doubt_about_ephemeris": {
+        "type": "noul",
+        "noul": 0.78
+      },
+      "references_other_object": {
+        "type": "noul",
+        "noul": 0.04
+      },
+      "author_certainty": {
+        "type": "score",
+        "score": 1.05,
+        "confidence": 0.95,
+        "legend": {
+          "0": "Purely speculative: raises a possibility with no supporting observation",
+          "1": "Tentative: hedged language, conclusion not settled",
+          "2": "Qualified: a conclusion stated together with explicit caveats",
+          "3": "Confident: a clear conclusion supported by a described observation",
+          "4": "Definitive: stated as settled fact, case closed"
+        },
+        "probabilities": {
+          "0": 0.0,
+          "1": 0.95,
+          "2": 0.05,
+          "3": 0.0,
+          "4": 0.0
+        }
+      },
+      "evidence_depth": {
+        "type": "score",
+        "score": 0.97,
+        "confidence": 0.98,
+        "legend": {
+          "0": "No observation described at all",
+          "1": "A remark or opinion with no data referenced",
+          "2": "One follow-up observation referenced",
+          "3": "Several follow-up observations referenced",
+          "4": "Multiple independent facilities or techniques described"
+        },
+        "probabilities": {
+          "0": 0.03,
+          "1": 0.97,
+          "2": 0.0,
+          "3": 0.0,
+          "4": 0.0
+        }
+      }
+    },
+    "usage": {
+      "input_tokens": 603,
+      "output_tokens": 144
+    }
+  }
+}
