@@ -1846,3 +1846,26 @@ decoded on 71.6% of rows. All three are fixed and logged at 17:34Z, 17:52Z and 1
 **UNCOMMITTED:** the working tree carries all of this session's work. See the open item at the
 top of `HANDOFF_PROMPT.md`; the user was asked to confirm the commit.
 ---
+## [2026-09-20T18:52Z] COMMIT + PUSH — DONE
+**Doing:** commit TASK A + A2 and publish to `origin/master`, at the user's explicit request.
+**Idempotent:** n/a — a publish. Verified after the fact rather than before.
+
+**Committed** `cfe8569` — 10 files, +1,581 / −162. `data/` and `.env` confirmed **not** staged
+before committing; the 2,573 cached responses and the DuckDB tables remain local and gitignored,
+so a clean clone re-pulls them (~6 min, $0).
+
+**Pushed** `9f8f78f..cfe8569`. Two commits went up, not one: `eb4648d` (the 17:03Z open-item
+correction) was already sitting unpushed from before this session, which the 17:03Z entry's
+"remote and local HEAD are both 9f8f78f" no longer described by the time this session started.
+
+**Verified after the push:**
+- `git ls-remote origin master` → `cfe8569`, identical to local `HEAD`.
+- `git rev-list --left-right --count origin/master...HEAD` → **0 0**. Not diverged.
+- `git log origin/master --format='%an <%ae>' | sort -u` → **exactly one identity**,
+  `KevinArce <iav.kevinarce@ufg.edu.sv>`. 15 commits on the branch.
+
+**The public record now carries the A-13…A-17 registration**, which is the point: the corpus
+size, the raised 0.68 detection bar and the G1 result are timestamped in public **before** TASK B
+writes a question and before any full-corpus Jev call. Jev spend unchanged at **~$0.0046**.
+**Next:** TASK B, per `HANDOFF_PROMPT.md`.
+---
