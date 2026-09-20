@@ -27,3 +27,34 @@ uv pip install -r requirements.txt
 ExoFOP updates continuously and the NASA Exoplanet Archive syncs from it weekly, so a
 later pull will differ. Compare against the checksums above to know whether you are
 looking at the same data this analysis used.
+
+---
+
+<!-- BEGIN obsnotes (scripts/028_obsnotes_pull.py) -->
+## Observer-note corpus (TASK A)
+
+Per-TIC ExoFOP observing notes behind `analysis_set_obsnotes`. Cached under
+`data/cache/obsnotes/` (gitignored); this block is the committed record.
+
+**Pulled (UTC):** `2026-09-20T17:31:06+00:00`
+
+| quantity | value |
+| :--- | ---: |
+| cache files (one per TIC) | 2,573 |
+| total cached bytes | 6,131,180 |
+| notes parsed | 6,855 |
+| corpus rows / TIC | 1,482 / 1,388 |
+| **manifest sha256** | `ada883e298ecc3347bbb9e6f40fd2e5aee530cc1fc214a5872fff9e3ba074df8` |
+
+The manifest digest is `sha256` over the newline-joined `"<tic> <sha256(file)>"`
+lines, TIC ascending. It changes if any cached response changes.
+
+```bash
+.venv/bin/python scripts/028_obsnotes_pull.py           # all stages, cache-first
+.venv/bin/python scripts/028_obsnotes_pull.py --stage persist
+```
+
+`scripts/01_ingest.py` rewrites this file wholesale, so re-run the `persist` stage
+after any ingest re-run to restore this block.
+
+<!-- END obsnotes -->

@@ -4,44 +4,44 @@ You are picking up the ExoNotes project. **Work from the repo, not from memory.*
 
 ---
 
-## ⚠️ START HERE — the design changed on 2026-09-20 (audit 01)
+## ⚠️ START HERE — the corpus now exists, and it is smaller than planned
 
-An adversarial pre-flight review was run before TASK A and found **four defects that change the
-registered design**. They are written up in
-[`AUDIT_01_PREFLIGHT_REVIEW.md`](./AUDIT_01_PREFLIGHT_REVIEW.md) and registered as amendments
-**A-1 … A-8** in [`PREREGISTRATION.md`](./PREREGISTRATION.md) §11.
+**TASK A and TASK A2 are DONE** (2026-09-20). The observer-note corpus has been pulled,
+asserted, persisted and baselined. Results are registered as amendments **A-13 … A-17** in
+[`PREREGISTRATION.md`](./PREREGISTRATION.md) §11.2.
 
-**The two that will silently ruin the study if you skip them:**
+**The three numbers that change what you do next:**
 
-1. **Gate G2 had no zero point.** Adding eight *pure-noise* columns to baseline B costs
-   **−0.0112 AUC** (mean of 5 seeds; every seed's paired bootstrap CI excludes zero). That is
-   over 4× the SE of the G2 statistic, which is 0.0026. **A reported ΔAUC of 0.000 is therefore
-   not a null — it is ~+0.011 of real signal cancelling dilution.** `PREREGISTRATION.md` §8 would
-   have mapped that onto *"Stop. Write the negative result."* Every D-vs-B comparison is now read against the **B+N** arm from
-   [`scripts/026_noise_floor.py`](./scripts/026_noise_floor.py).
-2. **Gate G5's regex is dead code on this corpus.** [`src/exonotes/leakage.py`](./src/exonotes/leakage.py)
-   was written for 30-character `Comments`; two of its five clauses are anchored `^…$`. On real
-   observer-note text it fires on **1 of 20 TICs**. G5 would pass trivially and §8 reads a G5 pass
-   as *"the effect was not label echo."* **TASK B2 re-derives it.**
+1. **The corpus is 1,482 rows / 1,388 TIC**, not the projected ~1,814 / ~1,715 — **19% smaller**,
+   near the low end of A-8's 1,200–2,140 interval. Base rate **0.5378**. Coverage **54%**, not
+   the recon's 67%.
+2. **The detection bar moved with it. A Jev feature now needs ≈ 0.68 univariate AUC**, not 0.65.
+   The graded oracle at feature AUC **0.659 is no longer detectable** (paired CI
+   [−0.0009, +0.0121]). **A question that would have cleared the old bar no longer clears.**
+   MDE is now **+0.0084** (was +0.0073); dilution floor **−0.0115**; true signal required **0.0199**.
+3. **G1 PASSES on the real row set:** B = **0.9051** (floor 0.85), B−A CI [+0.3977, +0.4441].
+   B is **0.9051 on included rows vs 0.9197 on excluded** — D will be compared on slightly
+   *harder* ground, which is the favourable direction for honesty.
 
-Nothing has been run on the full corpus. Every criterion is still being fixed before the result,
-which is the only window in which it can be. **Do not open that window wider.**
+**Nothing has been sent to Jev on this corpus. Jev spend is still ~$0.0046.** Every criterion is
+still being fixed before the result. **Do not open that window wider.**
 
 ---
 
 ## Read first, in this order
 
-1. **[`AUDIT_01_PREFLIGHT_REVIEW.md`](./AUDIT_01_PREFLIGHT_REVIEW.md)** — all 13 findings, the two
-   hypotheses that were tested and failed, and what changed as a result. **Read this first; it is
-   the most recent word on every other document.**
-2. **[`PREREGISTRATION.md`](./PREREGISTRATION.md)** — the binding document. §11 amendments A-1…A-8
-   **override** the body text where they disagree. §2 is still provisional.
-3. **`WORKLOG.md` — read the TAIL first.** Append-only; the end is current.
-4. **`PLAN.md`** — §0.5 (work logging) and §1 (guardrails) before anything else. **Treat the rest
-   as a hypothesis, not a specification: eight of its claims have been found wrong, and audit 01
-   found four more.**
+1. **`WORKLOG.md` — read the TAIL first**, from `2026-09-20T17:05Z` onward. Append-only; the end
+   is current. The TASK A entries record three defects found *during* the work that the audit
+   did not anticipate.
+2. **[`PREREGISTRATION.md`](./PREREGISTRATION.md) §11.2 (A-13…A-17)**, then §11.1 (A-1…A-8).
+   **§11.2 overrides §11.1 overrides the body.** §2 is still provisional.
+3. **[`AUDIT_01_PREFLIGHT_REVIEW.md`](./AUDIT_01_PREFLIGHT_REVIEW.md)** — still the reasoning
+   behind A-1…A-8, but **two of its measurements have been superseded by the full corpus**
+   (see "What audit 01 got wrong" below).
+4. **`PLAN.md`** §0.5 (work logging) and §1 (guardrails) before anything else. **Treat the rest
+   as a hypothesis:** twelve of its claims have been found wrong.
 5. `research/05_question_design_gate.md` — how the question set was tested, and why that test
-   **does not transfer to the new corpus**.
+   **does not transfer**.
 
 `research/01_*` and `research/02_*` are **SUPERSEDED**. Do not build from them.
 
@@ -64,171 +64,172 @@ makes API calls. **Never log secrets.** The key is in `.env` (gitignored) as `TY
 
 ---
 
-## The corpus (unchanged since 2026-09-20)
+## 🚩 OPEN ITEM FOR THE USER — read before doing anything else
 
-**Not the TOI `Comments` field.** `download_obsnotes`, observer notes only,
-`Groupname != 'tfopwg'`. Rationale and measurements: `PREREGISTRATION.md` §1.
+**TASK A and A2 are complete but UNCOMMITTED.** The previous session did not commit, by design —
+it had no instruction to. Working tree as handed over:
 
-**One correction from audit 01 (A-10):** across all 79 cached notes, `Groupname` takes exactly two
-values — `'tfopwg'` and **NaN**. There is no `SG1`-style groupname in the data, so the filter is
-in practice `Groupname IS NULL`. It works, but assert it in TASK A rather than trusting it.
+```
+ M PREREGISTRATION.md          (§11.2, amendments A-13…A-17)
+ M PROVENANCE.md               (obsnotes block + manifest sha256)
+ M WORKLOG.md                  (17:05Z → 18:34Z)
+ M scripts/026_noise_floor.py  (additive --table flag; defaults unchanged)
+?? scripts/028_obsnotes_pull.py          (new — the acquisition script)
+?? scripts/030_gate_g1_obsnotes.py       (new — G1 on the obsnotes row set)
+?? research/data/obsnotes_corpus_2026-09-20.json
+?? research/data/gate_g1_obsnotes_2026-09-20.json
+?? research/data/noise_floor_analysis_set_obsnotes_2026-09-20.json
+```
+
+**Confirm with the user, then commit.** Nothing downstream depends on it, but the work is not
+durable until it is. `data/` is gitignored — the 2,573 cached responses and the DuckDB tables
+are **local only**, so a clean clone re-pulls (~6 min, $0).
+
+---
+
+## The corpus — as measured, not as projected
+
+**Not the TOI `Comments` field.** `download_obsnotes`, observer notes only, `Groupname != 'tfopwg'`
+(in practice `Groupname IS NULL` — A-10, now asserted and holding). Rationale: `PREREGISTRATION.md` §1.
+
+| | measured |
+| :--- | ---: |
+| TOI rows | **1,482** |
+| unique TIC (CV groups) | **1,388** |
+| base rate | **0.5378** |
+| row coverage of `analysis_set` | **0.545** |
+| median chars / row | **870** (vs 30 in `Comments`) |
+| notes total | 6,855 over 2,573 TIC |
+| `Master Disp:` / `Phot Disp:` / `Spec Disp:` in corpus text | **0 / 1,482** |
+
+`Groupname` domain across all 6,855 notes: `'tfopwg'` (2,892) and NULL (3,963). **No third value.**
+
+---
+
+## What audit 01 got wrong — do not carry these forward
+
+Audit 01 was right about the design; two of its **measurements** were 20-TIC artifacts that do
+not survive the full corpus. Both matter to TASK B2.
+
+| audit 01 said (n=20) | full corpus (n=1,482) |
+| :--- | :--- |
+| `TOI-\d+` fires 13/20 — "the leak is real, just differently shaped" | fires **68.4%** at **P(y=1)=0.431**, against a 0.5378 base rate. **Near-neutral. It is the weakest probe, not the strongest.** |
+| P(note\|y=1) 0.80 vs P(note\|y=0) 0.53, ratio 1.51 | **0.5822 vs 0.5067, ratio 1.149** — real, but about ⅓ as strong |
+
+**The actual leak is the Kepler-sourced note:** `ExoFOP-Kepler` / `KOI\d+` fires on **108 rows
+(7.3%) at P(y=1) = 0.954**. `NEB`/`BEB` fires on 34 rows at **P(y=1) = 0.059**. And
+`false positive` fires on 31 rows at **P(y=1) = 0.613** — *above* base rate, the opposite of
+what the phrase implies. Full table: `WORKLOG.md` 18:34Z.
 
 ---
 
 ## State you are inheriting
 
 - `data/exonotes.duckdb` — `toi_snapshot`, `analysis_set`, `ingest_provenance`, `ingest_stats`,
-  `baseline_results`, `baseline_summary`, **`noise_floor`** (new). Built on the **`Comments`**
-  corpus; still valid as the numeric/label foundation.
-- **G1 PASSED** on that set: baseline B (numeric) **0.9154** AUC vs A 0.5000.
-- **Baseline C (TF-IDF) 0.9691 AUC is LEAKAGE, not signal** — never cite it without that.
-- **The G2 noise floor, MDE and oracle bar** — `research/data/noise_floor_2026-09-20.json`.
+  `baseline_results`, `baseline_summary`, `noise_floor`, and **new this session:**
+  **`obsnotes_raw`** (6,855 notes), **`obsnotes_text`** (per-TIC concatenated observer text),
+  **`analysis_set_obsnotes`** (**the corpus** — 1,482 rows, column `notes` holds the text),
+  **`obsnotes_coverage`**, **`gate_g1_obsnotes`**, **`noise_floor_obsnotes`**.
+- `data/cache/obsnotes/` — **2,573 per-TIC JSON files, all valid RFC-8259.** Re-runs are free.
 - `src/exonotes/questions.py` — set `2026-09-20.r4`, 8 predictive + 3 label-echo. **Provisional.**
-- `src/exonotes/leakage.py` — the G5 regex. **Known inoperative on obsnotes (A-3).**
-- `data/cache/` — content-addressed Jev responses and per-TIC obsnotes. **Re-runs are free.**
+- `src/exonotes/leakage.py` — **known inoperative on obsnotes (A-3). TASK B2 owns it.**
 - Environment: Python 3.14 venv at `.venv`. **Do not rebuild it.** Run `.venv/bin/python scripts/…`.
 - **Jev spend to date: ~$0.0046.**
 
-### Plan defects already found and fixed — do not re-litigate
-1. `pscomppars` removed from the feature path (predicts the label at P=0.995 vs 0.074).
-2. `references_other_object` → `TIER_LABEL_ECHO`, renamed `contains_object_designation`.
-3. Corpus is 2,721 rows, not ~7,000.
-4. No comment timestamps exist.
-5. The question set was verified on the wrong text length distribution.
-6. S2 was unimplementable as written; now uses `date_toi_alerted`.
-7. S2 violated S1's own no-split-within-a-host rule — fixed in `PREREGISTRATION.md` §4 S2a.
-8. §2.0's leakage regex was never recorded — now `src/exonotes/leakage.py`.
-9. **G2 had no dilution control** — fixed, §11 A-1.
-10. **No MDE; §8.1 planned observed power** — fixed, §11 A-2.
-11. **G5's regex does not fire on obsnotes** — TASK B2, §11 A-3.
-12. **`toi` was being sent to Jev on every call for no reason** — removed, §11 A-4.
+### Defects already found and fixed — do not re-litigate
+1–12: see the previous handoff's list, preserved in `WORKLOG.md` (pscomppars removed; corpus is
+2,721 rows; no comment timestamps; S2 fixed; G2 dilution control; MDE; G5 regex; `toi` dropped
+from state; model pinned).
+13. **`etta` cannot be used for the bulk pull** — `pd.read_csv(url)` with no timeout, and ExoFOP
+    throttles by withholding the body. `scripts/028_obsnotes_pull.py` uses `requests` with an
+    explicit timeout against the identical URL; `--check-etta` verifies they agree.
+14. **A zero-byte body is a THROTTLE, not "no notes."** A *header-only* 51-byte response is the
+    genuine empty. Getting this backwards caches throttles as "this TIC has no notes" and shrinks
+    the corpus silently. Three TICs were poisoned this way and recovered. `WORKLOG.md` 17:34Z.
+15. **`pd.read_csv(delimiter='|')` mis-parses notes containing a literal `|`** — 2 TICs of 2,573.
+    One raises `ParserError` (TIC lost); the other, where the pipe is on the *first* data line,
+    makes pandas infer a MultiIndex and **silently shift every column** — `notes` becomes NULL
+    and `Groupname` becomes a timestamp. `parse_pipe()` splits with `maxsplit=6` instead.
+    **`etta` has the identical defect.** `WORKLOG.md` 17:52Z.
+16. **HTML entities were never decoded** — `&nbsp;` 5,746 times across 71.6% of rows. Fixed in
+    `plain()`; the TAG→FRAG→unescape order is load-bearing. A-17.
 
-### Two hypotheses that were tested and FAILED — do not re-raise them
-- **"Known Planets inflate baseline B."** They do not. B = 0.9128 all-in, **0.9231 with KP
-  excluded**, 0.9211 KP-only. No KP-excluded arm is warranted.
-- **"The cross-platform 5×10⁻⁴ AUC offset matters."** It is real but ~15× smaller than the MDE of 0.0073.
-  Keep the single-platform rule; stop quoting the 10⁻³ figure as a decision threshold.
+### Hypotheses tested and FAILED — do not re-raise
+- **"Known Planets inflate baseline B."** They do not (0.9231 KP-excluded vs 0.9128 all-in).
+- **"The cross-platform 5×10⁻⁴ AUC offset matters."** ~17× below the current MDE of 0.0084.
+  Keep the single-platform rule as hygiene; it is not a decision threshold.
 
 ---
 
 ## Scope of the NEXT session
 
-> **Binding order: A → A2 → B and B2 → C.** No step may start before its predecessor's `DONE`
-> entry is in `WORKLOG.md`.
-
-### TASK A — acquire the obsnotes corpus (~2.3 h, $0 Jev)
-
-Pull observer notes for all **2,573 TIC** (`etta.download_obsnotes(tic=...)` — **note the
-keyword**; the first positional arg is `tag` and silently returns an empty table). ~3.21 s/TIC.
-
-**Build on [`scripts/027_obsnotes_recon.py`](./scripts/027_obsnotes_recon.py)** — it already caches
-per-TIC under `data/cache/obsnotes/`, so the pull is resumable and a re-run is free. Parallelise
-with a bounded pool; retry `RemoteDisconnected` (observed once in 10 calls).
-
-Preconditions and assertions, all from audit 01:
-- **Assert non-empty on known-good TICs** — a throttled or mis-parameterised call returns a
-  well-formed empty table, not an error.
-- **Assert the `Groupname` domain** is `{'tfopwg', NULL}` (A-10). If any other value appears, the
-  corpus definition in §1.1 no longer describes what is being selected — **stop and report**.
-- **Write `null`, not bare `NaN`** (A-11). 20 of the 30 existing cache files are not valid
-  RFC-8259 JSON. Use `json.dumps(..., allow_nan=False)` after coercing, and re-serialise the 30.
-- Persist to DuckDB, strip HTML, record checksums in `PROVENANCE.md`.
-- **Report the realised base rate and coverage**, and P(has note | y=1) vs P(has note | y=0). The
-  recon estimate is 0.80 vs 0.53 on n=30 (A-7). It is **not** grounds to change any criterion.
-
-### TASK A2 — re-establish G1 and re-measure the noise floor on the real row set ($0 Jev)
-
-1. **G1 on the obsnotes row set.** Criterion, pre-registered: **B ≥ 0.85 AUC and B > A by a
-   bootstrap 95% CI excluding zero.** A different row set is a different pipeline.
-2. **Re-run [`scripts/026_noise_floor.py`](./scripts/026_noise_floor.py) on the realised rows.**
-   The dilution penalty and the MDE are both functions of *n*, and the ~1,715-TIC projection is
-   20/30 extrapolated — the true interval is roughly 1,200–2,140 TIC (A-12). Pass `--k` equal to
-   the final Jev feature count once TASK B has frozen it.
-3. **Also report B's AUC on excluded vs included rows** (A-7). If B is materially weaker on the
-   included subset, D is being compared on easier ground and the write-up must say so.
+> **Binding order: B and B2 → C.** No step may start before its predecessor's `DONE` entry is in
+> `WORKLOG.md`. **A and A2 are done.**
 
 ### TASK B — re-run Step 2.5 on observer-note text (~$0.01)
 
 Same method as [`scripts/025_question_gate.py`](./scripts/025_question_gate.py): ~20–25 cases drawn
-**verbatim** from real observer notes, across the true length distribution, each question's
-positive / negative / nearest confusable, every answer inspected by eye.
+**verbatim** from `analysis_set_obsnotes.notes`, across the true length distribution (median 870,
+IQR ~391–1,300, 95th pct ~3,324, max 41,268), each question's positive / negative / nearest
+confusable, every answer inspected by eye.
 
-**Changes from last time, all binding:**
-- **Blind the cases (A-9).** Sample programmatically across the length distribution and **withhold
-  the labels until every answer has been inspected**, then attach them. The r4 cases carried
-  `y=` and were hand-picked by someone who could see it.
+**Binding constraints:**
+- **Check each candidate against the ≈ 0.68 oracle bar (A-15), not 0.65.** A feature at 0.659 is
+  now invisible. A question that cannot plausibly clear 0.68 is not worth a column — and every
+  column you add costs ~0.0115 of dilution.
+- **Blind the cases (A-9).** Sample programmatically across the length distribution and withhold
+  labels until every answer is inspected. The r4 cases carried `y=` and were hand-picked.
 - **Pin the model (A-5).** `MODEL = "jev-1.13.0"`, not `"jev-latest"`. Assert
-  `response["model"] == MODEL` before persisting. `jev-latest` sits inside the cache key, so a
-  version bump silently mixes two models in one feature matrix.
-- **Drop `toi` from the state (A-4).** The registered state is now `{"notes": ...}`. No question
-  reads `toi`, and it hands the model a catalogue designation that G5 structurally cannot strip.
-- **Check each candidate against the oracle bar (A-2).** A feature needs roughly **0.65 univariate
-  AUC** against the label before G2 can see it (a feature at 0.59 is invisible). A question that cannot plausibly clear that is not
-  worth a column.
+  `response["model"] == MODEL` before persisting — the literal sits inside the cache key.
+- **State is `{"notes": ...}` (A-4).** No `toi`.
 - **Restore the two deleted questions as candidates** — `reports_on_target_detection` and
-  `indicates_followup_complete` (`PREREGISTRATION.md` §2.3). They were deleted for absence of
-  support in `Comments`, not for being bad questions.
-- **Re-freeze with a new `QUESTION_SET_VERSION` and record it in `PREREGISTRATION.md` §11.**
+  `indicates_followup_complete` (§2.3). They were deleted for absence of support in `Comments`.
+- **Watch the state size.** The 95th percentile row is ~3,300 chars and the max is ~41k. §6's
+  cost projection assumed ~780. **Re-project TASK C's cost from the realised distribution before
+  running it**, and truncate or the tripwire will fire.
+- **Re-freeze with a new `QUESTION_SET_VERSION` and record it in §11.**
 
-Apply the §2.4 writing rules literally, including the one added last session:
-**when the model keeps making an inference, name that inference and forbid it explicitly.**
-That is what fixed `mentions_instrumental_artifact` after two rounds of better positive
-descriptions had failed.
+Apply the §2.4 writing rules literally, including: **when the model keeps making an inference,
+name that inference and forbid it explicitly.**
 
-### TASK B2 — re-derive the G5 clause set on observer-note text ($0 Jev, no Jev calls)
+Load the `typesafe-ai` skill and the live docs — this project's memory directs it. Noul supports
+a structured `criteria: {true, false}`; §2.4 requires the negative case be stated and that is the
+documented field for it.
 
-`src/exonotes/leakage.py` fires on **1 of 20** cached observer-note TICs. `L1`, `L2`, `L4a` and
-`L4b` are all **0/20**. The arm would be ~95% identical to the full arm.
+### TASK B2 — re-derive the G5 clause set on observer-note text ($0 Jev)
 
-The leak is real, it just has a different shape: `NEB`/`BEB`/`cleared`/`retired`/`false positive`
-are all 0/20 — the `Groupname` filter genuinely works — but **`TOI-\d+` fires 13/20**, and one
-note opens *"Extracted KOI12 observing note from ExoFOP-Kepler."*
+`src/exonotes/leakage.py` fires on ~1/20 of observer-note TICs; `L1`, `L2`, `L4a`, `L4b` are dead.
 
-Derive the new clauses on the **full pulled corpus**, measure n and P(y=1) per clause exactly as
-§5 does, audit the marginal rows by eye, and **register the result in §11 before TASK C**.
+**Start from the full-corpus probe table in `WORKLOG.md` 18:34Z, not from audit 01's 20-TIC
+shapes** — see "What audit 01 got wrong" above. Derive the clauses, measure n and P(y=1) per
+clause exactly as §5 does, **audit the marginal rows by eye**, and **register the result in §11
+before TASK C.**
+
 Keep `L5_explicit_disposition` as the tripwire: **if L5 fires on any row, the corpus filter has
-failed and Step 3 stops** — that is a pipeline bug, not a finding.
+failed and Step 3 stops** — a pipeline bug, not a finding. (It currently fires on **0 / 1,482**.)
 
-### TASK C — Step 3, the full run (~$0.18)
+### TASK C — Step 3, the full run (~$0.18, re-project first)
 
-Only after A, A2, B and B2. `PLAN.md` §6 Step 3. Async client, bounded semaphore, one request per
-row, all questions per request, content-addressed cache, persist **full raw response JSON**.
+Only after B and B2. `PLAN.md` §6 Step 3. Async client, bounded semaphore, one request per row,
+all questions per request, content-addressed cache, persist **full raw response JSON**.
 
-- **Tripwire: if projected cost exceeds ~$0.50, stop and check the state size.**
+- **Tripwire: if projected cost exceeds ~$0.50, stop and check the state size.** The corpus is
+  smaller than planned but the text is longer — re-project from the realised distribution.
 - Then evaluate G2–G6 **against the B+N and B+meta reference arms**, with ΔAUC aggregated as
-  §11 A-6 registers it: pool OOF within a repeat, score each repeat, average the repeats;
-  bootstrap resamples TIC groups and uses **the same resample for both models**.
-
----
-
-## 🚩 OPEN ITEMS FOR THE USER
-
-**There are none. Both previous items are closed and verified.** Start at TASK A.
-
-1. ~~Force-push to correct commit attribution~~ — **CLOSED 2026-09-20T01:14Z, verified again
-   after the audit-01 push.** All 13 commits on `origin/master` are authored *and* committed by
-   `KevinArce <iav.kevinarce@ufg.edu.sv>`; `git log --format='%an <%ae>' | sort -u` returns
-   exactly one identity. `20c11ae` is **not an ancestor of `origin/master`** and survives only as
-   a dangling local reflog object. Ordinary `git push` works — the branch is not diverged.
-   *(The previous handoff listed this as pending after it had already been done, and audit 01's
-   first draft repeated the error. Verify before carrying an open item forward.)*
-   **Standing caveat:** GitHub still serves unreachable commits by direct SHA for some time. The
-   attribution is off the branch, not cryptographically erased.
-
-2. ~~Clean-clone reproduction~~ — **CLOSED 2026-09-20**. `PLAN.md` §11.6 is 10/10 and the check
-   re-runs weekly. Note what it does **not** cover: it reruns ingest and baselines only and makes
-   **no API calls**, so it says nothing about Step 3's reproducibility (A-5).
+  A-6 registers it.
+- **Re-run `scripts/026_noise_floor.py --table analysis_set_obsnotes --groups 0 --k <final>`**
+  once the feature count is frozen — A-2 and A-15 both require it. The `--k 8` numbers above are
+  provisional.
 
 ---
 
 ## Environment notes
 
 - `.venv` exists (Python 3.14.7, catboost 1.2.10, duckdb 1.5.5, pandas 3.0.6, etta 0.1.1).
-- `typesafe-sdk` is **not** installed. `scripts/025_question_gate.py` uses raw `urllib` with a
-  hardened retry and works without it.
+- `typesafe-sdk` is **not** installed. `scripts/025_question_gate.py` uses raw `urllib`.
 - Live TypeSafe docs: https://docs.typesafe.ai/llms.txt (append `.md` to any page path).
-  Noul supports a structured `criteria: {true, false}` — use it; §2.4 requires the negative case
-  be stated and that is the documented field for it.
-- This project's memory directs that the `typesafe-ai` skill be loaded for work here.
-- **Run model-vs-model comparisons on one platform.** macos/arm64 and linux/x64 differ by 5×10⁻⁴
-  on identical inputs. It is ~15× below the MDE, so it is a hygiene rule, not a decision rule.
+- **Run model-vs-model comparisons on one platform.** macos/arm64 and linux/x64 differ by 5×10⁻⁴.
+- **`.github` CI reruns ingest + baselines only, makes no API calls**, and does **not** cover
+  `analysis_set_obsnotes` or Step 3 reproducibility.
+- Re-running the pull from a clean clone: `.venv/bin/python scripts/028_obsnotes_pull.py`
+  (~6 min at 5 workers, $0). Stages: `repair`, `pull`, `verify`, `persist`.

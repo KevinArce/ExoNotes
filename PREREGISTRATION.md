@@ -595,3 +595,101 @@ only that the exclusion was "probably not label-neutral."
   larger. The single-platform rule for model-vs-model comparisons is kept as hygiene; the "ΔAUC
   below 10⁻³ is noise" figure is **retired as a decision rule**, because quoting it beside a ΔAUC
   invites a reader to think 2×10⁻³ means something.
+
+---
+
+## 11.2 Amendments from TASK A / TASK A2 — 2026-09-20, before any full-corpus Jev run
+
+> Registered **after** the corpus was acquired and the baselines re-measured, and **before**
+> TASK B writes a question or TASK C makes a single full-corpus call. No Jev feature has been
+> computed on this corpus and no D-vs-B comparison has been seen. Cumulative Jev spend is
+> unchanged at **~$0.0046**. Full detail: `WORKLOG.md` 2026-09-20T18:14Z and 18:34Z.
+>
+> **Where these and §11.1 or the body text disagree, these govern.**
+
+### A-13 — The realised corpus, reported as measured
+
+§1.4 projected ~1,814 rows / ~1,715 TIC. **Realised:**
+
+| quantity | projected §1.4 | **realised** |
+| :--- | ---: | ---: |
+| TOI rows | ~1,814 | **1,482** |
+| unique TIC (CV groups) | ~1,715 | **1,388** |
+| base rate | not known in advance | **0.5378** |
+| row coverage of `analysis_set` | ~0.67 | **0.545** |
+| median characters per row | ~780 | **870** |
+
+TIC count is **19.1% below** the projection and sits near the **low end of A-8's 1,200–2,140
+binomial interval**. A-8's caveat was correct and is now load-bearing. §1.4's commitment stands:
+this is **recorded before the result so that a null cannot later be explained away as "too few
+rows" — we knew, and we knew the number.**
+
+**A-10 holds.** `Groupname` takes exactly two values across all 6,855 notes: `'tfopwg'` (2,892)
+and NULL (3,963). No third value. The filter is `Groupname IS NULL` in practice.
+
+**§1.2 holds at full scale.** **0 of 1,482 rows** contain `Master Disp:` / `Phot Disp:` /
+`Spec Disp:`. The recon measured 0/20; the `Groupname` filter removes the disposition channel
+completely.
+
+### A-14 — Gate G1 re-established on the obsnotes row set: **PASS**
+
+A different row set is a different pipeline, so G1 was re-run against the registered criterion
+(**B ≥ 0.85 AUC and B > A by a paired bootstrap 95% CI excluding zero**), using the A-6
+aggregation and paired bootstrap.
+
+| arm | n | TIC | base | A | B | B−A 95% CI |
+| :--- | ---: | ---: | ---: | ---: | ---: | :--- |
+| **CORPUS (obsnotes)** | 1,482 | 1,388 | 0.5378 | 0.4840 | **0.9051** | **[+0.3977, +0.4441]** |
+
+`scripts/030_gate_g1_obsnotes.py`. Note that `scripts/02_baselines.py` tests only
+`mean(B) > mean(A)` with a std across folds, which is not the registered criterion; G1 on this
+corpus is established by the script above, not by that one.
+
+### A-15 — The A-1 dilution floor and A-2 MDE, re-measured at the realised n
+
+This supersedes A-2's table for every downstream decision. Required by A-2, not optional.
+
+| quantity | registered at 1,715 TIC | **realised at 1,388 TIC** |
+| :--- | ---: | ---: |
+| B | 0.9044 | **0.9051** |
+| **dilution floor ΔAUC(B+N − B)** | −0.0112 | **−0.0115** |
+| **bootstrap SE of ΔAUC** | 0.0026 | **0.0030** |
+| **MDE, 80% power, two-sided 95%** | +0.0073 | **+0.0084** |
+| true signal required, net of the floor | 0.0186 | **0.0199** |
+| **univariate AUC one Jev feature must reach** | ≈ 0.65 | **≈ 0.68** |
+
+The floor is a property of model capacity and barely moved. **The SE grew 15% with the smaller
+corpus, and the detection bar moved with it:** the graded-oracle arm at feature AUC **0.659 is
+no longer detectable** (paired CI [−0.0009, +0.0121]), where it was at the projected scale.
+**A question that would have cleared the old 0.65 bar no longer clears — TASK B is written
+against 0.68.**
+
+`--k 8` is **provisional**. A-2 requires this be re-run with `--k` equal to the final Jev
+feature count once TASK B freezes the question set, and the result recorded here.
+
+### A-16 — The selection effect is real but ~⅓ as strong as the recon estimated
+
+**P(has observer note | y=1) = 0.5822** vs **P(has observer note | y=0) = 0.5067**, ratio
+**1.149**. The recon measured 0.80 vs 0.53 (ratio 1.51) on n=30.
+
+**A-7's read-across, measured:** B scores **0.9051 on the included rows vs 0.9197 on the
+excluded rows (−0.0146)**. The included subset is marginally *harder* ground for B, so model D
+is **not** being flattered by an easier comparison set. Per §1.4 and A-7 this is **reported,
+not acted on**; no criterion changes. The **B+meta** arm registered in A-7 is still required at
+TASK C.
+
+### A-17 — Corpus text is entity-decoded; `src/exonotes/leakage.py` is unchanged
+
+The registered text transform in §1.1 ("HTML-stripped, whitespace-collapsed") is extended to
+**HTML-stripped, entity-decoded, whitespace-collapsed**. Measured cause: `&nbsp;` occurs 5,746
+times across **1,061 of 1,482 rows (71.6%)**, and one note ends on an unterminated `<a
+target="_blank"` that a `<[^>]+>` strip cannot match. Without this, Jev would have read raw
+entity text on most of the corpus. Implementation and the load-bearing ordering constraint:
+`plain()` in `scripts/028_obsnotes_pull.py`. The row set is **unchanged** at 1,482 / 1,388.
+
+**Not amended here:** §5's clause set and `src/exonotes/leakage.py`. A-3 assigns that to TASK B2,
+which must derive it on this corpus with the §5 eye-audit and register the result **before**
+Step 3. Full-corpus probe rates are recorded in `WORKLOG.md` 18:34Z as a starting point only —
+notably `TOI-\d+` fires on 68.4% of rows at P(y=1)=0.431, close to the 0.5378 base rate, while
+`ExoFOP-Kepler` fires on 7.3% at **P(y=1)=0.954**. Audit 01's 20-TIC shapes do not survive
+contact with the full corpus and **must not be carried forward unmeasured**.

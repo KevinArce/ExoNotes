@@ -1,0 +1,31 @@
+{
+  "generated_utc": "2026-09-20T17:31:06.891984+00:00",
+  "stats": {
+    "analysis_set rows / TIC": "2,721 / 2,573",
+    "analysis_set base rate": "0.5031",
+    "CORPUS rows / TIC": "1,482 / 1,388",
+    "CORPUS base rate": "0.5378",
+    "row coverage": "0.545",
+    "TIC coverage": "0.539",
+    "P(has note | y=1)": "0.5822",
+    "P(has note | y=0)": "0.5067",
+    "selection ratio": "1.149",
+    "chars / row  median": "870",
+    "chars / row  mean": "1281",
+    "obs notes / row median": "2",
+    "authors / row median": "1"
+  },
+  "groupname_domain": {
+    "tfopwg": 2892,
+    "null": 3963
+  },
+  "disp_leak_rows": 0,
+  "projection": {
+    "rows": 1814,
+    "tic": 1715
+  },
+  "realised": {
+    "rows": 1482,
+    "tic": 1388
+  }
+}

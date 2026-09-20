@@ -1509,3 +1509,340 @@ verification recorded so the next session does not resurrect it a third time.
 **Jev spend this step:** $0.00 · **running total:** ~$0.0046
 **Next:** `HANDOFF_PROMPT.md` TASK A — pull the obsnotes corpus.
 ---
+## [2026-09-20T17:05Z] SESSION START — Claude Opus 5
+**Resumption:** last entry is the 17:03Z CORRECTION, `DONE`, `Next:` = TASK A. No orphan
+`STARTED`. Nothing interrupted.
+**Read before acting:** `AUDIT_01_PREFLIGHT_REVIEW.md`, `PREREGISTRATION.md` §1 + §11
+(A-1…A-8), `WORKLOG.md` tail, `PLAN.md` §0.5 + §1, `scripts/027_obsnotes_recon.py`.
+**State verified read-only before starting:**
+- `analysis_set` = **2,721 rows / 2,573 TIC / base rate 0.5031**
+- `data/cache/obsnotes/` = **30 files**, of which **10 are valid RFC-8259 JSON and 20 are not**
+  (bare `NaN`) — exactly as A-11 records.
+- DuckDB tables present: `analysis_set`, `baseline_results`, `baseline_summary`,
+  `ingest_provenance`, `ingest_stats`, `noise_floor`, `toi_snapshot`.
+**Picking up:** TASK A — acquire the obsnotes corpus for all 2,573 TIC.
+**Jev spend this step:** $0.00 · **running total:** ~$0.0046
+---
+## [2026-09-20T17:12Z] TASK A — STARTED
+**Doing:** acquire observer notes for all 2,573 TIC in `analysis_set`; persist to DuckDB;
+report realised coverage and base rate. Handoff `HANDOFF_PROMPT.md` TASK A, with the A-10 /
+A-11 assertions.
+**Command:** `.venv/bin/python scripts/028_obsnotes_pull.py`
+**Idempotent:** yes — per-TIC responses cached content-addressed under `data/cache/obsnotes/`;
+a re-run does no network I/O. DuckDB writes are `CREATE OR REPLACE`.
+**Jev spend this step:** $0.00 (no model calls anywhere in TASK A) · **running total:** ~$0.0046
+
+### Pre-flight probes — three findings that change how this step is run
+Probed live before writing the pull script (8 fetches total).
+
+1. **A TIC with no notes raises `pandas.errors.EmptyDataError`; it does NOT return an empty
+   table.** `TIC 1449756` → `EmptyDataError: No columns to parse from file`.
+   The handoff says "a throttled or mis-parameterised call returns a well-formed empty table,
+   not an error" — that is true of the *mis-parameterised* call, and the two signals are
+   **distinguishable**, which the handoff did not know:
+
+   | condition | signal |
+   | :--- | :--- |
+   | genuine "this TIC has no notes" | raises `EmptyDataError` |
+   | mis-parameterised (positional `tag=`) | **0 rows, 7 well-formed columns** |
+
+   Verified: `etta.download_obsnotes(156648452)` (positional → `tag`) returns 0 rows with the
+   full 7-column header, while `tic=156648452` returns 3 rows.
+   **Consequence:** a well-formed empty table is now treated as an **abort condition**, never
+   cached. `EmptyDataError` is the genuine-empty signal and is cached without retry.
+
+2. **`scripts/027_obsnotes_recon.py`'s `fetch()` is wrong for the full pull.** It catches bare
+   `Exception` and retries 3× with backoff, so every genuinely-empty TIC — projected ~33%,
+   i.e. ~850 of them — would burn 3 requests plus 3 s of sleep and then be recorded as a
+   **hard failure** rather than as "no notes". Not a problem at n=30; it corrupts the coverage
+   statistic at n=2,573. The new script separates the three cases.
+
+3. **DEVIATION from the handoff, logged per §0.5 rule 4 — the bulk pull does not go through
+   `etta`.** The handoff says to call `etta.download_obsnotes(tic=...)`. `etta` calls
+   `pd.read_csv(url)` with **no timeout**, and `scripts/01_ingest.py` already documents that
+   ExoFOP throttles *by withholding the response body* — TCP handshake completes, zero bytes
+   follow, the call hangs forever with no error. Tolerable for 30 sequential calls; across
+   2,573 in a thread pool it silently deadlocks the workers.
+   So the pull uses `requests` with an explicit `(connect, read)` timeout against the identical
+   URL `download_obsnotes.php?output=pipe&tid=<TIC>`, parsed with the same
+   `pd.read_csv(..., delimiter='|')`. This is the same decision, for the same reason, that
+   §01_ingest already took for the bulk TOI table. **Equivalence is verified against `etta` on
+   a sample before the pull proceeds** — recorded in the DONE entry.
+---
+## [2026-09-20T17:34Z] TASK A — CORRECTION: my own 17:12Z pre-flight finding was BACKWARDS
+**What was wrong.** The 17:12Z `STARTED` entry recorded, as finding 1, that a TIC with no notes
+raises `EmptyDataError` and that a well-formed empty table is the mis-parameterised/throttle
+signature. **The two are the other way round.** The handoff's original warning was right and my
+"refinement" of it was wrong.
+
+**Trigger.** The pull aborted after ~44 fetches on `TIC 14956304: 0 rows with a full 7-column
+header`, which my guard treated as an abort condition. Investigating whether that was a real
+throttle showed it was not.
+
+**Measured, directly on the wire (HTTP 200 in every case):**
+
+| TIC | bytes over 3 tries | what it is |
+| :--- | :--- | :--- |
+| 14956304 | `[51, 51, 51]` | **header-only, stable** — genuine "this TIC has no notes" |
+| 1167538 | `[299, 299, 299]` | has notes |
+| 13349647 | `[165, 165, 165]` | has notes |
+| 9155187 | `[480, 0, 480]` | has notes — **and a live zero-byte throttle in the middle** |
+| 1449756 | `[1195, 1195, 1195]` ×5 | has notes |
+
+`51 bytes` is exactly `ID|TIC ID|Username|Groupname|TAG ID|Lastmod|notes\n\n`.
+
+**The corrected mapping:**
+
+| response | meaning | action |
+| :--- | :--- | :--- |
+| >= 1 data row | notes exist | cache |
+| header-only (51 B, 0 rows, 7 cols) | **genuine "no notes"** | cache `[]` |
+| **zero-byte body** | **throttle / transport failure** | **retry; never cache** |
+
+`pandas.errors.EmptyDataError` is raised by the *zero-byte* case, so it is the **failure**
+signal, not the no-notes signal. My 17:12Z probe saw `TIC 1449756` raise it once at 9.90 s and
+concluded "no notes"; that TIC in fact returns 1,195 bytes of real notes on every one of five
+subsequent tries. **One observation of a flaky endpoint was read as a semantic.**
+
+**Damage, contained.** 3 TICs were cached as `[]` by the smoke test — `1167538`, `13349647`,
+`9155187` — and **all three have notes**. `1167538` had returned 1 row in my own 17:12Z probe
+and was still cached as empty minutes later. Had the full pull run to completion under the
+inverted rule, every throttled response among ~2,500 fetches would have been written into the
+corpus as "this TIC has no observer notes" — silently shrinking the corpus, and shrinking it
+**non-randomly**, since throttling correlates with load rather than with the label only by luck.
+That is precisely the failure §1.4 says must not be explainable after the fact.
+
+**Why it aborted instead of proceeding:** the guard was wrong about *which* condition was fatal,
+but having a hard stop on an unexpected response shape is what surfaced the inversion after
+~44 fetches instead of after 2,503.
+
+**Fixes now being applied:**
+1. `fetch_raw`: zero-byte body -> retryable error (was: `return []`). Header-only -> `return []`
+   (was: abort).
+2. The 3 poisoned cache files are **deleted** so they are re-fetched.
+3. Mis-parameterisation is now genuinely indistinguishable from "no notes" on the wire, so the
+   **sentinel check is the only defence** and is kept: known-good TICs are re-fetched at the
+   start, every 200 network fetches, and at the end.
+4. `--stage verify` re-fetches every cached-empty TIC; an empty is only believed when it comes
+   back header-only a second time, with sentinels passing in between. Run until it flips nothing.
+5. Retries raised 4 -> 6, workers lowered 8 -> 5. The observed zero-byte rate at 8 workers was
+   roughly 1 in 3 on one TIC, which is too high to leave to 4 tries.
+**Jev spend this step:** $0.00 · **running total:** ~$0.0046
+---
+## [2026-09-20T17:52Z] TASK A — DEFECT: `pd.read_csv(delimiter='|')` mis-parses notes containing a pipe
+**Found by:** the first full pull completed with `1 failed` — `TIC 70513361: ParserError:
+Expected 7 fields in line 3, saw 8`. Investigating that one loud failure surfaced a second,
+**silent** one.
+
+**Cause.** A literal `|` inside note text. Two TICs of 2,573 (**0.08%**) have one. Both are
+`latham` notes pasted as raw HTML e-mail, carrying Gmail thread ids of the form
+`thread-f:1622534218062250498|msg-f:1622534218062250498`.
+
+**The two failure modes are different, and the second is the dangerous one:**
+
+| TIC | where the pipe falls | what pandas does |
+| :--- | :--- | :--- |
+| `70513361` | a **later** data line | column count already fixed at 7 -> `ParserError`. TIC lost, **loudly**. |
+| `462715015` | the **first** data line | 9 fields vs 7 columns -> pandas infers a **2-level MultiIndex** and shifts every column left. **Silent.** |
+
+Verified shift on `462715015`: `ID`=`'latham'`, `TIC ID`=NULL, `Username`=`'1573'`,
+**`Groupname`=`'2022-09-15 11:10:57'`**, `TAG ID`=the note HTML, `Lastmod`=NULL,
+**`notes`=NULL**. All 3 of that TIC's notes were corrupted; the text was moved into `TAG ID`
+and the `notes` column emptied.
+
+**What it would have done downstream.** `Groupname` became a timestamp, so the A-10 domain
+assertion in the persist stage **would have fired** — and it would have reported
+*"`Groupname` took a value outside {'tfopwg', NULL}; section 1.1 no longer describes what is
+being selected. STOPPING."* A parser bug would have been read as a corpus-definition failure.
+The assertion did its job; it just names the wrong cause. Meanwhile the `notes=NULL` rows
+would have entered the observer-note arm (groupname != 'tfopwg') carrying **empty text**.
+
+**`etta` has the identical defect** — it is the same `pd.read_csv(url, delimiter='|')` call.
+Confirmed: `etta.download_obsnotes(tic=70513361)` raises the same `ParserError`. So the
+handoff's prescribed acquisition path loses `70513361` outright and silently corrupts
+`462715015`, and `scripts/027_obsnotes_recon.py`'s bare `except Exception` would have recorded
+the former as a "hard failure" rather than as a parse defect.
+
+**Fix.** Response parsing no longer uses pandas. `parse_pipe()` splits each line with
+`split('|', 6)`; since `notes` is the **last** column it absorbs any number of literal pipes,
+which is correct by construction rather than by luck. A short line (a raw newline inside a
+note body) is re-attached to the previous record's `notes` instead of being padded into a junk
+record the way pandas does.
+
+**Scope check, then re-pull.** The two pandas failure modes are exhaustive — an extra-field
+first line shifts (detectable: `Groupname` outside the domain, or NULL `notes`), any other
+extra-field line raises. Scanning all 6,852 cached records for both signatures found exactly
+these 2 TICs. The cache was nonetheless **wiped and re-pulled in full** with the new parser,
+with the pandas-parsed cache kept aside, so the claim "only these 2 TICs change" is
+**verified by diff rather than argued** — result in the next entry.
+**Jev spend this step:** $0.00 · **running total:** ~$0.0046
+---
+## [2026-09-20T18:14Z] TASK A — DONE
+**Result:** the observer-note corpus is acquired, asserted and persisted.
+
+### Parser change verified by diff, not by argument
+The pandas-parsed cache was kept aside and the whole corpus re-pulled with `parse_pipe`:
+
+| | |
+| :--- | ---: |
+| TIC identical under both parsers | **2,571 / 2,572** |
+| recovered by the new parser (was a hard `ParserError`) | 1 — `70513361` |
+| silently corrupted under pandas, now correct | 1 — `462715015` |
+| new cache: `Groupname` outside `{'tfopwg', NULL}` | **0** |
+| new cache: records with NULL `notes` | **0** |
+
+`462715015` before: groupnames `['2025-08-27 12:03:49', '2022-09-15 11:10:57', '2022-09-07
+19:21:19']`, notes NULL on 2 of 3. After: `['tfopwg', None, None]`, no NULL notes.
+
+### Acquisition
+2,573 / 2,573 TIC fetched, **0 failures**, 5.6 min at 5 workers (~7.7 TIC/s). 6,855 notes.
+10 TIC have no notes at all; all 10 re-fetched in the `verify` pass with sentinels passing
+either side and came back empty a second time, so they are genuine, not throttle artifacts.
+
+### Assertions, both from audit 01
+- **A-10 `Groupname` domain holds.** Exactly two values across all 6,855 notes: `'tfopwg'`
+  (2,892) and NULL (3,963). No third value. The filter is `Groupname IS NULL` in practice,
+  as A-10 records, and §1.1 still describes what is being selected.
+- **A-11 RFC-8259.** All 2,573 cache files are valid JSON; `null`, never bare `NaN`.
+
+### The realised corpus — reported as measured (§1.4)
+| quantity | projected §1.4 | **realised** |
+| :--- | ---: | ---: |
+| TOI rows | ~1,814 | **1,482** |
+| unique TIC (CV groups) | ~1,715 | **1,388** |
+| base rate | unknown | **0.5378** |
+| median chars / row | ~780 | **896** |
+
+**Row coverage 0.545, TIC coverage 0.539** — the recon's 67% was optimistic; the realised
+figure is **54%**. TIC count is **−19.1%** against the projection and sits near the **low end
+of A-8's 1,200–2,140 binomial interval**. A-8's caveat was correct and is now load-bearing:
+**the A-1 dilution floor and the A-2 MDE were both measured at 1,715 TIC and are functions of
+n, so both are now known to be optimistic.** TASK A2 re-measures them; nothing downstream may
+use the 1,715-scale numbers.
+
+### Selection effect — weaker than the recon estimated (A-7)
+**P(has note | y=1) = 0.5822** vs **P(has note | y=0) = 0.5067**, ratio **1.149**.
+The recon measured 0.80 vs 0.53 (ratio 1.51) on n=30. The collider is real but roughly a
+third as strong as feared. Per §1.4 and A-7 this is **reported, not acted on** — no criterion
+changes.
+
+### Corpus integrity
+**0 of 1,482 rows** contain `Master Disp:` / `Phot Disp:` / `Spec Disp:`. §1.2 measured 0/20
+on the recon; it holds at full scale. The `Groupname` filter removes the disposition channel
+completely. (This is not G5 — TASK B2 still owns the clause set.)
+
+**Artifacts:** `scripts/028_obsnotes_pull.py` (new), `data/exonotes.duckdb::obsnotes_raw`,
+`::obsnotes_text`, `::analysis_set_obsnotes`, `::obsnotes_coverage` (all new),
+`research/data/obsnotes_corpus_2026-09-20.json` (new), `PROVENANCE.md` (obsnotes block,
+manifest sha256), `data/cache/obsnotes/` 2,573 files.
+**Jev spend this step:** $0.00 · **running total:** ~$0.0046
+**Next:** TASK A2 — G1 on the realised row set, then re-measure the noise floor and MDE at
+n = 1,482 / 1,388 TIC.
+---
+## [2026-09-20T18:16Z] TASK A2 — STARTED
+**Doing:** (1) re-establish gate G1 on the realised obsnotes row set against the registered
+criterion (B >= 0.85 AUC **and** B > A by a paired bootstrap 95% CI excluding zero);
+(2) A-7's included-vs-excluded read-across; (3) re-measure the A-1 dilution floor and the A-2
+MDE at the realised n, which is 19% smaller than the scale they were registered at.
+**Command:** `.venv/bin/python scripts/030_gate_g1_obsnotes.py` then
+`.venv/bin/python scripts/026_noise_floor.py --table analysis_set_obsnotes --groups 0 --k 8`
+**Idempotent:** yes — no network, no API calls, fixed seeds, CREATE OR REPLACE output.
+**Note on `--k`:** 8 is the current `TIER_PREDICTIVE` count and is **provisional**. A-2
+requires this be re-run with `--k` set to the final Jev feature count once TASK B freezes the
+question set. The k=8 run is the floor estimate, not the registered final one.
+**Jev spend this step:** $0.00 · **running total:** ~$0.0046
+---
+## [2026-09-20T18:34Z] TASK A2 — DONE
+**Result:** G1 re-established on the realised row set; the A-1 floor and A-2 MDE re-measured
+at the true n; A-7's read-across reported.
+
+### Gate G1 — PASS
+Against the **registered** criterion, not `02_baselines.py`'s weaker one:
+
+| arm | n | TIC | base | A | B | B−A 95% CI |
+| :--- | ---: | ---: | ---: | ---: | ---: | :--- |
+| **CORPUS (obsnotes)** | 1,482 | 1,388 | 0.5378 | 0.4840 | **0.9051** | **[+0.3977, +0.4441]** |
+| full `analysis_set` | 2,721 | 2,573 | 0.5031 | 0.4847 | 0.9149 | [+0.4132, +0.4464] |
+| EXCLUDED rows | 1,239 | 1,185 | 0.4617 | 0.4672 | 0.9197 | [+0.4276, +0.4764] |
+
+**B = 0.9051 ≥ 0.85 floor, CI excludes zero → G1 PASSES** on the obsnotes row set.
+
+### A-7 read-across — D will be compared on slightly HARDER ground
+B scores **0.9051 on the included rows vs 0.9197 on the excluded** (−0.0146). The collider
+runs in the *favourable* direction for honesty: the included subset is marginally harder, so
+any text gain is not an artifact of D being handed easier rows. Reported, not acted on.
+
+### The A-1 floor and A-2 MDE re-measured at n = 1,482 / 1,388 TIC
+This is the re-measurement A-2 **requires**, not an optional check. The registered numbers were
+taken at 1,715 TIC; the realised corpus is 19% smaller.
+
+| quantity | registered (1,715 TIC) | **realised (1,388 TIC)** | change |
+| :--- | ---: | ---: | :--- |
+| B | 0.9044 | **0.9051** | ~flat |
+| dilution floor ΔAUC(B+N−B) | −0.0112 | **−0.0115** | ~flat |
+| bootstrap SE of ΔAUC | 0.0026 | **0.0030** | **+15%** |
+| **MDE, 80% power, two-sided 95%** | +0.0073 | **+0.0084** | **+15%** |
+| true signal required, net of floor | 0.0186 | **0.0199** | +7% |
+| **univariate AUC bar for one Jev feature** | ~0.65 | **~0.68** | **harder** |
+
+The dilution floor is essentially unchanged — it is a property of the model's capacity, not of
+n — but **the SE grew with the smaller corpus and the detection bar moved with it.** The oracle
+arm at feature AUC **0.659 is no longer detectable** (CI [−0.0009, +0.0121]); it was detectable
+at the projected scale. **A question that would have cleared the old 0.65 bar no longer
+clears.** `--k 8` is provisional; A-2 requires a re-run once TASK B freezes the feature count.
+
+### Text-pipeline defects found and fixed before TASK B reads this text
+Sanity-checking the persisted corpus surfaced two, neither visible on 027's 30-TIC sample:
+1. **HTML entities were never decoded.** `&nbsp;` occurs **5,746 times across 1,061 of 1,482
+   rows (71.6%)**. Jev would have read `&nbsp;` as literal text on most of the corpus.
+2. **One unterminated tag** (`<a target="_blank"` with no closing `>`) that `<[^>]+>` cannot
+   match, on TIC 164652245.
+`plain()` now runs TAG_RX → FRAG_RX → `html.unescape` → collapse. **The order is load-bearing:**
+running FRAG_RX first makes it consume an unquoted `href=...` and swallow the note body — that
+note reduces to the empty string. FRAG_RX is restricted to real HTML tag names so it cannot eat
+scientific text like `depth <1 ppt` (3 such rows verified unaffected). Entity-bearing rows
+**2,029 → 0**, residual tags **1 → 0**, empty/NULL text **0**. Re-persisted; **the row set is
+unchanged at 1,482 / 1,388**, so the G1 and noise-floor results above stand — both use numeric
+columns only.
+
+### Free head start for TASK B2 (measured on the full corpus, NOT registered here)
+Audit 01 derived these from 20 TICs; at full scale they look different:
+
+| probe | n (of 1,482) | P(y=1) |
+| :--- | ---: | ---: |
+| `TOI-\d+` | 1,013 (68.4%) | 0.431 |
+| `KOI\d+` / `ExoFOP-Kepler` | 108 (7.3%) | **0.954** |
+| `NEB`/`BEB` | 34 (2.3%) | **0.059** |
+| `cleared` | 40 (2.7%) | 0.400 |
+| `retired` | 17 (1.1%) | 0.235 |
+| `false positive` | 31 (2.1%) | 0.613 |
+
+Base rate is 0.5378. **`TOI-\d+` is the weakest of these, not the strongest** — audit 01 flagged
+it on 13/20 TICs, but at full scale P(y=1)=0.431 is near base rate. The real leak is the
+**Kepler-sourced** note: `ExoFOP-Kepler` at **P(y=1)=0.954 on 108 rows**. And `false positive`
+at 0.613 sits *above* base rate, which is the opposite of what the phrase suggests. **TASK B2
+must derive its clauses from these numbers with the §5 eye-audit — do not carry audit 01's
+20-TIC shapes forward.**
+
+**Artifacts:** `scripts/030_gate_g1_obsnotes.py` (new), `scripts/026_noise_floor.py` (`--table`),
+`research/data/gate_g1_obsnotes_2026-09-20.json`,
+`research/data/noise_floor_analysis_set_obsnotes_2026-09-20.json`,
+`data/exonotes.duckdb::gate_g1_obsnotes`, `::noise_floor_obsnotes`.
+**Jev spend this step:** $0.00 · **running total:** ~$0.0046
+**Next:** register these in `PREREGISTRATION.md` §11.2, then TASK B.
+---
+## [2026-09-20T18:44Z] SESSION END — Claude Opus 5
+**Completed:** TASK A (corpus acquisition) and TASK A2 (G1 + noise floor re-measurement), both
+`DONE` above. Registered as `PREREGISTRATION.md` §11.2 amendments **A-13 … A-17**.
+**Headline:** corpus is **1,482 rows / 1,388 TIC / base 0.5378** — 19% below projection. **G1
+PASSES** (B = 0.9051). **The detection bar rose from ≈0.65 to ≈0.68 univariate AUC** because the
+bootstrap SE grew 15% with the smaller corpus; MDE is now **+0.0084**.
+**Three defects found during the work, none anticipated by audit 01:** a zero-byte body is a
+throttle and not "no notes" (would have silently shrunk the corpus); `pd.read_csv(delimiter='|')`
+mis-parses two TICs, one of them **silently**, via MultiIndex inference; HTML entities were never
+decoded on 71.6% of rows. All three are fixed and logged at 17:34Z, 17:52Z and 18:34Z.
+**Jev spend this session: $0.00 · running total: ~$0.0046.** No Jev call was made on this corpus.
+**Handoff rewritten:** `HANDOFF_PROMPT.md`. **Next session starts at TASK B.**
+**UNCOMMITTED:** the working tree carries all of this session's work. See the open item at the
+top of `HANDOFF_PROMPT.md`; the user was asked to confirm the commit.
+---

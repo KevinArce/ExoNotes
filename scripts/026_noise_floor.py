@@ -136,10 +136,14 @@ def main() -> int:
                     help="number of noise columns; set to the final Jev feature count.")
     ap.add_argument("--seeds", type=int, default=5, help="noise-draw seeds to average over.")
     ap.add_argument("--boot", type=int, default=N_BOOT)
+    ap.add_argument("--table", default="analysis_set",
+                    help="row set to measure on. TASK A2 (A-2) re-runs this with "
+                         "--table analysis_set_obsnotes --groups 0 on the REALISED rows, "
+                         "because the dilution floor and the MDE are both functions of n.")
     args = ap.parse_args()
 
     con = duckdb.connect(str(DB), read_only=True)
-    df = con.execute("select * from analysis_set").df()
+    df = con.execute(f"select * from {args.table}").df()
     con.close()
 
     if args.groups and args.groups < df.tic_id.nunique():
@@ -210,8 +214,9 @@ def main() -> int:
     # ---- persist ----------------------------------------------------------------------------
     res = dict(
         generated=time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
-        corpus="Comments analysis_set, subsampled to obsnotes-projected scale"
-               if args.groups else "Comments analysis_set, full",
+        corpus=(f"{args.table}, subsampled to {args.groups} TIC groups"
+                if args.groups else f"{args.table}, full"),
+        table=args.table,
         n_rows=int(len(df)), n_groups=int(df.tic_id.nunique()), base_rate=float(y.mean()),
         k_noise=args.k, n_seeds=args.seeds, n_boot=args.boot,
         auc_B=auc_b, dilution_floor=delta_floor, bootstrap_se=se_mean, mde_80pct=mde,
@@ -220,14 +225,16 @@ def main() -> int:
         catboost=CB, split=dict(n_splits=N_SPLITS, n_repeats=N_REPEATS, seed=RANDOM_STATE))
 
     OUT.mkdir(parents=True, exist_ok=True)
-    path = OUT / f"noise_floor_{time.strftime('%Y-%m-%d')}.json"
+    tag = "" if args.table == "analysis_set" else f"_{args.table}"
+    path = OUT / f"noise_floor{tag}_{time.strftime('%Y-%m-%d')}.json"
     path.write_text(json.dumps(res, indent=2))
 
     con = duckdb.connect(str(DB))
-    con.execute("CREATE OR REPLACE TABLE noise_floor AS SELECT * FROM (SELECT ?::JSON AS result)",
+    tbl = "noise_floor" if args.table == "analysis_set" else "noise_floor_obsnotes"
+    con.execute(f"CREATE OR REPLACE TABLE {tbl} AS SELECT * FROM (SELECT ?::JSON AS result)",
                 [json.dumps(res)])
     con.close()
-    print(f"raw -> {path.relative_to(ROOT)}  ·  duckdb::noise_floor")
+    print(f"raw -> {path.relative_to(ROOT)}  ·  duckdb::{tbl}")
     return 0
 
 
