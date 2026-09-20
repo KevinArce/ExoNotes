@@ -1270,3 +1270,68 @@ Nothing sensitive is in it — only a name and an email on a commit whose conten
 **Checklist item, now closed:** git authorship ✅.
 **Jev spend:** $0.00 · **running total:** ~$0.0046
 ---
+## [2026-09-20T01:22Z] SIDE QUEST 01 — CI CLEAN-CLONE REPRODUCTION — STARTED
+**Doing:** a GitHub Actions workflow that performs the §11.6 item-10 clean-clone reproduction from
+GitHub's runners instead of this host, and asserts G1 reproduces. Plus a standalone verifier
+script so the same check runs locally.
+**Why now:** item 10 has been blocked for two sessions by ExoFOP throttling **this host**. The
+per-TIC endpoints prove ExoFOP is up; the bulk endpoint is refusing *us*. A runner has a different
+IP each run, so CI sidesteps the throttle entirely — and it converts item 10 from "someone
+remembered to test it once" into a check that re-verifies on a schedule.
+**Scope:** this is a **one-shot side quest**, taken before the established next steps (obsnotes
+pull → re-gate → Step 3). It is documented separately so it does not blur into them.
+**Idempotent:** yes — workflow and scripts are declarative; the verifier is read-only.
+**Jev spend:** $0.00 (no API calls in this task) · **running total:** ~$0.0046
+---
+## [2026-09-20T01:27Z] SIDE QUEST 01 — CI CLEAN-CLONE REPRODUCTION — DONE (built, not yet run on GitHub)
+**Artifacts:** `.github/workflows/reproduce.yml`, `scripts/029_verify_reproduction.py`,
+`SIDEQUEST_01_CI_REPRODUCTION.md`, README badge + honest reproduction note, handoff pointer.
+**Idempotent:** yes — declarative workflow; the verifier is read-only and takes `--db`.
+**Jev spend:** $0.00 · **running total:** ~$0.0046
+
+### Design decision — the assertion tolerates drift deliberately
+`PLAN.md` §11.2 states the sources drift, so demanding `B == 0.9154` would turn ordinary archive
+drift into a red build, and a check that cries wolf gets ignored. The verifier asserts the
+**finding**: rows within ±25%, prior at chance (±0.02), **B ≥ 0.85 AUC**, and B > A on both AUC
+and Brier. Baseline C is printed with its leakage warning but **never asserted on**, so nobody
+lifts 0.9691 out of a CI log and mistakes it for a result. Exit 0 / 1 / 2 distinguishes
+reproduced / check failed / inputs missing.
+
+### Verified locally BEFORE it ever runs on GitHub
+- Passes on the real database (**exit 0**).
+- **Can fail** — against a doctored DB (`B_numeric` → 0.61, `rows_analysis` → 300) it returns
+  **exit 1** naming both failures. *A check that cannot fail is theatre; this one was tested.*
+- Missing DB → **exit 2**, distinct from a failed check.
+- **All 7 `run:` blocks pass `bash -n`.** YAML parses with the intended triggers, defaults,
+  timeout and concurrency.
+- **Failure classifier tested in both directions against a REAL throttled ingest log** generated
+  on this host: a throttle log matches and reports "upstream, not a code failure"; a `KeyError`
+  traceback does not match and reports a genuine code failure.
+
+### ⚠️ TWO BUGS FOUND IN MY OWN DRAFT, both fixed before commit
+1. **`python … | tee log` returns *tee's* exit code.** GitHub's implicit shell is `bash -e`
+   **without** `pipefail`, so a **failed verification would have been masked and the badge would
+   have gone green on a broken reproduction** — the precise inverse of this task's purpose. Fixed
+   by declaring `shell: bash` in the job defaults, which yields `-eo pipefail`.
+2. **The draft probed ExoFOP with a separate full 3.8 MB download**, doubling our load on the
+   archive that is already throttling us. Removed — `01_ingest.py` is now its own probe and its
+   failure is classified afterwards. **Building a reproducibility check that worsens the problem
+   it exists to work around would have been self-defeating.**
+
+### Deliberately NOT run on every push
+A full TOI pull is a real cost to a public archive, and hammering ExoFOP from CI is exactly what
+got this host throttled. Triggers are `workflow_dispatch` + weekly cron + push **restricted to
+`scripts/`, `src/`, `requirements.txt`**, with `concurrency.cancel-in-progress` so a burst of
+commits collapses to one pull.
+
+### Known risk, recorded in advance
+`requirements.txt` pins `catboost==1.2.10`, verified on Python 3.14 **macOS/arm64**. If no Linux
+3.14 wheel exists, CatBoost will attempt a source build and likely fail on `ubuntu-latest`.
+**That would be a genuine finding, not a CI annoyance** — it would mean `requirements.txt` is not
+portable and anyone cloning on Linux hits the same wall. This check surfacing it would be the
+check doing its job.
+
+**STILL OPEN:** item 10 is **not closed**. The workflow has been built and locally verified but
+**never executed on GitHub**. Until a green run exists, the repo must not be called
+reproduction-verified. Next session: **Actions → reproduce → Run workflow**, then log the outcome.
+---

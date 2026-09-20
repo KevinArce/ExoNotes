@@ -4,6 +4,13 @@
   <img src="assets/exonotes_banner.jpg" alt="ExoNotes Banner" width="100%">
 </p>
 
+<p align="center">
+  <a href="https://github.com/KevinArce/ExoNotes/actions/workflows/reproduce.yml">
+    <img src="https://github.com/KevinArce/ExoNotes/actions/workflows/reproduce.yml/badge.svg"
+         alt="clean-clone reproduction">
+  </a>
+</p>
+
 **Do the free-text comments astronomers write on TESS Objects of Interest carry
 disposition-relevant information that the numeric catalogue columns do not?**
 
@@ -93,11 +100,25 @@ our own calls.
 ```bash
 uv venv --python 3.14 .venv
 uv pip install -r requirements.txt
-.venv/bin/python scripts/01_ingest.py      # ~25 s
-.venv/bin/python scripts/02_baselines.py   # ~2 min, reproduces gate G1
+.venv/bin/python scripts/01_ingest.py             # ~25 s
+.venv/bin/python scripts/02_baselines.py          # ~2 min, reproduces gate G1
+.venv/bin/python scripts/029_verify_reproduction.py   # asserts G1 actually reproduced
 ```
 
-No API key required — neither step makes a model API call. See [CONTRIBUTING.md](./CONTRIBUTING.md).
+No API key required — none of these steps makes a model API call.
+See [CONTRIBUTING.md](./CONTRIBUTING.md).
+
+**This is checked automatically.** The badge above runs the same three commands on a clean
+clone, on a fresh GitHub runner, weekly and on every change to `scripts/`, `src/` or
+`requirements.txt`. It asserts that baseline B still beats the prior by a wide margin.
+
+It does **not** assert the numbers match exactly, and it should not: ExoFOP updates
+continuously and the NASA Exoplanet Archive syncs weekly, so a later pull genuinely differs.
+What must survive is the finding, not the bytes — the committed checksums in
+[PROVENANCE.md](./PROVENANCE.md) are what pin the exact snapshot.
+
+If ExoFOP is throttling or down, the run fails with a message saying so explicitly, so an
+upstream outage is never mistaken for a broken repository.
 
 ## Acknowledgements
 

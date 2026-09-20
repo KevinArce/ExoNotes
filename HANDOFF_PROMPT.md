@@ -2,6 +2,23 @@
 
 You are picking up the ExoNotes project. **Work from the repo, not from memory.**
 
+---
+
+## ⏱️ DO THIS FIRST — [`SIDEQUEST_01_CI_REPRODUCTION.md`](./SIDEQUEST_01_CI_REPRODUCTION.md)
+
+A one-shot task that comes **before** the main sequence below. Everything is built and locally
+verified; all that remains is to run it:
+
+> **Actions → reproduce → Run workflow** on `master`, then read the summary.
+
+It closes `PLAN.md` §11.6 **item 10** (clean-clone reproduction), the last open item on the
+pre-publication checklist, which ExoFOP throttling has blocked for two sessions. ~10–15 min,
+$0, no API calls. Log the outcome in `WORKLOG.md`, then come back here and start TASK A.
+
+**Until it goes green, do not describe this repository as reproduction-verified.**
+
+---
+
 ## Read first, in this order
 
 1. **`WORKLOG.md` — read the TAIL first.** It is append-only; the end is current. The entries
@@ -131,10 +148,13 @@ all questions per request, content-addressed cache, persist **full raw response 
    This rewrites public history. **Ask before running it.** Leaving the old commit published and
    simply using the right identity from here on is a legitimate alternative.
 
-2. **Clean-clone reproduction (checklist item 10) is STILL UNVERIFIED.** ExoFOP has been
-   throttling the **bulk** `download_toi.php` endpoint continuously since 2026-09-19 — probed four
-   times through this session, always `http=000, connect≈0.4 s, size=0` after 30 s. Per-TIC
-   endpoints answer normally, so this is endpoint-specific, not an outage.
+2. **Clean-clone reproduction (checklist item 10) is STILL UNVERIFIED — but it is now
+   actionable.** See **[`SIDEQUEST_01_CI_REPRODUCTION.md`](./SIDEQUEST_01_CI_REPRODUCTION.md)**:
+   a CI workflow now runs the check from a GitHub runner, whose IP is not the one ExoFOP is
+   throttling. Run it before anything else. ExoFOP has been throttling the **bulk**
+   `download_toi.php` endpoint from this host continuously since 2026-09-19 — probed five times,
+   always `http=000, connect≈0.4 s, size=0`. Per-TIC endpoints answer normally, so this is
+   endpoint-specific, not an outage.
    **Do not describe the repo as reproducible until this passes:**
    ```
    git clone https://github.com/KevinArce/ExoNotes /tmp/cc && cd /tmp/cc

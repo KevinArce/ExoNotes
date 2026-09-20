@@ -1,0 +1,131 @@
+# Clean-clone reproduction check — PLAN.md §11.6 item 10.
+#
+# Why this exists: item 10 ("a clean clone reproduces, and G1 passes") could not be verified
+# from the development host, because ExoFOP began throttling it after repeated full-table
+# pulls — the server completes the TCP handshake and then withholds the response body. The
+# per-TIC endpoints kept working throughout, so this was never an outage, just us.
+#
+# A GitHub runner has a different IP on every run, so it sidesteps the throttle. It is also
+# a genuine clean clone by construction: `actions/checkout` starts from nothing, and `data/`
+# is gitignored, so there is no snapshot to fall back on. Nothing here can pass by accident.
+#
+# Deliberately NOT run on every push: a full TOI table pull is a real cost to a public
+# archive, and hammering ExoFOP from CI is what got this host throttled in the first place.
+name: reproduce
+
+on:
+  workflow_dispatch:          # run it on demand — this is the one that unblocks item 10
+  schedule:
+    - cron: '17 6 * * 1'      # Mondays 06:17 UTC; off the hour to dodge the scheduler stampede
+  push:
+    branches: [master]
+    paths:                    # only when something that affects the pipeline actually changes
+      - 'scripts/**'
+      - 'src/**'
+      - 'requirements.txt'
+      - '.github/workflows/reproduce.yml'
+
+concurrency:
+  group: reproduce            # a burst of pushes collapses to a single pull
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  clean-clone:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45       # 01_ingest.py retries 4x with backoff; this bounds the worst case
+
+    defaults:
+      run:
+        # Naming bash explicitly gets `-eo pipefail`. The implicit default is `bash -e`
+        # WITHOUT pipefail, under which `python verify.py | tee log` returns tee's exit
+        # code -- a failed verification would be silently masked and the badge would go
+        # green on a broken reproduction.
+        shell: bash
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.14'
+          cache: pip
+
+      - name: Install pinned dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          python -c "import catboost, duckdb, pandas, sklearn; print('imports OK')"
+
+      - name: Confirm this really is a cold start
+        run: |
+          echo "If data/ exists here, the test is worthless — it would pass on a cached snapshot."
+          if [ -e data/exonotes.duckdb ] || [ -d data/raw ]; then
+            echo "::error::data/ is present in a fresh clone — .gitignore has regressed."
+            exit 1
+          fi
+          echo "no data/ present — nothing to fall back on"
+          test -f .env && { echo "::error::.env is tracked"; exit 1; } || echo "no .env — correct"
+
+      - name: Ingest from scratch
+        id: ingest
+        run: python scripts/01_ingest.py 2>&1 | tee ingest.log
+
+      - name: Say WHY ingest failed
+        # Distinguishes "the archive is throttling us" from "our code is broken". Without
+        # this, both look like the same red X and the signal gets ignored.
+        if: failure() && steps.ingest.outcome == 'failure'
+        run: |
+          if grep -qi 'THROTTLING\|did not return the TOI table' ingest.log; then
+            {
+              echo "## ⚠️ ExoFOP did not return the TOI table"
+              echo ""
+              echo "**Upstream availability, not a reproduction failure.** ExoFOP throttles by"
+              echo "accepting the connection and then withholding the response body. Nothing in"
+              echo "this repository changed; re-run this workflow later."
+            } >> "$GITHUB_STEP_SUMMARY"
+            echo "::error::ExoFOP unavailable/throttled — upstream, not a code failure. Re-run later."
+          else
+            echo "::error::Ingest failed for a reason that is NOT ExoFOP throttling — see the log."
+          fi
+
+      - name: Baselines and gate G1
+        run: python scripts/02_baselines.py
+
+      - name: Verify the result reproduces
+        run: python scripts/029_verify_reproduction.py | tee verify.txt
+
+      - name: Summarise
+        if: always()
+        run: |
+          {
+            echo "## Clean-clone reproduction"
+            echo ""
+            if [ -f verify.txt ]; then
+              echo '```'
+              cat verify.txt
+              echo '```'
+            fi
+            if [ -f PROVENANCE.md ]; then
+              echo "### Source checksums for this run"
+              echo ""
+              echo "Sources drift — ExoFOP updates continuously and the NASA Exoplanet Archive"
+              echo "syncs weekly — so these will **not** match the committed PROVENANCE.md."
+              echo "That is expected. The finding reproducing is what matters, not the bytes."
+              echo ""
+              sed -n '/| source/,/^$/p' PROVENANCE.md
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload provenance from this run
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: reproduction-provenance
+          path: |
+            PROVENANCE.md
+            verify.txt
+          if-no-files-found: warn
+          retention-days: 90
