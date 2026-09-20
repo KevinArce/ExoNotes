@@ -1,0 +1,2380 @@
+{
+  "C01": {
+    "case": {
+      "cid": "C01",
+      "toi": "624.01",
+      "y": 1,
+      "role": "bare designation (leakage channel)",
+      "text": "HAT-P-70 b",
+      "expect": {
+        "contains_object_designation": "Y",
+        "indicates_confirmed_planet": "N",
+        "indicates_retired_or_rejected": "N",
+        "reports_offset_eclipsing_binary": "N",
+        "describes_transit_morphology": "N",
+        "evidence_depth": [
+          0,
+          1.0
+        ]
+      }
+    },
+    "state": {
+      "toi": "TOI-624.01",
+      "comment": "HAT-P-70 b"
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "reports_offset_eclipsing_binary": {
+          "type": "noul",
+          "noul": 0.34
+        },
+        "reports_stellar_companion_or_blend": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "mentions_spectroscopic_binary": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "asserts_ephemeris_problem": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "mentions_instrumental_artifact": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "describes_transit_morphology": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 3.57,
+          "confidence": 0.64,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'potential', 'may be'; conclusion not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.1,
+            "1": 0.01,
+            "2": 0.0,
+            "3": 0.02,
+            "4": 0.87
+          }
+        },
+        "evidence_depth": {
+          "type": "score",
+          "score": 0.85,
+          "confidence": 0.86,
+          "legend": {
+            "0": "No observation described at all",
+            "1": "A remark, a label, or a statement of where the candidate was found, with no observation of it described",
+            "2": "One observation of the candidate referenced",
+            "3": "Several observations of the candidate referenced",
+            "4": "Multiple independent facilities or techniques described"
+          },
+          "probabilities": {
+            "0": 0.16,
+            "1": 0.83,
+            "2": 0.01,
+            "3": 0.0,
+            "4": 0.0
+          }
+        },
+        "indicates_retired_or_rejected": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "contains_object_designation": {
+          "type": "noul",
+          "noul": 0.99
+        }
+      },
+      "usage": {
+        "input_tokens": 1926,
+        "output_tokens": 233
+      }
+    }
+  },
+  "C02": {
+    "case": {
+      "cid": "C02",
+      "toi": "154.01",
+      "y": 0,
+      "role": "pure label echo, no object named",
+      "text": "TFOP FP",
+      "expect": {
+        "indicates_retired_or_rejected": "Y",
+        "contains_object_designation": "N",
+        "indicates_confirmed_planet": "N",
+        "reports_offset_eclipsing_binary": "N",
+        "mentions_spectroscopic_binary": "N"
+      }
+    },
+    "state": {
+      "toi": "TOI-154.01",
+      "comment": "TFOP FP"
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "reports_offset_eclipsing_binary": {
+          "type": "noul",
+          "noul": 0.17
+        },
+        "reports_stellar_companion_or_blend": {
+          "type": "noul",
+          "noul": 0.24
+        },
+        "mentions_spectroscopic_binary": {
+          "type": "noul",
+          "noul": 0.11
+        },
+        "asserts_ephemeris_problem": {
+          "type": "noul",
+          "noul": 0.39
+        },
+        "mentions_instrumental_artifact": {
+          "type": "noul",
+          "noul": 0.65
+        },
+        "describes_transit_morphology": {
+          "type": "noul",
+          "noul": 0.16
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 2.95,
+          "confidence": 0.12,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'potential', 'may be'; conclusion not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.2,
+            "1": 0.04,
+            "2": 0.01,
+            "3": 0.11,
+            "4": 0.64
+          }
+        },
+        "evidence_depth": {
+          "type": "score",
+          "score": 1.12,
+          "confidence": 0.83,
+          "legend": {
+            "0": "No observation described at all",
+            "1": "A remark, a label, or a statement of where the candidate was found, with no observation of it described",
+            "2": "One observation of the candidate referenced",
+            "3": "Several observations of the candidate referenced",
+            "4": "Multiple independent facilities or techniques described"
+          },
+          "probabilities": {
+            "0": 0.04,
+            "1": 0.87,
+            "2": 0.06,
+            "3": 0.01,
+            "4": 0.02
+          }
+        },
+        "indicates_retired_or_rejected": {
+          "type": "noul",
+          "noul": 0.97
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.31
+        },
+        "contains_object_designation": {
+          "type": "noul",
+          "noul": 0.06
+        }
+      },
+      "usage": {
+        "input_tokens": 1922,
+        "output_tokens": 233
+      }
+    }
+  },
+  "C03": {
+    "case": {
+      "cid": "C03",
+      "toi": "2492.01",
+      "y": 0,
+      "role": "most common comment in corpus (308 rows); provenance only",
+      "text": "found in faint-star QLP search",
+      "expect": {
+        "contains_object_designation": "N",
+        "indicates_retired_or_rejected": "N",
+        "describes_transit_morphology": "N",
+        "mentions_instrumental_artifact": "N",
+        "reports_stellar_companion_or_blend": "N",
+        "evidence_depth": [
+          0,
+          1.6
+        ]
+      }
+    },
+    "state": {
+      "toi": "TOI-2492.01",
+      "comment": "found in faint-star QLP search"
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "reports_offset_eclipsing_binary": {
+          "type": "noul",
+          "noul": 0.21
+        },
+        "reports_stellar_companion_or_blend": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "mentions_spectroscopic_binary": {
+          "type": "noul",
+          "noul": 0.03
+        },
+        "asserts_ephemeris_problem": {
+          "type": "noul",
+          "noul": 0.03
+        },
+        "mentions_instrumental_artifact": {
+          "type": "noul",
+          "noul": 0.06
+        },
+        "describes_transit_morphology": {
+          "type": "noul",
+          "noul": 0.05
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 3.59,
+          "confidence": 0.66,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'potential', 'may be'; conclusion not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.0,
+            "1": 0.01,
+            "2": 0.0,
+            "3": 0.36,
+            "4": 0.63
+          }
+        },
+        "evidence_depth": {
+          "type": "score",
+          "score": 1.01,
+          "confidence": 0.99,
+          "legend": {
+            "0": "No observation described at all",
+            "1": "A remark, a label, or a statement of where the candidate was found, with no observation of it described",
+            "2": "One observation of the candidate referenced",
+            "3": "Several observations of the candidate referenced",
+            "4": "Multiple independent facilities or techniques described"
+          },
+          "probabilities": {
+            "0": 0.0,
+            "1": 0.99,
+            "2": 0.01,
+            "3": 0.0,
+            "4": 0.0
+          }
+        },
+        "indicates_retired_or_rejected": {
+          "type": "noul",
+          "noul": 0.03
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "contains_object_designation": {
+          "type": "noul",
+          "noul": 0.07
+        }
+      },
+      "usage": {
+        "input_tokens": 1927,
+        "output_tokens": 233
+      }
+    }
+  },
+  "C04": {
+    "case": {
+      "cid": "C04",
+      "toi": "1752.02",
+      "y": 1,
+      "role": "terse fragment named in the handoff",
+      "text": "low SNR; potential multi",
+      "expect": {
+        "mentions_instrumental_artifact": "N",
+        "describes_transit_morphology": "N",
+        "contains_object_designation": "N",
+        "indicates_retired_or_rejected": "N",
+        "author_certainty": [
+          0,
+          2.2
+        ]
+      }
+    },
+    "state": {
+      "toi": "TOI-1752.02",
+      "comment": "low SNR; potential multi"
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "reports_offset_eclipsing_binary": {
+          "type": "noul",
+          "noul": 0.08
+        },
+        "reports_stellar_companion_or_blend": {
+          "type": "noul",
+          "noul": 0.35
+        },
+        "mentions_spectroscopic_binary": {
+          "type": "noul",
+          "noul": 0.09
+        },
+        "asserts_ephemeris_problem": {
+          "type": "noul",
+          "noul": 0.17
+        },
+        "mentions_instrumental_artifact": {
+          "type": "noul",
+          "noul": 0.08
+        },
+        "describes_transit_morphology": {
+          "type": "noul",
+          "noul": 0.1
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 1.04,
+          "confidence": 0.96,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'potential', 'may be'; conclusion not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.0,
+            "1": 0.96,
+            "2": 0.04,
+            "3": 0.0,
+            "4": 0.0
+          }
+        },
+        "evidence_depth": {
+          "type": "score",
+          "score": 1.27,
+          "confidence": 0.75,
+          "legend": {
+            "0": "No observation described at all",
+            "1": "A remark, a label, or a statement of where the candidate was found, with no observation of it described",
+            "2": "One observation of the candidate referenced",
+            "3": "Several observations of the candidate referenced",
+            "4": "Multiple independent facilities or techniques described"
+          },
+          "probabilities": {
+            "0": 0.01,
+            "1": 0.77,
+            "2": 0.17,
+            "3": 0.05,
+            "4": 0.0
+          }
+        },
+        "indicates_retired_or_rejected": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.03
+        },
+        "contains_object_designation": {
+          "type": "noul",
+          "noul": 0.07
+        }
+      },
+      "usage": {
+        "input_tokens": 1926,
+        "output_tokens": 233
+      }
+    }
+  },
+  "C05": {
+    "case": {
+      "cid": "C05",
+      "toi": "2215.01",
+      "y": 1,
+      "role": "crowded field = blend positive",
+      "text": "variable host; crowded field; L1 candidate",
+      "expect": {
+        "reports_stellar_companion_or_blend": "Y",
+        "reports_offset_eclipsing_binary": "N",
+        "mentions_spectroscopic_binary": "N",
+        "indicates_retired_or_rejected": "N"
+      }
+    },
+    "state": {
+      "toi": "TOI-2215.01",
+      "comment": "variable host; crowded field; L1 candidate"
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "reports_offset_eclipsing_binary": {
+          "type": "noul",
+          "noul": 0.1
+        },
+        "reports_stellar_companion_or_blend": {
+          "type": "noul",
+          "noul": 0.85
+        },
+        "mentions_spectroscopic_binary": {
+          "type": "noul",
+          "noul": 0.07
+        },
+        "asserts_ephemeris_problem": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "mentions_instrumental_artifact": {
+          "type": "noul",
+          "noul": 0.14
+        },
+        "describes_transit_morphology": {
+          "type": "noul",
+          "noul": 0.07
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 1.82,
+          "confidence": 0.7,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'potential', 'may be'; conclusion not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.01,
+            "1": 0.25,
+            "2": 0.66,
+            "3": 0.07,
+            "4": 0.01
+          }
+        },
+        "evidence_depth": {
+          "type": "score",
+          "score": 1.11,
+          "confidence": 0.9,
+          "legend": {
+            "0": "No observation described at all",
+            "1": "A remark, a label, or a statement of where the candidate was found, with no observation of it described",
+            "2": "One observation of the candidate referenced",
+            "3": "Several observations of the candidate referenced",
+            "4": "Multiple independent facilities or techniques described"
+          },
+          "probabilities": {
+            "0": 0.0,
+            "1": 0.92,
+            "2": 0.06,
+            "3": 0.02,
+            "4": 0.0
+          }
+        },
+        "indicates_retired_or_rejected": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.03
+        },
+        "contains_object_designation": {
+          "type": "noul",
+          "noul": 0.1
+        }
+      },
+      "usage": {
+        "input_tokens": 1929,
+        "output_tokens": 233
+      }
+    }
+  },
+  "C06": {
+    "case": {
+      "cid": "C06",
+      "toi": "3357.01",
+      "y": 0,
+      "role": "CONFUSABLE: tool failure is not an instrumental attribution",
+      "text": "centroid plot failed",
+      "expect": {
+        "mentions_instrumental_artifact": "N",
+        "reports_stellar_companion_or_blend": "N",
+        "indicates_retired_or_rejected": "N",
+        "describes_transit_morphology": "N",
+        "evidence_depth": [
+          0,
+          1.6
+        ]
+      }
+    },
+    "state": {
+      "toi": "TOI-3357.01",
+      "comment": "centroid plot failed"
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "reports_offset_eclipsing_binary": {
+          "type": "noul",
+          "noul": 0.05
+        },
+        "reports_stellar_companion_or_blend": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "mentions_spectroscopic_binary": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "asserts_ephemeris_problem": {
+          "type": "noul",
+          "noul": 0.05
+        },
+        "mentions_instrumental_artifact": {
+          "type": "noul",
+          "noul": 0.06
+        },
+        "describes_transit_morphology": {
+          "type": "noul",
+          "noul": 0.06
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 3.9,
+          "confidence": 0.92,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'potential', 'may be'; conclusion not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.01,
+            "1": 0.0,
+            "2": 0.0,
+            "3": 0.07,
+            "4": 0.92
+          }
+        },
+        "evidence_depth": {
+          "type": "score",
+          "score": 0.76,
+          "confidence": 0.66,
+          "legend": {
+            "0": "No observation described at all",
+            "1": "A remark, a label, or a statement of where the candidate was found, with no observation of it described",
+            "2": "One observation of the candidate referenced",
+            "3": "Several observations of the candidate referenced",
+            "4": "Multiple independent facilities or techniques described"
+          },
+          "probabilities": {
+            "0": 0.33,
+            "1": 0.59,
+            "2": 0.08,
+            "3": 0.0,
+            "4": 0.0
+          }
+        },
+        "indicates_retired_or_rejected": {
+          "type": "noul",
+          "noul": 0.05
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.03
+        },
+        "contains_object_designation": {
+          "type": "noul",
+          "noul": 0.07
+        }
+      },
+      "usage": {
+        "input_tokens": 1924,
+        "output_tokens": 233
+      }
+    }
+  },
+  "C07": {
+    "case": {
+      "cid": "C07",
+      "toi": "849.01",
+      "y": 1,
+      "role": "terse morphology positive",
+      "text": "flat-bottomed",
+      "expect": {
+        "describes_transit_morphology": "Y",
+        "reports_offset_eclipsing_binary": "N",
+        "contains_object_designation": "N",
+        "indicates_retired_or_rejected": "N"
+      }
+    },
+    "state": {
+      "toi": "TOI-849.01",
+      "comment": "flat-bottomed"
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "reports_offset_eclipsing_binary": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "reports_stellar_companion_or_blend": {
+          "type": "noul",
+          "noul": 0.03
+        },
+        "mentions_spectroscopic_binary": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "asserts_ephemeris_problem": {
+          "type": "noul",
+          "noul": 0.02
+        },
+        "mentions_instrumental_artifact": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "describes_transit_morphology": {
+          "type": "noul",
+          "noul": 0.98
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 3.83,
+          "confidence": 0.85,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'potential', 'may be'; conclusion not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.01,
+            "1": 0.0,
+            "2": 0.0,
+            "3": 0.11,
+            "4": 0.88
+          }
+        },
+        "evidence_depth": {
+          "type": "score",
+          "score": 1.55,
+          "confidence": 0.62,
+          "legend": {
+            "0": "No observation described at all",
+            "1": "A remark, a label, or a statement of where the candidate was found, with no observation of it described",
+            "2": "One observation of the candidate referenced",
+            "3": "Several observations of the candidate referenced",
+            "4": "Multiple independent facilities or techniques described"
+          },
+          "probabilities": {
+            "0": 0.01,
+            "1": 0.44,
+            "2": 0.54,
+            "3": 0.01,
+            "4": 0.0
+          }
+        },
+        "indicates_retired_or_rejected": {
+          "type": "noul",
+          "noul": 0.03
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.03
+        },
+        "contains_object_designation": {
+          "type": "noul",
+          "noul": 0.06
+        }
+      },
+      "usage": {
+        "input_tokens": 1923,
+        "output_tokens": 233
+      }
+    }
+  },
+  "C08": {
+    "case": {
+      "cid": "C08",
+      "toi": "1513.01",
+      "y": 0,
+      "role": "CONFUSABLE: depth-aperture = blend, not morphology, not artifact",
+      "text": "Slight depth-aperture correlation",
+      "expect": {
+        "reports_stellar_companion_or_blend": "Y",
+        "mentions_instrumental_artifact": "N",
+        "describes_transit_morphology": "N",
+        "indicates_retired_or_rejected": "N"
+      }
+    },
+    "state": {
+      "toi": "TOI-1513.01",
+      "comment": "Slight depth-aperture correlation"
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "reports_offset_eclipsing_binary": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "reports_stellar_companion_or_blend": {
+          "type": "noul",
+          "noul": 0.96
+        },
+        "mentions_spectroscopic_binary": {
+          "type": "noul",
+          "noul": 0.05
+        },
+        "asserts_ephemeris_problem": {
+          "type": "noul",
+          "noul": 0.03
+        },
+        "mentions_instrumental_artifact": {
+          "type": "noul",
+          "noul": 0.06
+        },
+        "describes_transit_morphology": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 2.37,
+          "confidence": 0.39,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'potential', 'may be'; conclusion not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.0,
+            "1": 0.17,
+            "2": 0.33,
+            "3": 0.45,
+            "4": 0.05
+          }
+        },
+        "evidence_depth": {
+          "type": "score",
+          "score": 1.69,
+          "confidence": 0.6,
+          "legend": {
+            "0": "No observation described at all",
+            "1": "A remark, a label, or a statement of where the candidate was found, with no observation of it described",
+            "2": "One observation of the candidate referenced",
+            "3": "Several observations of the candidate referenced",
+            "4": "Multiple independent facilities or techniques described"
+          },
+          "probabilities": {
+            "0": 0.01,
+            "1": 0.38,
+            "2": 0.53,
+            "3": 0.08,
+            "4": 0.0
+          }
+        },
+        "indicates_retired_or_rejected": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.03
+        },
+        "contains_object_designation": {
+          "type": "noul",
+          "noul": 0.07
+        }
+      },
+      "usage": {
+        "input_tokens": 1927,
+        "output_tokens": 233
+      }
+    }
+  },
+  "C09": {
+    "case": {
+      "cid": "C09",
+      "toi": "591.01",
+      "y": 0,
+      "role": "CONFUSABLE: EB on the target itself; problem stated but no retirement",
+      "text": "8.5 day signal is EB",
+      "expect": {
+        "reports_offset_eclipsing_binary": "N",
+        "indicates_retired_or_rejected": "N",
+        "mentions_spectroscopic_binary": "N",
+        "reports_stellar_companion_or_blend": "N"
+      }
+    },
+    "state": {
+      "toi": "TOI-591.01",
+      "comment": "8.5 day signal is EB"
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "reports_offset_eclipsing_binary": {
+          "type": "noul",
+          "noul": 0.06
+        },
+        "reports_stellar_companion_or_blend": {
+          "type": "noul",
+          "noul": 0.41
+        },
+        "mentions_spectroscopic_binary": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "asserts_ephemeris_problem": {
+          "type": "noul",
+          "noul": 0.68
+        },
+        "mentions_instrumental_artifact": {
+          "type": "noul",
+          "noul": 0.55
+        },
+        "describes_transit_morphology": {
+          "type": "noul",
+          "noul": 0.05
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 3.85,
+          "confidence": 0.88,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'potential', 'may be'; conclusion not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.01,
+            "1": 0.0,
+            "2": 0.0,
+            "3": 0.1,
+            "4": 0.89
+          }
+        },
+        "evidence_depth": {
+          "type": "score",
+          "score": 1.11,
+          "confidence": 0.9,
+          "legend": {
+            "0": "No observation described at all",
+            "1": "A remark, a label, or a statement of where the candidate was found, with no observation of it described",
+            "2": "One observation of the candidate referenced",
+            "3": "Several observations of the candidate referenced",
+            "4": "Multiple independent facilities or techniques described"
+          },
+          "probabilities": {
+            "0": 0.01,
+            "1": 0.88,
+            "2": 0.11,
+            "3": 0.0,
+            "4": 0.0
+          }
+        },
+        "indicates_retired_or_rejected": {
+          "type": "noul",
+          "noul": 0.33
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.05
+        },
+        "contains_object_designation": {
+          "type": "noul",
+          "noul": 0.09
+        }
+      },
+      "usage": {
+        "input_tokens": 1926,
+        "output_tokens": 233
+      }
+    }
+  },
+  "C10": {
+    "case": {
+      "cid": "C10",
+      "toi": "217.01",
+      "y": 0,
+      "role": "2nd most common comment (46 rows); NEB + retirement",
+      "text": "TFOP FP; retired as NEB",
+      "expect": {
+        "reports_offset_eclipsing_binary": "Y",
+        "indicates_retired_or_rejected": "Y",
+        "mentions_spectroscopic_binary": "N",
+        "contains_object_designation": "N",
+        "describes_transit_morphology": "N"
+      }
+    },
+    "state": {
+      "toi": "TOI-217.01",
+      "comment": "TFOP FP; retired as NEB"
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "reports_offset_eclipsing_binary": {
+          "type": "noul",
+          "noul": 0.95
+        },
+        "reports_stellar_companion_or_blend": {
+          "type": "noul",
+          "noul": 0.15
+        },
+        "mentions_spectroscopic_binary": {
+          "type": "noul",
+          "noul": 0.07
+        },
+        "asserts_ephemeris_problem": {
+          "type": "noul",
+          "noul": 0.12
+        },
+        "mentions_instrumental_artifact": {
+          "type": "noul",
+          "noul": 0.62
+        },
+        "describes_transit_morphology": {
+          "type": "noul",
+          "noul": 0.17
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 3.94,
+          "confidence": 0.95,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'potential', 'may be'; conclusion not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.01,
+            "1": 0.0,
+            "2": 0.0,
+            "3": 0.02,
+            "4": 0.97
+          }
+        },
+        "evidence_depth": {
+          "type": "score",
+          "score": 1.26,
+          "confidence": 0.74,
+          "legend": {
+            "0": "No observation described at all",
+            "1": "A remark, a label, or a statement of where the candidate was found, with no observation of it described",
+            "2": "One observation of the candidate referenced",
+            "3": "Several observations of the candidate referenced",
+            "4": "Multiple independent facilities or techniques described"
+          },
+          "probabilities": {
+            "0": 0.02,
+            "1": 0.83,
+            "2": 0.06,
+            "3": 0.04,
+            "4": 0.05
+          }
+        },
+        "indicates_retired_or_rejected": {
+          "type": "noul",
+          "noul": 0.99
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.08
+        },
+        "contains_object_designation": {
+          "type": "noul",
+          "noul": 0.08
+        }
+      },
+      "usage": {
+        "input_tokens": 1927,
+        "output_tokens": 233
+      }
+    }
+  },
+  "C11": {
+    "case": {
+      "cid": "C11",
+      "toi": "276.01",
+      "y": 0,
+      "role": "terse SB positive; CONFUSABLE for offset EB",
+      "text": "TFOP FP/SB1",
+      "expect": {
+        "mentions_spectroscopic_binary": "Y",
+        "indicates_retired_or_rejected": "Y",
+        "reports_offset_eclipsing_binary": "N",
+        "contains_object_designation": "N"
+      }
+    },
+    "state": {
+      "toi": "TOI-276.01",
+      "comment": "TFOP FP/SB1"
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "reports_offset_eclipsing_binary": {
+          "type": "noul",
+          "noul": 0.08
+        },
+        "reports_stellar_companion_or_blend": {
+          "type": "noul",
+          "noul": 0.5
+        },
+        "mentions_spectroscopic_binary": {
+          "type": "noul",
+          "noul": 0.94
+        },
+        "asserts_ephemeris_problem": {
+          "type": "noul",
+          "noul": 0.33
+        },
+        "mentions_instrumental_artifact": {
+          "type": "noul",
+          "noul": 0.6
+        },
+        "describes_transit_morphology": {
+          "type": "noul",
+          "noul": 0.29
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 3.08,
+          "confidence": 0.24,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'potential', 'may be'; conclusion not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.16,
+            "1": 0.05,
+            "2": 0.01,
+            "3": 0.12,
+            "4": 0.66
+          }
+        },
+        "evidence_depth": {
+          "type": "score",
+          "score": 1.7,
+          "confidence": 0.4,
+          "legend": {
+            "0": "No observation described at all",
+            "1": "A remark, a label, or a statement of where the candidate was found, with no observation of it described",
+            "2": "One observation of the candidate referenced",
+            "3": "Several observations of the candidate referenced",
+            "4": "Multiple independent facilities or techniques described"
+          },
+          "probabilities": {
+            "0": 0.01,
+            "1": 0.71,
+            "2": 0.05,
+            "3": 0.05,
+            "4": 0.18
+          }
+        },
+        "indicates_retired_or_rejected": {
+          "type": "noul",
+          "noul": 0.92
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.13
+        },
+        "contains_object_designation": {
+          "type": "noul",
+          "noul": 0.08
+        }
+      },
+      "usage": {
+        "input_tokens": 1925,
+        "output_tokens": 233
+      }
+    }
+  },
+  "C12": {
+    "case": {
+      "cid": "C12",
+      "toi": "1799.01",
+      "y": 1,
+      "role": "artifact positive, hedged",
+      "text": "low SNR; possible instrument or systematic",
+      "expect": {
+        "mentions_instrumental_artifact": "Y",
+        "indicates_retired_or_rejected": "N",
+        "describes_transit_morphology": "N",
+        "author_certainty": [
+          0,
+          2.2
+        ]
+      }
+    },
+    "state": {
+      "toi": "TOI-1799.01",
+      "comment": "low SNR; possible instrument or systematic"
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "reports_offset_eclipsing_binary": {
+          "type": "noul",
+          "noul": 0.05
+        },
+        "reports_stellar_companion_or_blend": {
+          "type": "noul",
+          "noul": 0.03
+        },
+        "mentions_spectroscopic_binary": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "asserts_ephemeris_problem": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "mentions_instrumental_artifact": {
+          "type": "noul",
+          "noul": 0.94
+        },
+        "describes_transit_morphology": {
+          "type": "noul",
+          "noul": 0.05
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 1.03,
+          "confidence": 0.97,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'potential', 'may be'; conclusion not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.0,
+            "1": 0.98,
+            "2": 0.01,
+            "3": 0.01,
+            "4": 0.0
+          }
+        },
+        "evidence_depth": {
+          "type": "score",
+          "score": 1.11,
+          "confidence": 0.86,
+          "legend": {
+            "0": "No observation described at all",
+            "1": "A remark, a label, or a statement of where the candidate was found, with no observation of it described",
+            "2": "One observation of the candidate referenced",
+            "3": "Several observations of the candidate referenced",
+            "4": "Multiple independent facilities or techniques described"
+          },
+          "probabilities": {
+            "0": 0.03,
+            "1": 0.85,
+            "2": 0.12,
+            "3": 0.0,
+            "4": 0.0
+          }
+        },
+        "indicates_retired_or_rejected": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.02
+        },
+        "contains_object_designation": {
+          "type": "noul",
+          "noul": 0.06
+        }
+      },
+      "usage": {
+        "input_tokens": 1928,
+        "output_tokens": 233
+      }
+    }
+  },
+  "C13": {
+    "case": {
+      "cid": "C13",
+      "toi": "262.01",
+      "y": 1,
+      "role": "CONFUSABLE: confirmation stated with no designation",
+      "text": "validated planet",
+      "expect": {
+        "indicates_confirmed_planet": "Y",
+        "contains_object_designation": "N",
+        "indicates_retired_or_rejected": "N",
+        "describes_transit_morphology": "N"
+      }
+    },
+    "state": {
+      "toi": "TOI-262.01",
+      "comment": "validated planet"
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "reports_offset_eclipsing_binary": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "reports_stellar_companion_or_blend": {
+          "type": "noul",
+          "noul": 0.03
+        },
+        "mentions_spectroscopic_binary": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "asserts_ephemeris_problem": {
+          "type": "noul",
+          "noul": 0.03
+        },
+        "mentions_instrumental_artifact": {
+          "type": "noul",
+          "noul": 0.03
+        },
+        "describes_transit_morphology": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 3.98,
+          "confidence": 0.98,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'potential', 'may be'; conclusion not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.0,
+            "1": 0.0,
+            "2": 0.0,
+            "3": 0.02,
+            "4": 0.98
+          }
+        },
+        "evidence_depth": {
+          "type": "score",
+          "score": 1.0,
+          "confidence": 0.94,
+          "legend": {
+            "0": "No observation described at all",
+            "1": "A remark, a label, or a statement of where the candidate was found, with no observation of it described",
+            "2": "One observation of the candidate referenced",
+            "3": "Several observations of the candidate referenced",
+            "4": "Multiple independent facilities or techniques described"
+          },
+          "probabilities": {
+            "0": 0.04,
+            "1": 0.94,
+            "2": 0.01,
+            "3": 0.01,
+            "4": 0.0
+          }
+        },
+        "indicates_retired_or_rejected": {
+          "type": "noul",
+          "noul": 0.03
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.98
+        },
+        "contains_object_designation": {
+          "type": "noul",
+          "noul": 0.06
+        }
+      },
+      "usage": {
+        "input_tokens": 1921,
+        "output_tokens": 233
+      }
+    }
+  },
+  "C14": {
+    "case": {
+      "cid": "C14",
+      "toi": "815.02",
+      "y": 1,
+      "role": "ephemeris problem positive, hedged",
+      "text": "real period likely shorter than max period of ~734.4987 d",
+      "expect": {
+        "asserts_ephemeris_problem": "Y",
+        "indicates_retired_or_rejected": "N",
+        "reports_offset_eclipsing_binary": "N"
+      }
+    },
+    "state": {
+      "toi": "TOI-815.02",
+      "comment": "real period likely shorter than max period of ~734.4987 d"
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "reports_offset_eclipsing_binary": {
+          "type": "noul",
+          "noul": 0.03
+        },
+        "reports_stellar_companion_or_blend": {
+          "type": "noul",
+          "noul": 0.03
+        },
+        "mentions_spectroscopic_binary": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "asserts_ephemeris_problem": {
+          "type": "noul",
+          "noul": 0.85
+        },
+        "mentions_instrumental_artifact": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "describes_transit_morphology": {
+          "type": "noul",
+          "noul": 0.24
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 1.53,
+          "confidence": 0.55,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'potential', 'may be'; conclusion not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.01,
+            "1": 0.54,
+            "2": 0.38,
+            "3": 0.07,
+            "4": 0.0
+          }
+        },
+        "evidence_depth": {
+          "type": "score",
+          "score": 0.92,
+          "confidence": 0.73,
+          "legend": {
+            "0": "No observation described at all",
+            "1": "A remark, a label, or a statement of where the candidate was found, with no observation of it described",
+            "2": "One observation of the candidate referenced",
+            "3": "Several observations of the candidate referenced",
+            "4": "Multiple independent facilities or techniques described"
+          },
+          "probabilities": {
+            "0": 0.2,
+            "1": 0.69,
+            "2": 0.1,
+            "3": 0.01,
+            "4": 0.0
+          }
+        },
+        "indicates_retired_or_rejected": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "contains_object_designation": {
+          "type": "noul",
+          "noul": 0.2
+        }
+      },
+      "usage": {
+        "input_tokens": 1937,
+        "output_tokens": 233
+      }
+    }
+  },
+  "C15": {
+    "case": {
+      "cid": "C15",
+      "toi": "1052.01",
+      "y": 1,
+      "role": "CONFUSABLE: period mentioned, no problem asserted",
+      "text": "Low priority; similar epoch and period from sector 1",
+      "expect": {
+        "asserts_ephemeris_problem": "N",
+        "indicates_retired_or_rejected": "N",
+        "reports_stellar_companion_or_blend": "N",
+        "describes_transit_morphology": "N"
+      }
+    },
+    "state": {
+      "toi": "TOI-1052.01",
+      "comment": "Low priority; similar epoch and period from sector 1"
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "reports_offset_eclipsing_binary": {
+          "type": "noul",
+          "noul": 0.06
+        },
+        "reports_stellar_companion_or_blend": {
+          "type": "noul",
+          "noul": 0.03
+        },
+        "mentions_spectroscopic_binary": {
+          "type": "noul",
+          "noul": 0.03
+        },
+        "asserts_ephemeris_problem": {
+          "type": "noul",
+          "noul": 0.14
+        },
+        "mentions_instrumental_artifact": {
+          "type": "noul",
+          "noul": 0.11
+        },
+        "describes_transit_morphology": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 2.98,
+          "confidence": 0.84,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'potential', 'may be'; conclusion not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.01,
+            "1": 0.03,
+            "2": 0.02,
+            "3": 0.85,
+            "4": 0.09
+          }
+        },
+        "evidence_depth": {
+          "type": "score",
+          "score": 1.19,
+          "confidence": 0.84,
+          "legend": {
+            "0": "No observation described at all",
+            "1": "A remark, a label, or a statement of where the candidate was found, with no observation of it described",
+            "2": "One observation of the candidate referenced",
+            "3": "Several observations of the candidate referenced",
+            "4": "Multiple independent facilities or techniques described"
+          },
+          "probabilities": {
+            "0": 0.0,
+            "1": 0.86,
+            "2": 0.09,
+            "3": 0.05,
+            "4": 0.0
+          }
+        },
+        "indicates_retired_or_rejected": {
+          "type": "noul",
+          "noul": 0.05
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.03
+        },
+        "contains_object_designation": {
+          "type": "noul",
+          "noul": 0.07
+        }
+      },
+      "usage": {
+        "input_tokens": 1931,
+        "output_tokens": 233
+      }
+    }
+  },
+  "C16": {
+    "case": {
+      "cid": "C16",
+      "toi": "397.01",
+      "y": 0,
+      "role": "companion + NEB + retirement + bare TIC",
+      "text": "close companion star 219379014; TFOP FP; retired as NEB",
+      "expect": {
+        "reports_stellar_companion_or_blend": "Y",
+        "reports_offset_eclipsing_binary": "Y",
+        "indicates_retired_or_rejected": "Y",
+        "contains_object_designation": "Y",
+        "mentions_spectroscopic_binary": "N"
+      }
+    },
+    "state": {
+      "toi": "TOI-397.01",
+      "comment": "close companion star 219379014; TFOP FP; retired as NEB"
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "reports_offset_eclipsing_binary": {
+          "type": "noul",
+          "noul": 0.94
+        },
+        "reports_stellar_companion_or_blend": {
+          "type": "noul",
+          "noul": 0.93
+        },
+        "mentions_spectroscopic_binary": {
+          "type": "noul",
+          "noul": 0.08
+        },
+        "asserts_ephemeris_problem": {
+          "type": "noul",
+          "noul": 0.11
+        },
+        "mentions_instrumental_artifact": {
+          "type": "noul",
+          "noul": 0.46
+        },
+        "describes_transit_morphology": {
+          "type": "noul",
+          "noul": 0.09
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 3.86,
+          "confidence": 0.88,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'potential', 'may be'; conclusion not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.01,
+            "1": 0.01,
+            "2": 0.01,
+            "3": 0.07,
+            "4": 0.9
+          }
+        },
+        "evidence_depth": {
+          "type": "score",
+          "score": 1.55,
+          "confidence": 0.53,
+          "legend": {
+            "0": "No observation described at all",
+            "1": "A remark, a label, or a statement of where the candidate was found, with no observation of it described",
+            "2": "One observation of the candidate referenced",
+            "3": "Several observations of the candidate referenced",
+            "4": "Multiple independent facilities or techniques described"
+          },
+          "probabilities": {
+            "0": 0.01,
+            "1": 0.67,
+            "2": 0.15,
+            "3": 0.09,
+            "4": 0.08
+          }
+        },
+        "indicates_retired_or_rejected": {
+          "type": "noul",
+          "noul": 0.99
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.07
+        },
+        "contains_object_designation": {
+          "type": "noul",
+          "noul": 0.93
+        }
+      },
+      "usage": {
+        "input_tokens": 1941,
+        "output_tokens": 233
+      }
+    }
+  },
+  "C17": {
+    "case": {
+      "cid": "C17",
+      "toi": "1990.01",
+      "y": 0,
+      "role": "CONFUSABLE: EB retired on target, crowded field, secondary",
+      "text": "Crowded field; secondary; synchronized; TFOP FP; retired as EB",
+      "expect": {
+        "describes_transit_morphology": "Y",
+        "reports_stellar_companion_or_blend": "Y",
+        "indicates_retired_or_rejected": "Y",
+        "reports_offset_eclipsing_binary": "N",
+        "mentions_spectroscopic_binary": "N"
+      }
+    },
+    "state": {
+      "toi": "TOI-1990.01",
+      "comment": "Crowded field; secondary; synchronized; TFOP FP; retired as EB"
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "reports_offset_eclipsing_binary": {
+          "type": "noul",
+          "noul": 0.13
+        },
+        "reports_stellar_companion_or_blend": {
+          "type": "noul",
+          "noul": 0.86
+        },
+        "mentions_spectroscopic_binary": {
+          "type": "noul",
+          "noul": 0.05
+        },
+        "asserts_ephemeris_problem": {
+          "type": "noul",
+          "noul": 0.07
+        },
+        "mentions_instrumental_artifact": {
+          "type": "noul",
+          "noul": 0.44
+        },
+        "describes_transit_morphology": {
+          "type": "noul",
+          "noul": 0.67
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 3.87,
+          "confidence": 0.89,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'potential', 'may be'; conclusion not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.0,
+            "1": 0.0,
+            "2": 0.02,
+            "3": 0.06,
+            "4": 0.92
+          }
+        },
+        "evidence_depth": {
+          "type": "score",
+          "score": 1.95,
+          "confidence": 0.2,
+          "legend": {
+            "0": "No observation described at all",
+            "1": "A remark, a label, or a statement of where the candidate was found, with no observation of it described",
+            "2": "One observation of the candidate referenced",
+            "3": "Several observations of the candidate referenced",
+            "4": "Multiple independent facilities or techniques described"
+          },
+          "probabilities": {
+            "0": 0.01,
+            "1": 0.51,
+            "2": 0.11,
+            "3": 0.28,
+            "4": 0.09
+          }
+        },
+        "indicates_retired_or_rejected": {
+          "type": "noul",
+          "noul": 0.99
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.05
+        },
+        "contains_object_designation": {
+          "type": "noul",
+          "noul": 0.14
+        }
+      },
+      "usage": {
+        "input_tokens": 1935,
+        "output_tokens": 233
+      }
+    }
+  },
+  "C18": {
+    "case": {
+      "cid": "C18",
+      "toi": "5540.01",
+      "y": 0,
+      "role": "multi-fact: 2x period + odd-even + NEB + retirement",
+      "text": "possibly too large for period; short period; significant odd-even at 2x previous period (0.55 d); retired as TFOP FP/NEB",
+      "expect": {
+        "asserts_ephemeris_problem": "Y",
+        "describes_transit_morphology": "Y",
+        "reports_offset_eclipsing_binary": "Y",
+        "indicates_retired_or_rejected": "Y",
+        "mentions_spectroscopic_binary": "N"
+      }
+    },
+    "state": {
+      "toi": "TOI-5540.01",
+      "comment": "possibly too large for period; short period; significant odd-even at 2x previous period (0.55 d); retired as TFOP FP/NEB"
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "reports_offset_eclipsing_binary": {
+          "type": "noul",
+          "noul": 0.92
+        },
+        "reports_stellar_companion_or_blend": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "mentions_spectroscopic_binary": {
+          "type": "noul",
+          "noul": 0.06
+        },
+        "asserts_ephemeris_problem": {
+          "type": "noul",
+          "noul": 0.9
+        },
+        "mentions_instrumental_artifact": {
+          "type": "noul",
+          "noul": 0.25
+        },
+        "describes_transit_morphology": {
+          "type": "noul",
+          "noul": 0.91
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 1.63,
+          "confidence": 0.47,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'potential', 'may be'; conclusion not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.0,
+            "1": 0.61,
+            "2": 0.17,
+            "3": 0.18,
+            "4": 0.04
+          }
+        },
+        "evidence_depth": {
+          "type": "score",
+          "score": 1.99,
+          "confidence": 0.15,
+          "legend": {
+            "0": "No observation described at all",
+            "1": "A remark, a label, or a statement of where the candidate was found, with no observation of it described",
+            "2": "One observation of the candidate referenced",
+            "3": "Several observations of the candidate referenced",
+            "4": "Multiple independent facilities or techniques described"
+          },
+          "probabilities": {
+            "0": 0.01,
+            "1": 0.34,
+            "2": 0.28,
+            "3": 0.36,
+            "4": 0.01
+          }
+        },
+        "indicates_retired_or_rejected": {
+          "type": "noul",
+          "noul": 0.99
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "contains_object_designation": {
+          "type": "noul",
+          "noul": 0.13
+        }
+      },
+      "usage": {
+        "input_tokens": 1953,
+        "output_tokens": 233
+      }
+    }
+  },
+  "C19": {
+    "case": {
+      "cid": "C19",
+      "toi": "729.01",
+      "y": 0,
+      "role": "artifact positive (asteroid) with a data product referenced",
+      "text": "likely asteroid based on difference image in s9; no additional events; retired as TFOP FA",
+      "expect": {
+        "mentions_instrumental_artifact": "Y",
+        "indicates_retired_or_rejected": "Y",
+        "reports_offset_eclipsing_binary": "N",
+        "evidence_depth": [
+          1.5,
+          4.0
+        ]
+      }
+    },
+    "state": {
+      "toi": "TOI-729.01",
+      "comment": "likely asteroid based on difference image in s9; no additional events; retired as TFOP FA"
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "reports_offset_eclipsing_binary": {
+          "type": "noul",
+          "noul": 0.05
+        },
+        "reports_stellar_companion_or_blend": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "mentions_spectroscopic_binary": {
+          "type": "noul",
+          "noul": 0.03
+        },
+        "asserts_ephemeris_problem": {
+          "type": "noul",
+          "noul": 0.03
+        },
+        "mentions_instrumental_artifact": {
+          "type": "noul",
+          "noul": 0.95
+        },
+        "describes_transit_morphology": {
+          "type": "noul",
+          "noul": 0.12
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 2.11,
+          "confidence": 0.24,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'potential', 'may be'; conclusion not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.0,
+            "1": 0.34,
+            "2": 0.22,
+            "3": 0.43,
+            "4": 0.01
+          }
+        },
+        "evidence_depth": {
+          "type": "score",
+          "score": 2.04,
+          "confidence": 0.82,
+          "legend": {
+            "0": "No observation described at all",
+            "1": "A remark, a label, or a statement of where the candidate was found, with no observation of it described",
+            "2": "One observation of the candidate referenced",
+            "3": "Several observations of the candidate referenced",
+            "4": "Multiple independent facilities or techniques described"
+          },
+          "probabilities": {
+            "0": 0.0,
+            "1": 0.09,
+            "2": 0.79,
+            "3": 0.12,
+            "4": 0.0
+          }
+        },
+        "indicates_retired_or_rejected": {
+          "type": "noul",
+          "noul": 0.99
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.02
+        },
+        "contains_object_designation": {
+          "type": "noul",
+          "noul": 0.13
+        }
+      },
+      "usage": {
+        "input_tokens": 1938,
+        "output_tokens": 233
+      }
+    }
+  },
+  "C20": {
+    "case": {
+      "cid": "C20",
+      "toi": "128.01",
+      "y": 1,
+      "role": "confirmation + designation + paper",
+      "text": "TOI-128.01; validated planet from Hord et al 2024; Rp underestimated",
+      "expect": {
+        "indicates_confirmed_planet": "Y",
+        "contains_object_designation": "Y",
+        "indicates_retired_or_rejected": "N",
+        "reports_offset_eclipsing_binary": "N"
+      }
+    },
+    "state": {
+      "toi": "TOI-128.01",
+      "comment": "TOI-128.01; validated planet from Hord et al 2024; Rp underestimated"
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "reports_offset_eclipsing_binary": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "reports_stellar_companion_or_blend": {
+          "type": "noul",
+          "noul": 0.03
+        },
+        "mentions_spectroscopic_binary": {
+          "type": "noul",
+          "noul": 0.03
+        },
+        "asserts_ephemeris_problem": {
+          "type": "noul",
+          "noul": 0.03
+        },
+        "mentions_instrumental_artifact": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "describes_transit_morphology": {
+          "type": "noul",
+          "noul": 0.19
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 3.6,
+          "confidence": 0.67,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'potential', 'may be'; conclusion not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.02,
+            "1": 0.02,
+            "2": 0.01,
+            "3": 0.21,
+            "4": 0.74
+          }
+        },
+        "evidence_depth": {
+          "type": "score",
+          "score": 1.21,
+          "confidence": 0.81,
+          "legend": {
+            "0": "No observation described at all",
+            "1": "A remark, a label, or a statement of where the candidate was found, with no observation of it described",
+            "2": "One observation of the candidate referenced",
+            "3": "Several observations of the candidate referenced",
+            "4": "Multiple independent facilities or techniques described"
+          },
+          "probabilities": {
+            "0": 0.01,
+            "1": 0.8,
+            "2": 0.17,
+            "3": 0.02,
+            "4": 0.0
+          }
+        },
+        "indicates_retired_or_rejected": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.98
+        },
+        "contains_object_designation": {
+          "type": "noul",
+          "noul": 0.99
+        }
+      },
+      "usage": {
+        "input_tokens": 1944,
+        "output_tokens": 233
+      }
+    }
+  },
+  "C21": {
+    "case": {
+      "cid": "C21",
+      "toi": "261.01",
+      "y": 1,
+      "role": "CONFUSABLE: 'active TFOP PC' is a status, not a rejection",
+      "text": "TOI 261.01; active TFOP PC; validated planet in S Giacalone 2020",
+      "expect": {
+        "indicates_confirmed_planet": "Y",
+        "contains_object_designation": "Y",
+        "indicates_retired_or_rejected": "N",
+        "mentions_instrumental_artifact": "N"
+      }
+    },
+    "state": {
+      "toi": "TOI-261.01",
+      "comment": "TOI 261.01; active TFOP PC; validated planet in S Giacalone 2020"
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "reports_offset_eclipsing_binary": {
+          "type": "noul",
+          "noul": 0.05
+        },
+        "reports_stellar_companion_or_blend": {
+          "type": "noul",
+          "noul": 0.05
+        },
+        "mentions_spectroscopic_binary": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "asserts_ephemeris_problem": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "mentions_instrumental_artifact": {
+          "type": "noul",
+          "noul": 0.05
+        },
+        "describes_transit_morphology": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 3.92,
+          "confidence": 0.93,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'potential', 'may be'; conclusion not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.0,
+            "1": 0.0,
+            "2": 0.0,
+            "3": 0.07,
+            "4": 0.93
+          }
+        },
+        "evidence_depth": {
+          "type": "score",
+          "score": 1.19,
+          "confidence": 0.83,
+          "legend": {
+            "0": "No observation described at all",
+            "1": "A remark, a label, or a statement of where the candidate was found, with no observation of it described",
+            "2": "One observation of the candidate referenced",
+            "3": "Several observations of the candidate referenced",
+            "4": "Multiple independent facilities or techniques described"
+          },
+          "probabilities": {
+            "0": 0.01,
+            "1": 0.87,
+            "2": 0.06,
+            "3": 0.04,
+            "4": 0.02
+          }
+        },
+        "indicates_retired_or_rejected": {
+          "type": "noul",
+          "noul": 0.16
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.97
+        },
+        "contains_object_designation": {
+          "type": "noul",
+          "noul": 0.98
+        }
+      },
+      "usage": {
+        "input_tokens": 1946,
+        "output_tokens": 233
+      }
+    }
+  },
+  "C22": {
+    "case": {
+      "cid": "C22",
+      "toi": "4135.01",
+      "y": 0,
+      "role": "CONFUSABLE: hedged NEB, no retirement stated, depth-aperture",
+      "text": "found in faint-star QLP search; significant centroid offset and depth aperture correlation; likely NEB",
+      "expect": {
+        "reports_offset_eclipsing_binary": "Y",
+        "reports_stellar_companion_or_blend": "Y",
+        "mentions_instrumental_artifact": "N",
+        "indicates_retired_or_rejected": "N",
+        "author_certainty": [
+          0,
+          2.6
+        ]
+      }
+    },
+    "state": {
+      "toi": "TOI-4135.01",
+      "comment": "found in faint-star QLP search; significant centroid offset and depth aperture correlation; likely NEB"
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "reports_offset_eclipsing_binary": {
+          "type": "noul",
+          "noul": 0.97
+        },
+        "reports_stellar_companion_or_blend": {
+          "type": "noul",
+          "noul": 0.94
+        },
+        "mentions_spectroscopic_binary": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "asserts_ephemeris_problem": {
+          "type": "noul",
+          "noul": 0.03
+        },
+        "mentions_instrumental_artifact": {
+          "type": "noul",
+          "noul": 0.53
+        },
+        "describes_transit_morphology": {
+          "type": "noul",
+          "noul": 0.06
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 2.0,
+          "confidence": 0.17,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'potential', 'may be'; conclusion not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.0,
+            "1": 0.41,
+            "2": 0.19,
+            "3": 0.4,
+            "4": 0.0
+          }
+        },
+        "evidence_depth": {
+          "type": "score",
+          "score": 2.08,
+          "confidence": 0.56,
+          "legend": {
+            "0": "No observation described at all",
+            "1": "A remark, a label, or a statement of where the candidate was found, with no observation of it described",
+            "2": "One observation of the candidate referenced",
+            "3": "Several observations of the candidate referenced",
+            "4": "Multiple independent facilities or techniques described"
+          },
+          "probabilities": {
+            "0": 0.0,
+            "1": 0.22,
+            "2": 0.49,
+            "3": 0.28,
+            "4": 0.01
+          }
+        },
+        "indicates_retired_or_rejected": {
+          "type": "noul",
+          "noul": 0.25
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.03
+        },
+        "contains_object_designation": {
+          "type": "noul",
+          "noul": 0.12
+        }
+      },
+      "usage": {
+        "input_tokens": 1939,
+        "output_tokens": 233
+      }
+    }
+  },
+  "C23": {
+    "case": {
+      "cid": "C23",
+      "toi": "953.01",
+      "y": 0,
+      "role": "SB positive via RV; CONFUSABLE: 'WASP-South' is a survey, not a planet",
+      "text": "SB1 from WASP-South SB1 RV variation=30 km/s",
+      "expect": {
+        "mentions_spectroscopic_binary": "Y",
+        "contains_object_designation": "N",
+        "reports_offset_eclipsing_binary": "N",
+        "indicates_retired_or_rejected": "N"
+      }
+    },
+    "state": {
+      "toi": "TOI-953.01",
+      "comment": "SB1 from WASP-South SB1 RV variation=30 km/s"
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "reports_offset_eclipsing_binary": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "reports_stellar_companion_or_blend": {
+          "type": "noul",
+          "noul": 0.09
+        },
+        "mentions_spectroscopic_binary": {
+          "type": "noul",
+          "noul": 0.99
+        },
+        "asserts_ephemeris_problem": {
+          "type": "noul",
+          "noul": 0.03
+        },
+        "mentions_instrumental_artifact": {
+          "type": "noul",
+          "noul": 0.05
+        },
+        "describes_transit_morphology": {
+          "type": "noul",
+          "noul": 0.05
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 3.19,
+          "confidence": 0.81,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'potential', 'may be'; conclusion not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.0,
+            "1": 0.0,
+            "2": 0.0,
+            "3": 0.79,
+            "4": 0.21
+          }
+        },
+        "evidence_depth": {
+          "type": "score",
+          "score": 1.95,
+          "confidence": 0.56,
+          "legend": {
+            "0": "No observation described at all",
+            "1": "A remark, a label, or a statement of where the candidate was found, with no observation of it described",
+            "2": "One observation of the candidate referenced",
+            "3": "Several observations of the candidate referenced",
+            "4": "Multiple independent facilities or techniques described"
+          },
+          "probabilities": {
+            "0": 0.0,
+            "1": 0.29,
+            "2": 0.47,
+            "3": 0.23,
+            "4": 0.01
+          }
+        },
+        "indicates_retired_or_rejected": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.06
+        },
+        "contains_object_designation": {
+          "type": "noul",
+          "noul": 0.11
+        }
+      },
+      "usage": {
+        "input_tokens": 1935,
+        "output_tokens": 233
+      }
+    }
+  }
+}

@@ -10,7 +10,7 @@ IMPORTANT - `pscomppars` is deliberately NOT used as a feature source. It contai
 planets only, so membership alone predicts the label at P(y=1)=0.995 vs 0.074. See WORKLOG.md
 2026-09-19T23:13Z. It is pulled for provenance only and never joined into model input.
 """
-import argparse, contextlib, datetime, hashlib, io, pathlib, sys
+import argparse, datetime, hashlib, pathlib, sys, time
 import duckdb, pandas as pd, requests
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
@@ -39,12 +39,59 @@ def sha256(p: pathlib.Path) -> str:
     return hashlib.sha256(p.read_bytes()).hexdigest()
 
 
-def fetch_exofop(path: pathlib.Path, refresh: bool) -> None:
+EXOFOP_TOI_CSV = "https://exofop.ipac.caltech.edu/tess/download_toi.php?output=csv"
+
+
+def fetch_exofop(path: pathlib.Path, refresh: bool, tries: int = 4) -> None:
+    """Download the bulk TOI table with an explicit timeout and bounded retry.
+
+    `etta.download_toi()` accepts no timeout. ExoFOP throttles by withholding the response
+    body -- it completes the TCP handshake in ~0.4 s and then sends zero bytes -- so a
+    throttled pull is indistinguishable from a slow one and hangs the process forever, with
+    no output and no error. That happens on the FIRST command a new contributor runs.
+    Observed 2026-09-19/20; see WORKLOG.md 2026-09-20T00:02Z.
+
+    So the bulk table is fetched directly with requests and a (connect, read) timeout.
+    `etta` is still used for the per-TIC endpoints, which take a tag and behave.
+    """
     if path.exists() and not refresh:
         return
-    import etta
-    with contextlib.redirect_stdout(io.StringIO()):
-        etta.download_toi(output="csv", path=str(path))
+    last = None
+    for attempt in range(tries):
+        try:
+            r = requests.get(EXOFOP_TOI_CSV, timeout=(10, 300))
+            r.raise_for_status()
+            text = r.text
+            if text.lstrip().lower().startswith("<"):
+                raise RuntimeError(f"ExoFOP returned an HTML error page: {text[:200]}")
+            # A throttled or truncated response can still be a valid-looking short CSV.
+            if len(text) < 100_000 or "Comments" not in text.splitlines()[0]:
+                raise RuntimeError(
+                    f"ExoFOP returned {len(text)} bytes without the expected header - "
+                    "truncated or throttled, not a usable TOI table")
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text(text)
+            return
+        except (requests.Timeout, requests.ConnectionError, requests.HTTPError,
+                RuntimeError) as e:
+            last = e
+            if attempt < tries - 1:
+                wait = 5 * 2 ** attempt
+                print(f"  ExoFOP attempt {attempt + 1}/{tries} failed "
+                      f"({type(e).__name__}); retrying in {wait}s", file=sys.stderr)
+                time.sleep(wait)
+    raise SystemExit(
+        "\nExoFOP did not return the TOI table after "
+        f"{tries} attempts. Last error: {type(last).__name__}: {last}\n\n"
+        "This is almost always THROTTLING, not a bug: ExoFOP accepts the connection and\n"
+        "then withholds the response after a host pulls the full table repeatedly in one\n"
+        "day. It clears on its own.\n\n"
+        "  * Wait a few hours and re-run - nothing else is needed, the script is idempotent.\n"
+        "  * Check by hand:  curl --max-time 30 -o /dev/null -w '%{http_code} %{size_download}\\n' \\\n"
+        f"      '{EXOFOP_TOI_CSV}'\n"
+        "    A throttled host shows http=000 with size=0 after a fast TCP connect.\n"
+        "  * If you already have data/raw/ from a previous run, re-run WITHOUT --refresh\n"
+        "    and no network access is needed at all.\n")
 
 
 def fetch_tap(path: pathlib.Path, query: str, refresh: bool) -> None:

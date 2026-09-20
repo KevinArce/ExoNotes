@@ -119,7 +119,7 @@ PLAN.md §11.6 passed 9 of 10 items before publication. Two remain:
   timeout=(10, 300))` plus a bounded retry with backoff, print a clear "ExoFOP is throttling,
   retry later" message on timeout, and keep `etta` for the per-TIC endpoints.
 
-OPEN ITEM FOR THE USER, not for you to decide: `WORKLOG.md` contains `/Users/arce/...` on four
+OPEN ITEM FOR THE USER, not for you to decide: `WORKLOG.md` contains `/Users/<user>/...` on four
 lines, now public. It was NOT edited, because PLAN.md §0.5 is append-only and silently
 rewriting history to tidy a repo is what that rule exists to prevent. If the user asks for a
 redaction, record it in a NEW worklog entry rather than quietly amending the old one.

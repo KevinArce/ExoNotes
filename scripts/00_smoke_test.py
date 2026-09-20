@@ -1,4 +1,6 @@
-"""Question-design gate for ExoNotes (PLAN.md Step 2.5).
+"""Original 4-case smoke test (2026-09-19). SUPERSEDED by scripts/025_question_gate.py,
+which runs 23 cases drawn from real corpus comments. Kept as the record of the first
+live measurements written up in research/04.
 
 Extend CASES to ~20: for EACH question, its clear positive, its clear negative,
 and its nearest confusable. Inspect every answer by eye before the full corpus run.
@@ -7,7 +9,7 @@ Question set below is the VERIFIED version - see research/04_first_live_measurem
 import json, os, urllib.request, pathlib, time
 
 # load .env without printing secrets
-for line in pathlib.Path(".env").read_text().splitlines():
+for line in (pathlib.Path(__file__).resolve().parent.parent / ".env").read_text().splitlines():
     line = line.strip()
     if not line or line.startswith("#") or "=" not in line:
         continue
@@ -88,5 +90,7 @@ for name, text in CASES:
         else:
             print(f"    {qid:35s} score={a['score']:.3f} conf={a['confidence']:.3f} p={ {k: round(v,3) for k,v in a['probabilities'].items()} }")
 
-pathlib.Path("/private/tmp/claude-501/-Users-arce-Projects-Jev/e4729221-e1ca-4f67-848b-b6b5743b8c37/scratchpad/smoke_out.json").write_text(json.dumps(results, indent=2))
+outfile = pathlib.Path(__file__).resolve().parent.parent / "data" / "smoke_out.json"
+outfile.parent.mkdir(parents=True, exist_ok=True)
+outfile.write_text(json.dumps(results, indent=2))
 print("\nraw responses saved")

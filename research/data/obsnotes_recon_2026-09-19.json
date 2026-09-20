@@ -1,0 +1,591 @@
+[
+  {
+    "tic": 304130406,
+    "y": 1,
+    "n_notes": 1,
+    "chars": 536,
+    "chars_non_tfopwg": 0,
+    "n_non_tfopwg": 0,
+    "has_master_disp": true,
+    "master_disp": "P",
+    "has_any_disp": true,
+    "obs_has_disp": false,
+    "obs_has_master": false,
+    "has_html": false,
+    "lastmods": [
+      "2026-08-07 12:04:18"
+    ],
+    "cached": true
+  },
+  {
+    "tic": 169461816,
+    "y": 1,
+    "n_notes": 10,
+    "chars": 3875,
+    "chars_non_tfopwg": 3800,
+    "n_non_tfopwg": 9,
+    "has_master_disp": true,
+    "master_disp": "KP",
+    "has_any_disp": true,
+    "obs_has_disp": false,
+    "obs_has_master": false,
+    "has_html": true,
+    "lastmods": [
+      "2022-01-12 12:02:14",
+      "2017-04-20 13:40:08",
+      "2014-01-31 13:10:38",
+      "2011-07-28 17:26:16",
+      "2011-04-24 20:26:32",
+      "2010-11-26 14:03:28",
+      "2010-08-27 21:42:45",
+      "2009-06-24 16:12:13",
+      "2009-06-18 15:16:30",
+      "2009-06-02 15:50:35"
+    ],
+    "cached": true
+  },
+  {
+    "tic": 466382581,
+    "y": 1,
+    "n_notes": 3,
+    "chars": 1607,
+    "chars_non_tfopwg": 936,
+    "n_non_tfopwg": 2,
+    "has_master_disp": true,
+    "master_disp": "VP",
+    "has_any_disp": true,
+    "obs_has_disp": false,
+    "obs_has_master": false,
+    "has_html": true,
+    "lastmods": [
+      "2024-11-05 12:03:02",
+      "2022-10-19 14:42:20",
+      "2022-10-18 13:52:22"
+    ],
+    "cached": true
+  },
+  {
+    "tic": 271893367,
+    "y": 1,
+    "n_notes": 2,
+    "chars": 1003,
+    "chars_non_tfopwg": 230,
+    "n_non_tfopwg": 1,
+    "has_master_disp": true,
+    "master_disp": "P",
+    "has_any_disp": true,
+    "obs_has_disp": false,
+    "obs_has_master": false,
+    "has_html": true,
+    "lastmods": [
+      "2021-12-08 04:46:21",
+      "2020-12-18 12:01:41"
+    ],
+    "cached": true
+  },
+  {
+    "tic": 271354351,
+    "y": 1,
+    "n_notes": 4,
+    "chars": 498,
+    "chars_non_tfopwg": 419,
+    "n_non_tfopwg": 3,
+    "has_master_disp": true,
+    "master_disp": "KP",
+    "has_any_disp": true,
+    "obs_has_disp": false,
+    "obs_has_master": false,
+    "has_html": true,
+    "lastmods": [
+      "2021-09-12 12:01:38",
+      "2017-04-20 13:40:08",
+      "2017-02-01 12:27:14",
+      "2015-05-05 14:18:35"
+    ],
+    "cached": true
+  },
+  {
+    "tic": 230001847,
+    "y": 1,
+    "n_notes": 2,
+    "chars": 1364,
+    "chars_non_tfopwg": 89,
+    "n_non_tfopwg": 1,
+    "has_master_disp": true,
+    "master_disp": "P",
+    "has_any_disp": true,
+    "obs_has_disp": false,
+    "obs_has_master": false,
+    "has_html": true,
+    "lastmods": [
+      "2022-06-01 12:04:00",
+      "2020-08-31 12:30:24"
+    ],
+    "cached": true
+  },
+  {
+    "tic": 156648452,
+    "y": 1,
+    "n_notes": 3,
+    "chars": 1647,
+    "chars_non_tfopwg": 630,
+    "n_non_tfopwg": 2,
+    "has_master_disp": true,
+    "master_disp": "P",
+    "has_any_disp": true,
+    "obs_has_disp": false,
+    "obs_has_master": false,
+    "has_html": true,
+    "lastmods": [
+      "2024-05-16 12:03:00",
+      "2022-07-18 14:47:07",
+      "2022-02-11 12:56:47"
+    ],
+    "cached": true
+  },
+  {
+    "tic": 258510872,
+    "y": 1,
+    "n_notes": 4,
+    "chars": 1918,
+    "chars_non_tfopwg": 978,
+    "n_non_tfopwg": 2,
+    "has_master_disp": true,
+    "master_disp": "P",
+    "has_any_disp": true,
+    "obs_has_disp": false,
+    "obs_has_master": false,
+    "has_html": true,
+    "lastmods": [
+      "2024-02-13 12:02:58",
+      "2020-09-04 19:05:34",
+      "2020-08-19 13:41:59",
+      "2020-08-07 12:23:15"
+    ],
+    "cached": true
+  },
+  {
+    "tic": 53458803,
+    "y": 1,
+    "n_notes": 1,
+    "chars": 61,
+    "chars_non_tfopwg": 0,
+    "n_non_tfopwg": 0,
+    "has_master_disp": true,
+    "master_disp": "KP",
+    "has_any_disp": true,
+    "obs_has_disp": false,
+    "obs_has_master": false,
+    "has_html": false,
+    "lastmods": [
+      "2021-05-15 12:01:58"
+    ],
+    "cached": true
+  },
+  {
+    "tic": 201642601,
+    "y": 1,
+    "n_notes": 2,
+    "chars": 165,
+    "chars_non_tfopwg": 101,
+    "n_non_tfopwg": 1,
+    "has_master_disp": true,
+    "master_disp": "KP",
+    "has_any_disp": true,
+    "obs_has_disp": false,
+    "obs_has_master": false,
+    "has_html": true,
+    "lastmods": [
+      "2021-06-21 12:01:52",
+      "2020-02-16 21:27:57"
+    ],
+    "cached": true
+  },
+  {
+    "tic": 39926974,
+    "y": 1,
+    "n_notes": 2,
+    "chars": 195,
+    "chars_non_tfopwg": 132,
+    "n_non_tfopwg": 1,
+    "has_master_disp": true,
+    "master_disp": "KP",
+    "has_any_disp": true,
+    "obs_has_disp": false,
+    "obs_has_master": false,
+    "has_html": true,
+    "lastmods": [
+      "2021-10-23 12:02:15",
+      "2015-11-24 14:46:25"
+    ],
+    "cached": true
+  },
+  {
+    "tic": 425561347,
+    "y": 1,
+    "n_notes": 1,
+    "chars": 1076,
+    "chars_non_tfopwg": 0,
+    "n_non_tfopwg": 0,
+    "has_master_disp": true,
+    "master_disp": "P",
+    "has_any_disp": true,
+    "obs_has_disp": false,
+    "obs_has_master": false,
+    "has_html": false,
+    "lastmods": [
+      "2024-02-13 12:03:01"
+    ],
+    "cached": true
+  },
+  {
+    "tic": 49254857,
+    "y": 1,
+    "n_notes": 3,
+    "chars": 1689,
+    "chars_non_tfopwg": 884,
+    "n_non_tfopwg": 2,
+    "has_master_disp": true,
+    "master_disp": "P",
+    "has_any_disp": true,
+    "obs_has_disp": false,
+    "obs_has_master": false,
+    "has_html": true,
+    "lastmods": [
+      "2025-04-21 12:03:40",
+      "2022-02-16 09:42:21",
+      "2022-02-11 12:27:21"
+    ],
+    "cached": true
+  },
+  {
+    "tic": 411608801,
+    "y": 1,
+    "n_notes": 6,
+    "chars": 1677,
+    "chars_non_tfopwg": 1061,
+    "n_non_tfopwg": 3,
+    "has_master_disp": true,
+    "master_disp": "P",
+    "has_any_disp": true,
+    "obs_has_disp": false,
+    "obs_has_master": false,
+    "has_html": true,
+    "lastmods": [
+      "2020-09-18 12:01:13",
+      "2020-03-24 18:45:20",
+      "2020-03-03 18:15:24",
+      "2020-01-10 14:20:37",
+      "2019-12-16 10:15:57",
+      "2019-12-13 08:04:43"
+    ],
+    "cached": true
+  },
+  {
+    "tic": 332022997,
+    "y": 1,
+    "n_notes": 4,
+    "chars": 873,
+    "chars_non_tfopwg": 744,
+    "n_non_tfopwg": 2,
+    "has_master_disp": true,
+    "master_disp": "KP",
+    "has_any_disp": true,
+    "obs_has_disp": false,
+    "obs_has_master": false,
+    "has_html": true,
+    "lastmods": [
+      "2022-02-10 12:02:55",
+      "2022-01-26 12:02:34",
+      "2017-07-13 14:43:46",
+      "2017-07-13 14:43:02"
+    ],
+    "cached": true
+  },
+  {
+    "tic": 399613138,
+    "y": 0,
+    "n_notes": 5,
+    "chars": 1934,
+    "chars_non_tfopwg": 1479,
+    "n_non_tfopwg": 4,
+    "has_master_disp": true,
+    "master_disp": "SEB",
+    "has_any_disp": true,
+    "obs_has_disp": false,
+    "obs_has_master": false,
+    "has_html": true,
+    "lastmods": [
+      "2025-07-22 12:04:07",
+      "2025-06-09 16:21:25",
+      "2025-05-28 14:05:51",
+      "2025-05-16 11:20:24",
+      "2025-03-21 08:47:20"
+    ],
+    "cached": true
+  },
+  {
+    "tic": 323658120,
+    "y": 0,
+    "n_notes": 3,
+    "chars": 1523,
+    "chars_non_tfopwg": 1017,
+    "n_non_tfopwg": 2,
+    "has_master_disp": true,
+    "master_disp": "EB",
+    "has_any_disp": true,
+    "obs_has_disp": false,
+    "obs_has_master": false,
+    "has_html": true,
+    "lastmods": [
+      "2024-02-14 12:02:53",
+      "2022-05-22 15:13:45",
+      "2022-05-01 10:37:08"
+    ],
+    "cached": true
+  },
+  {
+    "tic": 333821572,
+    "y": 0,
+    "n_notes": 4,
+    "chars": 2099,
+    "chars_non_tfopwg": 1618,
+    "n_non_tfopwg": 3,
+    "has_master_disp": true,
+    "master_disp": "NEB",
+    "has_any_disp": true,
+    "obs_has_disp": false,
+    "obs_has_master": false,
+    "has_html": true,
+    "lastmods": [
+      "2021-07-10 12:01:52",
+      "2019-11-09 14:22:18",
+      "2019-11-05 15:18:15",
+      "2019-11-01 19:04:17"
+    ],
+    "cached": true
+  },
+  {
+    "tic": 327663613,
+    "y": 0,
+    "n_notes": 1,
+    "chars": 278,
+    "chars_non_tfopwg": 0,
+    "n_non_tfopwg": 0,
+    "has_master_disp": true,
+    "master_disp": "NEB",
+    "has_any_disp": true,
+    "obs_has_disp": false,
+    "obs_has_master": false,
+    "has_html": false,
+    "lastmods": [
+      "2021-04-02 12:01:06"
+    ],
+    "cached": true
+  },
+  {
+    "tic": 441732151,
+    "y": 0,
+    "n_notes": 1,
+    "chars": 710,
+    "chars_non_tfopwg": 0,
+    "n_non_tfopwg": 0,
+    "has_master_disp": true,
+    "master_disp": "SEB",
+    "has_any_disp": true,
+    "obs_has_disp": false,
+    "obs_has_master": false,
+    "has_html": false,
+    "lastmods": [
+      "2020-09-18 12:02:04"
+    ],
+    "cached": true
+  },
+  {
+    "tic": 412014494,
+    "y": 0,
+    "n_notes": 2,
+    "chars": 930,
+    "chars_non_tfopwg": 88,
+    "n_non_tfopwg": 1,
+    "has_master_disp": true,
+    "master_disp": "SEB",
+    "has_any_disp": true,
+    "obs_has_disp": false,
+    "obs_has_master": false,
+    "has_html": false,
+    "lastmods": [
+      "2023-04-12 13:10:54",
+      "2020-09-18 12:01:13"
+    ],
+    "cached": true
+  },
+  {
+    "tic": 29117085,
+    "y": 0,
+    "n_notes": 2,
+    "chars": 1420,
+    "chars_non_tfopwg": 816,
+    "n_non_tfopwg": 1,
+    "has_master_disp": true,
+    "master_disp": "EB",
+    "has_any_disp": true,
+    "obs_has_disp": false,
+    "obs_has_master": false,
+    "has_html": true,
+    "lastmods": [
+      "2021-12-12 12:02:00",
+      "2021-11-14 12:59:36"
+    ],
+    "cached": true
+  },
+  {
+    "tic": 33153766,
+    "y": 0,
+    "n_notes": 1,
+    "chars": 501,
+    "chars_non_tfopwg": 0,
+    "n_non_tfopwg": 0,
+    "has_master_disp": true,
+    "master_disp": "NEB",
+    "has_any_disp": true,
+    "obs_has_disp": false,
+    "obs_has_master": false,
+    "has_html": false,
+    "lastmods": [
+      "2020-09-18 12:00:28"
+    ],
+    "cached": true
+  },
+  {
+    "tic": 312259170,
+    "y": 0,
+    "n_notes": 2,
+    "chars": 1076,
+    "chars_non_tfopwg": 404,
+    "n_non_tfopwg": 1,
+    "has_master_disp": true,
+    "master_disp": "NEB",
+    "has_any_disp": true,
+    "obs_has_disp": false,
+    "obs_has_master": false,
+    "has_html": true,
+    "lastmods": [
+      "2020-09-18 12:00:50",
+      "2019-12-12 21:05:19"
+    ],
+    "cached": true
+  },
+  {
+    "tic": 423903685,
+    "y": 0,
+    "n_notes": 4,
+    "chars": 1596,
+    "chars_non_tfopwg": 1311,
+    "n_non_tfopwg": 3,
+    "has_master_disp": true,
+    "master_disp": "SEB",
+    "has_any_disp": true,
+    "obs_has_disp": false,
+    "obs_has_master": false,
+    "has_html": true,
+    "lastmods": [
+      "2024-09-15 16:23:18",
+      "2024-09-02 12:02:58",
+      "2023-06-17 14:13:28",
+      "2023-05-29 11:47:29"
+    ],
+    "cached": true
+  },
+  {
+    "tic": 141631253,
+    "y": 0,
+    "n_notes": 1,
+    "chars": 294,
+    "chars_non_tfopwg": 0,
+    "n_non_tfopwg": 0,
+    "has_master_disp": true,
+    "master_disp": "NEB",
+    "has_any_disp": true,
+    "obs_has_disp": false,
+    "obs_has_master": false,
+    "has_html": false,
+    "lastmods": [
+      "2023-12-16 12:02:51"
+    ],
+    "cached": true
+  },
+  {
+    "tic": 123106490,
+    "y": 0,
+    "n_notes": 1,
+    "chars": 294,
+    "chars_non_tfopwg": 0,
+    "n_non_tfopwg": 0,
+    "has_master_disp": true,
+    "master_disp": "NEB",
+    "has_any_disp": true,
+    "obs_has_disp": false,
+    "obs_has_master": false,
+    "has_html": false,
+    "lastmods": [
+      "2024-01-29 12:02:50"
+    ],
+    "cached": true
+  },
+  {
+    "tic": 128501004,
+    "y": 0,
+    "n_notes": 1,
+    "chars": 979,
+    "chars_non_tfopwg": 0,
+    "n_non_tfopwg": 0,
+    "has_master_disp": true,
+    "master_disp": "EB",
+    "has_any_disp": true,
+    "obs_has_disp": false,
+    "obs_has_master": false,
+    "has_html": false,
+    "lastmods": [
+      "2020-09-18 12:01:00"
+    ],
+    "cached": true
+  },
+  {
+    "tic": 341297143,
+    "y": 0,
+    "n_notes": 2,
+    "chars": 639,
+    "chars_non_tfopwg": 380,
+    "n_non_tfopwg": 1,
+    "has_master_disp": true,
+    "master_disp": "SEB",
+    "has_any_disp": true,
+    "obs_has_disp": false,
+    "obs_has_master": false,
+    "has_html": true,
+    "lastmods": [
+      "2022-12-14 12:03:04",
+      "2022-11-12 14:58:02"
+    ],
+    "cached": true
+  },
+  {
+    "tic": 286132427,
+    "y": 0,
+    "n_notes": 1,
+    "chars": 303,
+    "chars_non_tfopwg": 0,
+    "n_non_tfopwg": 0,
+    "has_master_disp": true,
+    "master_disp": "FA",
+    "has_any_disp": true,
+    "obs_has_disp": false,
+    "obs_has_master": false,
+    "has_html": false,
+    "lastmods": [
+      "2020-09-18 12:01:22"
+    ],
+    "cached": true
+  }
+]
