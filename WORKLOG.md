@@ -2614,3 +2614,37 @@ caveat), `README.md` (headline reproduction steps + the same caveat).
 **Jev spend this step:** $0.00 · **running total:** ~$0.3201
 **Next:** `RESULTS.md` per §9, and S2b if the corpus is re-run.
 ---
+## [2026-09-20T21:42Z] SESSION END — Claude Opus 5
+**Completed:** TASK B (20:09Z), TASK B2 (20:26Z) and TASK C (21:36Z) — the full scope the
+handoff set for this session, in the binding order B and B2 → C.
+
+**Headline:** **ΔAUC(D − B) = +0.0440, 95% CI [+0.0332, +0.0554]** — 5.4× the registered MDE.
+**All five gates pass: G2, G3, G4, G5, G6.** §9's definition of done is now items 1–6 and 8;
+**only item 7, `RESULTS.md`, remains.**
+
+**Registered:** `PREREGISTRATION.md` §11.3 (A-18…A-23), §11.4 (A-24…A-27), §11.5 (A-28…A-32).
+§11.3 and §11.4 were committed and pushed as `4198379` **before** the first full-corpus call,
+so every criterion the result is judged against is timestamped in public ahead of the number.
+
+**The honest headline about the headline:** A-23 registered, in advance, that a null was
+expected. **That prior was falsified.** A-29 records why — the regex proxies I bounded the
+signal with understated the semantic judgment by 0.10–0.20 AUC. Reported rather than dropped.
+
+**Defects found this session, all logged and fixed:**
+- The `Comments` G5 clause set is inoperative on obsnotes (`L2`/`L4b`/`L5` fire on 0 rows).
+- Six of eight r4 predictive questions had near-zero corpus support.
+- `jev-1.13.0` drifts over time — byte-identical requests differ by 0.0049 at an hour, 0.0001
+  at minutes. `PLAN.md` §0.5's "byte-identical" claim holds only from a warm cache.
+- My own G3 repeat arm measured nothing (never made a call) and reported a perfect score.
+- My own sampler regex matched a negation and drew a duplicate case.
+- 197 stray files in `data/cache/step3/`, verified and moved rather than deleted.
+
+**Two prior claims of mine corrected in-session, by new entries rather than edits:** the 19:31Z
+prediction that the glued negation would matter (it does not), and the 21:06Z framing of the
+nondeterminism as per-request (it is time-dependent).
+
+**Jev spend this session: $0.3057 · running total: ~$0.3201.**
+**Committed and pushed:** `4198379` (TASK B + B2) and `d23d32d` (TASK C). `origin/master`
+verified identical to local `HEAD`, not diverged, single commit identity.
+**Handoff rewritten:** `HANDOFF_PROMPT.md`. **Next session starts at TASK D — `RESULTS.md`.**
+---
