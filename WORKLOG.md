@@ -1225,3 +1225,28 @@ into a 20-minute bounded failure with an actionable message.
 **Jev spend:** $0.00 · **running total:** ~$0.0046 (session budget was ~$0.01)
 **Next:** commit; report to user. **Step 3 is NOT started — it belongs to the next session.**
 ---
+## [2026-09-20T01:00Z] SESSION END — Claude Opus 5
+**Completed:** TASK 1 (Step 2.5 question gate, 3 rounds, 101/103), TASK 2 (`PREREGISTRATION.md`
+committed), TASK 3 (ExoFOP timeout bug fixed and verified live; redaction and authorship done).
+`HANDOFF_PROMPT.md` rewritten for the corpus switch.
+**Jev spend this session: $0.0044** · **project running total: ~$0.0046** (budget was ~$0.01).
+**Committed:** `0f0a40d`, authored `KevinArce <iav.kevinarce@ufg.edu.sv>`. **Not pushed.**
+
+**NOT done, deliberately:** Step 3 not started — it belongs to the next session and is now gated
+behind acquiring the obsnotes corpus and re-running Step 2.5 on it.
+
+**Plan defects found this session: two new ones (#7 S2 group leak, #8 unrecorded leakage regex),
+bringing the running total to eight.** Plus one cost estimate corrected upward ($0.072/$0.15 →
+$0.239 measured for 11 questions on 2,721 rows) and three of §2.2's obsnotes measurements
+corrected (chars/TIC overstated 2.4×, notes/TIC optimistic, `Master Disp:` far more pervasive than
+implied).
+
+**Three open items for the user:**
+1. **Force-push pending** for the authorship correction (`ahead 2, behind 1`). Not run — it
+   rewrites public history and needs explicit confirmation.
+2. **Clean-clone reproduction still UNVERIFIED** — ExoFOP bulk endpoint throttled all session
+   (probed 4×, always `http=000 size=0`). The repo must not be called reproducible yet.
+3. **The r4 question set is provisional** and must be re-gated on observer-note text before Step 3.
+
+**Resume at:** `HANDOFF_PROMPT.md` — TASK A (pull obsnotes), then TASK B (re-gate), then TASK C.
+---
