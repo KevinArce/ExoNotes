@@ -193,7 +193,7 @@ def fig_reliability(sb: dict, sd: dict, base: float, n: int, n_tic: int) -> path
     return p
 
 
-def fig_forest(gates: dict, mde: float, floor: float) -> pathlib.Path:
+def fig_forest(gates: dict, mde: float, floor: float, s2b: dict | None) -> pathlib.Path:
     """Every arm's ΔAUC with its 95% CI, grouped by what row set / split it was measured on."""
     import matplotlib
     matplotlib.use("Agg")
@@ -215,8 +215,13 @@ def fig_forest(gates: dict, mde: float, floor: float) -> pathlib.Path:
         ("G5 — sensitivity, no L6    n=1,196 · base 0.463",
          G["G5 sensitivity (no L6)"], False),
         ("S2 temporal split (§4) — NOT comparable to an S1 ΔAUC", None, None),
-        ("G4 — train 1,070 / test 390 · base 0.4888 → 0.6487", G["G4"], True),
+        ("G4 — S2+S2a only  train 1,070 · base 0.4888 → 0.6487", G["G4"], False),
     ]
+    # §11.7 A-37: G4 with S2b is the REGISTERED split. Drawn as the gate; the S2+S2a row
+    # above it is kept so the figure does not quietly replace the first-reported number.
+    if s2b is not None:
+        rows.append(("G4 — + S2b, REGISTERED  train 884 · base 0.4514 → 0.6487",
+                     s2b["arms"]["G4b S2+S2a+S2b (train 884)"], True))
 
     fig, ax = plt.subplots(figsize=(9.4, 6.0), dpi=200, facecolor=SURF)
     ax.set_facecolor(SURF)
@@ -244,10 +249,10 @@ def fig_forest(gates: dict, mde: float, floor: float) -> pathlib.Path:
         ax.hlines(yy, lo, hi, color=c, lw=2.0, alpha=0.5 if not is_gate else 0.75)
         ax.plot([lo, hi], [yy, yy], "|", ms=7, color=c, alpha=0.9)
         ax.plot(d, yy, "o", ms=9 if is_gate else 6.5, color=c, mec=SURF, mew=1.6, zorder=4)
-        # A negative arm is labelled to its LEFT so the text never straddles the zero line.
-        anchor, dx, ha = ((lo, -6, "right") if hi < 0 else (hi, 6, "left"))
-        ax.annotate(f"{d:+.4f}  [{lo:+.4f}, {hi:+.4f}]", xy=(anchor, yy), xytext=(dx, 0),
-                    textcoords="offset points", va="center", ha=ha, fontsize=8.2,
+        # Labels always start to the right of the interval AND of the zero line, so a
+        # fully-negative arm neither straddles zero nor collides with its own row label.
+        ax.annotate(f"{d:+.4f}  [{lo:+.4f}, {hi:+.4f}]", xy=(max(hi, 0.0), yy), xytext=(6, 0),
+                    textcoords="offset points", va="center", ha="left", fontsize=8.2,
                     color=INK if is_gate else INK2,
                     fontweight="bold" if is_gate else "normal")
 
@@ -343,9 +348,14 @@ def main() -> int:
     floorj = json.loads((OUT / "noise_floor_analysis_set_obsnotes_2026-09-20.json").read_text())
     mde, floor = floorj["mde_80pct"], floorj["dilution_floor"]
 
+    s2b_path = OUT / "gate_g4_s2b_2026-09-20.json"
+    s2b = json.loads(s2b_path.read_text()) if s2b_path.exists() else None
+    if s2b is None:
+        print("  note: no S2b result yet; the forest shows G4 as S2+S2a only")
+
     FIG.mkdir(exist_ok=True)
     p1 = fig_reliability(sb, sd, base, n, n_tic)
-    p2 = fig_forest(gates, mde, floor)
+    p2 = fig_forest(gates, mde, floor, s2b)
 
     out = dict(
         generated=pd.Timestamp.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ"),

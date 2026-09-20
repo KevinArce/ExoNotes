@@ -1,0 +1,66 @@
+{
+  "generated": "2026-09-20T21:22:38Z",
+  "question_set_version": "2026-09-20.r6",
+  "model": "jev-1.13.0",
+  "cutoff": "2021-10-28",
+  "n_train_s2": 1070,
+  "n_train_s2b": 884,
+  "n_test": 390,
+  "s2a_dropped": 22,
+  "train_base_s2": 0.48878504672897194,
+  "train_base_s2b": 0.4513574660633484,
+  "test_base": 0.6487179487179487,
+  "notes_kept": 2865,
+  "notes_total_observer": 3963,
+  "rows_unchanged": 669,
+  "rows_changed": 401,
+  "rows_emptied": 186,
+  "rows_rescored": 215,
+  "distinct_states": 203,
+  "new_calls_this_run": 0,
+  "input_tokens_this_run": 0,
+  "usd_this_run": 0.0,
+  "paid_run": {
+    "new_calls": 203,
+    "input_tokens": 804981,
+    "usd": 0.0338,
+    "recorded": "WORKLOG.md 2026-09-20T22:09Z"
+  },
+  "arms": {
+    "G4  S2+S2a (train 1,070)": {
+      "auc_B": 0.8209226508179222,
+      "auc_D": 0.9135916447880904,
+      "dauc": 0.09266899397016826,
+      "ci_lo": 0.060799450090334314,
+      "ci_hi": 0.12636022157915325,
+      "se": 0.01659382031300931,
+      "excludes_zero": true
+    },
+    "G4b S2+S2a+S2b (train 884)": {
+      "auc_B": 0.80387178673437,
+      "auc_D": 0.9249877383803121,
+      "dauc": 0.12111595164594213,
+      "ci_lo": 0.08691422213168397,
+      "ci_hi": 0.15782047480744912,
+      "se": 0.01803535718008386,
+      "excludes_zero": true
+    },
+    "G4c 884 rows, full text": {
+      "auc_B": 0.80387178673437,
+      "auc_D": 0.9114855312887683,
+      "dauc": 0.10761374455439832,
+      "ci_lo": 0.07547816333620853,
+      "ci_hi": 0.14232441716844219,
+      "se": 0.01703998219602535,
+      "excludes_zero": true
+    },
+    "S2b text effect on D": {
+      "dauc": 0.013502207091543816,
+      "ci_lo": 0.0005943141483400417,
+      "ci_hi": 0.026881146586082268,
+      "se": 0.006699162125337988,
+      "excludes_zero": true
+    }
+  },
+  "note": "S2b applied to the TRAINING side only, per PREREGISTRATION.md \u00a74. Test side is the same 390 rows as A-28's G4. Rows whose S2b text is empty leave training; both arms train on the survivors. G4c isolates that sample-size component."
+}

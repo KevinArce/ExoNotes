@@ -2801,3 +2801,133 @@ too few for calibration bins. Plotting them against the *disposition* label woul
 something else. Registered as A-36.
 **Jev spend this step:** $0.00 · **running total:** ~$0.3201
 **Next:** commit TASK D, then assess TASK E (S2b) against the budget.
+---
+## [2026-09-20T21:58Z] TASK E — S2b — STARTED
+**Doing:** §4's registered S2b — for the S2 **training** side only, include a note iff its
+`Lastmod` < the 2021-10-28 cutoff — so G4 becomes the registered split rather than the
+approximation A-28 reports.
+**Command:** `scripts/039_gate_g4_s2b.py` (new).
+**Idempotent:** yes — content-addressed cache, fixed seeds, CREATE OR REPLACE output. A re-run
+costs $0.
+
+**Dry measurement first, $0 spent (the handoff projected ~$0.18):**
+
+| quantity | value |
+| :--- | ---: |
+| observer notes with `Lastmod` < cutoff | **2,865 of 3,963 (72.3%)** |
+| S2 training rows | 1,070 |
+| — text unchanged (cache hit, free) | **669** |
+| — text changes | **401** |
+| — text becomes **empty**, row leaves the corpus | **186** |
+| — rows needing a new call | 215, over **203 distinct states** |
+| **projected cost** | **$0.0332** |
+
+**~5× cheaper than the handoff projected**, because 669 of 1,070 training rows have every note
+already before the cutoff and 186 more lose all of their text, so neither group needs a call.
+`Lastmod` is non-null on **all 6,855 notes**, so the undated-note case does not arise here.
+
+**Four design decisions, fixed before the run:**
+1. **A row whose text becomes empty leaves the training set.** §1.1 defines the corpus as rows
+   with ≥1 observer note of non-zero length; under S2b, 186 training rows no longer qualify.
+   Training drops 1,070 → **884**. This is §4's own "tests on *less* text, not on *older*
+   text", made concrete.
+2. **B and D both train on those same 884 rows.** If B kept all 1,070 while D lost 186, ΔAUC
+   would conflate the text filter with a sample-size change. **B on the full 1,070 is also
+   reported**, so the sample-size component is visible rather than buried.
+3. **The test side is untouched** — the same 390 rows as A-28's G4, so G4 and G4b are directly
+   comparable. Shrinking the training set can only shrink the train-TIC set, so the S2a
+   group-leak fix stays valid on a fixed test set; re-running S2a would only *add* test rows
+   back. Holding it fixed is the conservative direction.
+4. **New responses are cached in `data/cache/s2b/`, not `data/cache/step3/`.** Step 3's
+   directory is exactly 1,382 files = its distinct-state count, and `PROVENANCE.md` commits to
+   that number. The script checks `step3/` for a legitimate hit first (identical request → free)
+   and only ever *writes* to `s2b/`. This is the 21:31Z bug inverted: that one wrote paraphrase
+   responses into `step3/` because `s3.CACHE` was not patched. Here it is patched on purpose.
+**Jev spend this step:** $0.00 so far · **projected $0.0332** · **running total:** ~$0.3201
+---
+## [2026-09-20T22:09Z] TASK E — S2b — DONE. G4 is now the registered split, and it PASSES
+**Command:** `.venv/bin/python scripts/039_gate_g4_s2b.py`
+**Artifacts:** `scripts/039_gate_g4_s2b.py` (new), `research/data/gate_g4_s2b_2026-09-20.json`,
+`duckdb::jev_features_obsnotes_s2b`, `data/cache/s2b/` (203 responses).
+**203 new API calls · 804,981 input tokens · $0.0338** · running total **~$0.3539**.
+
+**Actual cost $0.0338 against the $0.0332 projection** — 1.8% over, and **~5× below** the
+handoff's ~$0.18 estimate.
+
+| arm | train | B | D | ΔAUC | 95% CI | |
+| :--- | ---: | ---: | ---: | ---: | :--- | :--- |
+| **G4 — S2+S2a, as published** | 1,070 | 0.8209 | 0.9136 | +0.0927 | [+0.0608, +0.1264] | reproduced exactly |
+| **G4b — S2+S2a+S2b, REGISTERED** | 884 | 0.8039 | **0.9250** | **+0.1211** | **[+0.0869, +0.1578]** | **PASS** |
+| G4c — 884 rows, unfiltered text | 884 | 0.8039 | 0.9115 | +0.1076 | [+0.0755, +0.1423] | not a gate |
+
+Test side unchanged throughout: **390 rows, base 0.6487**. Train base 0.4888 → **0.4514**.
+
+### The gain does not collapse under S2b — it grows, and the growth decomposes cleanly
+G4c exists precisely so the two effects are not confounded, and they separate:
+
+- **G4 → G4c, dropping the 186 emptied rows:** B falls **0.8209 → 0.8039 (−0.0170)**, D falls
+  only **0.9136 → 0.9115 (−0.0021)**. ΔAUC rises **because the numeric baseline suffers more
+  from the smaller training set than the text-enriched model does**, not because D improved.
+- **G4c → G4b, the text filter itself:** B is **identical** (same rows, same numeric columns),
+  so the whole move is D, **0.9115 → 0.9250**.
+
+### That second step was tested directly, because the two CIs overlap heavily
+Reading +0.0135 off two overlapping intervals would not establish it. Paired bootstrap on the
+same 390 test rows, B identical in both arms so the ΔAUC difference **is** D(S2b) − D(full):
+
+> **+0.0135, 95% CI [+0.0006, +0.0269] — excludes zero, but barely.**
+
+**It is reported as marginal and it is not a gate.** The lower bound is +0.0006; this is a
+post-hoc comparison on 390 test rows that no section registered in advance. **The claim that
+survives is the weaker one: training D on time-filtered text does not degrade it.** The
+stronger reading — that older-only training text actively helps — is suggestive and not
+established here.
+
+### Four pre-fixed decisions held; the cache separation was verified, not assumed
+`data/cache/step3/` is **still exactly 1,382 files** and `data/cache/s2b/` holds **203** —
+checked after the run. `PROVENANCE.md`'s committed distinct-state count is intact. The 21:31Z
+defect (paraphrase responses leaking into `step3/` because `s3.CACHE` was not patched) did not
+recur, because the patch was made deliberately this time and the step3 lookup is read-only.
+
+### A note on what S2b does and does not control
+`Lastmod` is **last-modified, not created** (§10 item 1). A 2019 note edited in 2023 is dropped
+by the 2021 cutoff, so **S2b tests on *less* text, not on *older* text** — §4 says this and it
+remains the honest description. 2,865 of 3,963 observer notes (72.3%) survive.
+**Jev spend this step:** $0.0338 · **running total:** ~$0.3539
+**Next:** fold G4b into `RESULTS.md`, register as §11.6, update `PROVENANCE.md`.
+---
+## [2026-09-20T22:18Z] TASK E — registered and folded into the write-up
+**Artifacts:** `PREREGISTRATION.md` §11.7 (A-37), `RESULTS.md` §6a (new section) plus the §1
+S2 companion row, the §2 gate table, §9 item 1 and §11's falsifier list, `PROVENANCE.md`
+(new `s2b` block), `README.md` (spend, caveats, reproduce block). **0 API calls · $0.00.**
+
+**§7's S2 companion is now the registered split:** +0.1211 [+0.0869, +0.1578], with the
+pre-S2b +0.0927 kept beside it rather than replaced. **§9's item 1 — "S2b was not applied" —
+is struck**, and §11's last open falsifier ("S2b, once applied, collapsing the G4 gain. Not
+yet tested") is closed: it did not.
+
+**The `research/data/gate_g4_s2b_*.json` cost fields were made self-describing.** The first
+persisted copy came from a *cached* re-run and read `new_calls: 0, usd: 0.0` — true of that
+run, but it silently lost the record of the 203 paid calls. Fields renamed to
+`*_this_run` (matching `step3_features_*.json`) and a `paid_run` block added pointing at the
+22:09Z entry. **Noticed by reading the artifact back rather than trusting it.**
+**Jev spend this step:** $0.00 · **running total:** ~$0.3539
+**Next:** verify the whole document set is consistent, then commit TASK E.
+---
+## [2026-09-20T22:24Z] TASK D figure CORRECTED — the forest plot contradicted its own table
+**Found by reading the figure back after the S2b result landed.** `RESULTS.md` §2's gate table
+was updated to G4 = **+0.1211**, but `assets/gate_forest.png` is generated from
+`gates_g2_g6_2026-09-20.json` and still drew G4 at +0.0927. **A figure disagreeing with the
+table beside it is a defect**, not a cosmetic issue, and on a public repo it is the kind a
+reader finds first.
+
+**Fix:** `scripts/037_reliability.py` now reads `gate_g4_s2b_2026-09-20.json` when it exists and
+draws **both** S2 rows — S2+S2a as a grey reference arm and **+S2b as the blue registered
+gate** — so the figure does not quietly replace the first-reported number either. If the S2b
+JSON is absent the script says so and falls back to the S2+S2a row alone, so a clean clone that
+has not run TASK E still gets a correct figure rather than a crash.
+
+**Second fix, same pass:** the negative-arm label (`B+N`, −0.0073) collided with its own row
+label after the x-axis widened for the S2b row. Labels now always start right of both the
+interval and the zero line. Verified by rendering and looking at it.
+**Jev spend this step:** $0.00 · **running total:** ~$0.3539

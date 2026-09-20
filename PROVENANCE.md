@@ -112,3 +112,39 @@ server-side drift, not a cold-cache re-run.
 ```
 
 <!-- END step3 -->
+
+---
+
+<!-- BEGIN s2b (hand-maintained) -->
+## S2b feature matrix (TASK E) — the note-level temporal filter
+
+Per-TIC Jev judgments over **time-filtered** observer text, behind
+`duckdb::jev_features_obsnotes_s2b`. Cached under `data/cache/s2b/` (gitignored);
+this block is the committed record.
+
+**Run (UTC):** `2026-09-20T22:09Z` · **model:** `jev-1.13.0` (pinned, asserted per
+response) · **question set:** `2026-09-20.r6`
+
+| quantity | value |
+| :--- | ---: |
+| observer notes with `Lastmod` < 2021-10-28 | 2,865 of 3,963 (72.3%) |
+| S2 training rows | 1,070 |
+| — text unchanged (served from the Step 3 cache) | 669 |
+| — text emptied, row leaves training | 186 |
+| — rows re-scored | 215, over 203 distinct states |
+| new API calls | 203 |
+| input tokens | 804,981 |
+| cost | $0.0338 |
+| failures | 0 |
+
+**`data/cache/step3/` is untouched by this run** and remains exactly 1,382 files =
+its distinct-state count. `scripts/039_gate_g4_s2b.py` reads Step 3's cache for a
+legitimate hit (an identical request costs nothing) but only ever *writes* to
+`data/cache/s2b/`. Verified after the run: step3 1,382 · s2b 203.
+
+```bash
+.venv/bin/python scripts/039_gate_g4_s2b.py --dry-run   # project cost, no calls
+.venv/bin/python scripts/039_gate_g4_s2b.py             # ~$0.03 cold, $0.00 warm
+```
+
+<!-- END s2b -->

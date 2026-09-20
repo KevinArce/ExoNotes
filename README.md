@@ -43,11 +43,11 @@ distribution, and astrophysics is maximally out of distribution for it.
 | ✅ G1 pipeline sanity | Numeric baseline **0.9051** AUC vs 0.4840 prior |
 | ✅ G2 headline · G3 stability · G4 temporal · G5 leakage-stripped · G6 missingness | **All pass.** [Every interval](./RESULTS.md#2-every-gate-with-its-interval) |
 | ⚠️ The pre-registered prior | **Falsified.** A null was predicted in advance and did not happen — [why](./RESULTS.md#5-the-pre-registered-prior-was-wrong) |
-| 💸 Spend to date | **~$0.3201** |
+| 💸 Spend to date | **~$0.3539** |
 
-**The caveats travel with the number.** A cold-cache re-run lands *near* +0.0440, not on it; one
-registered split component (S2b) was not applied; two label-echo features fail the stability
-gate. All of it is in [`RESULTS.md`](./RESULTS.md), not buried.
+**The caveats travel with the number.** A cold-cache re-run lands *near* +0.0440, not on it;
+two label-echo features fail the stability gate; the study's own pre-registered prior predicted
+a null and was falsified. All of it is in [`RESULTS.md`](./RESULTS.md), not buried.
 
 ## Two findings that are already useful
 
@@ -130,6 +130,8 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md).
 .venv/bin/python scripts/035_gates_g2_g6.py           # ~15 min, $0 — G2, G4, G5, G6
 .venv/bin/python scripts/036_gate_g3_stability.py     # ~2 min, ~$0.06 — G3
 .venv/bin/python scripts/037_reliability.py           # ~1 min, $0 — the RESULTS.md figures
+.venv/bin/python scripts/038_drift_sensitivity.py     # ~1 min, $0 — the drift arm
+.venv/bin/python scripts/039_gate_g4_s2b.py           # ~1 min, ~$0.03 — G4 with S2b
 ```
 
 > **⚠️ A cold-cache re-run lands near the published number, not exactly on it.** `jev-1.13.0`

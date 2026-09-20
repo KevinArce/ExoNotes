@@ -1168,3 +1168,62 @@ so the discrepancy is explained rather than noticed.
    for **baselines B and D**, which is what that item asks for.
 2. **S2b remains unapplied**, as A-28 already records. `RESULTS.md` §9 restates it rather than
    letting the write-up imply G4 is the registered split.
+
+---
+
+## 11.7 TASK E — S2b applied. **This section is written AFTER the result.**
+
+> **This section supersedes A-36 item 2** (*"S2b remains unapplied"*), written earlier in the
+> same session, and the A-28 sentence it rests on. Per §11's append-only rule neither is
+> edited: they stood when written, and this is the entry that changes them.
+
+### A-37 — §4's S2b is applied; G4 is now the registered split, and it PASSES
+
+A-28 reported G4 as the **S2 + S2a** result and said so explicitly rather than leaving it
+implicit: S2b — *"for the S2 **training** side only, include a note iff its `Lastmod` < the
+cutoff"* — needed every changed training row's features recomputed on time-filtered text.
+**That has now been done.** `scripts/039_gate_g4_s2b.py`, **203 new calls · 804,981 input
+tokens · $0.0338** (cumulative Jev spend **~$0.3539**).
+
+**2,865 of 3,963 observer notes (72.3%) survive the cutoff.** `Lastmod` is non-null on all
+6,855 notes, so §4's undated-note branch does not arise on this corpus.
+
+| arm | train | B | D | ΔAUC | 95% CI | |
+| :--- | ---: | ---: | ---: | ---: | :--- | :--- |
+| G4 — S2 + S2a, as A-28 reported it | 1,070 | 0.8209 | 0.9136 | +0.0927 | [+0.0608, +0.1264] | reproduced exactly |
+| **G4 — S2 + S2a + S2b, REGISTERED** | 884 | 0.8039 | **0.9250** | **+0.1211** | **[+0.0869, +0.1578]** | **PASS** |
+| G4c — same 884 rows, unfiltered text | 884 | 0.8039 | 0.9115 | +0.1076 | [+0.0755, +0.1423] | **not a gate** |
+
+Test side unchanged at **390 rows, base 0.6487**; train base 0.4888 → **0.4514**.
+
+**Four decisions, fixed before the run** (`WORKLOG.md` 21:58Z, written before the first call):
+1. **A row whose S2b text is empty leaves the training set.** §1.1 requires ≥1 observer note of
+   non-zero length; 186 training rows no longer qualify, so training goes 1,070 → 884.
+2. **B and D both train on those 884 rows.** Otherwise ΔAUC conflates the text filter with a
+   sample-size change. **G4c prices that confound** and is reported for exactly that reason.
+3. **The test side is untouched**, so G4 and G4b are directly comparable. Shrinking train can
+   only shrink the train-TIC set, so S2a's fix stays valid on a fixed test set; re-running S2a
+   would only add test rows back. Holding it fixed is the conservative direction.
+4. **New responses cache to `data/cache/s2b/`, never to `data/cache/step3/`**, which
+   `PROVENANCE.md` commits to at exactly 1,382 files. Verified after the run: **step3 1,382 ·
+   s2b 203.** This is `WORKLOG.md` 21:31Z defect 1 inverted — there `s3.CACHE` was *not* patched
+   and paraphrase responses leaked into `step3/`; here it is patched deliberately.
+
+**The two effects separate cleanly, which is why G4c exists:**
+- **Dropping the 186 rows** (G4 → G4c): B falls **−0.0170**, D falls **−0.0021**. ΔAUC rises
+  because the numeric baseline suffers more from the smaller training set than the
+  text-enriched model does — **not** because D improved.
+- **The text filter itself** (G4c → G4): B identical, so the whole move is D, 0.9115 → 0.9250.
+
+**That second step was tested directly and it is MARGINAL.** The two CIs overlap heavily, so
++0.0135 cannot be read off them. Paired bootstrap on the same 390 test rows — B identical in
+both arms, so the difference in ΔAUC *is* D(S2b) − D(full) — gives **+0.0135, 95% CI
+[+0.0006, +0.0269]**. It excludes zero, but barely, and **no section registered this comparison
+in advance.**
+
+**The claim that survives is the weaker one: training D on time-filtered text does not degrade
+it.** The stronger reading — that older-only training text actively helps — is suggestive and
+**is not established here**, and is recorded that way rather than as a finding.
+
+**What S2b still does not control**, unchanged from §10 item 1: `Lastmod` is last-modified, not
+created, so **S2b tests on *less* text, not on *older* text.** Dropping is the safe direction.

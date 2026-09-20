@@ -31,7 +31,7 @@ than dropped.
 | **E − B**, the full-question-set gain | **+0.0479** [+0.0367, +0.0596] | **Leakage-contaminated.** E adds the three `TIER_LABEL_ECHO` questions, which may restate the disposition. It is an upper bound, never the headline. |
 | **Baseline C**, TF-IDF on raw text | **AUC 0.8766** | **Labelled as leakage by construction.** On the earlier `Comments` corpus C scored 0.9691 and its strongest terms were catalogue prefixes — pure label echo. Here it lands **below** B. See [§4](#4-why-this-is-not-a-leakage-signature). |
 | **The G5 arm**, leakage-stripped | **+0.0394** [+0.0272, +0.0523] | n = 1,114 · base 0.4264. Stripping removes more positives than negatives, so **a G5 AUC is not comparable to a G2 AUC.** |
-| **The S2 result**, with its base-rate shift | **+0.0927** [+0.0608, +0.1264] | train 1,070 / test 390. **Train base 0.4888 → test base 0.6487.** The shift is expected and is the point; **an S2 AUC is not an S1 AUC** and is not quoted as one. |
+| **The S2 result**, with its base-rate shift | **+0.1211** [+0.0869, +0.1578] | The registered split, S2 + S2a + S2b: train 884 / test 390. **Train base 0.4514 → test base 0.6487.** The shift is expected and is the point; **an S2 AUC is not an S1 AUC** and is not quoted as one. Without S2b it is +0.0927 — see [§6a](#6a-the-temporal-split-g4-and-s2b). |
 
 **Against the registered detection bar.** [`PREREGISTRATION.md`](./PREREGISTRATION.md) §11.3
 A-20 fixed, before the run, a minimum detectable effect of **+0.0082** at 80% power, and a
@@ -50,7 +50,7 @@ All six gates pass.
 | **G1** | B ≥ 0.85 AUC and B > A by a bootstrap 95% CI excluding zero | B **0.9051** vs A 0.4840 · Δ +0.4212 [+0.3977, +0.4441] | ✅ **PASS** |
 | **G2** | D beats B on ΔAUC under S1, CI excluding zero | **+0.0440** [+0.0332, +0.0554] | ✅ **PASS** |
 | **G3** | Spearman ρ ≥ 0.85 **and** mean \|Δp\| ≤ 0.05 per feature, under paraphrase | **7/7 `TIER_PREDICTIVE`** clear both halves | ✅ **PASS** |
-| **G4** | the gain survives on `TIER_PREDICTIVE` only, under S2 | **+0.0927** [+0.0608, +0.1264] | ✅ **PASS** |
+| **G4** | the gain survives on `TIER_PREDICTIVE` only, under S2 | **+0.1211** [+0.0869, +0.1578] | ✅ **PASS** |
 | **G5** | the gain survives on the leakage-stripped arm | **+0.0394** [+0.0272, +0.0523] | ✅ **PASS** |
 | **G6** | the gain survives an explicit-missingness ablation | **+0.0425** [+0.0316, +0.0540] | ✅ **PASS** |
 
@@ -241,6 +241,58 @@ exactly one key, so the test stops being vacuous automatically if an amendment e
 
 ---
 
+## 6a. The temporal split (G4), and S2b
+
+§4 registers the temporal split in three parts. The first two — the 2021-10-28 cutoff on
+`date_toi_alerted` (**S2**) and dropping from *test* any row whose TIC also appears in train
+(**S2a**) — were applied when the gates first ran. The third was not:
+
+> **S2b** — for the S2 **training** side only, include a note **iff its `Lastmod` < the
+> cutoff.** This approximates the text as it stood when the candidate was young, which the
+> `Comments` field made impossible.
+
+**S2b has now been applied**, and G4 below is the registered split rather than an approximation
+to it. 2,865 of 3,963 observer notes (72.3%) survive the cutoff. `Lastmod` is non-null on all
+6,855 notes, so §4's undated-note case does not arise here.
+
+| arm | train | B | D | ΔAUC | 95% CI | |
+| :--- | ---: | ---: | ---: | ---: | :--- | :--- |
+| G4 — S2 + S2a, as first reported | 1,070 | 0.8209 | 0.9136 | +0.0927 | [+0.0608, +0.1264] | |
+| **G4 — S2 + S2a + S2b, registered** | 884 | 0.8039 | **0.9250** | **+0.1211** | **[+0.0869, +0.1578]** | ✅ **PASS** |
+| G4c — same 884 rows, unfiltered text | 884 | 0.8039 | 0.9115 | +0.1076 | [+0.0755, +0.1423] | *not a gate* |
+
+The test side is the same 390 rows throughout, base rate 0.6487. Train base moves 0.4888 →
+0.4514.
+
+**Why 186 training rows disappear.** §1.1 defines the corpus as rows with at least one observer
+note of non-zero length. Under S2b, 186 training rows lose *all* their text and no longer
+qualify, so training goes 1,070 → 884. **B and D both train on those same 884 rows** — if B
+kept all 1,070 while D lost 186, ΔAUC would conflate the text filter with a sample-size change.
+The G4c row exists to price that confound, and the two effects separate cleanly:
+
+- **Dropping the 186 rows** (G4 → G4c): B falls 0.8209 → 0.8039 (**−0.0170**), D falls 0.9136 →
+  0.9115 (**−0.0021**). ΔAUC rises **because the numeric baseline suffers more from the smaller
+  training set than the text-enriched model does** — not because D improved.
+- **The text filter itself** (G4c → G4): B is *identical*, so the entire move is D, 0.9115 →
+  **0.9250**.
+
+**That second step was tested directly, and it is marginal.** The two intervals overlap heavily,
+so the +0.0135 cannot be read off them. A paired bootstrap on the same 390 test rows — B being
+identical in both arms, the difference in ΔAUC *is* D(S2b text) − D(full text) — gives
+**+0.0135, 95% CI [+0.0006, +0.0269]**. That excludes zero, but barely, and it is a **post-hoc
+comparison that no section registered in advance.**
+
+**So the claim that survives is the weaker one: training D on time-filtered text does not
+degrade it.** The stronger reading — that restricting training text to what existed before the
+cutoff actively *helps* — is suggestive and is not established here.
+
+**What S2b does not control.** `Lastmod` is last-modified, not created, so a 2019 note edited in
+2023 is dropped by a 2021 cutoff. §4 says this plainly and it stands: **S2b tests on *less*
+text, not on *older* text.** Dropping is the safe direction — it removes text that may carry
+post-hoc knowledge — but it is not a reconstruction of what the note said in 2021.
+
+---
+
 ## 7. What was measured, on what
 
 | | |
@@ -252,7 +304,7 @@ exactly one key, so the test stops being vacuous automatically if an amendment e
 | **Questions** | [`src/exonotes/questions.py`](src/exonotes/questions.py) `2026-09-20.r6` — **7 `TIER_PREDICTIVE` + 3 `TIER_LABEL_ECHO`**, frozen before the run; gate score 219/221 assertions on 27 label-blinded real notes |
 | **Model** | `jev-1.13.0`, **pinned and asserted on every response**; one request per row, many questions per request |
 | **Predictor** | CatBoost (500 iterations, depth 4, lr 0.05), identical configuration in every arm |
-| **Spend** | Step 3: 1,462 calls · 5,763,547 input tokens · **$0.2421**. **Whole study: ~$0.3201** |
+| **Spend** | Step 3: 1,462 calls · 5,763,547 input tokens · **$0.2421**. S2b: 203 calls · **$0.0338**. **Whole study: ~$0.3539** |
 
 The division of labour is the point: **the language model is the featurizer, gradient boosting
 is the predictor, grouped cross-validation by host star is the arbiter.** A model judgment is a
@@ -313,10 +365,9 @@ back to zero; the arm is therefore marginally *weaker* than the drift it simulat
 
 Stated here rather than left implicit.
 
-1. **S2b was not applied.** §4 registers a note-level temporal filter for the S2 *training*
-   side — include a note iff its `Lastmod` < the cutoff. It requires recomputing every training
-   row's features on time-filtered text, a second near-full-corpus run. **G4 as reported is the
-   S2 + S2a result**, which is an approximation to the registered split, not the split itself.
+1. ~~**S2b was not applied.**~~ **It has been** — see [§6a](#6a-the-temporal-split-g4-and-s2b).
+   `PREREGISTRATION.md` §11.5 A-28 reported G4 as the S2 + S2a result, an approximation to the
+   registered split; G4 is now the registered split itself and still passes, at **+0.1211**.
 2. **Per-question reliability diagrams were not produced.** [`PLAN.md`](./PLAN.md) §9 asks for
    them. There is no ground truth to plot them against: the per-question judgments are not
    independently labelled, and the only hand-labelled set is the **27-case** question-design
@@ -394,8 +445,8 @@ hypothetical.
   **It did not** (0.8766 vs 0.9044).
 - Any `TIER_PREDICTIVE` feature failing G3. **None did**, against a noise floor 412× smaller
   than the effect being measured.
-- S2b, once applied, collapsing the G4 gain. **Not yet tested** — see
-  [§9](#9-what-was-not-done) item 1.
+- S2b, once applied, collapsing the G4 gain. **It did not** (+0.1211, up from +0.0927 —
+  [§6a](#6a-the-temporal-split-g4-and-s2b)).
 
 ---
 
@@ -410,6 +461,7 @@ uv pip install -r requirements.txt
 .venv/bin/python scripts/036_gate_g3_stability.py     # ~2 min, ~$0.06 — G3
 .venv/bin/python scripts/037_reliability.py           # ~1 min, $0    — the figures above
 .venv/bin/python scripts/038_drift_sensitivity.py     # ~1 min, $0    — §8's drift arm
+.venv/bin/python scripts/039_gate_g4_s2b.py           # ~1 min, ~$0.03 — §6a, G4 with S2b
 ```
 
 Raw numbers behind every table in this document:
@@ -423,6 +475,7 @@ Raw numbers behind every table in this document:
 | the leakage clause table | `research/data/leakage_obsnotes_2026-09-20.json` |
 | calibration bins, Brier, ECE, MCE | `research/data/reliability_2026-09-20.json` |
 | the drift-sensitivity arm | `research/data/drift_sensitivity_x1_2026-09-20.json`, `…_x10_…` |
+| G4 with S2b, and the G4c confound control | `research/data/gate_g4_s2b_2026-09-20.json` |
 | corpus and feature-matrix checksums | [`PROVENANCE.md`](./PROVENANCE.md) |
 
 **The audit trail.** [`PREREGISTRATION.md`](./PREREGISTRATION.md) §11.5 (A-28…A-32) registers
