@@ -1335,3 +1335,56 @@ check doing its job.
 **never executed on GitHub**. Until a green run exists, the repo must not be called
 reproduction-verified. Next session: **Actions → reproduce → Run workflow**, then log the outcome.
 ---
+## [2026-09-20T01:31Z] SIDE QUEST 01 — ✅ **GREEN ON THE FIRST RUN · CHECKLIST ITEM 10 CLOSED**
+**Run:** [35481446612](https://github.com/KevinArce/ExoNotes/actions/runs/35481446612), triggered
+by the push (it touches `scripts/**`), **conclusion `success` in 1m32s** on `ubuntu-latest`,
+Python 3.14.7.
+**Idempotent:** yes. **Jev spend:** $0.00 · **running total:** ~$0.0046
+
+```
+[PASS] analysis rows within +/-25% of reference     2721 (ref 2721, band 2040-3401)
+[PASS] unique TIC > 0                               2573 (ref 2573)
+[PASS] A (prior) sits at chance                     AUC 0.5000 (ref 0.5000)
+[PASS] B (numeric) AUC >= 0.85                      AUC 0.9149 (ref 0.9154, delta -0.0005)
+[PASS] B beats A on AUC                             0.9149 > 0.5000
+[PASS] B beats A on Brier                           0.1141 < 0.2501
+REPRODUCTION VERIFIED - gate G1 reproduces from a clean build.
+```
+
+**`PLAN.md` §11.6 is now 10/10.** After two sessions blocked, the repo is
+**reproduction-verified** — and it re-verifies weekly rather than once.
+**ExoFOP answered the runner immediately while still refusing this host**, which confirms the
+throttle is per-IP. The `catboost==1.2.10` / Python 3.14 Linux-wheel risk I recorded in advance
+**did not materialise** — it installed from a wheel.
+
+### ⚠️ UNEXPECTED FINDING — the −0.0005 is NOT archive drift, and it matters for G2
+I built the check expecting the archives to have moved. **They had not.** Downloaded the run's
+`PROVENANCE.md` artifact and diffed it: **all three raw sources are byte-identical SHA256** to the
+committed checksums (`exofop_toi` 3,806,771 B, `nea_toi` 2,048,596 B, `nea_pscomppars`
+1,147,680 B).
+
+**Identical inputs, and yet B = 0.9149 on linux/x64 vs 0.9154 on macos/arm64.** The difference is
+**compute nondeterminism** — floating point, threading, BLAS — not data. Within one platform the
+pipeline is exactly repeatable (this host reproduces 0.9154 to four decimals on every re-run).
+
+**Consequence for G2, recorded now rather than discovered later:** the headline test is a ΔAUC
+with a bootstrap CI excluding zero, and there is now a **measured ~5×10⁻⁴ cross-platform noise
+floor from arithmetic alone**. Small against the ~0.08 of headroom over baseline B, but it means
+**model-vs-model comparisons must run on one platform**, and any claimed gain below ~10⁻³ is
+noise. We only learned this because the same bytes ran on two architectures — a side effect of
+the CI work, not something it was built to find.
+
+**Corrected my own wording:** the verifier said "drift", which implies the data moved. It now says
+"delta" and prints how to tell the two apart — different checksums mean the archive moved;
+identical checksums with a non-zero delta mean compute nondeterminism.
+
+### A second widening of §11.6
+Item 9's grep (`/(Users|home)/[a-z]`) **missed** the `/private/tmp/...` path in
+`00_smoke_test.py`. `PLAN.md` §11.6 now also specifies
+`git grep -nE '"/(private/)?(tmp|Users|home|var)/'`.
+
+**Updated:** `PLAN.md` §11.6 (item 10 ✅, item 9 widened), `SIDEQUEST_01_CI_REPRODUCTION.md`
+(now a record, with the outcome and the nondeterminism finding),
+`HANDOFF_PROMPT.md` (side quest closed, G2 noise-floor note added).
+**Next:** `HANDOFF_PROMPT.md` TASK A — pull the obsnotes corpus.
+---

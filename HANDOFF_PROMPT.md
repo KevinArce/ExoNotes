@@ -4,18 +4,17 @@ You are picking up the ExoNotes project. **Work from the repo, not from memory.*
 
 ---
 
-## ⏱️ DO THIS FIRST — [`SIDEQUEST_01_CI_REPRODUCTION.md`](./SIDEQUEST_01_CI_REPRODUCTION.md)
+## ✅ Side quest 01 is DONE — item 10 is closed
 
-A one-shot task that comes **before** the main sequence below. Everything is built and locally
-verified; all that remains is to run it:
+[`SIDEQUEST_01_CI_REPRODUCTION.md`](./SIDEQUEST_01_CI_REPRODUCTION.md) is complete. The
+clean-clone reproduction now runs in CI and went **green on its first run** (2026-09-20,
+B 0.9149 AUC vs A 0.5000, raw sources byte-identical). **`PLAN.md` §11.6 is 10/10 — the repo
+is reproduction-verified** and the check re-runs weekly. Nothing to do; start at TASK A below.
 
-> **Actions → reproduce → Run workflow** on `master`, then read the summary.
-
-It closes `PLAN.md` §11.6 **item 10** (clean-clone reproduction), the last open item on the
-pre-publication checklist, which ExoFOP throttling has blocked for two sessions. ~10–15 min,
-$0, no API calls. Log the outcome in `WORKLOG.md`, then come back here and start TASK A.
-
-**Until it goes green, do not describe this repository as reproduction-verified.**
+**One measurement from it that affects G2:** the runner's inputs were byte-identical to ours,
+yet baseline B came out **0.9149 on linux/x64 vs 0.9154 on macos/arm64**. That ~5e-4 is
+**compute nondeterminism, not data drift**. Keep model-vs-model comparisons on one platform,
+and treat any claimed ΔAUC below ~1e-3 as noise.
 
 ---
 
@@ -148,27 +147,9 @@ all questions per request, content-addressed cache, persist **full raw response 
    This rewrites public history. **Ask before running it.** Leaving the old commit published and
    simply using the right identity from here on is a legitimate alternative.
 
-2. **Clean-clone reproduction (checklist item 10) is STILL UNVERIFIED — but it is now
-   actionable.** See **[`SIDEQUEST_01_CI_REPRODUCTION.md`](./SIDEQUEST_01_CI_REPRODUCTION.md)**:
-   a CI workflow now runs the check from a GitHub runner, whose IP is not the one ExoFOP is
-   throttling. Run it before anything else. ExoFOP has been throttling the **bulk**
-   `download_toi.php` endpoint from this host continuously since 2026-09-19 — probed five times,
-   always `http=000, connect≈0.4 s, size=0`. Per-TIC endpoints answer normally, so this is
-   endpoint-specific, not an outage.
-   **Do not describe the repo as reproducible until this passes:**
-   ```
-   git clone https://github.com/KevinArce/ExoNotes /tmp/cc && cd /tmp/cc
-   uv venv --python 3.14 .venv && VIRTUAL_ENV=.venv uv pip install -r requirements.txt
-   .venv/bin/python scripts/01_ingest.py && .venv/bin/python scripts/02_baselines.py
-   ```
-   Passes when G1 reproduces (B ~0.9154 AUC vs A 0.5000). **Re-probe first** — one `curl` saves
-   20 minutes:
-   ```
-   curl --max-time 30 -o /dev/null -w '%{http_code} %{size_download}\n' \
-     'https://exofop.ipac.caltech.edu/tess/download_toi.php?output=csv'
-   ```
-   `01_ingest.py` now fails in a bounded way with an actionable message instead of hanging
-   forever, so the test is at least safe to attempt.
+2. ~~Clean-clone reproduction~~ — **CLOSED 2026-09-20**, see above. Note that ExoFOP may still
+   be throttling **this host's** bulk pulls; that no longer blocks anything, because CI does the
+   cold-start test from a different IP. Local work runs off the cached `data/raw/`.
 
 ---
 

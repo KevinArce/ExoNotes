@@ -771,10 +771,18 @@ Run this immediately before making the repo public:
 - [ ] README states current status honestly, including that the headline question is still open.
 - [ ] README carries the §11.5 acknowledgements.
 - [ ] `research/01–02` are marked superseded.
-- [ ] A clean clone reproduces: `uv venv --python 3.14 .venv`, install, `01_ingest.py`,
-      `02_baselines.py` — and G1 passes.
-- [ ] No absolute local paths (a home directory, a username) anywhere in tracked files:
-      `git grep -nE '/(Users|home)/[a-z]'` must return nothing.
+- [x] **A clean clone reproduces** — ✅ **VERIFIED 2026-09-20** by
+      [`.github/workflows/reproduce.yml`](.github/workflows/reproduce.yml) run
+      [35481446612](https://github.com/KevinArce/ExoNotes/actions/runs/35481446612), green in
+      1m32s on a fresh `ubuntu-latest` runner. **B 0.9149 AUC vs A 0.5000.** All three raw
+      sources came back **byte-identical** to the committed checksums. Re-runs weekly and on
+      any change to `scripts/`, `src/` or `requirements.txt`. See
+      [`SIDEQUEST_01_CI_REPRODUCTION.md`](SIDEQUEST_01_CI_REPRODUCTION.md).
+- [x] No absolute local paths (a home directory, a username) anywhere in tracked files.
+      ⚠️ **Widen the grep** — `git grep -nE '/(Users|home)/[a-z]'` **missed** a hard-coded
+      `/private/tmp/...` scratchpad path in `scripts/00_smoke_test.py` that was both a username
+      leak and a live crash for anyone else running it. Use
+      `git grep -nE '"/(private/)?(tmp|Users|home|var)/'` as well.
 
 ### 11.7 When to publish
 

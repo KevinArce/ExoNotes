@@ -1,9 +1,13 @@
 # Side quest 01 — CI clean-clone reproduction
 
-> **One-shot task. Do this BEFORE the main sequence in [`HANDOFF_PROMPT.md`](./HANDOFF_PROMPT.md).**
-> **Status:** built and locally verified 2026-09-20. **Not yet run on GitHub.**
+> **One-shot task, taken ahead of the main sequence in [`HANDOFF_PROMPT.md`](./HANDOFF_PROMPT.md).**
+> **Status:** ✅ **COMPLETE — green on the first run, 2026-09-20.**
+> Run [35481446612](https://github.com/KevinArce/ExoNotes/actions/runs/35481446612), 1m32s.
+> **B 0.9149 AUC vs A 0.5000**, all three raw sources byte-identical to the committed checksums.
+> `PLAN.md` §11.6 item 10 is **CLOSED**. The repo may now be called reproduction-verified.
+> Nothing left to do here; the workflow re-runs itself weekly.
 > **Cost:** $0 — no model API calls anywhere in this task.
-> **Expected effort:** one workflow run, ~10–15 min wall clock, most of it waiting.
+> **Actual effort:** one workflow run, **1m32s**.
 
 ---
 
@@ -87,31 +91,60 @@ Exit codes: **0** reproduced · **1** a check failed · **2** inputs missing (in
 
 ---
 
-## How to finish it
+## Outcome — green on the first run
 
-1. Push, then open **Actions → reproduce → Run workflow** on `master`.
-   (Manual dispatch is the one that closes item 10. Do not wait for the Monday cron.)
-2. Read the run summary. Three outcomes:
-   - **Green** → item 10 is **CLOSED**. Update `PLAN.md` §11.6 item 10 and `WORKLOG.md`, and the
-     repo may finally be described as reproduction-verified. Note the drift figures — they are
-     the interesting part, not a problem.
-   - **Red, with "ExoFOP unavailable/throttled"** → upstream, nothing to fix. Re-run later. Item
-     10 stays open and **must not** be claimed.
-   - **Red, any other reason** → a genuine defect in a fresh environment. Most likely candidates:
-     a Python 3.14 wheel missing for `ubuntu-latest`, or a path assumption that only holds on the
-     dev machine. Fix it — that is precisely the class of bug this check exists to surface.
-3. Log the outcome in `WORKLOG.md` per §0.5 (`STARTED` before, outcome after).
-4. **Then go to [`HANDOFF_PROMPT.md`](./HANDOFF_PROMPT.md)** and start TASK A (obsnotes pull).
+Run [35481446612](https://github.com/KevinArce/ExoNotes/actions/runs/35481446612), triggered by
+the push, **1m32s, success**:
+
+```
+=== corpus ===
+  [PASS] analysis rows within +/-25% of reference     2721 (ref 2721, band 2040-3401)
+  [PASS] unique TIC > 0                               2573 (ref 2573)
+  [PASS] snapshot date recorded                       2026-09-19
+
+=== gate G1 ===
+  [PASS] A (prior) sits at chance                     AUC 0.5000 (ref 0.5000)
+  [PASS] B (numeric) AUC >= 0.85                      AUC 0.9149 (ref 0.9154, delta -0.0005)
+  [PASS] B beats A on AUC                             0.9149 > 0.5000
+  [PASS] B beats A on Brier                           0.1141 < 0.2501
+
+REPRODUCTION VERIFIED - gate G1 reproduces from a clean build.
+```
+
+`PLAN.md` §11.6 is now **10/10**. The repo is reproduction-verified.
+
+### The interesting part: that −0.0005 is not archive drift
+
+The check was built expecting the archives to have moved. **They had not.** All three raw
+sources came back with **byte-identical SHA256** to the committed `PROVENANCE.md`:
+
+| source | bytes | matches committed checksum |
+| :--- | ---: | :---: |
+| `exofop_toi` | 3,806,771 | ✅ |
+| `nea_toi` | 2,048,596 | ✅ |
+| `nea_pscomppars` | 1,147,680 | ✅ |
+
+Identical inputs, and yet **B = 0.9149 on linux/x64 against 0.9154 on macos/arm64**. The
+difference is **compute nondeterminism** — floating point, threading, BLAS — not data. Within a
+single platform the pipeline is exactly repeatable (the dev host reproduces 0.9154 to four
+decimals on every re-run).
+
+**This matters for G2.** The headline test is a ΔAUC with a bootstrap CI excluding zero, and
+there is now a measured **~5×10⁻⁴ cross-platform noise floor** from arithmetic alone. It is small
+against the ~0.08 of headroom above baseline B, but it means: **run model-vs-model comparisons on
+one platform, and treat any claimed gain below ~10⁻³ as noise.** We would not have known this
+without running the same inputs on two architectures.
 
 ---
 
 ## Known risks
 
-- **Python 3.14 on `ubuntu-latest`.** Pinned to `catboost==1.2.10`, which has 3.14 wheels on this
-  machine (macOS/arm64). If the Linux wheel is missing, CatBoost will try to build from source and
-  probably fail. **This is a real finding, not a CI annoyance** — it would mean `requirements.txt`
-  is not portable, and anyone cloning on Linux hits it too.
-- **First run may be slow** — no pip cache yet, plus a ~25 s ExoFOP pull and ~2 min of CV.
+- ~~**Python 3.14 on `ubuntu-latest`.**~~ **RESOLVED** — `catboost==1.2.10` installed cleanly from
+  a wheel on linux/x64 under Python 3.14.7. `requirements.txt` is portable across both platforms
+  we have now tested.
+- ~~**First run may be slow.**~~ It took **1m32s** end to end, including the ExoFOP pull.
+- **ExoFOP answered the runner immediately** while still refusing this host, which confirms the
+  throttle is per-IP. Local development still runs off the cached `data/raw/`.
 - **The badge reflects the last run, including a throttled one.** A red badge is not necessarily a
   broken repo; the run summary always says which of the two it was.
 - **This does not verify Step 3 or the Jev pipeline.** It covers ingest and baselines only — the

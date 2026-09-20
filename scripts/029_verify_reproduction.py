@@ -96,7 +96,7 @@ def main() -> int:
              abs(a_auc - 0.5) <= PRIOR_TOLERANCE, f"AUC {a_auc:.4f} (ref 0.5000)")
         c.ok(f"B (numeric) AUC >= {B_FLOOR}",
              b_auc >= B_FLOOR, f"AUC {b_auc:.4f} (ref {REF['B_numeric_auc']:.4f}, "
-                               f"drift {b_auc - REF['B_numeric_auc']:+.4f})")
+                               f"delta {b_auc - REF['B_numeric_auc']:+.4f})")
         c.ok("B beats A on AUC", b_auc > a_auc, f"{b_auc:.4f} > {a_auc:.4f}")
         c.ok("B beats A on Brier", b_brier < a_brier, f"{b_brier:.4f} < {a_brier:.4f}")
 
@@ -115,8 +115,15 @@ def main() -> int:
             print(f"  - {f}", file=sys.stderr)
         return 1
     print("REPRODUCTION VERIFIED - gate G1 reproduces from a clean build.")
-    print("Note: archive drift is expected and tolerated; the drift figures above are the")
-    print("point of this check, not a problem with it.")
+    print()
+    print("Reading the delta: compare the checksums in PROVENANCE.md against the committed")
+    print("ones. DIFFERENT checksums mean the archives moved - expected, and exactly why this")
+    print("check asserts the finding rather than the numbers. IDENTICAL checksums with a")
+    print("non-zero delta mean the inputs were the same and the difference is compute")
+    print("nondeterminism across platforms, not data drift. Measured 2026-09-20: identical")
+    print("checksums, B = 0.9149 on linux/x64 vs 0.9154 on macos/arm64, i.e. ~5e-4 of")
+    print("cross-platform wobble from floating point alone. Keep model-vs-model comparisons")
+    print("within one platform, and treat any claimed gain smaller than that as noise.")
     return 0
 
 
