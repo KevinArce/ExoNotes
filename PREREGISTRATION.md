@@ -1227,3 +1227,64 @@ it.** The stronger reading — that older-only training text actively helps — 
 
 **What S2b still does not control**, unchanged from §10 item 1: `Lastmod` is last-modified, not
 created, so **S2b tests on *less* text, not on *older* text.** Dropping is the safe direction.
+
+---
+
+## 11.8 TASK D/E follow-up — a concurrency defect changed the published numbers. **Written AFTER the result.**
+
+### A-38 — The Step 3 cache race made the feature matrix irreproducible; every number is restated
+
+**The headline is +0.0432 [+0.0324, +0.0547], not the +0.0440 first registered in A-28.**
+
+**Cause.** `scripts/034_step3_features.py` checked the cache at the top of `call()` and wrote at
+the bottom, so two workers on the same state both missed and both called — **1,462 calls for
+1,382 distinct states**. The ~$0.013 of waste was already on the record. What was not:
+
+> For each of the **80 duplicated states**, `results[(tic, toi)]` kept **whichever response that
+> row's own future returned**, while the cache file kept the **last** write. Those are two
+> different responses, differing by the within-session drift A-31 measured at mean |Δ| ≈ 0.0001.
+> **The persisted matrix was therefore a mixture of in-memory and on-disk responses, and was not
+> reproducible from its own cache.**
+
+**How it surfaced.** A per-key lock was added and Step 3 re-run **warm — 0 calls, $0.0000 — to
+prove the change was harmless**, then the rebuilt matrix was checksummed against the stored one:
+`c58de4de…` → `d7b5be56…`. A zero-call re-run changed the matrix. Re-run again: stable at
+`d7b5be56…`. The lock removes the cause — one caller per state means the in-memory response and
+the cache file are the same object by construction.
+
+**Every arm was re-run on the cache-consistent matrix. No verdict moves.**
+
+| arm | A-28 / A-37 as published | **cache-consistent** | shift |
+| :--- | ---: | ---: | ---: |
+| **G2 — headline** | +0.0440 | **+0.0432** [+0.0324, +0.0547] | **−0.0008** |
+| D − B+meta | +0.0228 | +0.0220 [+0.0126, +0.0321] | −0.0008 |
+| E − B | +0.0479 | +0.0482 [+0.0370, +0.0600] | +0.0003 |
+| G5 registered (L6) | +0.0394 | +0.0391 [+0.0268, +0.0519] | −0.0003 |
+| G5 sensitivity (no L6) | +0.0421 | +0.0426 [+0.0308, +0.0552] | +0.0005 |
+| G6 | +0.0425 | +0.0425 [+0.0314, +0.0540] | −0.0000 |
+| G4 — S2 + S2a | +0.0927 | +0.0936 [+0.0622, +0.1268] | +0.0010 |
+| **G4 — S2 + S2a + S2b** | +0.1211 | **+0.1296** [+0.0948, +0.1670] | +0.0085 |
+| B+N · B+meta · baseline C | — | unchanged | 0.0000 |
+
+**Every S1 shift is ≤ 0.0010 — under one eighth of the MDE — and matches the A-33 drift arm's
+sd of 0.0010, which is a useful check on that arm.** G2 is **5.3×** the MDE, not 5.4×.
+
+**A-29 is unaffected in substance.** Re-measured univariate |AUC|: 0.749, 0.705, 0.695, 0.683,
+0.648, 0.636, 0.579. **Four of seven still clear the ≈0.68 bar**, so A-23's prior is still
+falsified and for the same reason.
+
+**A-37's S2b numbers moved by +0.0085, eight times the S1 shift, and that has its own cause.**
+**S2 is one train/test split and one CatBoost fit per arm**, where S1 averages 5 folds × 3
+repeats. The paired bootstrap resamples *test groups*, not the fit. Measured over 10 CatBoost
+seeds: G4 (S2+S2a) **+0.0954 ± 0.0044**, G4 (+S2b) **+0.1286 ± 0.0047**, G4c **+0.1091 ±
+0.0050**. **An S2 ΔAUC carries ~±0.005 of seed noise, roughly 5× the S1 figure**, and S2 arms
+closer than ~0.01 should not be separated on the point estimate alone.
+
+**A-37's "marginal" finding is upgraded, and the upgrade is stated as such.** The S2b text
+effect was +0.0135 [+0.0006, +0.0269] on the contaminated matrix; on the corrected one it is
+**+0.0246 [+0.0115, +0.0383]**, and G4's worst seed (+0.1210) still clears G4c's best
+(+0.1179). **It remains a post-hoc comparison that no section registered in advance**, and it
+is still not a gate.
+
+**The correction moves the headline down.** Recorded in full rather than as a footnote: a study
+that publishes a falsified prior does not get to quietly round its own headline in its favour.

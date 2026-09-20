@@ -764,13 +764,20 @@ Both archives request citation. Put this in the README:
 
 Run this immediately before making the repo public:
 
-- [ ] `git log -p | grep -i` for the key — must be empty. **Rotate the key if not.**
-- [ ] `.env` is not tracked: `git ls-files --error-unmatch .env` must fail.
-- [ ] `data/` is not tracked: `git ls-files data/ | wc -l` must be `0`.
-- [ ] `LICENSE`, `CITATION.cff`, `CONTRIBUTING.md`, `PROVENANCE.md`, `requirements.txt` present.
-- [ ] README states current status honestly, including that the headline question is still open.
-- [ ] README carries the §11.5 acknowledgements.
-- [ ] `research/01–02` are marked superseded.
+*(Re-run 2026-09-20T23:0xZ after TASK D/E added `RESULTS.md`, four scripts and two figures.)*
+
+- [x] `git log -p | grep -i` for the key — **0 hits.**
+- [x] `.env` is not tracked — `git ls-files --error-unmatch .env` fails as required.
+- [x] `data/` is not tracked — `git ls-files data/` returns 0.
+- [x] `LICENSE`, `CITATION.cff`, `CONTRIBUTING.md`, `PROVENANCE.md`, `requirements.txt` present
+      (plus `RESULTS.md`, `PREREGISTRATION.md`).
+- [x] README states current status honestly. ⚠️ **This item's wording is now obsolete** — it
+      reads "including that the headline question is still open", which was written before the
+      result. The question is **answered**; the README states the result, the spend, and the
+      three caveats that travel with it, and links `RESULTS.md`. The item's *intent* — an
+      honest status — is what is ticked here, not its literal text.
+- [x] README carries the §11.5 acknowledgements.
+- [x] `research/01–02` are marked superseded.
 - [x] **A clean clone reproduces** — ✅ **VERIFIED 2026-09-20** by
       [`.github/workflows/reproduce.yml`](.github/workflows/reproduce.yml) run
       [35481446612](https://github.com/KevinArce/ExoNotes/actions/runs/35481446612), green in

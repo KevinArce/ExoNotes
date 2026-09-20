@@ -3,7 +3,7 @@
 **Do the free-text notes astronomers write on TESS Objects of Interest carry
 disposition-relevant information that the numeric catalogue columns do not?**
 
-**Yes, on this corpus, by a margin 5.4× the effect this study was powered to detect.**
+**Yes, on this corpus, by a margin 5.3× the effect this study was powered to detect.**
 
 This document is [`PREREGISTRATION.md`](./PREREGISTRATION.md) §9 item 7. Every criterion it
 reports against was committed and pushed (`4198379`) **before** the first full-corpus model call
@@ -18,25 +18,25 @@ than dropped.
 §7 defines the headline as **one number**: ΔAUC of model **D − B** under split **S1**, using
 **`TIER_PREDICTIVE` questions only**, with its bootstrap 95% CI.
 
-> ### ΔAUC(D − B) = **+0.0440**, 95% CI **[+0.0332, +0.0554]**
+> ### ΔAUC(D − B) = **+0.0432**, 95% CI **[+0.0324, +0.0547]**
 >
 > n = 1,482 rows · 1,388 TIC groups · base rate 0.5378 · GroupKFold(5) × 3 repeats ·
 > paired bootstrap, 10,000 resamples over TIC groups.
-> **B = 0.9044 → D = 0.9483.**
+> **B = 0.9044 → D = 0.9476.**
 
 §7 requires four things be reported beside it, always, never instead of it:
 
 | companion | value | what it means |
 | :--- | :--- | :--- |
-| **E − B**, the full-question-set gain | **+0.0479** [+0.0367, +0.0596] | **Leakage-contaminated.** E adds the three `TIER_LABEL_ECHO` questions, which may restate the disposition. It is an upper bound, never the headline. |
+| **E − B**, the full-question-set gain | **+0.0482** [+0.0370, +0.0600] | **Leakage-contaminated.** E adds the three `TIER_LABEL_ECHO` questions, which may restate the disposition. It is an upper bound, never the headline. |
 | **Baseline C**, TF-IDF on raw text | **AUC 0.8766** | **Labelled as leakage by construction.** On the earlier `Comments` corpus C scored 0.9691 and its strongest terms were catalogue prefixes — pure label echo. Here it lands **below** B. See [§4](#4-why-this-is-not-a-leakage-signature). |
-| **The G5 arm**, leakage-stripped | **+0.0394** [+0.0272, +0.0523] | n = 1,114 · base 0.4264. Stripping removes more positives than negatives, so **a G5 AUC is not comparable to a G2 AUC.** |
-| **The S2 result**, with its base-rate shift | **+0.1211** [+0.0869, +0.1578] | The registered split, S2 + S2a + S2b: train 884 / test 390. **Train base 0.4514 → test base 0.6487.** The shift is expected and is the point; **an S2 AUC is not an S1 AUC** and is not quoted as one. Without S2b it is +0.0927 — see [§6a](#6a-the-temporal-split-g4-and-s2b). |
+| **The G5 arm**, leakage-stripped | **+0.0391** [+0.0268, +0.0519] | n = 1,114 · base 0.4264. Stripping removes more positives than negatives, so **a G5 AUC is not comparable to a G2 AUC.** |
+| **The S2 result**, with its base-rate shift | **+0.1296** [+0.0948, +0.1670] | The registered split, S2 + S2a + S2b: train 884 / test 390. **Train base 0.4514 → test base 0.6487.** The shift is expected and is the point; **an S2 AUC is not an S1 AUC** and is not quoted as one. Without S2b it is +0.0936 — see [§6a](#6a-the-temporal-split-g4-and-s2b). |
 
 **Against the registered detection bar.** [`PREREGISTRATION.md`](./PREREGISTRATION.md) §11.3
 A-20 fixed, before the run, a minimum detectable effect of **+0.0082** at 80% power, and a
 dilution floor of **−0.0105** — the AUC cost of adding seven *known-worthless* columns to this
-CatBoost. The headline is **5.4× the MDE**, and its CI lower bound of +0.0332 clears the
+CatBoost. The headline is **5.3× the MDE**, and its CI lower bound of +0.0324 clears the
 dilution floor by a wide margin.
 
 ---
@@ -48,11 +48,11 @@ All six gates pass.
 | gate | criterion, as registered in §6 | result | verdict |
 | :--- | :--- | :--- | :--- |
 | **G1** | B ≥ 0.85 AUC and B > A by a bootstrap 95% CI excluding zero | B **0.9051** vs A 0.4840 · Δ +0.4212 [+0.3977, +0.4441] | ✅ **PASS** |
-| **G2** | D beats B on ΔAUC under S1, CI excluding zero | **+0.0440** [+0.0332, +0.0554] | ✅ **PASS** |
+| **G2** | D beats B on ΔAUC under S1, CI excluding zero | **+0.0432** [+0.0324, +0.0547] | ✅ **PASS** |
 | **G3** | Spearman ρ ≥ 0.85 **and** mean \|Δp\| ≤ 0.05 per feature, under paraphrase | **7/7 `TIER_PREDICTIVE`** clear both halves | ✅ **PASS** |
-| **G4** | the gain survives on `TIER_PREDICTIVE` only, under S2 | **+0.1211** [+0.0869, +0.1578] | ✅ **PASS** |
-| **G5** | the gain survives on the leakage-stripped arm | **+0.0394** [+0.0272, +0.0523] | ✅ **PASS** |
-| **G6** | the gain survives an explicit-missingness ablation | **+0.0425** [+0.0316, +0.0540] | ✅ **PASS** |
+| **G4** | the gain survives on `TIER_PREDICTIVE` only, under S2 | **+0.1296** [+0.0948, +0.1670] | ✅ **PASS** |
+| **G5** | the gain survives on the leakage-stripped arm | **+0.0391** [+0.0268, +0.0519] | ✅ **PASS** |
+| **G6** | the gain survives an explicit-missingness ablation | **+0.0425** [+0.0314, +0.0540] | ✅ **PASS** |
 
 ![Every arm with its 95% confidence interval](assets/gate_forest.png)
 
@@ -64,7 +64,7 @@ The reference arms are on the same figure because they are what make the gates r
 - **B+meta, the metadata control (A-7):** **+0.0212** [+0.0132, +0.0293]. Note count, total
   characters and an author one-hot — **no model call at all** — reach 0.9256. Provenance alone
   does add signal.
-- **D − B+meta:** **+0.0228** [+0.0133, +0.0329]. The prose adds **beyond** provenance. This is
+- **D − B+meta:** **+0.0220** [+0.0126, +0.0321]. The prose adds **beyond** provenance. This is
   the single most important control in the study; see [§4](#4-why-this-is-not-a-leakage-signature).
 
 ### Two values of B appear in this repository, and here is why
@@ -93,21 +93,20 @@ in this study; they enter only as features.
 
 | | B — numeric only | D — numeric + Jev |
 | :--- | ---: | ---: |
-| AUC | 0.9044 | **0.9483** |
-| **Brier** (mean over 3 S1 repeats) | 0.1210 [0.1195–0.1231] | **0.0881** [0.0859–0.0895] |
-| **ECE**, 10 equal-width bins | 0.0263 [0.0240–0.0295] | 0.0232 [0.0226–0.0237] |
-| **MCE** | 0.0835 | **0.0929** |
-| rows placed in the two extreme bins | 737 (49.7%) | **995 (67.1%)** |
+| AUC | 0.9044 | **0.9476** |
+| **Brier** (mean over 3 S1 repeats) | 0.1210 [0.1195–0.1231] | **0.0892** [0.0869–0.0905] |
+| **ECE**, 10 equal-width bins | 0.0263 [0.0240–0.0295] | 0.0228 [0.0217–0.0237] |
+| **MCE** | 0.0835 | **0.1196** |
+| rows placed in the two extreme bins | 737 (49.7%) | **992 (67.0%)** |
 
-**The gain is sharpness, not calibration — and that distinction matters.** Brier falls 27%,
+**The gain is sharpness, not calibration — and that distinction matters.** Brier falls 26%,
 but ECE barely moves. D is **not** meaningfully better calibrated than B; it is more
-*decisive*. It moves 258 more rows into p < 0.1 or p > 0.9, and it is right about them. Both
-curves track the diagonal within their intervals across the whole range.
+*decisive*. It moves 255 more rows into p < 0.1 or p > 0.9, and it is right about them.
 
-**D's worst bin is worse than B's.** MCE rises from 0.0835 to 0.0929, on the 44-row 0.5–0.6
-bin where D predicts 0.551 and observes 0.636. That is a thin bin with a wide interval, but it
-is a place where the enriched model is *less* reliable, and it is reported rather than rounded
-away.
+**D's worst bin is meaningfully worse than B's.** MCE rises from 0.0835 to **0.1196**. On the
+pooled curve the offending bin is 0.7–0.8 — 63 rows, predicted 0.750, observed **0.668**, a gap
+of 0.081. D is sharper overall *and* less reliable in its upper-middle band, which is exactly
+the trade a sharper model makes. Reported rather than rounded away.
 
 **On the three S1 repeats.** Each row gets one out-of-fold prediction per repeat, so the three
 vectors are correlated, not independent replicates. Brier, ECE and MCE are therefore computed
@@ -125,8 +124,8 @@ Three independent checks, **each registered in advance**, say this result is not
 
 **1. It survives the metadata control.** The named worry (A-23) was that the signal is really
 *which follow-up group bothered to write a note*. B+meta reaches 0.9256 — metadata alone adds
-+0.0212, so the worry was well-founded — and **D still beats B+meta by +0.0228, CI
-[+0.0133, +0.0329]**.
++0.0212, so the worry was well-founded — and **D still beats B+meta by +0.0220, CI
+[+0.0126, +0.0321]**.
 
 **2. It survives leakage stripping, and the verdict does not flip between arms.** §11.4's
 clause set strips **368 of 1,482 rows (24.8%) at P(y=1) = 0.875**:
@@ -143,7 +142,7 @@ clause set strips **368 of 1,482 rows (24.8%) at P(y=1) = 0.875**:
 | `L4a` catalogue designation | | 1 | 1.000 |
 
 `L6` is the contested one: it is *provenance*, not a disposition statement, and A-25 committed
-in advance to reporting both arms either way. **With L6: +0.0394. Without L6: +0.0421. The
+in advance to reporting both arms either way. **With L6: +0.0391. Without L6: +0.0426. The
 verdict does not flip.**
 
 **`L5` is a tripwire and it did not fire.** §5.1 registered that if `Master Disp:` /
@@ -154,7 +153,7 @@ stop — a pipeline bug, not a finding. It fired on **0 of 1,482 rows**. The
 **3. Baseline C is *below* B.** C scores **0.8766** against B's 0.9044. On `Comments` the same
 baseline scored 0.9691 and was pure echo. Here, **raw text alone is weaker than the numeric
 columns** — there is no readable label lying in the prose — yet structured judgments over that
-same text add +0.0440. **Whatever D is using, TF-IDF cannot find it.** That is the opposite of
+same text add +0.0432. **Whatever D is using, TF-IDF cannot find it.** That is the opposite of
 a leakage signature.
 
 ### What this does **not** establish
@@ -177,13 +176,13 @@ outcome**. A-20 had fixed the bar a feature must clear at ≈ 0.68.
 
 | feature | regex proxy \|AUC\| (A-23, before) | **measured \|AUC\|** | gain |
 | :--- | ---: | ---: | ---: |
-| `spectroscopy_indicates_nonplanetary_companion` | 0.586 | **0.748** | **+0.162** |
+| `spectroscopy_indicates_nonplanetary_companion` | 0.586 | **0.749** | **+0.163** |
 | `spectroscopy_consistent_with_planet` | 0.509 | **0.705** | **+0.196** |
-| `host_star_described_as_evolved` | 0.590 | **0.696** | +0.106 |
-| `imaging_reports_no_companion` | 0.643 | **0.687** | +0.044 |
+| `host_star_described_as_evolved` | 0.590 | **0.695** | +0.105 |
+| `imaging_reports_no_companion` | 0.643 | **0.683** | +0.040 |
 | `followup_reported_concluded` | 0.613 | 0.648 | +0.035 |
-| `imaging_reports_companion_present` | 0.528 | 0.637 | +0.109 |
-| `author_certainty` | — | 0.578 | — |
+| `imaging_reports_companion_present` | 0.528 | 0.636 | +0.108 |
+| `author_certainty` | — | 0.579 | — |
 
 **The error was in the estimator, not in the reasoning.** A-23 bounded the achievable signal
 with regex proxies and explicitly flagged that a regex is a loose proxy for a judgment. That
@@ -257,9 +256,9 @@ to it. 2,865 of 3,963 observer notes (72.3%) survive the cutoff. `Lastmod` is no
 
 | arm | train | B | D | ΔAUC | 95% CI | |
 | :--- | ---: | ---: | ---: | ---: | :--- | :--- |
-| G4 — S2 + S2a, as first reported | 1,070 | 0.8209 | 0.9136 | +0.0927 | [+0.0608, +0.1264] | |
-| **G4 — S2 + S2a + S2b, registered** | 884 | 0.8039 | **0.9250** | **+0.1211** | **[+0.0869, +0.1578]** | ✅ **PASS** |
-| G4c — same 884 rows, unfiltered text | 884 | 0.8039 | 0.9115 | +0.1076 | [+0.0755, +0.1423] | *not a gate* |
+| G4 — S2 + S2a, without S2b | 1,070 | 0.8209 | 0.9146 | +0.0936 | [+0.0622, +0.1268] | |
+| **G4 — S2 + S2a + S2b, registered** | 884 | 0.8039 | **0.9334** | **+0.1296** | **[+0.0948, +0.1670]** | ✅ **PASS** |
+| G4c — same 884 rows, unfiltered text | 884 | 0.8039 | 0.9089 | +0.1050 | [+0.0732, +0.1400] | *not a gate* |
 
 The test side is the same 390 rows throughout, base rate 0.6487. Train base moves 0.4888 →
 0.4514.
@@ -270,21 +269,41 @@ qualify, so training goes 1,070 → 884. **B and D both train on those same 884 
 kept all 1,070 while D lost 186, ΔAUC would conflate the text filter with a sample-size change.
 The G4c row exists to price that confound, and the two effects separate cleanly:
 
-- **Dropping the 186 rows** (G4 → G4c): B falls 0.8209 → 0.8039 (**−0.0170**), D falls 0.9136 →
-  0.9115 (**−0.0021**). ΔAUC rises **because the numeric baseline suffers more from the smaller
+- **Dropping the 186 rows** (G4 → G4c): B falls 0.8209 → 0.8039 (**−0.0170**), D falls 0.9146 →
+  0.9089 (**−0.0057**). ΔAUC rises **because the numeric baseline suffers more from the smaller
   training set than the text-enriched model does** — not because D improved.
-- **The text filter itself** (G4c → G4): B is *identical*, so the entire move is D, 0.9115 →
-  **0.9250**.
+- **The text filter itself** (G4c → G4): B is *identical*, so the entire move is D, 0.9089 →
+  **0.9334**.
 
-**That second step was tested directly, and it is marginal.** The two intervals overlap heavily,
-so the +0.0135 cannot be read off them. A paired bootstrap on the same 390 test rows — B being
-identical in both arms, the difference in ΔAUC *is* D(S2b text) − D(full text) — gives
-**+0.0135, 95% CI [+0.0006, +0.0269]**. That excludes zero, but barely, and it is a **post-hoc
-comparison that no section registered in advance.**
+**That second step was tested directly**, because the two intervals overlap and +0.0246 cannot
+be read off them. A paired bootstrap on the same 390 test rows — B being identical in both arms,
+so the difference in ΔAUC *is* D(S2b text) − D(full text) — gives **+0.0246, 95% CI
+[+0.0115, +0.0383]**.
 
-**So the claim that survives is the weaker one: training D on time-filtered text does not
-degrade it.** The stronger reading — that restricting training text to what existed before the
-cutoff actively *helps* — is suggestive and is not established here.
+**It is still not a gate.** No section registered this comparison in advance; it is a post-hoc
+result on 390 test rows and is labelled as one.
+
+### S2 is one fit where S1 is fifteen, and that matters more than it looks
+
+The paired bootstrap resamples **test groups**. It does not resample the model fit. Under S1 the
+registered aggregation averages 5 folds × 3 repeats, so fit variance is largely averaged out.
+**Under S2 there is exactly one train/test split and one CatBoost fit per arm**, so the point
+estimate carries fit noise the interval does not show. Measured over 10 CatBoost seeds:
+
+| arm | mean ΔAUC | sd | range over seeds |
+| :--- | ---: | ---: | :--- |
+| G4 — S2 + S2a | +0.0954 | 0.0044 | [+0.0887, +0.1034] |
+| **G4 — + S2b** | **+0.1286** | 0.0047 | [+0.1210, +0.1342] |
+| G4c — 884 rows, full text | +0.1091 | 0.0050 | [+0.1045, +0.1179] |
+
+**An S2 ΔAUC is worth about ±0.005 of seed noise — roughly five times the S1 figure.** Any
+S2 number in this document should be read with that in mind, and comparisons between S2 arms
+that are closer together than ~0.01 should not be trusted on the point estimate alone.
+
+**The S2b effect does survive that test:** G4's worst seed (+0.1210) still sits above G4c's
+best (+0.1179), so the separation is not a seed artefact. That is the strongest honest form of
+the claim — **training D on time-filtered text does not degrade it, and on this split appears
+to help** — on a comparison that was not registered.
 
 **What S2b does not control.** `Lastmod` is last-modified, not created, so a 2019 note edited in
 2023 is dropped by a 2021 cutoff. §4 says this plainly and it stands: **S2b tests on *less*
@@ -314,7 +333,7 @@ feature, never a conclusion.
 
 ## 8. The limit on reproducing this
 
-**A clean clone re-running the pipeline from a cold cache will land near +0.0440, not on it.**
+**A clean clone re-running the pipeline from a cold cache will land near +0.0432, not on it.**
 
 `jev-1.13.0` is effectively deterministic *within* a session but drifts slightly over time. Two
 byte-identical requests — same pinned model, same state, same questions, verified by a shared
@@ -331,6 +350,46 @@ re-running a judging step "returns byte-identical results": that holds only from
 cache. `data/` is gitignored, so the 1,382 cached responses are **not** in this repository. From
 that cache the pipeline is exact; without it, approximate.
 
+### The first published headline was +0.0440. It is +0.0432, and here is why
+
+**A concurrency defect in the Step 3 runner made the original feature matrix irreproducible
+from its own cache.** The runner checked the cache at the top of its request function and wrote
+at the bottom, so two workers landing on the same note text both missed and both called: **1,462
+calls for 1,382 distinct states.** The cost — about $0.013 — was known and recorded. What was
+not noticed is worse:
+
+> For each of the 80 duplicated states, the in-memory result kept **whichever response that
+> row's own request returned**, while the cache file kept the **last** write. Those are two
+> different responses, differing by the within-session drift of ~0.0001. **So the matrix that
+> produced the first numbers was a mixture of in-memory and on-disk responses, and rebuilding
+> it from the very cache it came from did not reproduce it.**
+
+It surfaced from a checksum: re-running Step 3 warm — **0 API calls, $0.0000** — produced a
+*different* matrix. A per-key lock fixes the cause; with one caller per state the in-memory
+response and the cached file are the same object by construction, and the rebuilt matrix is now
+**stable across re-runs** (verified twice).
+
+Every number in this document is from the **cache-consistent** matrix. The shifts:
+
+| arm | first published | cache-consistent | shift |
+| :--- | ---: | ---: | ---: |
+| **G2 — the headline** | +0.0440 | **+0.0432** | **−0.0008** |
+| D − B+meta | +0.0228 | +0.0220 | −0.0008 |
+| E − B | +0.0479 | +0.0482 | +0.0003 |
+| G5 (with L6) | +0.0394 | +0.0391 | −0.0003 |
+| G5 (no L6) | +0.0421 | +0.0426 | +0.0005 |
+| G6 | +0.0425 | +0.0425 | −0.0000 |
+| G4 (S2 + S2a) | +0.0927 | +0.0936 | +0.0010 |
+| B+N · B+meta · baseline C | unchanged | unchanged | 0.0000 |
+
+**Every shift is at or below 0.0010 — under one eighth of the MDE — every verdict is unchanged,
+and every CI still excludes zero.** The magnitude is exactly what the drift arm below predicts
+(sd 0.0010), which is a useful check on that arm.
+
+**The correction moves the headline down, not up**, and it is recorded here rather than in a
+footnote: a study that reports a falsified prior does not get to quietly round its own headline
+in its favour. Registered as `PREREGISTRATION.md` §11.8 A-38.
+
 ### No gate verdict is at risk — and this was measured, not argued
 
 A-31 and [`PROVENANCE.md`](./PROVENANCE.md) both assert that the drift cannot move a verdict,
@@ -344,12 +403,12 @@ re-fit D, recompute G2. Over independent draws:
 
 | simulated drift | realised mean \|Δ\| | draws | ΔAUC mean ± sd | worst draw | worst draw's 95% CI | G2 |
 | :--- | ---: | ---: | :--- | ---: | :--- | :--- |
-| **1× measured** (0.0049) | 0.0042 | 20 | **+0.0444 ± 0.0010** | +0.0417 | [+0.0308, +0.0530] | ✅ PASS |
-| **10× measured** (0.0490) | 0.0385 | 10 | +0.0402 ± 0.0015 | +0.0384 | [+0.0280, +0.0495] | ✅ PASS |
+| **1× measured** (0.0049) | 0.0042 | 20 | **+0.0440 ± 0.0010** | +0.0411 | [+0.0302, +0.0525] | ✅ PASS |
+| **10× measured** (0.0490) | 0.0385 | 10 | +0.0401 ± 0.0015 | +0.0385 | [+0.0280, +0.0497] | ✅ PASS |
 
-**At the measured drift, ΔAUC moves by 0.0010 (sd), worst case −0.0023 — a quarter of the MDE.
-At ten times the measured drift it still passes**, landing at +0.0384 with a CI that excludes
-zero by a wide margin. The claim holds, and now it is a measurement.
+**At the measured drift, ΔAUC moves by 0.0010 (sd), worst case −0.0022 — about a quarter of the
+MDE. At ten times the measured drift it still passes**, landing at +0.0385 with a CI that
+excludes zero by a wide margin. The claim holds, and now it is a measurement.
 
 **Two things this arm is not.** It is not a cold-cache re-run: real server-side drift is not
 i.i.d. Gaussian per row, and could in principle be correlated across rows or concentrated on
@@ -367,7 +426,7 @@ Stated here rather than left implicit.
 
 1. ~~**S2b was not applied.**~~ **It has been** — see [§6a](#6a-the-temporal-split-g4-and-s2b).
    `PREREGISTRATION.md` §11.5 A-28 reported G4 as the S2 + S2a result, an approximation to the
-   registered split; G4 is now the registered split itself and still passes, at **+0.1211**.
+   registered split; G4 is now the registered split itself and still passes, at **+0.1296**.
 2. **Per-question reliability diagrams were not produced.** [`PLAN.md`](./PLAN.md) §9 asks for
    them. There is no ground truth to plot them against: the per-question judgments are not
    independently labelled, and the only hand-labelled set is the **27-case** question-design
@@ -438,14 +497,14 @@ hypothetical.
 
 **What would change the conclusion.** Stated so it is falsifiable rather than defended:
 
-- A G5 arm that flipped sign or crossed zero once `L6` was removed. **It did not** (+0.0394 vs
-  +0.0421).
-- D failing to beat B+meta. **It did not** (+0.0228, CI excluding zero).
+- A G5 arm that flipped sign or crossed zero once `L6` was removed. **It did not** (+0.0391 vs
+  +0.0426).
+- D failing to beat B+meta. **It did not** (+0.0220, CI excluding zero).
 - Baseline C scoring *above* B, which would have said the label is readable in the raw text.
   **It did not** (0.8766 vs 0.9044).
 - Any `TIER_PREDICTIVE` feature failing G3. **None did**, against a noise floor 412× smaller
   than the effect being measured.
-- S2b, once applied, collapsing the G4 gain. **It did not** (+0.1211, up from +0.0927 —
+- S2b, once applied, collapsing the G4 gain. **It did not** (+0.1296, up from +0.0936 —
   [§6a](#6a-the-temporal-split-g4-and-s2b)).
 
 ---

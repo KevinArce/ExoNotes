@@ -32,10 +32,10 @@ distribution, and astrophysics is maximally out of distribution for it.
 
 **[`RESULTS.md`](./RESULTS.md) is the write-up. The short version:**
 
-> **ΔAUC(D − B) = +0.0440, 95% CI [+0.0332, +0.0554]** — model D (numeric covariates + semantic
+> **ΔAUC(D − B) = +0.0432, 95% CI [+0.0324, +0.0547]** — model D (numeric covariates + semantic
 > features) over baseline B (numeric only), under grouped cross-validation by host star,
 > `TIER_PREDICTIVE` questions only, paired bootstrap over TIC groups.
-> **5.4× the minimum effect the study was pre-registered to detect (+0.0082).**
+> **5.3× the minimum effect the study was pre-registered to detect (+0.0082).**
 
 | | |
 | :--- | :--- |
@@ -45,7 +45,7 @@ distribution, and astrophysics is maximally out of distribution for it.
 | ⚠️ The pre-registered prior | **Falsified.** A null was predicted in advance and did not happen — [why](./RESULTS.md#5-the-pre-registered-prior-was-wrong) |
 | 💸 Spend to date | **~$0.3539** |
 
-**The caveats travel with the number.** A cold-cache re-run lands *near* +0.0440, not on it;
+**The caveats travel with the number.** A cold-cache re-run lands *near* +0.0432, not on it;
 two label-echo features fail the stability gate; the study's own pre-registered prior predicted
 a null and was falsified. All of it is in [`RESULTS.md`](./RESULTS.md), not buried.
 
@@ -139,7 +139,8 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md).
 > apart) but drifts slightly over longer gaps (**0.0049** at ~1 hour), measured on
 > byte-identical requests. `data/` is gitignored, so the 1,382 cached responses are not in this
 > repository: from that cache the pipeline is exact, without it only approximate. No gate
-> verdict is at risk — the closest confidence interval to zero is G5's +0.0272. Details:
+> verdict is at risk — measured, not argued: perturbing the features by the drift moves ΔAUC by
+> sd 0.0010, and G2 still passes at **ten times** the measured drift. Details:
 > [`PROVENANCE.md`](./PROVENANCE.md) and `PREREGISTRATION.md` §11.5 (A-31).
 
 **This is checked automatically.** The badge above runs the same three commands on a clean

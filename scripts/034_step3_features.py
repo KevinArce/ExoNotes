@@ -72,6 +72,19 @@ _QJSON = json.dumps(QUESTIONS, sort_keys=True, separators=(",", ":"))
 _lock = threading.Lock()
 _stats = {"new": 0, "cached": 0, "tokens": 0, "failed": 0}
 
+# Per-key locks. The first run made 1,462 calls for 1,382 distinct states: the cache was
+# checked at the top of call() and written at the bottom, so two workers landing on the same
+# state both missed and both paid (80 duplicate calls, ~$0.013). Serialising per key makes the
+# second worker wait and then hit the cache. The key, the request body and the response
+# handling are untouched, so cached responses stay valid.
+_keylocks_guard = threading.Lock()
+_keylocks: dict[str, threading.Lock] = {}
+
+
+def _keylock(key: str) -> threading.Lock:
+    with _keylocks_guard:
+        return _keylocks.setdefault(key, threading.Lock())
+
 
 def cache_key(state):
     return hashlib.sha256(
@@ -82,12 +95,24 @@ def cache_key(state):
 
 def call(state):
     """One request. Returns (response, from_cache). Raises on unrecoverable failure."""
-    hit = CACHE / f"{cache_key(state)}.json"
+    key = cache_key(state)
+    hit = CACHE / f"{key}.json"
     if hit.exists():
         with _lock:
             _stats["cached"] += 1
         return json.loads(hit.read_text()), True
 
+    # Only one worker per distinct state gets to call; the rest wait and take the cache.
+    with _keylock(key):
+        if hit.exists():
+            with _lock:
+                _stats["cached"] += 1
+            return json.loads(hit.read_text()), True
+        return _fetch(state, hit)
+
+
+def _fetch(state, hit):
+    """The network half of call(). Runs holding that state's key lock."""
     body = json.dumps({"model": MODEL, "state": state, "questions": QUESTIONS}).encode()
     transient = (urllib.error.URLError, http.client.RemoteDisconnected,
                  ConnectionError, TimeoutError)
@@ -216,10 +241,23 @@ def main():
         "model": MODEL,
         "rows": len(rows),
         "distinct_states": len(distinct),
-        "new_calls": _stats["new"],
-        "cached_calls": _stats["cached"],
+        # "this run" figures: a warm re-run legitimately reports zero. The run that actually
+        # paid is recorded below and in PROVENANCE.md, so a cached re-run cannot erase it.
+        "new_calls_this_run": _stats["new"],
+        "cached_calls_this_run": _stats["cached"],
         "input_tokens_this_run": _stats["tokens"],
         "usd_this_run": _stats["tokens"] / 1e6 * USD_PER_MTOK,
+        "paid_run": {
+            "new_calls": 1462,
+            "distinct_states": 1382,
+            "duplicate_calls_from_cache_race": 80,
+            "input_tokens": 5_763_547,
+            "usd": 0.2421,
+            "recorded": "PROVENANCE.md step3 block; WORKLOG.md 2026-09-20T20:48Z",
+            "note": ("The matrix that run persisted was NOT reproducible from this cache -- see "
+                     "PREREGISTRATION.md §11.8 A-38. A per-key lock fixed the cause; the "
+                     "current matrix is rebuilt from the cache and is stable across re-runs."),
+        },
         "tier_predictive": list(TIER_PREDICTIVE),
         "tier_label_echo": list(TIER_LABEL_ECHO),
         "persisted_rows": n_persisted,

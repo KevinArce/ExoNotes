@@ -3,10 +3,19 @@
   "model": "jev-1.13.0",
   "rows": 1482,
   "distinct_states": 1382,
-  "new_calls": 1462,
-  "cached_calls": 20,
-  "input_tokens_this_run": 5763547,
-  "usd_this_run": 0.24206897400000002,
+  "new_calls_this_run": 0,
+  "cached_calls_this_run": 1482,
+  "input_tokens_this_run": 0,
+  "usd_this_run": 0.0,
+  "paid_run": {
+    "new_calls": 1462,
+    "distinct_states": 1382,
+    "duplicate_calls_from_cache_race": 80,
+    "input_tokens": 5763547,
+    "usd": 0.2421,
+    "recorded": "PROVENANCE.md step3 block; WORKLOG.md 2026-09-20T20:48Z",
+    "note": "The matrix that run persisted was NOT reproducible from this cache -- see PREREGISTRATION.md \u00a711.8 A-38. A per-key lock fixed the cause; the current matrix is rebuilt from the cache and is stable across re-runs."
+  },
   "tier_predictive": [
     "imaging_reports_no_companion",
     "imaging_reports_companion_present",
@@ -22,5 +31,5 @@
     "contains_object_designation"
   ],
   "persisted_rows": 1482,
-  "elapsed_s": 427.41607093811035
+  "elapsed_s": 0.4684779644012451
 }

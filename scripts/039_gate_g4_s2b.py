@@ -104,6 +104,8 @@ def s2b_text(raw: pd.DataFrame, cutoff: str) -> pd.Series:
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--dry-run", action="store_true", help="project cost and exit")
+    ap.add_argument("--seeds", type=int, default=10,
+                    help="CatBoost seeds for the S2 fit-variance arm")
     args = ap.parse_args()
 
     con = duckdb.connect(str(DB))
@@ -217,7 +219,9 @@ def main() -> int:
     # G4b and G4c share an identical B (same rows, same numeric columns), so the difference
     # between their dAUCs IS AUC(D_s2b) - AUC(D_full). Their CIs overlap heavily, so the
     # difference must be tested directly rather than read off the two intervals.
-    print("\n--- does the text filter ITSELF move D? paired on the same test rows ---")
+    print("\n--- S2 is ONE fit, not fifteen: how much does the seed alone move it? ---")
+    print("  (measured below, after the paired test)\n")
+    print("--- does the text filter ITSELF move D? paired on the same test rows ---")
     lo, hi, se = nf.paired_group_bootstrap(pd_full[None, :], pd_s2b[None, :], yte, gte,
                                            nf.N_BOOT)
     diff = nf.fast_auc(yte, pd_s2b) - nf.fast_auc(yte, pd_full)
@@ -226,8 +230,34 @@ def main() -> int:
           f"{'EXCLUDES 0' if ok else 'INCLUDES 0'}")
     res["S2b text effect on D"] = dict(dauc=diff, ci_lo=lo, ci_hi=hi, se=se, excludes_zero=ok)
 
+    # --- fit variance, because S2 is ONE fit where S1 averages fifteen -----------------
+    # The paired bootstrap resamples TEST GROUPS; it does not resample the model fit. Under
+    # S1 the A-6 aggregation averages 5 folds x 3 repeats, so fit variance is largely averaged
+    # out. Under S2 there is exactly one train/test split and one CatBoost fit per arm, so the
+    # point estimate carries fit noise the CI does not show. Measured here rather than asserted.
+    from catboost import CatBoostClassifier
+
+    def arm_seed(train_mask, X, seed):
+        m = CatBoostClassifier(random_seed=seed, **nf.CB)
+        m.fit(X[train_mask], y[train_mask])
+        return m.predict_proba(X[te_mask])[:, 1]
+
+    seeds = [nf.RANDOM_STATE + i for i in range(args.seeds)]
+    spread = {}
+    for name, tm, Xd in (("G4 S2+S2a", tr_mask, Xd_full),
+                         ("G4b S2+S2a+S2b", keep_tr, Xd_s2b),
+                         ("G4c 884 full text", keep_tr, Xd_full)):
+        v = [nf.fast_auc(yte, arm_seed(tm, Xd, sd)) - nf.fast_auc(yte, arm_seed(tm, Xn, sd))
+             for sd in seeds]
+        v = np.array(v)
+        spread[name] = dict(mean=float(v.mean()), sd=float(v.std(ddof=1)),
+                            min=float(v.min()), max=float(v.max()), n_seeds=len(seeds))
+        print(f"  {name:<22} over {len(seeds)} CatBoost seeds: mean {v.mean():+.4f} · "
+              f"sd {v.std(ddof=1):.4f} · [{v.min():+.4f}, {v.max():+.4f}]")
+
     out = dict(
         generated=pd.Timestamp.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ"),
+        seed_spread=spread,
         question_set_version=QUESTION_SET_VERSION, model=s3.MODEL, cutoff=S2_CUTOFF,
         n_train_s2=int(tr_mask.sum()), n_train_s2b=int(keep_tr.sum()),
         n_test=int(te_mask.sum()), s2a_dropped=int(leak.sum()),

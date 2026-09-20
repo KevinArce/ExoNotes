@@ -2931,3 +2931,129 @@ has not run TASK E still gets a correct figure rather than a crash.
 label after the x-axis widened for the S2b row. Labels now always start right of both the
 interval and the zero line. Verified by rendering and looking at it.
 **Jev spend this step:** $0.00 · **running total:** ~$0.3539
+---
+## [2026-09-20T22:31Z] Step 3 cache race — STARTED
+**Doing:** `scripts/034_step3_features.py` made **1,462 calls for 1,382 distinct states.** The
+cache is checked at the top of `call()` and written at the bottom, so two workers that pick up
+the same state both miss and both pay. **80 duplicate calls, ~$0.013.** Correctness is
+unaffected — both responses are valid and the last write wins on an identical key — but a
+clean clone re-running cold pays it again, and the repo is public.
+**Fix:** a per-key lock, so the second worker on a state waits and then hits the cache.
+**Command:** edit `scripts/034_step3_features.py`; verify against the warm cache.
+**Idempotent:** yes. **The cache key, the request body and the response handling are NOT
+touched** — only the concurrency around them — so cached responses stay valid and the
+reproduction contract is unchanged.
+**Jev spend this step:** $0.00 · **running total:** ~$0.3539
+---
+## [2026-09-20T22:40Z] DEFECT FOUND — the Step 3 race did more than waste $0.013
+**How it surfaced.** After adding the per-key lock I re-ran `034_step3_features.py` warm to
+prove the change was harmless: **0 new calls, $0.0000, 1,482 rows persisted.** I then
+checksummed the rebuilt feature matrix against the one already in DuckDB:
+
+| | sha256 of `jev_features_obsnotes` (first 16) |
+| :--- | :--- |
+| **as persisted by the original TASK C run** | `c58de4de6f01c31f` |
+| **rebuilt from the cache, 0 calls** | `d7b5be5675778f44` |
+| rebuilt again, 0 calls | `d7b5be5675778f44` (stable) |
+
+**A zero-call re-run changed the matrix.** That should be impossible, and the cause is the
+race itself:
+
+- For each of the **80 duplicated states**, two workers both missed the cache and both called.
+- **`results[(tic, toi)] = out` kept whichever response that row's own future returned**, while
+  **the cache file on disk kept the LAST write.** For a duplicated state these are two
+  *different* API responses — and by A-31 two calls seconds apart differ by mean |Δ| ≈ 0.0001.
+- So the **originally persisted matrix is a mixture of in-memory and on-disk responses**, and
+  **is not exactly reproducible from its own cache.**
+
+**This is strictly worse than the "~$0.013 wasted" the handoff recorded**, and the handoff's
+"correctness unaffected" was too generous. The per-key lock removes the cause: with one caller
+per state, the in-memory response and the cached file are the same object by construction, and
+the matrix is now **stable across re-runs** (verified twice above).
+
+**What it does NOT mean.** The perturbation is bounded by the within-session drift, mean |Δ|
+**0.0001** — **49× smaller** than the 0.0049 the A-33 arm perturbs by, and that arm moved ΔAUC
+by sd 0.0010 with a worst case of −0.0023. So no gate verdict can plausibly move. **But
+"plausibly" is what A-33 exists to stop me saying**, so the gates are being re-run on the
+cache-consistent matrix and the published numbers checked against it.
+**Jev spend this step:** $0.00 · **running total:** ~$0.3539
+**Next:** re-run `035_gates_g2_g6.py` and compare every arm to the published table.
+---
+## [2026-09-20T22:58Z] Step 3 cache race — DONE. Every published number restated
+**Command:** `034` (warm, 0 calls) → `035` → `039` → `038` ×2 → `037`. **0 API calls · $0.00.**
+**Artifacts:** `scripts/034_step3_features.py` (per-key lock + `paid_run` block),
+`scripts/039_gate_g4_s2b.py` (fit-variance arm), all five `research/data/*.json` regenerated,
+both figures, `RESULTS.md`, `PREREGISTRATION.md` §11.8 (A-38), `PROVENANCE.md`, `README.md`.
+
+**The matrix is now stable:** `sha256(jev_features_obsnotes)[:16] = d7b5be5675778f44`,
+reproduced on three separate zero-call rebuilds.
+
+| arm | first published | **cache-consistent** | shift |
+| :--- | ---: | ---: | ---: |
+| **G2 — headline** | +0.0440 | **+0.0432** [+0.0324, +0.0547] | **−0.0008** |
+| D − B+meta | +0.0228 | +0.0220 [+0.0126, +0.0321] | −0.0008 |
+| E − B | +0.0479 | +0.0482 [+0.0370, +0.0600] | +0.0003 |
+| G5 registered (L6) | +0.0394 | +0.0391 [+0.0268, +0.0519] | −0.0003 |
+| G5 sensitivity (no L6) | +0.0421 | +0.0426 [+0.0308, +0.0552] | +0.0005 |
+| G6 | +0.0425 | +0.0425 [+0.0314, +0.0540] | −0.0000 |
+| G4 — S2+S2a | +0.0927 | +0.0936 [+0.0622, +0.1268] | +0.0010 |
+| **G4 — S2+S2a+S2b** | +0.1211 | **+0.1296** [+0.0948, +0.1670] | **+0.0085** |
+| B+N · B+meta · C | — | unchanged | 0.0000 |
+
+**Every S1 shift is ≤0.0010 — under ⅛ of the MDE — no verdict moves, every CI still excludes
+zero.** The size matches the A-33 drift arm's sd of 0.0010, which is a useful check on that arm.
+G2 is **5.3×** the MDE, not 5.4×. Calibration also moved: D Brier 0.0881 → **0.0892**, ECE
+0.0232 → 0.0228, **MCE 0.0929 → 0.1196** (worst pooled bin now 0.7–0.8: 63 rows, pred 0.750 vs
+obs 0.668). **A-29 survives unchanged in substance** — re-measured univariate |AUC| 0.749,
+0.705, 0.695, 0.683, 0.648, 0.636, 0.579; **four of seven still clear ≈0.68**.
+
+### The S2b arm moved 8× more than any S1 arm, so I measured why rather than guessing
+**S2 is ONE train/test split and ONE CatBoost fit per arm; S1 averages 5 folds × 3 repeats.**
+The paired bootstrap resamples *test groups*, not the fit, so an S2 point estimate carries fit
+noise its interval does not show. Over 10 CatBoost seeds:
+
+| arm | mean | sd | range |
+| :--- | ---: | ---: | :--- |
+| G4 — S2+S2a | +0.0954 | 0.0044 | [+0.0887, +0.1034] |
+| **G4 — +S2b** | **+0.1286** | 0.0047 | [+0.1210, +0.1342] |
+| G4c — 884 rows, full text | +0.1091 | 0.0050 | [+0.1045, +0.1179] |
+
+**~±0.005 of seed noise on any S2 ΔAUC — roughly 5× the S1 figure.** The +0.0085 move is ~2 sd.
+**The S2b effect survives it**: G4's worst seed (+0.1210) still clears G4c's best (+0.1179).
+
+### A correction to my own 22:09Z entry
+That entry called the S2b text effect **"marginal"** at +0.0135 [+0.0006, +0.0269] and said the
+weaker claim was all that survived. On the corrected matrix it is **+0.0246 [+0.0115, +0.0383]**
+and no longer marginal. **It is still not a gate and still post-hoc** — no section registered
+that comparison — and `RESULTS.md` §6a says so. The stronger wording is earned by the number,
+not by preference.
+
+### And a correction to the handoff's characterisation of this defect
+The handoff called the race *"cost ~$0.013, correctness unaffected."* **The cost was right and
+"correctness unaffected" was wrong.** The race did not corrupt any response — every cached
+response is valid — but it made the *persisted matrix* a mixture of in-memory and on-disk
+responses and therefore **irreproducible from its own cache**, which is the property this whole
+repository is built on. Found only because the fix was verified by checksum instead of by
+"0 calls, $0.00, looks fine."
+**Jev spend this step:** $0.00 · **running total:** ~$0.3539
+**Next:** final consistency sweep, rewrite the handoff, commit.
+---
+## [2026-09-20T23:04Z] §11.6 pre-publication checklist — re-run after TASK D/E
+**Command:** the checks in `PLAN.md` §11.6, including the widened absolute-path grep that item 9
+warns about. **0 API calls · $0.00.**
+
+| check | result |
+| :--- | :--- |
+| key anywhere in `git log -p` | **0 hits** |
+| `.env` tracked | no |
+| `data/` tracked | 0 files |
+| `LICENSE` / `CITATION.cff` / `CONTRIBUTING.md` / `PROVENANCE.md` / `requirements.txt` | all present |
+| absolute paths in `scripts/`, `src/`, `*.md` (both greps) | **none** |
+| README acknowledgements · `research/01–02` superseded | intact |
+
+**One checklist item is obsolete and is ticked with that said rather than silently:** *"README
+states current status honestly, **including that the headline question is still open**"* was
+written before the result. The question is answered. The item's intent — an honest status — is
+met; its literal text is not, and cannot be. Flagged in `PLAN.md` §11.6 rather than quietly
+reworded.
+**Jev spend this step:** $0.00 · **running total:** ~$0.3539

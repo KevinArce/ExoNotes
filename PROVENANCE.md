@@ -76,7 +76,7 @@ Per-row Jev judgments behind `duckdb::jev_features_obsnotes`. Cached under
 | corpus rows scored | 1,482 |
 | distinct states (= cache files) | 1,382 |
 | features per row | 10 (7 predictive + 3 label-echo) |
-| new API calls | 1,462 |
+| new API calls | 1,462 (1,382 needed — see the race note below) |
 | input tokens | 5,763,547 |
 | cost | $0.2421 |
 | failures | 0 |
@@ -94,17 +94,31 @@ shared cache key — returned:
 
 `data/` is gitignored, so **the 1,382 cached responses are not in this repository**. From that
 cache the pipeline is exactly reproducible; from a cold cache it is reproducible only
-**approximately**, and the headline ΔAUC will land near, not on, +0.0440. This is weaker than
+**approximately**, and the headline ΔAUC will land near, not on, +0.0432. This is weaker than
 `PLAN.md` §0.5's "byte-identical results", which holds only for a warm cache. Registered as
 `PREREGISTRATION.md` §11.5 A-31; measured in `WORKLOG.md` 2026-09-20T21:31Z.
 
 **No gate verdict depends on this, and that is measured rather than argued.**
 `scripts/038_drift_sensitivity.py` perturbs the seven `TIER_PREDICTIVE` columns by the measured
 drift, re-quantises to two decimals and refits: over 20 draws ΔAUC is **+0.0444 ± 0.0010**, the
-worst draw is +0.0417 with 95% CI [+0.0308, +0.0530], and **at ten times the measured drift G2
-still passes** (+0.0384, [+0.0280, +0.0495]). Registered as `PREREGISTRATION.md` §11.6 A-33;
+worst draw is +0.0411 with 95% CI [+0.0302, +0.0525], and **at ten times the measured drift G2
+still passes** (+0.0385, [+0.0280, +0.0497]). Registered as `PREREGISTRATION.md` §11.6 A-33;
 raw in `research/data/drift_sensitivity_x1_2026-09-20.json`. The arm is an i.i.d. stand-in for
 server-side drift, not a cold-cache re-run.
+
+### ⚠️ The first run of this step had a cache race, and it changed the numbers
+
+The runner checked the cache at the top of `call()` and wrote at the bottom, so two workers
+on the same state both missed and both called: **1,462 calls for 1,382 distinct states.** For
+each of the **80 duplicated states** the in-memory result kept whichever response that row's own
+request returned while the cache file kept the **last** write — two different responses, ~0.0001
+apart. **The originally persisted matrix was a mixture of the two and was not reproducible from
+this cache.**
+
+A **per-key lock** now serialises callers per state, and the rebuilt matrix is stable across
+re-runs (`sha256` of `jev_features_obsnotes`, first 16: `d7b5be5675778f44`, verified twice).
+**Every published number comes from that cache-consistent matrix**; the headline moved
++0.0440 → **+0.0432** and no verdict changed. Registered as `PREREGISTRATION.md` §11.8 A-38.
 
 ```bash
 .venv/bin/python scripts/034_step3_features.py --dry-run   # project cost, no calls
