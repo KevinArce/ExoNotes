@@ -386,3 +386,212 @@ are recorded in §11 and in `WORKLOG.md`, dated, with the original text left sta
   made. Cumulative Jev spend to date: **~$0.0046**, all of it on the 23-case question-design gate.
 - **PENDING — question set re-freeze.** §2 is provisional until Step 2.5 is re-run on observer-note
   text. The new `QUESTION_SET_VERSION` and its gate result will be recorded here **before** Step 3.
+
+---
+
+## 11.1 Amendments from audit 01 — 2026-09-20, before any full-corpus run
+
+> All eight entries below were registered **before** TASK A, before the obsnotes corpus was
+> pulled, and before a single full-corpus Jev call. No result has been seen. Every measurement
+> cited is on the existing `Comments` `analysis_set`, on the 30-TIC recon sample, or on synthetic
+> noise. Full reasoning: [`AUDIT_01_PREFLIGHT_REVIEW.md`](AUDIT_01_PREFLIGHT_REVIEW.md).
+>
+> **Where these amendments and the body text above disagree, these govern.**
+
+### A-1 — Gate G2 gains a dilution control arm, **B+N**
+
+**What changed.** A fourth arm is added and §6's G2 is read against it.
+
+> **B+N** — baseline B plus *k* columns of i.i.d. `N(0, 1)` noise, where *k* is the final count of
+> `TIER_PREDICTIVE` features, averaged over **5 noise seeds**. It is fitted, scored and
+> bootstrapped exactly as D is.
+>
+> **ΔAUC(D − B) is reported against ΔAUC(B+N − B) as its zero point**, and both appear in
+> `RESULTS.md` whenever either does.
+
+**Why.** G2 as written had no zero point. Measured by
+[`scripts/026_noise_floor.py`](scripts/026_noise_floor.py) at the projected obsnotes scale
+(1,811 rows, 1,715 TIC, base 0.491), adding eight *known-worthless* columns to B costs:
+
+| | |
+| :--- | ---: |
+| B (numeric only) | **0.9044** AUC |
+| B + 8 pure-noise columns (mean of 5 seeds) | **0.8932** AUC |
+| **dilution floor ΔAUC** | **−0.0112** |
+
+Every one of the five seeds produced a paired bootstrap CI **excluding zero**. The penalty is
+over 4× the SE of the G2 statistic (0.0026), and it is not a hyperparameter artifact: across five
+CatBoost configurations it ranged −0.0100 to −0.0132, and **early stopping made it worse**.
+
+Consequently a reported **ΔAUC ≈ 0.000 is not a null** — it is roughly +0.011 of genuine signal
+cancelling dilution — and §8's decision table would have mapped that onto *"Stop. Write the
+negative result."*
+
+**What it was before.** §6: *"Model D beats Model B on ΔAUC … with a bootstrap 95% CI excluding
+zero."* No reference arm. §8: ΔAUC ≈ 0 → G2 fails → publish the null.
+
+**§8 decision table, as amended.** G2 passes when ΔAUC(D−B) exceeds ΔAUC(B+N−B) with a paired
+bootstrap 95% CI on the difference excluding zero. If ΔAUC(D−B) lands between the dilution floor
+and zero, that is **recorded and reported as an inconclusive result**, not as a null — the study
+cannot distinguish it from dilution, and saying so is the honest outcome.
+
+### A-2 — A minimum detectable effect is registered now; §8.1's observed power is withdrawn
+
+**What changed.** The MDE below is fixed before the run. §8.1's commitment to report *"the power
+the study actually had"* is **withdrawn and replaced** by: report the **registered MDE** and where
+the observed CI fell relative to it.
+
+| quantity, at the projected scale | value |
+| :--- | ---: |
+| SE of ΔAUC (paired, resampled over TIC groups) | **0.0026** |
+| **MDE at 80% power, two-sided 95%** | **+0.0073** |
+| net of the A-1 dilution floor, true signal required | **0.0186** |
+| **univariate AUC a single Jev feature must reach to be visible** | **≈ 0.65** |
+
+**Why.** Power computed after the fact from the observed effect is a monotone function of the
+p-value and adds nothing to a CI that is already being reported. §9's promise to publish an
+informative null is only meaningful against an effect size fixed in advance.
+
+The 0.65 figure comes from a graded oracle (`scripts/026_noise_floor.py`): a synthetic text
+feature with univariate AUC 0.592 is **invisible** to G2 (CI [−0.0019, +0.0053]); one at 0.653 is
+detectable (CI [+0.0030, +0.0154]). **This is the bar the TASK B question set must be written
+against.**
+
+**What it was before.** No power calculation existed anywhere in the project. §8.1 planned to
+report observed power.
+
+**Re-measurement is required, not optional.** The dilution floor and the MDE are both functions of
+*n*, and the ~1,715-TIC projection is 20/30 extrapolated (see A-8). `scripts/026_noise_floor.py`
+is **re-run on the realised obsnotes row set** before Step 3, with `--k` set to the final feature
+count, and the result recorded here.
+
+### A-3 — §5's G5 clause set is re-derived on observer-note text before Step 3
+
+**What changed.** §5's regex is **provisional on this corpus**, exactly as §2's question set is.
+It is re-derived on the full pulled obsnotes corpus, measured per clause with n and P(y=1) as §5
+does, audited by eye on the marginal rows, and **registered here before Step 3 makes a single
+full-corpus call.**
+
+**Why.** [`src/exonotes/leakage.py`](src/exonotes/leakage.py) was written for 30-character
+`Comments` text and two of its five clauses are anchored `^…$`. Run against the 20 cached TICs
+that survive the corpus filter:
+
+| clause | fires |
+| :--- | :--- |
+| `L1_retired` | **0 / 20** |
+| `L2_tfop_disposition` | **0 / 20** |
+| `L3_confirmed` | 1 / 20 |
+| `L4a_designation_catalogue` | **0 / 20** |
+| `L4b_designation_planet_letter` | **0 / 20** |
+| **any clause** | **1 / 20** |
+
+The G5 arm would be ~95% identical to the full arm. **G5 would pass trivially**, and §8 reads a
+G5 pass as *"the effect was not label echo"* — the one conclusion G5 exists to license.
+
+The leak is real, with a different shape: `NEB`, `BEB`, `cleared`, `retired` and `false positive`
+are all 0/20, so the `Groupname` filter genuinely works — but `TOI-\d+` fires **13/20**, and one
+cached note opens *"Extracted KOI12 observing note from ExoFOP-Kepler."*
+
+**What it was before.** §5 presented the clause set as fixed and measured, with §5.1 adding only
+`L5_explicit_disposition`. `L5` remains the tripwire: **if it fires on any row, the corpus filter
+has failed and Step 3 stops.**
+
+### A-4 — `toi` is removed from the request state
+
+**What changed.** §3's registered state becomes:
+
+```python
+state = {"notes": observer_notes_text}
+```
+
+**Why.** No question in `src/exonotes/questions.py` reads `toi`; all eleven are phrased *"Does
+`comment` …"*. Meanwhile §5's entire apparatus excludes rows **whose text** carries a catalogue
+designation — `L4a` at P(y=1) = 0.999, the strongest leakage channel in the corpus — while every
+row's state was handing the model a catalogue designation **in a field the regex never reads**.
+G5 cannot strip a channel that does not live in the text it strips.
+
+**What it was before.** §3: `state = {"toi": str(row.toi), "notes": observer_notes_text}`, and
+`scripts/025_question_gate.py` sending `{"toi": "TOI-624.01", "comment": ...}`.
+
+### A-5 — The model is pinned; `jev-latest` is not reproducible
+
+**What changed.** `MODEL = "jev-1.13.0"`. Every response's `model` field is asserted equal to it
+before the response is persisted. The pinned version is part of this registration.
+
+**Why.** `scripts/025_question_gate.py` used `MODEL = "jev-latest"`, and that literal string sits
+inside the cache key `sha256(MODEL + QUESTION_SET_VERSION + state + questions)`. A version bump
+would make cache hits serve old-model answers and cache misses new-model answers **under an
+identical key**, silently mixing two models in one feature matrix. The cached responses already
+record the resolved version (`"model": "jev-1.13.0"`); it simply was not used. The CI reproduction
+does not cover this — it makes no API calls.
+
+**What it was before.** `"jev-latest"`, unpinned, unasserted.
+
+### A-6 — How ΔAUC aggregates across the S1 repeats, and that the bootstrap is paired
+
+**What changed.** Registered, for every D-vs-B comparison including G2, G4, G5 and G6:
+
+> **Pool out-of-fold predictions within a repeat; score each repeat; average the three repeat
+> AUCs.** The bootstrap resamples **TIC groups** with replacement and recomputes that same
+> average, using **the same resample for both models**.
+
+**Why.** §6 specified "ΔAUC under S1, 10,000 resamples over TIC groups" but S1 is 5 folds × 3
+repeats, and a mean of 15 per-fold AUCs, a single pooled AUC, and a mean of 3 per-repeat AUCs give
+different intervals. Pairing is not optional: D and B share every numeric column, so an unpaired
+bootstrap inflates the CI by the between-model covariance. Reference implementation:
+`paired_group_bootstrap` in [`scripts/026_noise_floor.py`](scripts/026_noise_floor.py).
+
+**What it was before.** Undefined. `scripts/02_baselines.py` averages 15 per-fold AUCs and reports
+a `std` across folds, which is not a standard error.
+
+### A-7 — A metadata control baseline, **B+meta**, is added
+
+**What changed.** A fifth arm, reported alongside the headline:
+
+> **B+meta** — baseline B plus **note count**, **total characters**, and an **author one-hot**.
+> Zero API calls. **If D does not beat B+meta, the result is about how much follow-up a candidate
+> received, not about what the prose says**, and `RESULTS.md` says so in those words.
+
+Also reported: **B's AUC on the included versus excluded rows**, and the realised
+P(has observer note | y = 1) vs P(has observer note | y = 0).
+
+**Why.** §10.2 bans any feature derived from note count, length or author count — correctly, since
+note count correlates with the label. But `evidence_depth` scores *"none → a remark → one
+observation → several → multiple independent facilities"*, which is close to monotone in note
+count and text length. The direct feature was banned and a semantic proxy for it was kept.
+
+Separately, the exclusion is not merely a base-rate shift but a **collider**: follow-up effort
+sits downstream of both the numeric properties and the disposition. The recon measures
+P(note | y=1) = **0.80** vs P(note | y=0) = **0.53** (n=30), implying a subset base rate of ~0.60.
+Conditioning on it can attenuate B and inflate the apparent text gain.
+
+**What it was before.** §10.2 banned the direct features; no control arm existed, and §1.4 noted
+only that the exclusion was "probably not label-neutral."
+
+### A-8 — Three recorded limitations, added to §10
+
+9. **The corpus-size projection is a point estimate from n = 30.** "~1,814 rows / ~1,715 TIC" is
+   20/30 extrapolated linearly; the binomial interval is roughly **1,200–2,140 TIC**. Since the
+   A-1 floor and the A-2 MDE are both functions of *n*, the low end materially changes the
+   study's power. Both are re-measured on the realised row set (A-2).
+10. **`Groupname != 'tfopwg'` is in practice `Groupname IS NULL`.** Across all 79 cached notes the
+    field takes exactly two values: `'tfopwg'` (34) and NaN (45). There is no `SG1`-style
+    groupname in the data. The filter works and selects genuine observer prose, but §1.1 describes
+    a selection semantics the data does not have, and nothing asserts it. TASK A asserts the
+    `Groupname` domain and stops if a third value appears.
+11. **G3's Spearman criterion is undefined on low-variance features.** Jev returns two decimals
+    (§10.5) and several nouls will sit near 0 or near 1 on nearly every row, so ρ is dominated by
+    quantisation ties and can fail spuriously while `mean |Δp|` passes comfortably. Registered
+    rule: **if a feature's inter-quartile range is below one quantisation step (0.01), G3 is
+    judged on `mean |Δp| ≤ 0.05` alone for that feature, and the exemption is reported.**
+
+### Recorded as tested-and-rejected — not amendments, but binding on future sessions
+
+- **"Known Planets inflate baseline B."** Tested, false. B = 0.9128 on the full set, **0.9231 with
+  `KP` excluded** (n=2,120, base 0.362), 0.9211 on KP-only positives. B is slightly *better*
+  without them. **No KP-excluded arm is warranted**, and §0's pessimism about G2 is better founded
+  than §0 itself argues.
+- **The cross-platform 5×10⁻⁴ AUC offset.** Real, but the MDE is 0.0073 — roughly fifteen times
+  larger. The single-platform rule for model-vs-model comparisons is kept as hygiene; the "ΔAUC
+  below 10⁻³ is noise" figure is **retired as a decision rule**, because quoting it beside a ΔAUC
+  invites a reader to think 2×10⁻³ means something.

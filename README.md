@@ -103,6 +103,7 @@ uv pip install -r requirements.txt
 .venv/bin/python scripts/01_ingest.py             # ~25 s
 .venv/bin/python scripts/02_baselines.py          # ~2 min, reproduces gate G1
 .venv/bin/python scripts/029_verify_reproduction.py   # asserts G1 actually reproduced
+.venv/bin/python scripts/026_noise_floor.py       # ~2 min, gate G2's noise floor and MDE
 ```
 
 No API key required — none of these steps makes a model API call.

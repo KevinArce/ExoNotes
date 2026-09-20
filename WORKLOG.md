@@ -1415,3 +1415,71 @@ the workflow's trigger paths (`scripts/**`, `src/**`, `requirements.txt`,
 filter is doing its job of keeping load off a public archive.
 **Next:** `HANDOFF_PROMPT.md` TASK A — pull the obsnotes corpus.
 ---
+## [2026-09-20T16:32Z] SESSION START — Opus 5, 2026-09-20
+**Doing:** adversarial pre-flight review of the whole project ahead of TASK A, at the owner's
+request: interrogate every architectural decision, statistical assumption and methodology choice,
+especially the three risks flagged in the previous handoff.
+**Idempotent:** yes — read-only analysis, plus append-only documents.
+---
+## [2026-09-20T16:32Z] AUDIT 01 — STARTED
+**Doing:** (1) draft the `PREREGISTRATION.md` §11 amendment for the findings that change the
+registered design; (2) build the B+N noise-floor control arm as a runnable script; (3) write up
+every finding; (4) rewrite `HANDOFF_PROMPT.md` around them.
+**Command:** `.venv/bin/python scripts/026_noise_floor.py`
+**Idempotent:** yes — no network, no API calls, fixed seeds, CREATE OR REPLACE output.
+**Jev spend this step:** $0.00 · **running total:** ~$0.0046
+---
+## [2026-09-20T16:38Z] AUDIT 01 — DONE
+**Result:** 13 findings. 4 change the registered design, 5 change how a step is run, 4 are
+recorded for the write-up. 2 of the reviewer's own hypotheses were tested and **failed**; both
+are recorded rather than dropped.
+
+### The two that would have wrecked the study
+1. **G2 had no zero point.** `scripts/026_noise_floor.py` (new) measures the arm G2 was missing:
+   at the projected obsnotes scale (1,811 rows / 1,715 TIC / base 0.491), baseline B scores
+   **0.9044**, and **B plus 8 columns of pure Gaussian noise scores 0.8932 — ΔAUC −0.0112**, with
+   every one of 5 seeds producing a paired bootstrap CI that **excludes zero**. That is over 4×
+   the SE of the G2 statistic (0.0026). So a reported ΔAUC of 0.000 is **not** a null; it is
+   ~+0.011 of real signal cancelling dilution, and `PREREGISTRATION.md` §8 would have mapped it
+   onto "Stop. Write the negative result."
+   Not a tuning artifact: across 5 CatBoost configurations the penalty ran −0.0100 to −0.0132, and
+   **early stopping made it worse**.
+2. **G5's regex is dead code on this corpus.** `src/exonotes/leakage.py` was written for 30-char
+   `Comments`; `L4a`/`L4b` are anchored `^…$`. On the 20 cached observer-note TICs, L1 **0/20**,
+   L2 **0/20**, L4a **0/20**, L4b **0/20**, any clause **1/20**. The G5 arm would be ~95% identical
+   to the full arm, so **G5 would pass trivially** — and §8 reads a G5 pass as "the effect was not
+   label echo." The leak is real but differently shaped: `NEB`/`BEB`/`cleared`/`retired` are all
+   0/20, while `TOI-\d+` fires **13/20** and one note opens "Extracted KOI12 observing note from
+   ExoFOP-Kepler."
+
+### Also registered
+- **MDE fixed before the run: +0.0073** (80% power, two-sided 95%; SE 0.0026). Net of the dilution
+  floor, **0.0186 of true signal** is required. A single Jev feature needs **≈0.65 univariate AUC**
+  against the label to be visible at all — 0.59 is invisible. §8.1's "report the power we had" is
+  **withdrawn**: observed power is a monotone function of the p-value and carries no information.
+- **`toi` removed from the request state.** No question reads it, and it handed the model a
+  catalogue designation — the P=0.999 channel — in a field the G5 regex never sees.
+- **Model pinned to `jev-1.13.0`.** `jev-latest` sat inside the cache key, so a version bump would
+  have served old-model cache hits beside new-model misses under an identical key.
+- **ΔAUC aggregation defined** (pool OOF within a repeat, score each repeat, average; bootstrap
+  resamples TIC groups and uses the **same** resample for both models) — it was undefined, and
+  S1's 3 repeats make three different answers possible.
+- **B+meta control arm added**, because `evidence_depth` is a semantic proxy for the note-count
+  feature §10.2 bans. Selection effect measured at P(note|y=1) **0.80** vs P(note|y=0) **0.53**.
+- Question-gate cases must be **label-blinded** in TASK B; the r4 cases carried `y=`.
+- `Groupname != 'tfopwg'` is in practice `Groupname IS NULL` (only two values exist in the data).
+- 20/30 obsnotes cache files contain bare `NaN` and are **not valid RFC-8259 JSON**.
+
+### Hypotheses tested and abandoned — recorded so the review is not only its hits
+- **"Known Planets inflate baseline B."** False. B = 0.9128 all-in, **0.9231 with KP excluded**
+  (n=2,120, base 0.362), 0.9211 KP-only. B is slightly *better* without them. No KP arm warranted.
+- **"The cross-platform 5×10⁻⁴ offset matters."** Real, but ~15× below the MDE. Keep the
+  single-platform rule as hygiene; retire the 10⁻³ figure as a decision threshold.
+
+**Artifacts:** `AUDIT_01_PREFLIGHT_REVIEW.md` (new), `scripts/026_noise_floor.py` (new),
+`research/data/noise_floor_2026-09-20.json` (new), `data/exonotes.duckdb::noise_floor` (new),
+`PREREGISTRATION.md` §11.1 amendments **A-1 … A-8** (append-only), `HANDOFF_PROMPT.md`
+(rewritten), `README.md` (reproduce list).
+**Jev spend this step:** $0.00 · **running total:** ~$0.0046
+**Next:** `HANDOFF_PROMPT.md` TASK A — pull the obsnotes corpus, with the A-10/A-11 assertions.
+---
