@@ -1,0 +1,26 @@
+{
+  "question_set_version": "2026-09-20.r6",
+  "model": "jev-1.13.0",
+  "rows": 1482,
+  "distinct_states": 1382,
+  "new_calls": 1462,
+  "cached_calls": 20,
+  "input_tokens_this_run": 5763547,
+  "usd_this_run": 0.24206897400000002,
+  "tier_predictive": [
+    "imaging_reports_no_companion",
+    "imaging_reports_companion_present",
+    "spectroscopy_indicates_nonplanetary_companion",
+    "spectroscopy_consistent_with_planet",
+    "host_star_described_as_evolved",
+    "followup_reported_concluded",
+    "author_certainty"
+  ],
+  "tier_label_echo": [
+    "indicates_retired_or_rejected",
+    "indicates_confirmed_planet",
+    "contains_object_designation"
+  ],
+  "persisted_rows": 1482,
+  "elapsed_s": 427.41607093811035
+}

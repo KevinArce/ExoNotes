@@ -2319,3 +2319,298 @@ kept for provenance), `scripts/033_leakage_obsnotes.py` (new),
 **Next:** TASK C — Step 3, the full run. Projected **$0.2434** (A-21), tripwire $0.50.
 Both preconditions are now discharged: B is `DONE` at 20:09Z, B2 is `DONE` here.
 ---
+## [2026-09-20T20:44Z] TASK C / STEP 3 — STARTED
+**Doing:** compute the Jev feature matrix over the full obsnotes corpus — one request per row,
+all 10 r6 questions per request, bounded concurrency, content-addressed cache, full raw
+response JSON persisted. `PLAN.md` §6 Step 3.
+**Command:** `.venv/bin/python scripts/034_step3_features.py`
+**Idempotent:** yes — every response cached on
+`sha256(model + question_set_version + state + questions)` under `data/cache/step3/`. A re-run
+makes no API calls and returns byte-identical results. **An interrupted run is safe to resume
+and costs nothing for the rows already done.**
+**Preconditions, both discharged:** TASK B `DONE` 20:09Z (§11.3 A-18…A-23), TASK B2 `DONE`
+20:26Z (§11.4 A-24…A-27). Committed and pushed as `4198379`; `origin/master` verified identical
+and not diverged **before** this run, so the criteria are public before the number exists.
+
+**Cost tripwire evaluated BEFORE any call was made:**
+| | |
+| :--- | ---: |
+| rows | 1,482 |
+| **distinct states** | **1,382** (dedup saves 100 calls — the state is per-TIC text) |
+| projected input tokens | 5,402,832 |
+| **projected cost** | **$0.2269** |
+| §6 tripwire | $0.50 — **not fired** |
+
+The projection is slightly under A-21's $0.2434 because A-21 costed all 1,482 rows; 100 of them
+share a TIC's text with another row and hash to the same cache key.
+
+**DEVIATION from the handoff, logged per §0.5 rule 4.** The handoff specifies an *async client*
+with a bounded semaphore. `aiohttp` and `httpx` are **not installed**, and `requirements.txt` is
+part of this project's reproduction contract — the CI clean-clone check (side quest 01) installs
+exactly it. Adding a dependency mid-study to change how a loop is scheduled is not worth
+breaking that. `ThreadPoolExecutor(max_workers=8)` over the same blocking `urllib` transport
+that `scripts/025` and `032` already use gives the **identical bounded-concurrency guarantee**;
+8 workers sits far below the documented 1,200 requests/minute limit, and the retry path honours
+`retry-after` when the response carries one.
+**Jev spend this step:** $0.00 so far · **running total:** ~$0.0144
+---
+## [2026-09-20T20:56Z] TASK C / STEP 3 — DONE
+**Result:** the Jev feature matrix over the full obsnotes corpus is computed and persisted.
+
+| | |
+| :--- | ---: |
+| rows | **1,482** |
+| features | **10** (7 predictive + 3 label-echo) + `author_certainty__conf` |
+| new API calls | **1,462** · cache hits 20 · **failures 0** |
+| input tokens | **5,763,547** |
+| **cost** | **$0.2421** (projected $0.2269) |
+| wall clock | **427 s** at 8 workers |
+| nulls in the matrix | **0** |
+
+Every response asserted `model == "jev-1.13.0"` before being cached (A-5). All 1,482 rows
+persisted to `duckdb::jev_features_obsnotes`; full raw JSON for all 1,482 states is in
+`data/cache/step3/` (content-addressed, so a re-run costs **$0.00** and is byte-identical).
+
+### Small defect, recorded: a cache race made 80 redundant calls
+The corpus has **1,382 distinct states** (100 rows share a TIC's text with another row), so a
+perfect run makes 1,382 calls. It made **1,462** — 80 more. Cause: the cache is checked at the
+top of `call()` and written at the bottom, so two workers holding the same state can both miss
+and both call. **Cost of the race: ~$0.013.** Correctness is unaffected — both writes go to the
+same content-addressed path and the second simply overwrites the first — and every subsequent
+run is served from cache and is deterministic. Not worth a re-run to fix; recorded so the
+1,462-vs-1,382 discrepancy is not mistaken later for a coverage problem. A keyed lock around
+the miss path would remove it.
+
+### Feature matrix sanity, before any gate is evaluated
+| feature | mean | std |
+| :--- | ---: | ---: |
+| `imaging_reports_no_companion` | 0.264 | 0.367 |
+| `imaging_reports_companion_present` | 0.150 | 0.265 |
+| `spectroscopy_indicates_nonplanetary_companion` | 0.214 | 0.310 |
+| `spectroscopy_consistent_with_planet` | 0.239 | 0.274 |
+| `host_star_described_as_evolved` | 0.268 | 0.377 |
+| `followup_reported_concluded` | 0.554 | 0.453 |
+| `author_certainty` (0–4) | 2.738 | 0.773 |
+| `indicates_retired_or_rejected` | 0.074 | 0.142 |
+| `indicates_confirmed_planet` | 0.141 | 0.243 |
+| `contains_object_designation` | **0.929** | **0.191** |
+
+`contains_object_designation` is near-constant at full scale, exactly as the 20:09Z entry
+predicted from 26 of 27 gate cases. It is `TIER_LABEL_ECHO`, never in the headline, and A-8
+item 11's low-variance exemption is expected to apply to it at G3.
+**Jev spend this step:** $0.2421 · **running total:** **~$0.2565**
+**Next:** evaluate G2, G4, G5, G6 (`scripts/035_gates_g2_g6.py`, $0), then G3
+(`scripts/036_gate_g3_stability.py`, ~200 extra calls).
+---
+## [2026-09-20T21:06Z] TASK C — GATES G2, G4, G5, G6: ALL PASS. The registered prior was WRONG.
+**Command:** `.venv/bin/python scripts/035_gates_g2_g6.py` · **Jev spend: $0.00** (no API calls)
+**Artifacts:** `scripts/035_gates_g2_g6.py` (new), `research/data/gates_g2_g6_2026-09-20.json`.
+
+n = 1,482 · TIC = 1,388 · base 0.5378 · S1 GroupKFold(5)×3 · paired bootstrap 10,000 over TIC
+groups · A-6 aggregation throughout. **B = 0.9044.**
+
+| arm | AUC | ΔAUC vs B | 95% CI | verdict |
+| :--- | ---: | ---: | :--- | :--- |
+| **B+N** (A-1 dilution floor) | 0.8971 | **−0.0073** | [−0.0133, −0.0014] | as registered |
+| **B+meta** (A-7 control) | 0.9256 | **+0.0212** | [+0.0132, +0.0293] | metadata *does* add |
+| **D — THE HEADLINE (G2)** | **0.9483** | **+0.0440** | **[+0.0332, +0.0554]** | **G2 PASS** |
+| **D vs B+meta** | 0.9483 | **+0.0228** | [+0.0133, +0.0329] | **survives A-23's control** |
+| E (contaminated upper bound) | 0.9523 | +0.0479 | [+0.0367, +0.0596] | as expected, ≈ D |
+| **G5 registered (with L6)** | 0.9323 | **+0.0394** | [+0.0272, +0.0523] | **G5 PASS** · n=1,114 base 0.426 |
+| **G5 sensitivity (no L6)** | 0.9341 | **+0.0421** | [+0.0303, +0.0547] | **does not flip** · n=1,196 base 0.463 |
+| **G6 (+missingness)** | 0.9472 | **+0.0425** | [+0.0316, +0.0540] | **G6 PASS** |
+| **G4 (S2 temporal)** | 0.9136 | **+0.0927** | [+0.0608, +0.1264] | **G4 PASS** · train 1,070 / test 390 |
+| C (TF-IDF on raw text) | **0.8766** | — | — | **BELOW B** |
+
+**ΔAUC +0.0440 against an MDE of +0.0082 and a dilution floor of −0.0105 (A-20).** The effect
+is ~5× the MDE and the CI is nowhere near zero.
+
+### A-23's registered prior was wrong, and here is exactly why
+I registered, before the run, that *"not one content probe clears 0.68"* and that a null was the
+expected outcome. **Four of the seven predictive features clear it:**
+
+| feature | regex proxy \|AUC\| (A-23) | **Jev \|AUC\|** | gain |
+| :--- | ---: | ---: | ---: |
+| `spectroscopy_indicates_nonplanetary_companion` | 0.586 | **0.748** | **+0.162** |
+| `spectroscopy_consistent_with_planet` | 0.509 | **0.705** | **+0.196** |
+| `host_star_described_as_evolved` | 0.590 | **0.696** | +0.106 |
+| `imaging_reports_no_companion` | 0.643 | **0.687** | +0.044 |
+| `followup_reported_concluded` | 0.613 | 0.648 | +0.035 |
+| `imaging_reports_companion_present` | 0.528 | 0.637 | +0.109 |
+| `author_certainty` | — | 0.578 | — |
+
+**The error was in the estimator, not the reasoning.** A-23 bounded the signal with regex
+proxies and said so explicitly — *"a regex is a tight proxy for a fixed token and a loose one
+for a judgment … Jev can beat the token where the judgment is semantic."* That caveat is
+exactly what happened, and it is larger than I allowed for: **the semantic judgment beats the
+token by 0.10–0.20 AUC on the two spectroscopic questions.** The prior was stated in the right
+place, in advance, and is now falsified in public. That is the system working.
+
+### The three things that make this result harder to dismiss
+1. **It survives the metadata control.** A-23's specific worry was that the "signal" is really
+   *which group wrote a note*. **B+meta does reach 0.9256 — metadata alone adds +0.0212** — but
+   **D still beats B+meta by +0.0228 with a CI excluding zero.** The prose adds beyond
+   provenance.
+2. **It survives leakage stripping, in both arms.** G5 = +0.0394 with L6, +0.0421 without.
+   **The verdict does not flip between the two arms**, which A-25 committed to reporting either
+   way.
+3. **Baseline C is 0.8766 — BELOW B (0.9044).** On `Comments`, C was 0.9691 and was pure label
+   echo. Here, raw text alone is *weaker than the numerics*, so there is no readable label lying
+   in the text — yet Jev's structured judgments over that same text add +0.0440. **Whatever D is
+   using, TF-IDF cannot find it.** That is the opposite of the leakage signature.
+
+### DEFECT FOUND: `jev-1.13.0` is NOT run-to-run deterministic
+Checking end-to-end row alignment by comparing the 27 r6 gate answers against the Step 3 matrix
+— identical pinned model, identical state, identical questions, two separate calls — **60 of
+162 compared values differ.** Measured across all 10 features on those 27 cases (scores
+rescaled to 0–1):
+
+| | |
+| :--- | ---: |
+| identical values | **169 / 270 (62.6%)** |
+| **mean \|Δ\|** | **0.0049** |
+| \|Δ\| ≤ 0.02 | 94.4% |
+| \|Δ\| ≤ 0.05 | 99.3% |
+| **max \|Δ\|** | **0.100** |
+
+**Consequences, none of which change a gate verdict:**
+- **The alignment check still passes.** Every value agrees to ~0.01 and the large ones move
+  together (TOI 2151.01: gate 0.79/0.98/0.06, matrix 0.78/0.98/0.07). Rows are correctly joined;
+  a misalignment would destroy signal, not create it.
+- **Mean \|Δ\| 0.0049 is an order of magnitude below G3's 0.05 criterion**, so run-to-run noise
+  cannot by itself fail G3 — but it is **not zero**, and G3 was registered without a control for
+  it. **G3 is therefore being run with an added same-wording repeat arm** so the paraphrase
+  effect is measured against this noise floor rather than against an assumed zero.
+- **`PLAN.md` §0.5's claim that re-running a judging step "returns byte-identical results" is
+  true only from a WARM cache.** From a cold cache Step 3 would return slightly different
+  features and a slightly different ΔAUC. The cache is what makes this study reproducible, and
+  `data/` is gitignored, so **a clean clone does not reproduce the headline number exactly.**
+  This needs to be said plainly in `PROVENANCE.md` and `README.md` and is registered in §11.5.
+**Jev spend this step:** $0.00 · **running total:** ~$0.2565
+**Next:** G3 with the repeat control arm, then register §11.5.
+---
+## [2026-09-20T21:28Z] TASK C — GATE G3: PASS on TIER_PREDICTIVE (7/7)
+**Command:** `.venv/bin/python scripts/036_gate_g3_stability.py`
+**Artifacts:** `scripts/036_gate_g3_stability.py` (new),
+`research/data/gate_g3_stability_2026-09-20.json`, `data/cache/g3/`.
+**394 genuinely new API calls · 1,513,280 input tokens · $0.0636** · running total **~$0.3201**.
+
+200 rows sampled with a fixed seed. Registered criterion: **Spearman ρ ≥ 0.85 per feature AND
+mean |Δp| ≤ 0.05**, with A-8 item 11's exemption for a feature whose IQR is below one
+quantisation step (0.01).
+
+| feature | tier | ρ (para) | mean\|Δp\| | IQR | ρ (repeat) | mean\|Δp\| (repeat) | |
+| :--- | :--- | ---: | ---: | ---: | ---: | ---: | :--- |
+| `imaging_reports_no_companion` | pred | 0.884 | 0.0456 | 0.475 | 0.997 | 0.0001 | ok |
+| `imaging_reports_companion_present` | pred | 0.888 | 0.0158 | 0.030 | 1.000 | 0.0000 | ok |
+| `spectroscopy_indicates_nonplanetary_companion` | pred | 0.949 | 0.0196 | 0.092 | 0.999 | 0.0001 | ok |
+| `spectroscopy_consistent_with_planet` | pred | 0.948 | 0.0309 | 0.200 | 1.000 | 0.0002 | ok |
+| `host_star_described_as_evolved` | pred | 0.964 | 0.0130 | 0.100 | 1.000 | 0.0000 | ok |
+| `followup_reported_concluded` | pred | 0.960 | 0.0128 | 0.940 | 1.000 | 0.0000 | ok |
+| `author_certainty` | pred | 0.992 | 0.0135 | 0.268 | 1.000 | 0.0001 | ok |
+| `indicates_retired_or_rejected` | **echo** | **0.812** | 0.0096 | 0.010 | 0.996 | 0.0001 | **FAIL** |
+| `indicates_confirmed_planet` | echo | 0.939 | 0.0189 | 0.050 | 0.999 | 0.0000 | ok |
+| `contains_object_designation` | **echo** | **0.814** | **0.0626** | 0.010 | 1.000 | 0.0000 | **FAIL** |
+
+**G3 VERDICT: PASS.** All 7 `TIER_PREDICTIVE` features clear both halves of the criterion, and
+§7 puts only those in the headline.
+
+### The two failures are label-echo, and they are reported, not excused
+- `contains_object_designation` fails **both** halves (ρ 0.814, mean |Δp| 0.0626). It is the
+  near-constant column — mean 0.929 across the corpus — so this is a genuine instability, not
+  a tie artefact.
+- `indicates_retired_or_rejected` fails only ρ; its mean |Δp| is 0.0096, five times inside the bar.
+- **Both have IQR exactly 0.010, so A-8 item 11's exemption ("below one quantisation step")
+  misses on a strict reading of *below*.** Relaxing `<` to `<=` after seeing the numbers would
+  convert both to passes. **I have not done that.** The threshold stands as registered and the
+  failures are reported as failures. Neither feature enters the headline.
+
+### G3(b) is vacuous, and that is registered rather than skipped
+§6 asks for a **permuted state key order**. A-4 removed `toi`, so the registered state is
+`{"notes": ...}` — **one key, nothing to permute.** §6 was written when the state had two keys.
+The script asserts the state has exactly one key, so if an amendment ever re-introduces a second
+one this stops being vacuous and the assertion fires.
+
+## [2026-09-20T21:31Z] CORRECTION to the 21:06Z entry — the nondeterminism is TIME-dependent, not per-request
+**What 21:06Z said.** *"`jev-1.13.0` is NOT run-to-run deterministic … mean |Δ| 0.0049."*
+That measurement is real, but the label I put on it was too broad, and the G3 repeat arm shows why.
+
+**What is actually true.** Two identical requests behave very differently depending on *when*:
+
+| comparison | gap | mean \|Δ\| | ρ |
+| :--- | :--- | ---: | ---: |
+| r6 gate vs Step 3 (27 cases, 270 values) | **~1 hour** | **0.0049** | — |
+| G3 repeat arm vs Step 3 (200 rows, 10 features) | **minutes** | **0.0001** | 0.996–1.000 |
+
+**The payloads really were identical in both comparisons** — verified, not assumed: the
+`gate_obsnotes` and `step3` cache directories **share 27 key strings**, and a key is
+`sha256(model + version + state + questions)`, so the same key means the same bytes were sent.
+The case-file text and the DuckDB text are also byte-identical for every case checked.
+
+So within a session Jev is **effectively deterministic** (mean |Δ| 0.0001, 412× smaller than the
+paraphrase effect); across about an hour it drifts slightly. That is consistent with server-side
+variation — a serving fleet, batching, or a rolling deployment — rather than per-request sampling.
+
+**What this changes, and what it does not.**
+- **G3 is unaffected and is strengthened**: the paraphrase effect (mean |Δp| 0.0242) is **412×**
+  the within-session noise, so it is measuring wording, not jitter.
+- **The reproducibility caveat in the 21:06Z entry still stands**, and this is the sharper
+  statement of it: **a clean clone re-running Step 3 from a cold cache will not reproduce the
+  headline ΔAUC exactly.** `data/` is gitignored, so the cache is not in the repo. The numbers
+  are reproducible *from the cache*, which is a weaker claim than `PLAN.md` §0.5's
+  "byte-identical", and `PROVENANCE.md`/`README.md` must say so. Registered in §11.5.
+- No gate verdict moves. The smallest CI distance from zero across G2–G6 is G5's +0.0272, which
+  is far outside anything a 0.005 feature perturbation could reach.
+
+### Two self-inflicted defects found and fixed during G3, recorded so they are not repeated
+1. **The first repeat arm measured nothing.** `call_variant` patched `s3.QUESTIONS`/`s3._QJSON`
+   but not `s3.CACHE`, so `s3.call` looked the repeat payload up in the **Step 3** cache
+   directory — where, being byte-identical, it hit — and returned the cached Step 3 response.
+   The arm reported a perfect ρ = 1.000 / Δ = 0.0000 **because it never made a call.** A
+   too-good-to-be-true number is what exposed it. Fixed by redirecting `s3.CACHE`; the stale
+   outer entries were invalidated by bumping the salt to `r6-repeat2`, since the second run was
+   still being served from the first run's outer cache.
+2. **That same bug wrote 197 paraphrase responses into `data/cache/step3/`**, inflating it to
+   1,579 files. Verified before touching anything: **all 1,382 legitimate Step 3 keys present,
+   0 missing, 197 extra, and all 197 extras byte-identical to a file already in
+   `data/cache/g3/`.** They were **moved** to `data/cache/g3_inner_paraphrase/`, not deleted, so
+   nothing is lost. `data/cache/step3/` is now exactly **1,382** files = the distinct-state count.
+**Jev spend this step:** $0.0636 · **running total:** ~$0.3201
+**Next:** register TASK C in `PREREGISTRATION.md` §11.5.
+---
+## [2026-09-20T21:36Z] TASK C — DONE
+**Result:** Step 3 is complete and **all five gates pass.**
+
+| | |
+| :--- | :--- |
+| **headline (§7)** | **ΔAUC(D − B) = +0.0440, 95% CI [+0.0332, +0.0554]** |
+| vs registered MDE | **5.4×** the +0.0082 of A-20 |
+| G2 / G3 / G4 / G5 / G6 | **PASS / PASS / PASS / PASS / PASS** |
+| D vs B+meta | +0.0228 [+0.0133, +0.0329] — survives A-23's control |
+| G5 sensitivity | +0.0394 with L6, +0.0421 without — **verdict does not flip** |
+| baseline C (TF-IDF) | **0.8766, below B's 0.9044** |
+| Jev spend | **~$0.3201** cumulative |
+
+**Registered as `PREREGISTRATION.md` §11.5, A-28 … A-32.** That section is explicitly marked as
+written **after** the result; every criterion it is judged against was committed and pushed as
+`4198379` **before** `scripts/034_step3_features.py` made its first call.
+
+### What was NOT done, stated plainly
+- **S2b was not applied.** §4's note-level `Lastmod` filter needs every training row's features
+  recomputed on time-filtered text — a second full-corpus run. **G4 is the S2 + S2a result**,
+  and A-28 says so rather than leaving it implicit.
+- **`RESULTS.md` is not written.** §9's definition of done calls for it; this session produced
+  the numbers and the registration, not the write-up.
+- **G3's two label-echo failures were not explained away.** `contains_object_designation` fails
+  both halves of the criterion. Relaxing A-8 item 11's `<` to `<=` would have cleared both; it
+  was not done (A-32).
+
+**Artifacts:** `scripts/034_step3_features.py`, `scripts/035_gates_g2_g6.py`,
+`scripts/036_gate_g3_stability.py` (all new), `duckdb::jev_features_obsnotes`,
+`research/data/step3_features_2026-09-20.json`, `research/data/gates_g2_g6_2026-09-20.json`,
+`research/data/gate_g3_stability_2026-09-20.json`, `data/cache/step3/` (1,382),
+`data/cache/g3/`, `PREREGISTRATION.md` §11.5, `PROVENANCE.md` (step3 block + the cold-cache
+caveat), `README.md` (headline reproduction steps + the same caveat).
+**Jev spend this step:** $0.00 · **running total:** ~$0.3201
+**Next:** `RESULTS.md` per §9, and S2b if the corpus is re-run.
+---

@@ -109,6 +109,23 @@ uv pip install -r requirements.txt
 No API key required — none of these steps makes a model API call.
 See [CONTRIBUTING.md](./CONTRIBUTING.md).
 
+### Reproducing the headline result (needs an API key, ~$0.24)
+
+```bash
+.venv/bin/python scripts/028_obsnotes_pull.py         # ~6 min, $0 — the corpus
+.venv/bin/python scripts/034_step3_features.py        # ~7 min, ~$0.24 cold / $0.00 warm
+.venv/bin/python scripts/035_gates_g2_g6.py           # ~15 min, $0 — G2, G4, G5, G6
+.venv/bin/python scripts/036_gate_g3_stability.py     # ~2 min, ~$0.06 — G3
+```
+
+> **⚠️ A cold-cache re-run lands near the published number, not exactly on it.** `jev-1.13.0`
+> is effectively deterministic within a session (mean |Δ| **0.0001** between calls minutes
+> apart) but drifts slightly over longer gaps (**0.0049** at ~1 hour), measured on
+> byte-identical requests. `data/` is gitignored, so the 1,382 cached responses are not in this
+> repository: from that cache the pipeline is exact, without it only approximate. No gate
+> verdict is at risk — the closest confidence interval to zero is G5's +0.0272. Details:
+> [`PROVENANCE.md`](./PROVENANCE.md) and `PREREGISTRATION.md` §11.5 (A-31).
+
 **This is checked automatically.** The badge above runs the same three commands on a clean
 clone, on a fresh GitHub runner, weekly and on every change to `scripts/`, `src/` or
 `requirements.txt`. It asserts that baseline B still beats the prior by a wide margin.

@@ -58,3 +58,51 @@ lines, TIC ascending. It changes if any cached response changes.
 after any ingest re-run to restore this block.
 
 <!-- END obsnotes -->
+
+---
+
+<!-- BEGIN step3 (scripts/034_step3_features.py) -->
+## Jev feature matrix (TASK C, Step 3) — and the limit on reproducing it
+
+Per-row Jev judgments behind `duckdb::jev_features_obsnotes`. Cached under
+`data/cache/step3/` (gitignored); this block is the committed record.
+
+**Run (UTC):** `2026-09-20T20:48Z` · **model:** `jev-1.13.0` (pinned, asserted per response)
+· **question set:** `2026-09-20.r6`
+
+| quantity | value |
+| :--- | ---: |
+| corpus rows scored | 1,482 |
+| distinct states (= cache files) | 1,382 |
+| features per row | 10 (7 predictive + 3 label-echo) |
+| new API calls | 1,462 |
+| input tokens | 5,763,547 |
+| cost | $0.2421 |
+| failures | 0 |
+
+### ⚠️ A cold-cache re-run will NOT reproduce the headline number exactly
+
+`jev-1.13.0` is **effectively deterministic within a session** but **drifts slightly over
+time**. Two byte-identical requests — same model, same state, same questions, verified by a
+shared cache key — returned:
+
+| gap between calls | mean \|Δ\| per feature |
+| :--- | ---: |
+| minutes | **0.0001** |
+| ~1 hour | **0.0049** |
+
+`data/` is gitignored, so **the 1,382 cached responses are not in this repository**. From that
+cache the pipeline is exactly reproducible; from a cold cache it is reproducible only
+**approximately**, and the headline ΔAUC will land near, not on, +0.0440. This is weaker than
+`PLAN.md` §0.5's "byte-identical results", which holds only for a warm cache. Registered as
+`PREREGISTRATION.md` §11.5 A-31; measured in `WORKLOG.md` 2026-09-20T21:31Z.
+
+No gate verdict depends on this: the closest CI to zero is G5's +0.0272, far beyond anything a
+0.005 feature perturbation could move.
+
+```bash
+.venv/bin/python scripts/034_step3_features.py --dry-run   # project cost, no calls
+.venv/bin/python scripts/034_step3_features.py             # ~$0.24 cold, $0.00 warm
+```
+
+<!-- END step3 -->

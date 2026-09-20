@@ -970,3 +970,121 @@ the `Groupname` filter is removing the disposition channel completely, as §1.2 
 record. **The tripwire is enforced in code:** `scripts/033_leakage_obsnotes.py` raises and
 refuses to write its output if `L5` ever fires, with the message that this is a pipeline bug
 and not a finding. Step 3 stops if it does.
+
+---
+
+## 11.5 TASK C results — 2026-09-20. **This section is written AFTER the result.**
+
+> Everything above §11.5 was registered **before** any full-corpus Jev feature existed.
+> This section records what happened. It changes **no criterion**; §11.3 and §11.4 fixed the
+> question set, the clause set, the MDE and the arms, and all of it was committed and pushed
+> (`4198379`) before `scripts/034_step3_features.py` made its first call.
+> Cumulative Jev spend: **~$0.3201**.
+
+### A-28 — All five gates pass. G2 ΔAUC = **+0.0440** [+0.0332, +0.0554]
+
+n = 1,482 · TIC = 1,388 · base 0.5378 · S1 GroupKFold(5)×3 · paired bootstrap 10,000 over TIC
+groups, A-6 aggregation. **B = 0.9044.**
+
+| arm / gate | AUC | ΔAUC vs B | 95% CI | verdict |
+| :--- | ---: | ---: | :--- | :--- |
+| B+N — A-1 dilution floor | 0.8971 | −0.0073 | [−0.0133, −0.0014] | as registered |
+| B+meta — A-7 control | 0.9256 | +0.0212 | [+0.0132, +0.0293] | metadata *does* add |
+| **D — headline (G2)** | **0.9483** | **+0.0440** | **[+0.0332, +0.0554]** | **PASS** |
+| **D vs B+meta** | 0.9483 | **+0.0228** | [+0.0133, +0.0329] | **survives A-23** |
+| E — contaminated upper bound | 0.9523 | +0.0479 | [+0.0367, +0.0596] | reported, never headline |
+| **G5 — registered, with L6** | 0.9323 | **+0.0394** | [+0.0272, +0.0523] | **PASS** (n=1,114, base 0.426) |
+| **G5 — sensitivity, without L6** | 0.9341 | **+0.0421** | [+0.0303, +0.0547] | **does not flip** (n=1,196, base 0.463) |
+| **G6 — missingness ablation** | 0.9472 | **+0.0425** | [+0.0316, +0.0540] | **PASS** |
+| **G4 — S2 temporal** | 0.9136 | **+0.0927** | [+0.0608, +0.1264] | **PASS** (train 1,070 / test 390) |
+| **G3 — stability** | — | — | — | **PASS**, 7/7 predictive |
+| C — TF-IDF on raw text | **0.8766** | — | — | **below B** |
+
+**The headline, as §7 defines it: ΔAUC(D − B) = +0.0440, 95% CI [+0.0332, +0.0554].** That is
+**5.4×** the registered MDE of +0.0082 (A-20) and the CI clears the dilution floor of −0.0105
+with a wide margin.
+
+**G4's S2 split, as measured (§4 fixed the date, not the sizes):** train 1,070 / test 390
+(26.3%), **22 test rows dropped by the S2a group-leak fix**, train base 0.4888 vs test base
+0.6487. The base-rate shift is expected and **an S2 AUC is not comparable to an S1 AUC**.
+**S2b (the note-level `Lastmod` filter) was NOT applied** — it requires recomputing every
+training row's features on time-filtered text, a second full-corpus run. G4 is therefore the
+S2 + S2a result, and that limitation is stated here rather than left implicit.
+
+### A-29 — A-23's registered prior was WRONG, and the reason is specific
+
+A-23 recorded, before the run, that no content probe cleared 0.68 and that **a null was the
+expected outcome**. Four of the seven predictive features clear it:
+
+| feature | regex proxy \|AUC\| (A-23) | **Jev \|AUC\|** | gain |
+| :--- | ---: | ---: | ---: |
+| `spectroscopy_indicates_nonplanetary_companion` | 0.586 | **0.748** | **+0.162** |
+| `spectroscopy_consistent_with_planet` | 0.509 | **0.705** | **+0.196** |
+| `host_star_described_as_evolved` | 0.590 | **0.696** | +0.106 |
+| `imaging_reports_no_companion` | 0.643 | **0.687** | +0.044 |
+| `followup_reported_concluded` | 0.613 | 0.648 | +0.035 |
+| `imaging_reports_companion_present` | 0.528 | 0.637 | +0.109 |
+| `author_certainty` | — | 0.578 | — |
+
+**The error was in the estimator, not in the reasoning.** A-23 bounded the achievable signal
+with regex proxies and explicitly flagged that a regex is a loose proxy for a judgment. That
+caveat was right and larger than allowed for: **the semantic judgment beats the token by
+0.10–0.20 AUC on the two spectroscopic questions.** A pre-registered prior was falsified in
+public by the measurement it was written to constrain. Recorded here in full rather than
+quietly dropped.
+
+### A-30 — Why this is not the leakage signature, stated with the numbers
+
+Three independent checks, each registered in advance:
+
+1. **It survives the metadata control.** A-23's named worry was that the signal is really
+   *which follow-up group wrote a note*. B+meta does reach 0.9256 — **metadata alone adds
+   +0.0212** — and **D still beats B+meta by +0.0228, CI [+0.0133, +0.0329]**.
+2. **It survives leakage stripping in both arms**, and **the verdict does not flip** between
+   them, which A-25 committed to reporting either way.
+3. **Baseline C = 0.8766, BELOW B = 0.9044.** On `Comments`, C was 0.9691 and was pure label
+   echo. Here, raw text alone is *weaker than the numeric columns* — there is no readable label
+   lying in the prose — yet structured judgments over that same text add +0.0440. **Whatever D
+   is using, TF-IDF cannot find it.** That is the opposite of a leakage signature.
+
+**What this does not establish.** That the gain is *astrophysically* meaningful, that it
+generalises beyond TESS/ExoFOP observer notes, or that these features would help a vetter that
+already ingests pixels and flux. §7's headline is one number on one corpus.
+
+### A-31 — Reproducibility is weaker than `PLAN.md` §0.5 claims, and the exact claim is corrected
+
+§0.5 says re-running a judging step "returns byte-identical results". **True only from a warm
+cache.** Two identical requests — same pinned model, same state, same questions, verified by a
+shared cache key — return:
+
+| gap between the two calls | mean \|Δ\| | Spearman ρ |
+| :--- | ---: | ---: |
+| **minutes** (G3 repeat arm, 200 rows × 10 features) | **0.0001** | 0.996 – 1.000 |
+| **~1 hour** (r6 gate vs Step 3, 27 cases × 10 features) | **0.0049** | — |
+
+Within a session Jev is effectively deterministic; over about an hour it drifts slightly,
+consistent with server-side variation rather than per-request sampling. **Consequences:**
+- **A clean clone re-running Step 3 from a cold cache will not reproduce +0.0440 exactly.**
+  `data/` is gitignored, so `data/cache/step3/` (1,382 responses) is **not** in the repository.
+  The published numbers are reproducible *from that cache*, and approximately — not exactly —
+  without it. `PROVENANCE.md` and `README.md` must say this in these terms.
+- **No gate verdict is at risk.** The closest any CI comes to zero is G5's +0.0272, orders of
+  magnitude beyond what a 0.005 feature perturbation could move.
+- G3 is strengthened, not weakened: the paraphrase effect (0.0242) is **412×** the
+  within-session noise floor, so G3 measures wording sensitivity rather than jitter.
+
+### A-32 — G3's two failures are label-echo, and the threshold was NOT relaxed to clear them
+
+`contains_object_designation` (ρ 0.814, mean |Δp| **0.0626** — fails both halves) and
+`indicates_retired_or_rejected` (ρ 0.812, mean |Δp| 0.0096 — fails ρ only) do not meet the
+registered criterion. Both are `TIER_LABEL_ECHO` and **never enter the headline** (§7).
+
+**Both have IQR exactly 0.010**, so A-8 item 11's exemption — *"inter-quartile range below one
+quantisation step (0.01)"* — misses on a strict reading of *below*. Changing `<` to `<=` after
+seeing the numbers would turn both failures into passes. **That change has not been made.** The
+criterion stands as registered and the failures are recorded as failures.
+
+**G3(b), the permuted state key order, is vacuous:** A-4 reduced the state to the single key
+`notes`, so there is no order to permute. §6 was written when the state had two keys.
+`scripts/036_gate_g3_stability.py` asserts the state has exactly one key, so the test stops
+being vacuous automatically if a future amendment adds one.
