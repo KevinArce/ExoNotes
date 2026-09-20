@@ -1088,3 +1088,83 @@ criterion stands as registered and the failures are recorded as failures.
 `notes`, so there is no order to permute. §6 was written when the state had two keys.
 `scripts/036_gate_g3_stability.py` asserts the state has exactly one key, so the test stops
 being vacuous automatically if a future amendment adds one.
+
+---
+
+## 11.6 TASK D — the write-up. **This section is written AFTER the result.**
+
+> `RESULTS.md` discharges §9 item 7, the last open item in the definition of done. Writing it
+> required three measurements that did not exist, each of which turned a claim already in this
+> document into a result or corrected it. No criterion changes. **No API calls were made:
+> cumulative Jev spend is unchanged at ~$0.3201.**
+
+### A-33 — A-31's "no gate verdict is at risk" is now measured, not argued
+
+A-31 and `PROVENANCE.md` assert that the `jev-1.13.0` time drift cannot move a verdict, on the
+argument that G5's +0.0272 lower bound is *"orders of magnitude beyond what a 0.005 feature
+perturbation could move."* **That was an estimate.** The gates were never re-run from a cold
+cache, so the map from a feature perturbation to a ΔAUC perturbation was never established.
+
+`scripts/038_drift_sensitivity.py` establishes it with zero API calls: perturb all seven
+`TIER_PREDICTIVE` columns by Gaussian noise scaled to the measured drift, clip to each
+feature's range, re-quantise to the two decimals Jev returns (§10.5), re-fit D, recompute G2.
+
+| simulated drift | realised mean \|Δ\| | draws | ΔAUC mean ± sd | worst draw | worst draw's 95% CI | G2 |
+| :--- | ---: | ---: | :--- | ---: | :--- | :--- |
+| **1× measured** (0.0049) | 0.0042 | 20 | **+0.0444 ± 0.0010** | +0.0417 | [+0.0308, +0.0530] | **PASS** |
+| **10× measured** (0.0490) | 0.0385 | 10 | +0.0402 ± 0.0015 | +0.0384 | [+0.0280, +0.0495] | **PASS** |
+
+The unperturbed reference reproduces the gate run exactly at +0.0440. **At the measured drift
+the worst of 20 draws shifts ΔAUC by −0.0023, about a quarter of the MDE; at ten times the
+measured drift G2 still passes.** A-31's conclusion stands and is now a measurement.
+
+**What this arm is not, stated because it bounds the claim.** It is **not** a cold-cache
+re-run — real server-side drift is whatever the serving fleet does and may be correlated
+across rows or concentrated on hard cases, where this perturbs every row independently. It is
+**not** a registered gate. And the realised perturbation lands ~14% below target at 1×, because
+re-quantising to 0.01 rounds small perturbations back to zero, so the 1× arm is marginally
+*weaker* than the drift it simulates. The 10× arm exists to cover that gap rather than to argue
+it away.
+
+### A-34 — §10 item 2's note-count medians do not describe this corpus; the measured values
+
+§10 item 2 records *"note count correlates with the label (median 3 for y=1 vs 2 for y=0)"*.
+That was measured on the `Comments` analysis set. **On the obsnotes corpus the medians are
+equal**, and the effect lives in the tail:
+
+| metadata feature | median y=1 vs y=0 | mean y=1 vs y=0 | univariate \|AUC\| |
+| :--- | :--- | :--- | ---: |
+| note count | **2 vs 2** | 3.44 vs 2.15 | 0.571 |
+| number of authors | 1 vs 1 | 1.99 vs 1.26 | **0.609** |
+| note length (chars) | 863 vs 879 | 1,527 vs 995 | 0.504 |
+
+**The direction of the registered limitation holds and its prohibition is unaffected** — no
+feature derived from note count, note length or number of authors enters any model, and the
+B+meta control arm exists precisely to price them. But the medians quoted in §10 are not this
+corpus's medians, and **number of authors is the stronger channel, not note count**. This is
+what B+meta's +0.0212 is made of. Corrected here rather than left to be discovered by a reader
+who runs the query.
+
+### A-35 — The two values of baseline B in this repository are input row order
+
+`scripts/030_gate_g1_obsnotes.py` reports **B = 0.9051**; `scripts/035_gates_g2_g6.py` reports
+**B = 0.9044**, on the same 1,482 rows, same folds, same seed, same CatBoost configuration.
+The only difference is that 035 reads the rows `order by a.toi` for the feature join.
+`scripts/037_reliability.py` fits both orderings and **reproduces both numbers exactly**:
+**CatBoost is sensitive to input row order, worth 0.0008 AUC here** — ~10× below the MDE.
+
+No verdict moves, and no pairing is broken: every ΔAUC in this study is computed against the B
+fitted on its own arm's row ordering and row set. **0.9051 is G1's B; 0.9044 is G2's.** Recorded
+so the discrepancy is explained rather than noticed.
+
+### A-36 — Two items of §9 and `PLAN.md` §9 that `RESULTS.md` reports as NOT done
+
+1. **Per-question reliability diagrams (`PLAN.md` §9) were not produced.** There is no ground
+   truth to plot them against: the per-question judgments are not independently labelled, and
+   the only hand-labelled set is the **27-case** question-design gate — far too few for
+   calibration bins. The gate's 219/221 assertions are an accuracy check, not a reliability
+   diagram. Plotting the judgments against the *disposition* label instead would measure
+   something else entirely and is not done. §9 item 7's "reliability diagrams" are delivered
+   for **baselines B and D**, which is what that item asks for.
+2. **S2b remains unapplied**, as A-28 already records. `RESULTS.md` §9 restates it rather than
+   letting the write-up imply G4 is the registered split.

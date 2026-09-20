@@ -1,0 +1,444 @@
+# ExoNotes — Results
+
+**Do the free-text notes astronomers write on TESS Objects of Interest carry
+disposition-relevant information that the numeric catalogue columns do not?**
+
+**Yes, on this corpus, by a margin 5.4× the effect this study was powered to detect.**
+
+This document is [`PREREGISTRATION.md`](./PREREGISTRATION.md) §9 item 7. Every criterion it
+reports against was committed and pushed (`4198379`) **before** the first full-corpus model call
+was made. Nothing below revises a criterion; where the study was wrong in advance — and it was,
+on the central prediction — that is reported in [§5](#5-the-pre-registered-prior-was-wrong) rather
+than dropped.
+
+---
+
+## 1. The headline
+
+§7 defines the headline as **one number**: ΔAUC of model **D − B** under split **S1**, using
+**`TIER_PREDICTIVE` questions only**, with its bootstrap 95% CI.
+
+> ### ΔAUC(D − B) = **+0.0440**, 95% CI **[+0.0332, +0.0554]**
+>
+> n = 1,482 rows · 1,388 TIC groups · base rate 0.5378 · GroupKFold(5) × 3 repeats ·
+> paired bootstrap, 10,000 resamples over TIC groups.
+> **B = 0.9044 → D = 0.9483.**
+
+§7 requires four things be reported beside it, always, never instead of it:
+
+| companion | value | what it means |
+| :--- | :--- | :--- |
+| **E − B**, the full-question-set gain | **+0.0479** [+0.0367, +0.0596] | **Leakage-contaminated.** E adds the three `TIER_LABEL_ECHO` questions, which may restate the disposition. It is an upper bound, never the headline. |
+| **Baseline C**, TF-IDF on raw text | **AUC 0.8766** | **Labelled as leakage by construction.** On the earlier `Comments` corpus C scored 0.9691 and its strongest terms were catalogue prefixes — pure label echo. Here it lands **below** B. See [§4](#4-why-this-is-not-a-leakage-signature). |
+| **The G5 arm**, leakage-stripped | **+0.0394** [+0.0272, +0.0523] | n = 1,114 · base 0.4264. Stripping removes more positives than negatives, so **a G5 AUC is not comparable to a G2 AUC.** |
+| **The S2 result**, with its base-rate shift | **+0.0927** [+0.0608, +0.1264] | train 1,070 / test 390. **Train base 0.4888 → test base 0.6487.** The shift is expected and is the point; **an S2 AUC is not an S1 AUC** and is not quoted as one. |
+
+**Against the registered detection bar.** [`PREREGISTRATION.md`](./PREREGISTRATION.md) §11.3
+A-20 fixed, before the run, a minimum detectable effect of **+0.0082** at 80% power, and a
+dilution floor of **−0.0105** — the AUC cost of adding seven *known-worthless* columns to this
+CatBoost. The headline is **5.4× the MDE**, and its CI lower bound of +0.0332 clears the
+dilution floor by a wide margin.
+
+---
+
+## 2. Every gate, with its interval
+
+All six gates pass.
+
+| gate | criterion, as registered in §6 | result | verdict |
+| :--- | :--- | :--- | :--- |
+| **G1** | B ≥ 0.85 AUC and B > A by a bootstrap 95% CI excluding zero | B **0.9051** vs A 0.4840 · Δ +0.4212 [+0.3977, +0.4441] | ✅ **PASS** |
+| **G2** | D beats B on ΔAUC under S1, CI excluding zero | **+0.0440** [+0.0332, +0.0554] | ✅ **PASS** |
+| **G3** | Spearman ρ ≥ 0.85 **and** mean \|Δp\| ≤ 0.05 per feature, under paraphrase | **7/7 `TIER_PREDICTIVE`** clear both halves | ✅ **PASS** |
+| **G4** | the gain survives on `TIER_PREDICTIVE` only, under S2 | **+0.0927** [+0.0608, +0.1264] | ✅ **PASS** |
+| **G5** | the gain survives on the leakage-stripped arm | **+0.0394** [+0.0272, +0.0523] | ✅ **PASS** |
+| **G6** | the gain survives an explicit-missingness ablation | **+0.0425** [+0.0316, +0.0540] | ✅ **PASS** |
+
+![Every arm with its 95% confidence interval](assets/gate_forest.png)
+
+The reference arms are on the same figure because they are what make the gates readable:
+
+- **B+N, the dilution floor (A-1):** **−0.0073** [−0.0133, −0.0014]. Seven pure-Gaussian columns
+  *cost* AUC. A reported ΔAUC of 0.000 would therefore not be a null — it would be real signal
+  cancelling dilution. This arm is why.
+- **B+meta, the metadata control (A-7):** **+0.0212** [+0.0132, +0.0293]. Note count, total
+  characters and an author one-hot — **no model call at all** — reach 0.9256. Provenance alone
+  does add signal.
+- **D − B+meta:** **+0.0228** [+0.0133, +0.0329]. The prose adds **beyond** provenance. This is
+  the single most important control in the study; see [§4](#4-why-this-is-not-a-leakage-signature).
+
+### Two values of B appear in this repository, and here is why
+
+[`scripts/030_gate_g1_obsnotes.py`](scripts/030_gate_g1_obsnotes.py) reports **B = 0.9051**;
+[`scripts/035_gates_g2_g6.py`](scripts/035_gates_g2_g6.py) reports **B = 0.9044**, on the same
+1,482 rows, the same folds, the same seed and the same CatBoost configuration. The only
+difference is the order the rows are read in — 035 adds `order by a.toi` for the feature join.
+[`scripts/037_reliability.py`](scripts/037_reliability.py) fits both orderings and reproduces
+both numbers exactly: **CatBoost is sensitive to input row order, worth 0.0008 AUC here.**
+
+That is ~10× below the MDE and moves no verdict. Every ΔAUC in this document is computed
+against the B fitted on **its own** arm's row ordering and row set, so the pairing is never
+broken; 0.9051 is G1's B and 0.9044 is G2's.
+
+---
+
+## 3. Reliability, and where the gain actually comes from
+
+![Reliability diagrams for baselines B and D](assets/reliability_b_d.png)
+
+These calibrate **CatBoost's** `predict_proba`, not the model's own confidence.
+[`PLAN.md`](./PLAN.md) §1 forbids thresholding on Jev's `confidence` — that guardrail is about a
+distribution-shape statistic and is untouched here. No model probability is thresholded anywhere
+in this study; they enter only as features.
+
+| | B — numeric only | D — numeric + Jev |
+| :--- | ---: | ---: |
+| AUC | 0.9044 | **0.9483** |
+| **Brier** (mean over 3 S1 repeats) | 0.1210 [0.1195–0.1231] | **0.0881** [0.0859–0.0895] |
+| **ECE**, 10 equal-width bins | 0.0263 [0.0240–0.0295] | 0.0232 [0.0226–0.0237] |
+| **MCE** | 0.0835 | **0.0929** |
+| rows placed in the two extreme bins | 737 (49.7%) | **995 (67.1%)** |
+
+**The gain is sharpness, not calibration — and that distinction matters.** Brier falls 27%,
+but ECE barely moves. D is **not** meaningfully better calibrated than B; it is more
+*decisive*. It moves 258 more rows into p < 0.1 or p > 0.9, and it is right about them. Both
+curves track the diagonal within their intervals across the whole range.
+
+**D's worst bin is worse than B's.** MCE rises from 0.0835 to 0.0929, on the 44-row 0.5–0.6
+bin where D predicts 0.551 and observes 0.636. That is a thin bin with a wide interval, but it
+is a place where the enriched model is *less* reliable, and it is reported rather than rounded
+away.
+
+**On the three S1 repeats.** Each row gets one out-of-fold prediction per repeat, so the three
+vectors are correlated, not independent replicates. Brier, ECE and MCE are therefore computed
+per repeat and reported as mean [min–max]. The plotted curve pools all three, but its per-bin
+Wilson 95% intervals are computed at **n_eff = count / 3** — the independent row count — rather
+than at the pooled count, which would claim three times the precision the data has.
+
+---
+
+## 4. Why this is not a leakage signature
+
+This is the failure mode the whole study is built around. Nearly half the earlier `Comments`
+corpus restated the label in prose, and a TF-IDF baseline on it scored 0.9691 AUC of pure echo.
+Three independent checks, **each registered in advance**, say this result is not that.
+
+**1. It survives the metadata control.** The named worry (A-23) was that the signal is really
+*which follow-up group bothered to write a note*. B+meta reaches 0.9256 — metadata alone adds
++0.0212, so the worry was well-founded — and **D still beats B+meta by +0.0228, CI
+[+0.0133, +0.0329]**.
+
+**2. It survives leakage stripping, and the verdict does not flip between arms.** §11.4's
+clause set strips **368 of 1,482 rows (24.8%) at P(y=1) = 0.875**:
+
+| clause | what it strips | n | P(y=1) |
+| :--- | :--- | ---: | ---: |
+| `L6` archive provenance | `ExoFOP-Kepler`, `ExoFOP-K2`, `KOI…`, `EPIC…` | 231 | **0.948** |
+| `L7` structured disposition field | the Kepler/K2 `Possible planetary candidate = Yes` extracts | 136 | 0.941 |
+| `L3` confirmed / validated / published | | 101 | 0.891 |
+| `L8` DACE `Status:` line | | 97 | 0.866 |
+| `L1` retired | | 17 | 0.235 |
+| `L9` disposition transition | | 11 | 0.364 |
+| `L2`, `L4b`, `L5` | **fire on 0 rows** | 0 | — |
+| `L4a` catalogue designation | | 1 | 1.000 |
+
+`L6` is the contested one: it is *provenance*, not a disposition statement, and A-25 committed
+in advance to reporting both arms either way. **With L6: +0.0394. Without L6: +0.0421. The
+verdict does not flip.**
+
+**`L5` is a tripwire and it did not fire.** §5.1 registered that if `Master Disp:` /
+`Phot Disp:` / `Spec Disp:` appeared on any row, the corpus filter had failed and Step 3 must
+stop — a pipeline bug, not a finding. It fired on **0 of 1,482 rows**. The
+`Groupname IS NULL` filter removes the disposition channel completely.
+
+**3. Baseline C is *below* B.** C scores **0.8766** against B's 0.9044. On `Comments` the same
+baseline scored 0.9691 and was pure echo. Here, **raw text alone is weaker than the numeric
+columns** — there is no readable label lying in the prose — yet structured judgments over that
+same text add +0.0440. **Whatever D is using, TF-IDF cannot find it.** That is the opposite of
+a leakage signature.
+
+### What this does **not** establish
+
+That the gain is *astrophysically* meaningful. That it generalises beyond TESS/ExoFOP observer
+notes. That these features would help a vetter that already ingests pixels and flux — they are
+not tested against one, and [`research/03_*`](./research/03_jev_astrophysics_evidence_based_assessment.md)
+§2.2 is explicit that this project is deliberately **not** a transit vetter. The headline is one
+number on one corpus.
+
+---
+
+## 5. The pre-registered prior was wrong
+
+**This study predicted, in public and in advance, that it would find nothing.** A-23 registered
+that no content probe cleared 0.68 univariate AUC by regex, and that **a null was the expected
+outcome**. A-20 had fixed the bar a feature must clear at ≈ 0.68.
+
+**Four of the seven predictive features clear it.**
+
+| feature | regex proxy \|AUC\| (A-23, before) | **measured \|AUC\|** | gain |
+| :--- | ---: | ---: | ---: |
+| `spectroscopy_indicates_nonplanetary_companion` | 0.586 | **0.748** | **+0.162** |
+| `spectroscopy_consistent_with_planet` | 0.509 | **0.705** | **+0.196** |
+| `host_star_described_as_evolved` | 0.590 | **0.696** | +0.106 |
+| `imaging_reports_no_companion` | 0.643 | **0.687** | +0.044 |
+| `followup_reported_concluded` | 0.613 | 0.648 | +0.035 |
+| `imaging_reports_companion_present` | 0.528 | 0.637 | +0.109 |
+| `author_certainty` | — | 0.578 | — |
+
+**The error was in the estimator, not in the reasoning.** A-23 bounded the achievable signal
+with regex proxies and explicitly flagged that a regex is a loose proxy for a judgment. That
+caveat was correct and larger than allowed for: **the semantic judgment beats the token proxy by
+0.10–0.20 AUC on the two spectroscopic questions.** A note saying the companion is consistent
+with a planetary mass and a note saying it is not share almost all of their vocabulary; the
+distinction is in the claim, not the words.
+
+A falsified prior is a good outcome for a pre-registration, not an embarrassing one — it is the
+only thing that distinguishes a registered study from a story told after the fact. It stays in
+the write-up.
+
+---
+
+## 6. Stability under paraphrase (G3)
+
+200 rows, fixed seed, every question re-worded and re-asked. Registered criterion: **Spearman
+ρ ≥ 0.85 per feature and mean |Δp| ≤ 0.05.**
+
+| feature | tier | ρ | mean \|Δp\| | IQR | verdict |
+| :--- | :--- | ---: | ---: | ---: | :--- |
+| `imaging_reports_no_companion` | predictive | 0.884 | 0.0456 | 0.475 | ✅ |
+| `imaging_reports_companion_present` | predictive | 0.888 | 0.0158 | 0.030 | ✅ |
+| `spectroscopy_indicates_nonplanetary_companion` | predictive | 0.949 | 0.0196 | 0.093 | ✅ |
+| `spectroscopy_consistent_with_planet` | predictive | 0.948 | 0.0309 | 0.200 | ✅ |
+| `host_star_described_as_evolved` | predictive | 0.964 | 0.0130 | 0.100 | ✅ |
+| `followup_reported_concluded` | predictive | 0.960 | 0.0128 | 0.940 | ✅ |
+| `author_certainty` | predictive | 0.992 | 0.0135 | 0.268 | ✅ |
+| `indicates_retired_or_rejected` | label-echo | **0.812** | 0.0096 | 0.010 | ❌ **fails ρ** |
+| `indicates_confirmed_planet` | label-echo | 0.939 | 0.0189 | 0.050 | ✅ |
+| `contains_object_designation` | label-echo | **0.814** | **0.0626** | 0.010 | ❌ **fails both** |
+
+**G3 passes because §7 puts only `TIER_PREDICTIVE` in the headline, and all seven clear both
+halves.** But two features do fail, and they are reported as failures:
+
+- `contains_object_designation` fails **both** halves. It is the near-constant column (mean
+  0.929 across the corpus), so this is genuine instability, not a tie artefact.
+- `indicates_retired_or_rejected` fails ρ only; its mean |Δp| of 0.0096 is five times inside
+  the bar.
+- **Both have IQR exactly 0.010**, so A-8 item 11's exemption — *"inter-quartile range below one
+  quantisation step (0.01)"* — misses on a strict reading of *below*. **Relaxing `<` to `<=`
+  after seeing these numbers would convert both failures into passes. That change was not
+  made.**
+
+**The paraphrase effect is measured against a noise floor, not against an assumed zero.** A
+same-wording repeat arm was added when the model turned out not to be bit-stable over time
+([§8](#8-the-limit-on-reproducing-this)). Mean |Δp| under paraphrase is **0.0242**; under an
+identical re-ask minutes later it is **0.0001**. The paraphrase effect is **412× the
+within-session noise**, so G3 measures wording sensitivity rather than jitter.
+
+**G3(b) is vacuous and that is registered rather than skipped.** §6 asks for a permuted state
+key order; A-4 reduced the state to the single key `notes`, so there is nothing to permute.
+[`scripts/036_gate_g3_stability.py`](scripts/036_gate_g3_stability.py) asserts the state has
+exactly one key, so the test stops being vacuous automatically if an amendment ever adds one.
+
+---
+
+## 7. What was measured, on what
+
+| | |
+| :--- | :--- |
+| **Corpus** | ExoFOP `download_obsnotes`, **observer notes only** (`Groupname IS NULL` — this filter is the entire reason for the corpus; it removes TFOP working-group notes, which state the disposition outright) |
+| **Rows** | **1,482** TOIs · **1,388** unique TIC · base rate **0.5378** · median 870 characters |
+| **Coverage** | 54.5% of the labelled analysis set. 6,855 notes across 2,573 TIC were pulled; ~⅓ of TICs have no observer note at all and are excluded |
+| **Label** | TFOPWG disposition: CP/KP = 1, FP/FA = 0. PC/APC excluded |
+| **Questions** | [`src/exonotes/questions.py`](src/exonotes/questions.py) `2026-09-20.r6` — **7 `TIER_PREDICTIVE` + 3 `TIER_LABEL_ECHO`**, frozen before the run; gate score 219/221 assertions on 27 label-blinded real notes |
+| **Model** | `jev-1.13.0`, **pinned and asserted on every response**; one request per row, many questions per request |
+| **Predictor** | CatBoost (500 iterations, depth 4, lr 0.05), identical configuration in every arm |
+| **Spend** | Step 3: 1,462 calls · 5,763,547 input tokens · **$0.2421**. **Whole study: ~$0.3201** |
+
+The division of labour is the point: **the language model is the featurizer, gradient boosting
+is the predictor, grouped cross-validation by host star is the arbiter.** A model judgment is a
+feature, never a conclusion.
+
+---
+
+## 8. The limit on reproducing this
+
+**A clean clone re-running the pipeline from a cold cache will land near +0.0440, not on it.**
+
+`jev-1.13.0` is effectively deterministic *within* a session but drifts slightly over time. Two
+byte-identical requests — same pinned model, same state, same questions, verified by a shared
+content-addressed cache key — returned:
+
+| gap between the two calls | mean \|Δ\| per feature | Spearman ρ |
+| :--- | ---: | ---: |
+| **minutes** (200 rows × 10 features) | **0.0001** | 0.996 – 1.000 |
+| **~1 hour** (27 cases × 10 features) | **0.0049** | — |
+
+This is consistent with server-side variation — a serving fleet, batching, a rolling deployment
+— rather than per-request sampling. It **corrects** [`PLAN.md`](./PLAN.md) §0.5's claim that
+re-running a judging step "returns byte-identical results": that holds only from a **warm**
+cache. `data/` is gitignored, so the 1,382 cached responses are **not** in this repository. From
+that cache the pipeline is exact; without it, approximate.
+
+### No gate verdict is at risk — and this was measured, not argued
+
+A-31 and [`PROVENANCE.md`](./PROVENANCE.md) both assert that the drift cannot move a verdict,
+on the argument that G5's +0.0272 lower bound is far beyond what a 0.005 feature perturbation
+could reach. **That was an argument.** The gates were never re-run from a cold cache, so the map
+from a feature perturbation to a ΔAUC perturbation had never been established. It costs no API
+calls to establish, so [`scripts/038_drift_sensitivity.py`](scripts/038_drift_sensitivity.py)
+does: perturb all seven `TIER_PREDICTIVE` columns by Gaussian noise scaled to the measured
+drift, clip to each feature's range, re-quantise to the two decimals the model actually returns,
+re-fit D, recompute G2. Over independent draws:
+
+| simulated drift | realised mean \|Δ\| | draws | ΔAUC mean ± sd | worst draw | worst draw's 95% CI | G2 |
+| :--- | ---: | ---: | :--- | ---: | :--- | :--- |
+| **1× measured** (0.0049) | 0.0042 | 20 | **+0.0444 ± 0.0010** | +0.0417 | [+0.0308, +0.0530] | ✅ PASS |
+| **10× measured** (0.0490) | 0.0385 | 10 | +0.0402 ± 0.0015 | +0.0384 | [+0.0280, +0.0495] | ✅ PASS |
+
+**At the measured drift, ΔAUC moves by 0.0010 (sd), worst case −0.0023 — a quarter of the MDE.
+At ten times the measured drift it still passes**, landing at +0.0384 with a CI that excludes
+zero by a wide margin. The claim holds, and now it is a measurement.
+
+**Two things this arm is not.** It is not a cold-cache re-run: real server-side drift is not
+i.i.d. Gaussian per row, and could in principle be correlated across rows or concentrated on
+hard cases, which this stand-in cannot capture. And it is not a registered gate — it is a
+robustness check on a claim this write-up makes, reported as one. The realised perturbation also
+comes in ~14% below target at 1×, because re-quantising to 0.01 rounds many small perturbations
+back to zero; the arm is therefore marginally *weaker* than the drift it simulates, which the
+10× row is there to cover.
+
+---
+
+## 9. What was not done
+
+Stated here rather than left implicit.
+
+1. **S2b was not applied.** §4 registers a note-level temporal filter for the S2 *training*
+   side — include a note iff its `Lastmod` < the cutoff. It requires recomputing every training
+   row's features on time-filtered text, a second near-full-corpus run. **G4 as reported is the
+   S2 + S2a result**, which is an approximation to the registered split, not the split itself.
+2. **Per-question reliability diagrams were not produced.** [`PLAN.md`](./PLAN.md) §9 asks for
+   them. There is no ground truth to plot them against: the per-question judgments are not
+   independently labelled, and the only hand-labelled set is the **27-case** question-design
+   gate — far too few for calibration bins. The gate result (219/221 assertions) is what exists,
+   and it is an accuracy check, not a reliability diagram. Reporting the absence is the honest
+   move; manufacturing the diagram against the *disposition* label would be measuring something
+   else entirely.
+3. **G3(b), the permuted state key order, is vacuous** (see [§6](#6-stability-under-paraphrase-g3)).
+4. **The two G3 label-echo failures were not explained away**, and A-8 item 11's threshold was
+   not relaxed to clear them.
+5. **The CI pipeline does not cover any of this.** [`.github`](.github) reruns ingest and
+   baselines only, makes no API calls, and does not touch the corpus table, Step 3 or the gates.
+
+---
+
+## 10. Limitations
+
+The seven registered before the result, in the pre-registration's own §10. Six are
+unchanged; **item 2 carries a correction**, because one of its numbers turns out not to
+describe this corpus:
+
+1. **`Lastmod` is last-modified, not created.** S2b drops edited notes rather than recovering
+   their earlier text. No temporal control here is perfect.
+2. **Note count correlates with the label.** **No feature derived from note count, note length
+   or number of authors enters any model** — text content only. The B+meta control arm uses them
+   deliberately, precisely to measure what they are worth. **The correction:** the
+   pre-registration recorded this as "median 3 for y=1 vs 2 for y=0", measured on the earlier
+   `Comments` analysis set; **on this
+   corpus the medians are equal (2 vs 2) and the effect lives in the tail** — mean note count
+   3.44 for y=1 vs 2.15 for y=0, univariate AUC **0.571**, and number of authors is stronger
+   still at **0.609** (mean 1.99 vs 1.26). Note length carries essentially nothing (AUC 0.504).
+   The direction of the registered limitation holds and its prohibition is untouched; its
+   medians do not describe this corpus, and **number of authors is the stronger channel, not
+   note count**. This is what B+meta's +0.0212 is made of. Registered as §11.6 A-34.
+3. **~33% of TICs have no observer note and are excluded, and the exclusion is not
+   label-neutral.** Measured: P(note | y=1) = 0.5822 vs P(note | y=0) = 0.5067, ratio **1.149**.
+   The read-across was checked: B scores **0.9051 on the included rows vs 0.9197 on the excluded
+   rows**, so the included subset is marginally *harder* ground for B and model D is **not**
+   being flattered by an easier comparison set.
+4. **Two questions carry known residual failures** from the design gate, accepted rather than
+   reworded a fourth time to avoid fitting the questions to a 27-case set.
+5. **Model probabilities are quantised to two decimals**, producing tie groups. Harmless for
+   features; it forecloses ranking without an explicit tiebreak.
+6. **Model calibration degrades out of distribution** (ECE 0.107 vs a 0.024 floor), and
+   astrophysics is maximally out of distribution for it. This is why model output is used only
+   as a feature into a validated predictor, never as a decision threshold.
+7. **HTML stripping is lossy.** ~63% of notes carry markup; tables and links become plain text
+   and some structure is lost. Text is HTML-stripped, entity-decoded and whitespace-collapsed
+   (A-17: `&nbsp;` alone occurs 5,746 times across 71.6% of rows).
+
+And the three added in A-8 — the corpus-size projection was a point estimate from n = 30 and
+came in 19% low; `Groupname != 'tfopwg'` is in practice `Groupname IS NULL`; G3's Spearman
+criterion is undefined on low-variance features.
+
+**Above all: this is one corpus, one archive, one model version, one snapshot date.** 1,482
+rows of ExoFOP observer notes, pulled 2026-09-19, scored by `jev-1.13.0`. ExoFOP updates
+continuously. Nothing here says the result transfers to another archive, another instrument's
+follow-up notes, or another version of the model — and the drift measured in
+[§8](#8-the-limit-on-reproducing-this) is a direct reminder that the last of those is not a
+hypothetical.
+
+---
+
+## 11. The decision rule, applied
+
+§8's table for **all gates pass** reads: *"Report the positive result with all five caveats of
+§7. Proceed to `PLAN.md` §8 extensions."* That is what this document does.
+
+**What would change the conclusion.** Stated so it is falsifiable rather than defended:
+
+- A G5 arm that flipped sign or crossed zero once `L6` was removed. **It did not** (+0.0394 vs
+  +0.0421).
+- D failing to beat B+meta. **It did not** (+0.0228, CI excluding zero).
+- Baseline C scoring *above* B, which would have said the label is readable in the raw text.
+  **It did not** (0.8766 vs 0.9044).
+- Any `TIER_PREDICTIVE` feature failing G3. **None did**, against a noise floor 412× smaller
+  than the effect being measured.
+- S2b, once applied, collapsing the G4 gain. **Not yet tested** — see
+  [§9](#9-what-was-not-done) item 1.
+
+---
+
+## 12. Reproducing
+
+```bash
+uv venv --python 3.14 .venv
+uv pip install -r requirements.txt
+.venv/bin/python scripts/028_obsnotes_pull.py         # ~6 min, $0    — the corpus
+.venv/bin/python scripts/034_step3_features.py        # ~7 min, ~$0.24 cold / $0 warm
+.venv/bin/python scripts/035_gates_g2_g6.py           # ~15 min, $0   — G2, G4, G5, G6
+.venv/bin/python scripts/036_gate_g3_stability.py     # ~2 min, ~$0.06 — G3
+.venv/bin/python scripts/037_reliability.py           # ~1 min, $0    — the figures above
+.venv/bin/python scripts/038_drift_sensitivity.py     # ~1 min, $0    — §8's drift arm
+```
+
+Raw numbers behind every table in this document:
+
+| table | file |
+| :--- | :--- |
+| gates G2, G4, G5, G6 and every reference arm | `research/data/gates_g2_g6_2026-09-20.json` |
+| gate G1 | `research/data/gate_g1_obsnotes_2026-09-20.json` |
+| gate G3 | `research/data/gate_g3_stability_2026-09-20.json` |
+| the MDE and the dilution floor | `research/data/noise_floor_analysis_set_obsnotes_2026-09-20.json` |
+| the leakage clause table | `research/data/leakage_obsnotes_2026-09-20.json` |
+| calibration bins, Brier, ECE, MCE | `research/data/reliability_2026-09-20.json` |
+| the drift-sensitivity arm | `research/data/drift_sensitivity_x1_2026-09-20.json`, `…_x10_…` |
+| corpus and feature-matrix checksums | [`PROVENANCE.md`](./PROVENANCE.md) |
+
+**The audit trail.** [`PREREGISTRATION.md`](./PREREGISTRATION.md) §11.5 (A-28…A-32) registers
+these results; everything above §11.5 was committed before any of them existed.
+[`WORKLOG.md`](./WORKLOG.md) is append-only and records every step, every failure, and every
+place the plan turned out to be wrong — including four defects in this session's own analysis
+code, one of which was caught only because it produced a suspiciously perfect number.
+
+---
+
+## Acknowledgements
+
+> This research has made use of the **Exoplanet Follow-up Observation Program (ExoFOP)** website,
+> which is operated by the California Institute of Technology under contract with the National
+> Aeronautics and Space Administration under the Exoplanet Exploration Program.
+>
+> This research has made use of the **NASA Exoplanet Archive**, which is operated by the
+> California Institute of Technology under contract with the National Aeronautics and Space
+> Administration under the Exoplanet Exploration Program.

@@ -2648,3 +2648,156 @@ nondeterminism as per-request (it is time-dependent).
 verified identical to local `HEAD`, not diverged, single commit identity.
 **Handoff rewritten:** `HANDOFF_PROMPT.md`. **Next session starts at TASK D — `RESULTS.md`.**
 ---
+## [2026-09-20T21:01Z] SESSION START — Claude Opus 5
+**Inherited state:** TASK A/A2/B/B2/C complete; all five gates pass; registered as
+`PREREGISTRATION.md` §11.5 (A-28…A-32). Last commit `de1336b`, working tree clean,
+`origin/master` in sync. **Jev spend to date: ~$0.3201.**
+**Resumption check (§0.5):** last entry `[2026-09-20T21:42Z] SESSION END` — a clean close, no
+orphan `STARTED`, `Next:` field reads *"`RESULTS.md` per §9, and S2b if the corpus is re-run."*
+**Scope this session:** TASK D (`RESULTS.md`, §9 item 7 — the last open item) and TASK E (S2b)
+if the budget allows.
+---
+## [2026-09-20T21:03Z] TASK D — STARTED
+**Doing:** §9 item 7 — `RESULTS.md`, *"whatever the answer is — with reliability diagrams and
+CIs."* Two parts: (1) a new script producing reliability diagrams for baselines B and D from
+their S1 out-of-fold CatBoost probabilities, (2) the write-up itself.
+**Command:** `scripts/037_reliability.py` (new), then `RESULTS.md`.
+**Idempotent:** yes — the script makes no API call and no network call, reuses the S1
+construction and CatBoost config imported from `scripts/026_noise_floor.py`, and overwrites
+its own outputs.
+**Guardrail check:** `PLAN.md` §1 forbids thresholding on Jev's `confidence`. These diagrams
+calibrate **CatBoost's** `predict_proba`, which is a different object and is not a guardrail
+concern. No Jev probability is thresholded, plotted as a decision, or used as a conclusion.
+**Jev spend this step:** $0.00 (projected) · **running total:** ~$0.3201
+---
+## [2026-09-20T21:14Z] TASK D — reliability diagrams produced
+**Command:** `.venv/bin/python scripts/037_reliability.py` · **Artifacts:**
+`scripts/037_reliability.py` (new), `assets/reliability_b_d.png`, `assets/gate_forest.png`,
+`research/data/reliability_2026-09-20.json`. **0 API calls · $0.00.**
+
+Fits B and D through the **same** `nf.oof_by_repeat` and the **same** DuckDB query as
+`scripts/035_gates_g2_g6.py`, so the plotted probabilities are the ones that produced the gate
+verdicts — confirmed: B 0.9044 and D 0.9483 reproduce `gates_g2_g6_2026-09-20.json` exactly.
+
+| | B (numeric) | D (numeric + Jev) |
+| :--- | ---: | ---: |
+| AUC | 0.9044 | **0.9483** |
+| Brier (mean over 3 repeats) | 0.1210 [0.1195–0.1231] | **0.0881** [0.0859–0.0895] |
+| ECE, 10 equal-width bins | 0.0263 [0.0240–0.0295] | 0.0232 [0.0226–0.0237] |
+| MCE | 0.0835 | 0.0929 |
+| rows in the two extreme bins | 737 (49.7%) | **995 (67.1%)** |
+
+**The gain is sharpness, not calibration.** ECE barely moves (0.0263 → 0.0232) while Brier
+falls 27%. D is not better calibrated; it is more *decisive* — it pushes 258 more rows into
+p<0.1 or p>0.9 and is right about them. D's MCE is slightly **worse** than B's, on the
+44-row 0.5–0.6 bin. Reported rather than rounded away.
+
+**Aggregation choice, stated because it is a choice.** Each row has one OOF prediction per S1
+repeat and the three are correlated, not independent. Brier/ECE/MCE are therefore computed
+per repeat and reported as mean [min–max]; the plotted curve pools all three repeats but its
+Wilson intervals use **n_eff = count / 3**, the independent row count, rather than the pooled
+count, which would claim 3× the precision the data has.
+
+### DEFECT EXPLAINED (not a new defect): the repo contains two values of B
+`030_gate_g1_obsnotes.py` reports **B = 0.9051**, `035_gates_g2_g6.py` reports **B = 0.9044**,
+on the same 1,482 rows. This script fits both orderings and reproduces both numbers exactly:
+the only difference is that 035 reads the rows `order by a.toi` for the feature join.
+**Same rows, same folds, same seed, same config — CatBoost is sensitive to input row order,
+worth 0.0008 AUC here.** That is ~10× below the MDE of 0.0082 and moves no verdict, but it is
+now measured rather than unexplained, and `RESULTS.md` says which number belongs to which arm.
+**Jev spend this step:** $0.00 · **running total:** ~$0.3201
+**Next:** write `RESULTS.md`.
+---
+## [2026-09-20T21:26Z] TASK D — drift sensitivity arm — STARTED
+**Doing:** A-31 and `PROVENANCE.md` both assert *"no gate verdict is at risk"* from the
+`jev-1.13.0` time drift, and both argue it rather than measure it — the phrase used is "orders
+of magnitude beyond what a 0.005 feature perturbation could move", which is an estimate, not a
+result. While drafting `RESULTS.md` §8 I declined to repeat it unmeasured. The gates were
+never re-run on a cold cache, so the sensitivity of ΔAUC to a drift-sized feature perturbation
+is **unmeasured**. It is cheap to measure: perturb the 7 `TIER_PREDICTIVE` columns by the
+measured drift magnitude (mean |Δ| = 0.0049 at ~1 hour), re-fit D, recompute G2, repeat over
+seeds.
+**Command:** `scripts/038_drift_sensitivity.py` (new).
+**Idempotent:** yes — no network, no API calls, fixed seeds, JSON overwritten in place.
+**This is a new arm, not a registered one.** It is a robustness check on a claim this session
+is about to publish, reported as such. It changes no criterion and no gate verdict.
+**Jev spend this step:** $0.00 (projected) · **running total:** ~$0.3201
+---
+## [2026-09-20T21:34Z] TASK D — drift sensitivity arm — DONE
+**Command:** `.venv/bin/python scripts/038_drift_sensitivity.py` and `--drift 0.049 --seeds 10`
+**Artifacts:** `scripts/038_drift_sensitivity.py` (new),
+`research/data/drift_sensitivity_x1_2026-09-20.json`,
+`research/data/drift_sensitivity_x10_2026-09-20.json`. **0 API calls · $0.00.**
+
+**A-31's "no gate verdict is at risk" is now measured rather than argued.**
+
+| simulated drift | realised mean \|Δ\| | draws | ΔAUC mean ± sd | worst | worst 95% CI | G2 |
+| :--- | ---: | ---: | :--- | ---: | :--- | :--- |
+| **1× measured (0.0049)** | 0.0042 | 20 | **+0.0444 ± 0.0010** | +0.0417 | [+0.0308, +0.0530] | **PASS** |
+| **10× measured (0.0490)** | 0.0385 | 10 | +0.0402 ± 0.0015 | +0.0384 | [+0.0280, +0.0495] | **PASS** |
+
+Reference (unperturbed) is +0.0440, reproduced exactly from the gate run. At the measured drift
+the worst of 20 draws shifts ΔAUC by **−0.0023**, about a quarter of the MDE. **At 10× the
+measured drift G2 still passes.**
+
+**Stated limits of the arm, in the script docstring and in `RESULTS.md` §8:** it is **not** a
+cold-cache re-run — real drift is whatever the serving fleet does and may be correlated across
+rows, where this perturbs every row independently — and it is **not** a registered gate. The
+realised perturbation also lands ~14% below target at 1× because re-quantising to 0.01 rounds
+small perturbations back to zero, making the arm marginally weaker than the drift it simulates.
+The 10× row exists to cover that gap rather than to argue it away.
+
+**Output naming fixed mid-step:** the first two runs both wrote
+`drift_sensitivity_2026-09-20.json` and the 10× run overwrote the 1× result. The filename now
+carries the drift multiple and both runs were re-run to restore both artifacts. No data lost —
+caught before the entry was written.
+**Jev spend this step:** $0.00 · **running total:** ~$0.3201
+**Next:** finish `RESULTS.md`, then commit TASK D.
+---
+## [2026-09-20T21:47Z] TASK D — DONE
+**Result:** `RESULTS.md` is written. **§9's definition of done is now items 1–8 complete.**
+
+**Artifacts:** `RESULTS.md` (new), `scripts/037_reliability.py` (new),
+`scripts/038_drift_sensitivity.py` (new), `assets/reliability_b_d.png`,
+`assets/gate_forest.png`, `research/data/reliability_2026-09-20.json`,
+`research/data/drift_sensitivity_x1_2026-09-20.json`,
+`research/data/drift_sensitivity_x10_2026-09-20.json`, `PREREGISTRATION.md` §11.6
+(A-33…A-36), `PROVENANCE.md`, `README.md`. **0 API calls this task · $0.00.**
+
+`RESULTS.md` carries, as the handoff and §7 require: the one headline number with its CI and
+all four §7 companions (E−B contaminated, baseline C as leakage, the G5 arm, S2 with its
+base-rate shift stated); reliability diagrams for B and D; **A-29's falsified prior in full**;
+A-31's reproducibility limit in `PROVENANCE.md`'s terms; **A-32's two G3 failures reported as
+failures**; §10's limitations; and the one-corpus/one-archive/one-model-version bound.
+
+### Three measurements this write-up needed that did not exist
+1. **The calibration numbers themselves.** B Brier 0.1210 → D **0.0881** (−27%), but ECE barely
+   moves (0.0263 → 0.0232). **The gain is sharpness, not calibration** — D pushes 258 more rows
+   into p<0.1 or p>0.9 and is right about them. D's **MCE is worse** than B's (0.0929 vs
+   0.0835); reported, not rounded away.
+2. **The drift sensitivity arm** (21:34Z) — A-31's "no verdict at risk" is now measured.
+3. **The two values of B** (21:14Z) — row-order sensitivity, 0.0008 AUC.
+
+### Two corrections to committed documents, both made as additions, not rewrites
+- **`PREREGISTRATION.md` §10 item 2's note-count medians do not describe this corpus.** Measured
+  here: medians are **2 vs 2**, not 3 vs 2; the effect is in the tail (mean 3.44 vs 2.15,
+  univariate AUC 0.571) and **number of authors is the stronger channel at 0.609**. The
+  prohibition is unaffected. Registered as A-34, and flagged inside `RESULTS.md` §10 item 2
+  rather than silently restated.
+- **`README.md`'s status block was stale and the repo is public.** It still read *"Nothing in
+  this repository yet answers the headline question"* and *"Spend ~$0.0002"*, three commits
+  after all six gates passed. Rewritten to the result, with the caveats attached.
+
+### Defect found: a `PROVENANCE.md` marker claims automation that does not exist
+`<!-- BEGIN step3 (scripts/034_step3_features.py) -->` implies that script regenerates the
+block, as `028_obsnotes_pull.py` genuinely does for the obsnotes block. **It does not** —
+`grep 'BEGIN step3' scripts/` returns nothing. A cold re-run of 034 would leave those numbers
+stale while looking machine-maintained. Marker corrected to say it is hand-maintained.
+
+**§9 item 7 called for "reliability diagrams"; `PLAN.md` §9 separately asks for PER-QUESTION
+ones.** Those are **not** produced and `RESULTS.md` §9 says so with the reason: the per-question
+judgments have no independent ground truth, and the only hand-labelled set is 27 cases — far
+too few for calibration bins. Plotting them against the *disposition* label would measure
+something else. Registered as A-36.
+**Jev spend this step:** $0.00 · **running total:** ~$0.3201
+**Next:** commit TASK D, then assess TASK E (S2b) against the budget.

@@ -11,42 +11,53 @@
   </a>
 </p>
 
-**Do the free-text comments astronomers write on TESS Objects of Interest carry
+**Do the free-text notes astronomers write on TESS Objects of Interest carry
 disposition-relevant information that the numeric catalogue columns do not?**
 
 That is the whole question. It is falsifiable, it is cheap to test, and **a null result is a
 valid and useful outcome** — so this repository is built to report one honestly if that is what
 the data says.
 
-**Method.** Convert ExoFOP `Comments` into numeric semantic features with a System One model
+**Method.** Convert ExoFOP observer notes into numeric semantic features with a System One model
 (Jev, TypeSafe AI), then measure whether those features improve held-out prediction of TFOPWG
-disposition over a numeric-only baseline. The model is the **featurizer**, gradient boosting is
+disposition over a numeric-only baseline. (The study began on the `Comments` field and moved off
+it — that field restates the label in nearly half its rows; see below.) The model is the **featurizer**, gradient boosting is
 the **predictor**, grouped cross-validation by host star is the **arbiter**. The model's own
 probabilities are never thresholded into a decision — its calibration degrades ~4.4× out of
 distribution, and astrophysics is maximally out of distribution for it.
 
 ---
 
-## Status — the headline question is still open
+## Status — answered, and all six gates pass
+
+**[`RESULTS.md`](./RESULTS.md) is the write-up. The short version:**
+
+> **ΔAUC(D − B) = +0.0440, 95% CI [+0.0332, +0.0554]** — model D (numeric covariates + semantic
+> features) over baseline B (numeric only), under grouped cross-validation by host star,
+> `TIER_PREDICTIVE` questions only, paired bootstrap over TIC groups.
+> **5.4× the minimum effect the study was pre-registered to detect (+0.0082).**
 
 | | |
 | :--- | :--- |
-| ✅ Data foundation | 2,721 labelled TOIs across 2,573 host stars, 50.3% positive |
-| ✅ Gate G1 (pipeline sanity) | **Passed.** Numeric baseline 0.9154 AUC vs 0.5000 prior |
-| ⬜ Gate G2/G4/G5/G6 | **Not yet run.** No semantic features have been computed |
-| 💸 Spend to date | **~$0.0002** |
+| ✅ Corpus | **1,482 labelled TOIs across 1,388 host stars**, 53.8% positive — ExoFOP observer notes (`Groupname IS NULL`), not the TFOP working-group `Comments` field |
+| ✅ G1 pipeline sanity | Numeric baseline **0.9051** AUC vs 0.4840 prior |
+| ✅ G2 headline · G3 stability · G4 temporal · G5 leakage-stripped · G6 missingness | **All pass.** [Every interval](./RESULTS.md#2-every-gate-with-its-interval) |
+| ⚠️ The pre-registered prior | **Falsified.** A null was predicted in advance and did not happen — [why](./RESULTS.md#5-the-pre-registered-prior-was-wrong) |
+| 💸 Spend to date | **~$0.3201** |
 
-**Nothing in this repository yet answers the headline question.** Baselines exist; the semantic
-features do not.
+**The caveats travel with the number.** A cold-cache re-run lands *near* +0.0440, not on it; one
+registered split component (S2b) was not applied; two label-echo features fail the stability
+gate. All of it is in [`RESULTS.md`](./RESULTS.md), not buried.
 
 ## Two findings that are already useful
 
 Both are things anyone pointing a language model at archive text will hit, so they are stated
 here rather than buried in the log.
 
-### 1. Nearly half the ExoFOP comment corpus restates the label
+### 1. Nearly half the ExoFOP `Comments` corpus restates the label
 
-Measured over 2,725 labelled rows with comments:
+**This is why the study moved to observer notes.** Measured over 2,725 labelled rows of the
+`Comments` field — the corpus this project started on and then abandoned:
 
 | Marker in comment text | n | P(confirmed planet \| marker) |
 | :--- | ---: | ---: |
@@ -78,6 +89,8 @@ plan specified it as the covariate source; that was wrong. Covariates come from 
 
 | File | What it is |
 | :--- | :--- |
+| **[RESULTS.md](./RESULTS.md)** | **The answer**, with reliability diagrams, every confidence interval, the falsified prior, and what was not done. |
+| **[PREREGISTRATION.md](./PREREGISTRATION.md)** | The criteria, fixed before the run. §11 is the append-only amendment log; §11.5 is the only section written after the result. |
 | **[PLAN.md](./PLAN.md)** | The build plan, the guardrails, and the pre-registered gates. §0.5 is the work-logging protocol; §2 is the validity threat; §11 covers public release. |
 | **[WORKLOG.md](./WORKLOG.md)** | Append-only record of every step, including every failure and every place the plan turned out to be wrong. **The most honest file here.** |
 | **[PROVENANCE.md](./PROVENANCE.md)** | SHA256 of each raw source. `data/` is not committed. |
@@ -116,6 +129,7 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md).
 .venv/bin/python scripts/034_step3_features.py        # ~7 min, ~$0.24 cold / $0.00 warm
 .venv/bin/python scripts/035_gates_g2_g6.py           # ~15 min, $0 — G2, G4, G5, G6
 .venv/bin/python scripts/036_gate_g3_stability.py     # ~2 min, ~$0.06 — G3
+.venv/bin/python scripts/037_reliability.py           # ~1 min, $0 — the RESULTS.md figures
 ```
 
 > **⚠️ A cold-cache re-run lands near the published number, not exactly on it.** `jev-1.13.0`

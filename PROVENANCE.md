@@ -61,7 +61,8 @@ after any ingest re-run to restore this block.
 
 ---
 
-<!-- BEGIN step3 (scripts/034_step3_features.py) -->
+<!-- BEGIN step3 (hand-maintained; unlike the obsnotes block above, NO script rewrites
+     this one. Update it by hand if scripts/034_step3_features.py is ever re-run cold.) -->
 ## Jev feature matrix (TASK C, Step 3) — and the limit on reproducing it
 
 Per-row Jev judgments behind `duckdb::jev_features_obsnotes`. Cached under
@@ -97,8 +98,13 @@ cache the pipeline is exactly reproducible; from a cold cache it is reproducible
 `PLAN.md` §0.5's "byte-identical results", which holds only for a warm cache. Registered as
 `PREREGISTRATION.md` §11.5 A-31; measured in `WORKLOG.md` 2026-09-20T21:31Z.
 
-No gate verdict depends on this: the closest CI to zero is G5's +0.0272, far beyond anything a
-0.005 feature perturbation could move.
+**No gate verdict depends on this, and that is measured rather than argued.**
+`scripts/038_drift_sensitivity.py` perturbs the seven `TIER_PREDICTIVE` columns by the measured
+drift, re-quantises to two decimals and refits: over 20 draws ΔAUC is **+0.0444 ± 0.0010**, the
+worst draw is +0.0417 with 95% CI [+0.0308, +0.0530], and **at ten times the measured drift G2
+still passes** (+0.0384, [+0.0280, +0.0495]). Registered as `PREREGISTRATION.md` §11.6 A-33;
+raw in `research/data/drift_sensitivity_x1_2026-09-20.json`. The arm is an i.i.d. stand-in for
+server-side drift, not a cold-cache re-run.
 
 ```bash
 .venv/bin/python scripts/034_step3_features.py --dry-run   # project cost, no calls
