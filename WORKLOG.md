@@ -3057,3 +3057,62 @@ written before the result. The question is answered. The item's intent — an ho
 met; its literal text is not, and cannot be. Flagged in `PLAN.md` §11.6 rather than quietly
 reworded.
 **Jev spend this step:** $0.00 · **running total:** ~$0.3539
+---
+## [2026-09-20T23:12Z] SESSION END — Claude Opus 5
+**Completed:** **TASK D** (`RESULTS.md`, §9 item 7 — the last open item) and **TASK E** (S2b),
+plus a defect found while closing out that restated every published number.
+
+**§9's definition of done is now items 1–8 COMPLETE. The study has no required work left.**
+
+**Headline:** **ΔAUC(D − B) = +0.0432, 95% CI [+0.0324, +0.0547]** — 5.3× the registered MDE.
+**All six gates pass.** G4 is now the **registered** split (S2 + S2a + S2b) at **+0.1296**.
+
+**Registered:** §11.6 (A-33…A-36), §11.7 (A-37), §11.8 (A-38).
+
+### What changed that a reader needs to know
+**The headline was +0.0440 for about two hours of this session and is now +0.0432.** The Step 3
+cache race did not merely waste $0.013 — it made the persisted feature matrix a mixture of
+in-memory and on-disk responses and therefore **irreproducible from its own cache**, which is
+the property the whole repository rests on. Fixed with a per-key lock; matrix now stable at
+`d7b5be5675778f44` across three zero-call rebuilds. Every arm re-run: **every S1 shift ≤0.0010,
+no verdict moved.** The correction moves the headline **down**.
+
+**It was found only because the "harmless" fix was verified by checksum rather than by
+`0 calls, $0.00, looks fine`.** That is the transferable lesson and it is in the handoff.
+
+### Defects found this session, all logged and fixed
+1. **The Step 3 cache race was worse than recorded** (§11.8 A-38) — the headline defect above.
+2. **The forest plot contradicted the table beside it** after G4 was updated, because it was
+   generated from the pre-S2b JSON. Now reads the S2b result and draws both S2 rows.
+3. **Two result JSONs were silently clobbered by cached re-runs**, erasing the record of the
+   runs that paid. Cost fields are now `*_this_run` plus an explicit `paid_run` block.
+4. **A `PROVENANCE.md` marker claimed automation that does not exist** — `<!-- BEGIN step3
+   (scripts/034_step3_features.py) -->` implied that script rewrites the block; nothing does.
+5. **`README.md`'s status block was stale on a public repo**, still reading "Nothing in this
+   repository yet answers the headline question" three commits after all six gates passed.
+6. **§10 item 2's note-count medians do not describe this corpus** (A-34).
+7. **The repo's two values of B are input row order** (A-35) — explained, not left dangling.
+8. **A figure label collision** in the forest plot, found by rendering it and looking at it.
+
+### Claims I turned from arguments into measurements
+- **A-31's "no gate verdict is at risk"** → A-33: sd 0.0010 at the measured drift, **G2 still
+  passes at 10× the drift.**
+- **"The S2b move is just fit noise"** → measured: **~±0.005 seed noise on any S2 ΔAUC**,
+  ~5× the S1 figure. The S2b effect survives it (worst seed +0.1210 > G4c's best +0.1179).
+
+### Two corrections to my own earlier entries in this session, made as new entries
+- **22:09Z called the S2b text effect "marginal"** at +0.0135 [+0.0006, +0.0269]. On the
+  corrected matrix it is **+0.0246 [+0.0115, +0.0383]** and is not marginal. **Still post-hoc,
+  still not a gate.**
+- **21:58Z projected S2b at $0.0332**; actual **$0.0338**, 1.8% over, ~5× under the handoff's
+  ~$0.18.
+
+**Not done, and stated plainly:** per-question reliability diagrams (no ground truth — would
+need more labelled cases, A-36); CI still does not cover the gates and cannot without either a
+key in CI or the cache committed, neither decision made; nothing external has checked any of
+this — that is the single highest-value next step and it is not something this session could do.
+
+**Jev spend this session: $0.0338 · running total: ~$0.3539.**
+**Committed and pushed:** `3dadbf4` (TASK D), `4b50b7e` (TASK E), `6beb0a1` (the correction).
+**Handoff rewritten:** `HANDOFF_PROMPT.md` — **the next session has no required work.**
+---
