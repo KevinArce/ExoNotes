@@ -1250,3 +1250,23 @@ implied).
 
 **Resume at:** `HANDOFF_PROMPT.md` — TASK A (pull obsnotes), then TASK B (re-gate), then TASK C.
 ---
+## [2026-09-20T01:14Z] FORCE-PUSH CONFIRMED BY USER — VERIFIED ON THE REMOTE
+**Doing:** user authorised and ran `git push --force-with-lease origin master`. Verifying the
+authorship correction actually landed rather than assuming it did.
+**Idempotent:** yes (read-only inspection; the push itself reported `Everything up-to-date`,
+i.e. the user had already run it).
+**Verified on `origin/master`:**
+- **All 8 commits** are authored **and** committed by `KevinArce <iav.kevinarce@ufg.edu.sv>`.
+- `git log --format='%ae %ce' origin/master | sort -u` returns **exactly one address**:
+  `iav.kevinarce@ufg.edu.sv`. No other identity appears anywhere on the branch.
+- `20c11ae` (the `ExoNotes <arcetechnologies@gmail.com>` commit) is **no longer an ancestor of any
+  remote branch**. It survives locally as a dangling object via the reflog, which is expected and
+  will be garbage-collected.
+**⚠️ Honest caveat — this is not a full erasure.** GitHub retains unreachable commits and will
+still serve `20c11ae` to anyone who requests that SHA directly for some time. The commit is off
+the branch and out of the history everyone sees; it is not cryptographically gone. Since the whole
+point was the attribution, it is worth stating plainly rather than claiming the record is clean.
+Nothing sensitive is in it — only a name and an email on a commit whose content was byte-identical.
+**Checklist item, now closed:** git authorship ✅.
+**Jev spend:** $0.00 · **running total:** ~$0.0046
+---
