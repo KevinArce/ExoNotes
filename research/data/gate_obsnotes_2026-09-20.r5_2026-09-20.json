@@ -1,0 +1,2189 @@
+{
+  "B01": {
+    "case": {
+      "cid": "B01",
+      "stratum": "S1_short",
+      "toi": "4438.01",
+      "tic": 22233480,
+      "len": 255,
+      "text": "WIYN speckle imaging using NESSI was taken of TIC22233480 on 2022-04-21.Speckle images were acquired at 832nmNo secondary sources were detected.See separate plots/tables for the limiting magnitudeof the field as a function of distance from the targetstar."
+    },
+    "state": {
+      "notes": "WIYN speckle imaging using NESSI was taken of TIC22233480 on 2022-04-21.Speckle images were acquired at 832nmNo secondary sources were detected.See separate plots/tables for the limiting magnitudeof the field as a function of distance from the targetstar."
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "imaging_reports_no_companion": {
+          "type": "noul",
+          "noul": 0.56
+        },
+        "imaging_reports_companion_present": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "spectroscopy_indicates_nonplanetary_companion": {
+          "type": "noul",
+          "noul": 0.06
+        },
+        "spectroscopy_consistent_with_planet": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "host_star_described_as_evolved": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "followup_reported_concluded": {
+          "type": "noul",
+          "noul": 0.03
+        },
+        "reports_on_target_detection": {
+          "type": "noul",
+          "noul": 0.03
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 3.18,
+          "confidence": 0.85,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'perhaps', 'may be'; the conclusion is not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats or a request for more data",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.0,
+            "1": 0.0,
+            "2": 0.0,
+            "3": 0.82,
+            "4": 0.18
+          }
+        },
+        "indicates_retired_or_rejected": {
+          "type": "noul",
+          "noul": 0.03
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.02
+        },
+        "contains_object_designation": {
+          "type": "noul",
+          "noul": 0.98
+        }
+      },
+      "usage": {
+        "input_tokens": 3205,
+        "output_tokens": 243
+      }
+    }
+  },
+  "B02": {
+    "case": {
+      "cid": "B02",
+      "stratum": "S1_short",
+      "toi": "4600.01",
+      "tic": 232608943,
+      "len": 256,
+      "text": "WIYN speckle imaging using NESSI was taken of TIC232608943 on 2022-04-21.Speckle images were acquired at 832nmNo secondary sources were detected.See separate plots/tables for the limiting magnitudeof the field as a function of distance from the targetstar."
+    },
+    "state": {
+      "notes": "WIYN speckle imaging using NESSI was taken of TIC232608943 on 2022-04-21.Speckle images were acquired at 832nmNo secondary sources were detected.See separate plots/tables for the limiting magnitudeof the field as a function of distance from the targetstar."
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "imaging_reports_no_companion": {
+          "type": "noul",
+          "noul": 0.58
+        },
+        "imaging_reports_companion_present": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "spectroscopy_indicates_nonplanetary_companion": {
+          "type": "noul",
+          "noul": 0.06
+        },
+        "spectroscopy_consistent_with_planet": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "host_star_described_as_evolved": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "followup_reported_concluded": {
+          "type": "noul",
+          "noul": 0.03
+        },
+        "reports_on_target_detection": {
+          "type": "noul",
+          "noul": 0.03
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 3.21,
+          "confidence": 0.82,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'perhaps', 'may be'; the conclusion is not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats or a request for more data",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.0,
+            "1": 0.0,
+            "2": 0.0,
+            "3": 0.78,
+            "4": 0.22
+          }
+        },
+        "indicates_retired_or_rejected": {
+          "type": "noul",
+          "noul": 0.03
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.02
+        },
+        "contains_object_designation": {
+          "type": "noul",
+          "noul": 0.98
+        }
+      },
+      "usage": {
+        "input_tokens": 3206,
+        "output_tokens": 243
+      }
+    }
+  },
+  "B03": {
+    "case": {
+      "cid": "B03",
+      "stratum": "S1_short",
+      "toi": "550.01",
+      "tic": 311183180,
+      "len": 204,
+      "text": "The period for the second planet can not be correct. It may be a single event with no period, or alternatively this could be an eccentric eclipsing binary with the second secondary event falling in a gap."
+    },
+    "state": {
+      "notes": "The period for the second planet can not be correct. It may be a single event with no period, or alternatively this could be an eccentric eclipsing binary with the second secondary event falling in a gap."
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "imaging_reports_no_companion": {
+          "type": "noul",
+          "noul": 0.03
+        },
+        "imaging_reports_companion_present": {
+          "type": "noul",
+          "noul": 0.05
+        },
+        "spectroscopy_indicates_nonplanetary_companion": {
+          "type": "noul",
+          "noul": 0.27
+        },
+        "spectroscopy_consistent_with_planet": {
+          "type": "noul",
+          "noul": 0.05
+        },
+        "host_star_described_as_evolved": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "followup_reported_concluded": {
+          "type": "noul",
+          "noul": 0.03
+        },
+        "reports_on_target_detection": {
+          "type": "noul",
+          "noul": 0.22
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 1.05,
+          "confidence": 0.95,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'perhaps', 'may be'; the conclusion is not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats or a request for more data",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.0,
+            "1": 0.95,
+            "2": 0.05,
+            "3": 0.0,
+            "4": 0.0
+          }
+        },
+        "indicates_retired_or_rejected": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.03
+        },
+        "contains_object_designation": {
+          "type": "noul",
+          "noul": 0.03
+        }
+      },
+      "usage": {
+        "input_tokens": 3170,
+        "output_tokens": 243
+      }
+    }
+  },
+  "B04": {
+    "case": {
+      "cid": "B04",
+      "stratum": "S2_median",
+      "toi": "1584.01",
+      "tic": 418987806,
+      "len": 808,
+      "text": "T0418987806, 00:26:04.69 63:19:09.80, V=9.8, PM=13.0, J-K=0.22, Period=0.9 TOI-1584,Rp=24.9 2019-12-30 TRES, pha=63.85, RV=-19.683, Teff=6250+/-125, log(g)=2.00+/-0.25, Vrot=12.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.940, SNRe=34.4, R=m The first TRES observation reveals a late F evolved star. Let's get phase 0.25 next. T0418987806, 00:26:04.69 63:19:09.80, V=9.8, PM=13.0, J-K=0.22, Period=0.9 TOI-1584,Rp=24.9 2019-12-30 TRES, pha=63.85, RV=-19.683, Teff=6250+/-125, log(g)=2.00+/-0.25, Vrot=12.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.940, SNRe=34.4, R=m 2020-01-03 TRES, pha=68.39, RV=-19.724, Teff=6250+/-125, log(g)=2.00+/-0.25, Vrot=12.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.943, SNRe=36.4, R=m The two TRES observations yield a small velocity shift that is probably not significant. No more recon spectra are needed."
+    },
+    "state": {
+      "notes": "T0418987806, 00:26:04.69 63:19:09.80, V=9.8, PM=13.0, J-K=0.22, Period=0.9 TOI-1584,Rp=24.9 2019-12-30 TRES, pha=63.85, RV=-19.683, Teff=6250+/-125, log(g)=2.00+/-0.25, Vrot=12.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.940, SNRe=34.4, R=m The first TRES observation reveals a late F evolved star. Let's get phase 0.25 next. T0418987806, 00:26:04.69 63:19:09.80, V=9.8, PM=13.0, J-K=0.22, Period=0.9 TOI-1584,Rp=24.9 2019-12-30 TRES, pha=63.85, RV=-19.683, Teff=6250+/-125, log(g)=2.00+/-0.25, Vrot=12.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.940, SNRe=34.4, R=m 2020-01-03 TRES, pha=68.39, RV=-19.724, Teff=6250+/-125, log(g)=2.00+/-0.25, Vrot=12.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.943, SNRe=36.4, R=m The two TRES observations yield a small velocity shift that is probably not significant. No more recon spectra are needed."
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "imaging_reports_no_companion": {
+          "type": "noul",
+          "noul": 0.03
+        },
+        "imaging_reports_companion_present": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "spectroscopy_indicates_nonplanetary_companion": {
+          "type": "noul",
+          "noul": 0.06
+        },
+        "spectroscopy_consistent_with_planet": {
+          "type": "noul",
+          "noul": 0.05
+        },
+        "host_star_described_as_evolved": {
+          "type": "noul",
+          "noul": 0.99
+        },
+        "followup_reported_concluded": {
+          "type": "noul",
+          "noul": 0.96
+        },
+        "reports_on_target_detection": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 2.36,
+          "confidence": 0.37,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'perhaps', 'may be'; the conclusion is not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats or a request for more data",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.0,
+            "1": 0.19,
+            "2": 0.32,
+            "3": 0.43,
+            "4": 0.06
+          }
+        },
+        "indicates_retired_or_rejected": {
+          "type": "noul",
+          "noul": 0.05
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "contains_object_designation": {
+          "type": "noul",
+          "noul": 0.99
+        }
+      },
+      "usage": {
+        "input_tokens": 3643,
+        "output_tokens": 243
+      }
+    }
+  },
+  "B05": {
+    "case": {
+      "cid": "B05",
+      "stratum": "S2_median",
+      "toi": "4008.01",
+      "tic": 379629854,
+      "len": 812,
+      "text": "T0379629854, 02:17:10.49 70:23:45.60, V=11.7, PM=15.0, J-K=0.39, Period=2.8 TOI-4008,Rp=4.4 2021-09-09 TRES, pha=162.28, RV=-17.859, Teff=5750+/-125, log(g)=4.00+/-0.25, Vrot=6.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.960, SNRe=33.3, R=m The first TRES observation reveals an early G subgiant. Let's get a second TRES recon spectrum near phase 0.75. T0379629854, 02:17:10.49 70:23:45.60, V=11.7, PM=15.0, J-K=0.39, Period=2.8 TOI-4008,Rp=4.4 2021-09-09 TRES, pha=162.28, RV=-17.859, Teff=5750+/-125, log(g)=4.00+/-0.25, Vrot=6.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.960, SNRe=33.3, R=m 2021-09-19 TRES, pha=165.78, RV=-17.879, Teff=5750+/-125, log(g)=4.00+/-0.25, Vrot=6.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.950, SNRe=33.0, R=m The two TRES observations yield a velocity offset of 20 m/s. No more TRES recon spectra are needed."
+    },
+    "state": {
+      "notes": "T0379629854, 02:17:10.49 70:23:45.60, V=11.7, PM=15.0, J-K=0.39, Period=2.8 TOI-4008,Rp=4.4 2021-09-09 TRES, pha=162.28, RV=-17.859, Teff=5750+/-125, log(g)=4.00+/-0.25, Vrot=6.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.960, SNRe=33.3, R=m The first TRES observation reveals an early G subgiant. Let's get a second TRES recon spectrum near phase 0.75. T0379629854, 02:17:10.49 70:23:45.60, V=11.7, PM=15.0, J-K=0.39, Period=2.8 TOI-4008,Rp=4.4 2021-09-09 TRES, pha=162.28, RV=-17.859, Teff=5750+/-125, log(g)=4.00+/-0.25, Vrot=6.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.960, SNRe=33.3, R=m 2021-09-19 TRES, pha=165.78, RV=-17.879, Teff=5750+/-125, log(g)=4.00+/-0.25, Vrot=6.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.950, SNRe=33.0, R=m The two TRES observations yield a velocity offset of 20 m/s. No more TRES recon spectra are needed."
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "imaging_reports_no_companion": {
+          "type": "noul",
+          "noul": 0.03
+        },
+        "imaging_reports_companion_present": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "spectroscopy_indicates_nonplanetary_companion": {
+          "type": "noul",
+          "noul": 0.05
+        },
+        "spectroscopy_consistent_with_planet": {
+          "type": "noul",
+          "noul": 0.07
+        },
+        "host_star_described_as_evolved": {
+          "type": "noul",
+          "noul": 0.98
+        },
+        "followup_reported_concluded": {
+          "type": "noul",
+          "noul": 0.96
+        },
+        "reports_on_target_detection": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 3.46,
+          "confidence": 0.55,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'perhaps', 'may be'; the conclusion is not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats or a request for more data",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.0,
+            "1": 0.0,
+            "2": 0.04,
+            "3": 0.45,
+            "4": 0.51
+          }
+        },
+        "indicates_retired_or_rejected": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "contains_object_designation": {
+          "type": "noul",
+          "noul": 0.98
+        }
+      },
+      "usage": {
+        "input_tokens": 3652,
+        "output_tokens": 243
+      }
+    }
+  },
+  "B06": {
+    "case": {
+      "cid": "B06",
+      "stratum": "S2_median",
+      "toi": "6872.01",
+      "tic": 150096001,
+      "len": 624,
+      "text": "Extracted EPIC247887989 observing note from ExoFOP-K2 on 2021-10-27 Possible planetary candidate = Yes (possible multiple planet candidate; https://talk.planethunters.org/#/boards/BPH0000007/discussions/DPH0001l3k?page=1) T0150096001, 04:40:35.63 25:00:36.00, V=14.1, PM=191.4, J-K=0.81, Period=11.0 TOI-6872,Rp=2.5 2024-01-07 TRES, pha=5.91, RV=97.635, Teff=3500+/-125, log(g)=4.00+/-0.25, Vrot=0.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.945, SNRe=21.4, R=m The first TRES observation reveals an early M dwarf. This needs to be confirmed with an SM analysis. SG1 reports that this is K2-133. No more TRES recon spectra are needed."
+    },
+    "state": {
+      "notes": "Extracted EPIC247887989 observing note from ExoFOP-K2 on 2021-10-27 Possible planetary candidate = Yes (possible multiple planet candidate; https://talk.planethunters.org/#/boards/BPH0000007/discussions/DPH0001l3k?page=1) T0150096001, 04:40:35.63 25:00:36.00, V=14.1, PM=191.4, J-K=0.81, Period=11.0 TOI-6872,Rp=2.5 2024-01-07 TRES, pha=5.91, RV=97.635, Teff=3500+/-125, log(g)=4.00+/-0.25, Vrot=0.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.945, SNRe=21.4, R=m The first TRES observation reveals an early M dwarf. This needs to be confirmed with an SM analysis. SG1 reports that this is K2-133. No more TRES recon spectra are needed."
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "imaging_reports_no_companion": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "imaging_reports_companion_present": {
+          "type": "noul",
+          "noul": 0.06
+        },
+        "spectroscopy_indicates_nonplanetary_companion": {
+          "type": "noul",
+          "noul": 0.06
+        },
+        "spectroscopy_consistent_with_planet": {
+          "type": "noul",
+          "noul": 0.09
+        },
+        "host_star_described_as_evolved": {
+          "type": "noul",
+          "noul": 0.03
+        },
+        "followup_reported_concluded": {
+          "type": "noul",
+          "noul": 0.95
+        },
+        "reports_on_target_detection": {
+          "type": "noul",
+          "noul": 0.16
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 2.14,
+          "confidence": 0.77,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'perhaps', 'may be'; the conclusion is not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats or a request for more data",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.0,
+            "1": 0.06,
+            "2": 0.78,
+            "3": 0.1,
+            "4": 0.06
+          }
+        },
+        "indicates_retired_or_rejected": {
+          "type": "noul",
+          "noul": 0.05
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "contains_object_designation": {
+          "type": "noul",
+          "noul": 0.99
+        }
+      },
+      "usage": {
+        "input_tokens": 3437,
+        "output_tokens": 243
+      }
+    }
+  },
+  "B07": {
+    "case": {
+      "cid": "B07",
+      "stratum": "S3_typical",
+      "toi": "2431.01",
+      "tic": 258804746,
+      "len": 1276,
+      "text": "T0258804746, 02:31:03.28 08:22:55.10, V=10.9, PM=384.6, J-K=0.80, Period=0.2 TOI-2431,RP=2.75 2020-12-27 TRES, pha=182.48, RV=13.626, Teff=4250+/-125, log(g)=3.50+/-0.25, Vrot=4.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.973, SNRe=26.6, R=m The first TRES observation reveals a late K dwarf. Let's get a second TRES recon spectrum near either quadrature. T0258804746, 02:31:03.28 08:22:55.10, V=10.9, PM=384.6, J-K=0.80, Period=0.2 TOI-2431,Rp=2.7 2020-12-27 TRES, pha=182.48, RV=13.626, Teff=4250+/-125, log(g)=3.50+/-0.25, Vrot=4.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.973, SNRe=26.6, R=m 2020-12-28 TRES, pha=186.94, RV=13.613, Teff=4250+/-125, log(g)=3.50+/-0.25, Vrot=4.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.971, SNRe=23.3, R=m The two TRES observations yield a velocity shift of 13 m/s, which is not significant. The phase separation is not very good, but I think this ultra-short period planet candidate is ready for some PRV work, because there are no nearby stars in Gaia DR2. No more TRES recon spectra are needed. WIYN speckle imaging using NESSI was taken of TIC258804746 on 2021-11-23. Speckle images were acquired at 562 and 832nm No secondary sources were detected. See separate plots/tables for the limiting magnitude of the field as a function of distance from the target star."
+    },
+    "state": {
+      "notes": "T0258804746, 02:31:03.28 08:22:55.10, V=10.9, PM=384.6, J-K=0.80, Period=0.2 TOI-2431,RP=2.75 2020-12-27 TRES, pha=182.48, RV=13.626, Teff=4250+/-125, log(g)=3.50+/-0.25, Vrot=4.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.973, SNRe=26.6, R=m The first TRES observation reveals a late K dwarf. Let's get a second TRES recon spectrum near either quadrature. T0258804746, 02:31:03.28 08:22:55.10, V=10.9, PM=384.6, J-K=0.80, Period=0.2 TOI-2431,Rp=2.7 2020-12-27 TRES, pha=182.48, RV=13.626, Teff=4250+/-125, log(g)=3.50+/-0.25, Vrot=4.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.973, SNRe=26.6, R=m 2020-12-28 TRES, pha=186.94, RV=13.613, Teff=4250+/-125, log(g)=3.50+/-0.25, Vrot=4.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.971, SNRe=23.3, R=m The two TRES observations yield a velocity shift of 13 m/s, which is not significant. The phase separation is not very good, but I think this ultra-short period planet candidate is ready for some PRV work, because there are no nearby stars in Gaia DR2. No more TRES recon spectra are needed. WIYN speckle imaging using NESSI was taken of TIC258804746 on 2021-11-23. Speckle images were acquired at 562 and 832nm No secondary sources were detected. See separate plots/tables for the limiting magnitude of the field as a function of distance from the target star."
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "imaging_reports_no_companion": {
+          "type": "noul",
+          "noul": 0.82
+        },
+        "imaging_reports_companion_present": {
+          "type": "noul",
+          "noul": 0.06
+        },
+        "spectroscopy_indicates_nonplanetary_companion": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "spectroscopy_consistent_with_planet": {
+          "type": "noul",
+          "noul": 0.09
+        },
+        "host_star_described_as_evolved": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "followup_reported_concluded": {
+          "type": "noul",
+          "noul": 0.93
+        },
+        "reports_on_target_detection": {
+          "type": "noul",
+          "noul": 0.05
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 2.74,
+          "confidence": 0.75,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'perhaps', 'may be'; the conclusion is not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats or a request for more data",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.0,
+            "1": 0.04,
+            "2": 0.2,
+            "3": 0.74,
+            "4": 0.02
+          }
+        },
+        "indicates_retired_or_rejected": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "contains_object_designation": {
+          "type": "noul",
+          "noul": 0.99
+        }
+      },
+      "usage": {
+        "input_tokens": 3774,
+        "output_tokens": 243
+      }
+    }
+  },
+  "B08": {
+    "case": {
+      "cid": "B08",
+      "stratum": "S3_typical",
+      "toi": "4592.01",
+      "tic": 122785299,
+      "len": 1955,
+      "text": "Extracted KOI889 observing note from ExoFOP-Kepler on 2020-11-02 The following paper that discusses the measurement of the mass of this KOI has been posted to the archive. Title: \"KOI-200b and KOI-889b: two transiting exoplanets detected and characterized with Kepler, SOPHIE and HARPS-N\" Abstract: \"We present the detection and characterization of the two new transiting, close-in, giant extrasolar planets KOI-200b and KOI-889b. They were first identified by the Kepler team as promising candidates from photometry of the Kepler satellite, then we established their planetary nature thanks to the radial velocity follow-up jointly secured with the spectrographs SOPHIE and HARPS-N. Combined analyses of the whole datasets allow the two planetary systems to be characterized. The planet KOI-200b has mass and radius of 0.68 +/- 0.09 M_Jup and 1.32 +/- 0.14 R_Jup; it orbits in 7.34 days a F8V host star with mass and radius of 1.40 (+0.14/-0.11) M_Sun and 1.51 +/- 0.14 R_Sun. KOI-889b is a massive planet with mass and radius of 9.9 +/- 0.5 M_Jup and 1.03 +/- 0.06 R_Jup; it orbits in 8.88 days an active G8V star with a rotation period of 19.2 +/- 0.3 days, and mass and radius of 0.88 +/- 0.06 M_Sun and 0.88 +/- 0.04 R_Sun. Both planets lie on eccentric orbits and are located just at the frontier between regimes where the tides can explain circularization and where tidal effects are negligible. The two planets are among the first ones detected and characterized thanks to observations secured with HARPS-N, the new spectrograph recently mounted at the Telescopio Nazionale Galileo. These results illustrate the benefits that could be obtained from joint studies using two spectrographs as SOPHIE and HARPS-N. \" link: http://adsabs.harvard.edu/abs/2013arXiv1304.6002H Extracted KOI889 observing note from ExoFOP-Kepler on 2020-11-02 Robo-AO LP600-imaging of KOI-889 on 2014-07-16 No companions detected within 4.0\" https://arxiv.org/abs/1605.03584"
+    },
+    "state": {
+      "notes": "Extracted KOI889 observing note from ExoFOP-Kepler on 2020-11-02 The following paper that discusses the measurement of the mass of this KOI has been posted to the archive. Title: \"KOI-200b and KOI-889b: two transiting exoplanets detected and characterized with Kepler, SOPHIE and HARPS-N\" Abstract: \"We present the detection and characterization of the two new transiting, close-in, giant extrasolar planets KOI-200b and KOI-889b. They were first identified by the Kepler team as promising candidates from photometry of the Kepler satellite, then we established their planetary nature thanks to the radial velocity follow-up jointly secured with the spectrographs SOPHIE and HARPS-N. Combined analyses of the whole datasets allow the two planetary systems to be characterized. The planet KOI-200b has mass and radius of 0.68 +/- 0.09 M_Jup and 1.32 +/- 0.14 R_Jup; it orbits in 7.34 days a F8V host star with mass and radius of 1.40 (+0.14/-0.11) M_Sun and 1.51 +/- 0.14 R_Sun. KOI-889b is a massive planet with mass and radius of 9.9 +/- 0.5 M_Jup and 1.03 +/- 0.06 R_Jup; it orbits in 8.88 days an active G8V star with a rotation period of 19.2 +/- 0.3 days, and mass and radius of 0.88 +/- 0.06 M_Sun and 0.88 +/- 0.04 R_Sun. Both planets lie on eccentric orbits and are located just at the frontier between regimes where the tides can explain circularization and where tidal effects are negligible. The two planets are among the first ones detected and characterized thanks to observations secured with HARPS-N, the new spectrograph recently mounted at the Telescopio Nazionale Galileo. These results illustrate the benefits that could be obtained from joint studies using two spectrographs as SOPHIE and HARPS-N. \" link: http://adsabs.harvard.edu/abs/2013arXiv1304.6002H Extracted KOI889 observing note from ExoFOP-Kepler on 2020-11-02 Robo-AO LP600-imaging of KOI-889 on 2014-07-16 No companions detected within 4.0\" https://arxiv.org/abs/1605.03584"
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "imaging_reports_no_companion": {
+          "type": "noul",
+          "noul": 0.93
+        },
+        "imaging_reports_companion_present": {
+          "type": "noul",
+          "noul": 0.05
+        },
+        "spectroscopy_indicates_nonplanetary_companion": {
+          "type": "noul",
+          "noul": 0.06
+        },
+        "spectroscopy_consistent_with_planet": {
+          "type": "noul",
+          "noul": 0.64
+        },
+        "host_star_described_as_evolved": {
+          "type": "noul",
+          "noul": 0.08
+        },
+        "followup_reported_concluded": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "reports_on_target_detection": {
+          "type": "noul",
+          "noul": 0.15
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 3.24,
+          "confidence": 0.37,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'perhaps', 'may be'; the conclusion is not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats or a request for more data",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.07,
+            "1": 0.01,
+            "2": 0.0,
+            "3": 0.44,
+            "4": 0.48
+          }
+        },
+        "indicates_retired_or_rejected": {
+          "type": "noul",
+          "noul": 0.03
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.91
+        },
+        "contains_object_designation": {
+          "type": "noul",
+          "noul": 0.99
+        }
+      },
+      "usage": {
+        "input_tokens": 3747,
+        "output_tokens": 243
+      }
+    }
+  },
+  "B09": {
+    "case": {
+      "cid": "B09",
+      "stratum": "S3_typical",
+      "toi": "5624.01",
+      "tic": 53498154,
+      "len": 1122,
+      "text": "T0053498154, 12:03:22.76 49:15:04.30, V=10.8, PM=76.7, J-K=0.44, Period=13.7 TOI-5624,Rp=3.4 2022-05-20 TRES, pha=5.70, RV=-30.291, Teff=5500+/-125, log(g)=4.50+/-0.25, Vrot=4.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.973, SNRe=32.3, R=m The first TRES observation reveals a G dwarf. Let's get a second TRES recon spectrum near phase 0.25. T0053498154, 12:03:22.76 49:15:04.30, V=10.8, PM=76.7, J-K=0.44, Period=13.7 TOI-5624,Rp=3.4 2022-05-20 TRES, pha=5.70, RV=-30.291, Teff=5500+/-125, log(g)=4.50+/-0.25, Vrot=4.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.973, SNRe=32.3, R=m 2022-05-27 TRES, pha=6.21, RV=-30.218, Teff=5750+/-125, log(g)=5.00+/-0.25, Vrot=2.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.974, SNRe=33.1, R=m The two TRES observations yield a velocity offset of 73 m/s that is out of phase with the photometric ephemeris. No more TRES recon spectra are needed for now. WIYN speckle imaging using NESSI was taken of TIC53498154 on 2023-02-04.Speckle images were acquired at 562 and 832nmNo secondary sources were detected.See separate plots/tables for the limiting magnitudeof the field as a function of distance from the targetstar."
+    },
+    "state": {
+      "notes": "T0053498154, 12:03:22.76 49:15:04.30, V=10.8, PM=76.7, J-K=0.44, Period=13.7 TOI-5624,Rp=3.4 2022-05-20 TRES, pha=5.70, RV=-30.291, Teff=5500+/-125, log(g)=4.50+/-0.25, Vrot=4.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.973, SNRe=32.3, R=m The first TRES observation reveals a G dwarf. Let's get a second TRES recon spectrum near phase 0.25. T0053498154, 12:03:22.76 49:15:04.30, V=10.8, PM=76.7, J-K=0.44, Period=13.7 TOI-5624,Rp=3.4 2022-05-20 TRES, pha=5.70, RV=-30.291, Teff=5500+/-125, log(g)=4.50+/-0.25, Vrot=4.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.973, SNRe=32.3, R=m 2022-05-27 TRES, pha=6.21, RV=-30.218, Teff=5750+/-125, log(g)=5.00+/-0.25, Vrot=2.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.974, SNRe=33.1, R=m The two TRES observations yield a velocity offset of 73 m/s that is out of phase with the photometric ephemeris. No more TRES recon spectra are needed for now. WIYN speckle imaging using NESSI was taken of TIC53498154 on 2023-02-04.Speckle images were acquired at 562 and 832nmNo secondary sources were detected.See separate plots/tables for the limiting magnitudeof the field as a function of distance from the targetstar."
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "imaging_reports_no_companion": {
+          "type": "noul",
+          "noul": 0.77
+        },
+        "imaging_reports_companion_present": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "spectroscopy_indicates_nonplanetary_companion": {
+          "type": "noul",
+          "noul": 0.05
+        },
+        "spectroscopy_consistent_with_planet": {
+          "type": "noul",
+          "noul": 0.11
+        },
+        "host_star_described_as_evolved": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "followup_reported_concluded": {
+          "type": "noul",
+          "noul": 0.95
+        },
+        "reports_on_target_detection": {
+          "type": "noul",
+          "noul": 0.06
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 2.94,
+          "confidence": 0.82,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'perhaps', 'may be'; the conclusion is not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats or a request for more data",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.0,
+            "1": 0.02,
+            "2": 0.11,
+            "3": 0.8,
+            "4": 0.07
+          }
+        },
+        "indicates_retired_or_rejected": {
+          "type": "noul",
+          "noul": 0.05
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.05
+        },
+        "contains_object_designation": {
+          "type": "noul",
+          "noul": 0.99
+        }
+      },
+      "usage": {
+        "input_tokens": 3744,
+        "output_tokens": 243
+      }
+    }
+  },
+  "B10": {
+    "case": {
+      "cid": "B10",
+      "stratum": "S4_long",
+      "toi": "1180.01",
+      "tic": 158002130,
+      "len": 2008,
+      "text": "T0158002130, 14:18:13.37 82:11:37.58, V=11.0, PM=0.0, J-K=0.64, Period=9.7 TOI-1180,Rp=3.1 2019-09-18 FIES, pha=5.60, RV=-36.370, Teff=4871+/-53, log(g)=4.76+/-0.10, Vrot=2.4+/-0.5, [m/H]=0.15+/-0.08, ccf=0.916, SNRe=19.8, R=h SPC The first FIES observation reveals a K dwarf with no rotation. Lets get another recon spectrum with TRES or FIES near phase 0.25 to check for a brown dwarf or stellar companion. T0158002130, 14:18:13.37 82:11:37.58, V=11.0, PM=0.0, J-K=0.64, Period=9.7 TOI-1180,Rp=3.1 2019-09-18 FIES, pha=5.60, RV=-36.370, Teff=4871+/-53, log(g)=4.76+/-0.10, Vrot=2.4+/-0.5, [m/H]=0.15+/-0.08, ccf=0.916, SNRe=19.8, R=h 2020-01-28 TRES, pha=19.20, RV=-36.254, Teff=4750+/-125, log(g)=4.00+/-0.25, Vrot=4.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.975, SNRe=31.3, R=m The FIES and TRES observations yield a small velocity offset that is out of phase with the photometric ephemeris. However, the internal estimate for the FIES velocity is large, so let's get a second TRES observation near phase 0.75. T0158002130, 14:18:13.37 82:11:37.58, V=11.0, PM=0.0, J-K=0.64, Period=9.7 TOI-1180,Rp=3.1 2019-09-18 FIES, pha=5.60, RV=-36.370, Teff=4871+/-53, log(g)=4.76+/-0.10, Vrot=2.4+/-0.5, [m/H]=0.15+/-0.08, ccf=0.916, SNRe=19.8, R=h 2020-01-28 TRES, pha=19.20, RV=-36.254, Teff=4750+/-125, log(g)=4.00+/-0.25, Vrot=4.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.975, SNRe=31.3, R=m 2020-02-02 TRES, pha=19.71, RV=-36.194, Teff=5000+/-125, log(g)=5.00+/-0.25, Vrot=0.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.971, SNRe=24.8, R=m The two TRES observations yield a small velocity shift that is consistent with the photometric ephemeris. The FIES velocity from last September can be discounted because of the large internal error estimate. No more recon spectra are needed. WIYN speckle imaging using NESSI was taken of TIC158002130 on 2022-04-21.Speckle images were acquired at 832nmNo secondary sources were detected.See separate plots/tables for the limiting magnitudeof the field as a function of distance from the targetstar."
+    },
+    "state": {
+      "notes": "T0158002130, 14:18:13.37 82:11:37.58, V=11.0, PM=0.0, J-K=0.64, Period=9.7 TOI-1180,Rp=3.1 2019-09-18 FIES, pha=5.60, RV=-36.370, Teff=4871+/-53, log(g)=4.76+/-0.10, Vrot=2.4+/-0.5, [m/H]=0.15+/-0.08, ccf=0.916, SNRe=19.8, R=h SPC The first FIES observation reveals a K dwarf with no rotation. Lets get another recon spectrum with TRES or FIES near phase 0.25 to check for a brown dwarf or stellar companion. T0158002130, 14:18:13.37 82:11:37.58, V=11.0, PM=0.0, J-K=0.64, Period=9.7 TOI-1180,Rp=3.1 2019-09-18 FIES, pha=5.60, RV=-36.370, Teff=4871+/-53, log(g)=4.76+/-0.10, Vrot=2.4+/-0.5, [m/H]=0.15+/-0.08, ccf=0.916, SNRe=19.8, R=h 2020-01-28 TRES, pha=19.20, RV=-36.254, Teff=4750+/-125, log(g)=4.00+/-0.25, Vrot=4.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.975, SNRe=31.3, R=m The FIES and TRES observations yield a small velocity offset that is out of phase with the photometric ephemeris. However, the internal estimate for the FIES velocity is large, so let's get a second TRES observation near phase 0.75. T0158002130, 14:18:13.37 82:11:37.58, V=11.0, PM=0.0, J-K=0.64, Period=9.7 TOI-1180,Rp=3.1 2019-09-18 FIES, pha=5.60, RV=-36.370, Teff=4871+/-53, log(g)=4.76+/-0.10, Vrot=2.4+/-0.5, [m/H]=0.15+/-0.08, ccf=0.916, SNRe=19.8, R=h 2020-01-28 TRES, pha=19.20, RV=-36.254, Teff=4750+/-125, log(g)=4.00+/-0.25, Vrot=4.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.975, SNRe=31.3, R=m 2020-02-02 TRES, pha=19.71, RV=-36.194, Teff=5000+/-125, log(g)=5.00+/-0.25, Vrot=0.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.971, SNRe=24.8, R=m The two TRES observations yield a small velocity shift that is consistent with the photometric ephemeris. The FIES velocity from last September can be discounted because of the large internal error estimate. No more recon spectra are needed. WIYN speckle imaging using NESSI was taken of TIC158002130 on 2022-04-21.Speckle images were acquired at 832nmNo secondary sources were detected.See separate plots/tables for the limiting magnitudeof the field as a function of distance from the targetstar."
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "imaging_reports_no_companion": {
+          "type": "noul",
+          "noul": 0.84
+        },
+        "imaging_reports_companion_present": {
+          "type": "noul",
+          "noul": 0.05
+        },
+        "spectroscopy_indicates_nonplanetary_companion": {
+          "type": "noul",
+          "noul": 0.07
+        },
+        "spectroscopy_consistent_with_planet": {
+          "type": "noul",
+          "noul": 0.22
+        },
+        "host_star_described_as_evolved": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "followup_reported_concluded": {
+          "type": "noul",
+          "noul": 0.96
+        },
+        "reports_on_target_detection": {
+          "type": "noul",
+          "noul": 0.06
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 3.08,
+          "confidence": 0.72,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'perhaps', 'may be'; the conclusion is not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats or a request for more data",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.0,
+            "1": 0.01,
+            "2": 0.11,
+            "3": 0.67,
+            "4": 0.21
+          }
+        },
+        "indicates_retired_or_rejected": {
+          "type": "noul",
+          "noul": 0.05
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.06
+        },
+        "contains_object_designation": {
+          "type": "noul",
+          "noul": 0.99
+        }
+      },
+      "usage": {
+        "input_tokens": 4201,
+        "output_tokens": 243
+      }
+    }
+  },
+  "B11": {
+    "case": {
+      "cid": "B11",
+      "stratum": "S4_long",
+      "toi": "509.01",
+      "tic": 453211454,
+      "len": 2238,
+      "text": "T0453211454, 07:51:41.92 09:23:06.90, V=8.6, PM=0.0, J-K=0.42, Period=18.1 2019-03-28 TRES, pha=4.21, RV=-19.628, Teff=5750+/-125, log(g)=4.50+/-0.25, Vrot=4.0+/-2.0,[m/H]=0.00+/-0.25, ccf=0.985, SNRe=42.4, R=m 2019-04-04 TRES, pha=4.59, RV=-19.585, Teff=5750+/-125, log(g)=4.50+/-0.25, Vrot=4.0+/-2.0,[m/H]=0.00+/-0.25, ccf=0.989, SNRe=74.0, R=m The second TRES observation rules out the unlikely possibility that this was an eccentric eclipsing binary. It would be wise to have results from SG1 before we move this to priority 1 for SG4, but that will be hard because of the long period.? No more TRES observations are needed. T0453211454, 07:51:41.92 09:23:06.90, V=8.6, PM=0.0, J-K=0.42, Period=18.1 2019-03-28 TRES, pha=4.21, RV=-19.628, Teff=5750+/-125, log(g)=4.50+/-0.25, Vrot=4.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.985, SNRe=42.4, R=m The first TRES observation reveals the spectrum of a Solar twin. Normally I would not schedule additional observations for this Level One target, but in this case I notice that there is an additional single transit event that is not at half the period. We need to make sure that this is not an eclipsing binary with an eccentric orbit. It would also be good to have results from SG1 before we move this to priority 1 for SG4, but that will be hard because of the long period. Therefore I have tentatively set it for priority 2 on HARPS-N, contingent on review by the HARPS-N Target Selection Tiger Team. The opposite quadrature near phase 0.75 will happen after the end of this TRES run, so let's try to get another TRES observation on the last night of this run to check for a stellar companion in an eclipsing binary. The next HARPS-N run starts 17 April. WIYN speckle imaging using NESSI was taken of TIC453211454 on 2021-04-02. Speckle images were acquired at 562 and 832nm No secondary sources were detected. See separate plots/tables for the limiting magnitude of the field as a function of distance from the target star. WIYN speckle imaging using NESSI was taken of TIC453211454 on 2019-10-14. Speckle images were acquired at 562 and 832nm No secondary sources were detected. See separate plots/tables for the limiting magnitude of the field as a function of distance from the target star."
+    },
+    "state": {
+      "notes": "T0453211454, 07:51:41.92 09:23:06.90, V=8.6, PM=0.0, J-K=0.42, Period=18.1 2019-03-28 TRES, pha=4.21, RV=-19.628, Teff=5750+/-125, log(g)=4.50+/-0.25, Vrot=4.0+/-2.0,[m/H]=0.00+/-0.25, ccf=0.985, SNRe=42.4, R=m 2019-04-04 TRES, pha=4.59, RV=-19.585, Teff=5750+/-125, log(g)=4.50+/-0.25, Vrot=4.0+/-2.0,[m/H]=0.00+/-0.25, ccf=0.989, SNRe=74.0, R=m The second TRES observation rules out the unlikely possibility that this was an eccentric eclipsing binary. It would be wise to have results from SG1 before we move this to priority 1 for SG4, but that will be hard because of the long period.? No more TRES observations are needed. T0453211454, 07:51:41.92 09:23:06.90, V=8.6, PM=0.0, J-K=0.42, Period=18.1 2019-03-28 TRES, pha=4.21, RV=-19.628, Teff=5750+/-125, log(g)=4.50+/-0.25, Vrot=4.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.985, SNRe=42.4, R=m The first TRES observation reveals the spectrum of a Solar twin. Normally I would not schedule additional observations for this Level One target, but in this case I notice that there is an additional single transit event that is not at half the period. We need to make sure that this is not an eclipsing binary with an eccentric orbit. It would also be good to have results from SG1 before we move this to priority 1 for SG4, but that will be hard because of the long period. Therefore I have tentatively set it for priority 2 on HARPS-N, contingent on review by the HARPS-N Target Selection Tiger Team. The opposite quadrature near phase 0.75 will happen after the end of this TRES run, so let's try to get another TRES observation on the last night of this run to check for a stellar companion in an eclipsing binary. The next HARPS-N run starts 17 April. WIYN speckle imaging using NESSI was taken of TIC453211454 on 2021-04-02. Speckle images were acquired at 562 and 832nm No secondary sources were detected. See separate plots/tables for the limiting magnitude of the field as a function of distance from the target star. WIYN speckle imaging using NESSI was taken of TIC453211454 on 2019-10-14. Speckle images were acquired at 562 and 832nm No secondary sources were detected. See separate plots/tables for the limiting magnitude of the field as a function of distance from the target star."
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "imaging_reports_no_companion": {
+          "type": "noul",
+          "noul": 0.87
+        },
+        "imaging_reports_companion_present": {
+          "type": "noul",
+          "noul": 0.05
+        },
+        "spectroscopy_indicates_nonplanetary_companion": {
+          "type": "noul",
+          "noul": 0.07
+        },
+        "spectroscopy_consistent_with_planet": {
+          "type": "noul",
+          "noul": 0.38
+        },
+        "host_star_described_as_evolved": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "followup_reported_concluded": {
+          "type": "noul",
+          "noul": 0.93
+        },
+        "reports_on_target_detection": {
+          "type": "noul",
+          "noul": 0.5
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 2.32,
+          "confidence": 0.7,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'perhaps', 'may be'; the conclusion is not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats or a request for more data",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.0,
+            "1": 0.02,
+            "2": 0.67,
+            "3": 0.28,
+            "4": 0.03
+          }
+        },
+        "indicates_retired_or_rejected": {
+          "type": "noul",
+          "noul": 0.05
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "contains_object_designation": {
+          "type": "noul",
+          "noul": 0.98
+        }
+      },
+      "usage": {
+        "input_tokens": 3980,
+        "output_tokens": 243
+      }
+    }
+  },
+  "B12": {
+    "case": {
+      "cid": "B12",
+      "stratum": "S4_long",
+      "toi": "628.01",
+      "tic": 281408474,
+      "len": 3208,
+      "text": "T0281408474, 06:37:03.13 01:46:03.18, V=10.1, PM=0.0, J-K=0.36, Period=3.4 TOI-628,Rp=13 2019-05-01 TRES, pha=39.74, RV=21.293, Teff=5750+/-125, log(g)=4.00+/-0.25, Vrot=8.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.934, SNRe=25.8, R=m 2019-10-03 TRES, pha=85.31, RV=19.683, Teff=6000+/-125, log(g)=4.00+/-0.25, Vrot=8.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.970, SNRe=36.5, R=m The second TRES observation shows a velocity shift that implies a hot Jupiter with mass of at least six Jupiters. Let's get a couple more observations near quadratures, to see if this preliminary orbit holds up. T0281408474, 06:37:03.13 01:46:03.10, V=10.1, PM=0.0, J-K=0.36, Period=3.4 TOI-628,Rp=13 2019-05-01 TRES, pha=39.74, RV=21.293, Teff=5750+/-125, log(g)=4.00+/-0.25, Vrot=8.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.934, SNRe=25.8, R=m The first TRES observation reveals a Sun-like spectrum, perhaps slightly evolved. This is confirmed by Gaia DR2, which quotes a size of 1.44 Ro. This is getting very low in the evening sky. We may have to wait until next season to check the opposite quadrature. T0281408474, 06:37:03.13 01:46:03.18, V=10.1, PM=0.0, J-K=0.36, Period=3.4 TOI-628,Rp=13 2019-05-01 TRES, pha=39.74, RV=21.293, Teff=5750+/-125, log(g)=4.00+/-0.25, Vrot=8.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.934, SNRe=25.8, R=m 2019-10-03 TRES, pha=85.31, RV=19.683, Teff=6000+/-125, log(g)=4.00+/-0.25, Vrot=8.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.970, SNRe=36.5, R=m 2019-10-13 TRES, pha=88.26, RV=19.867, Teff=5750+/-125, log(g)=4.00+/-0.25, Vrot=8.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.967, SNRe=35.1, R=m This is looking like a fairly massive hot Jupiter, maybe 5 Mjup.. Nobody has signed up for it on the SG2/SG4 Observation Coordinator. Should we go for an orbit with TRES? Let's get a TRES observation near phase 0.75 to check for a long-term drift since last May. T0281408474, 06:37:03.13 01:46:03.18, V=10.1, PM=0.0, J-K=0.36, Period=3.4 TOI-628,Rp=13 2019-05-01 TRES, pha=39.74, RV=21.293, Teff=5750+/-125, log(g)=4.00+/-0.25, Vrot=8.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.934, SNRe=25.8, R=m 2019-10-03 TRES, pha=85.31, RV=19.683, Teff=6000+/-125, log(g)=4.00+/-0.25, Vrot=8.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.970, SNRe=36.5, R=m 2019-10-13 TRES, pha=88.26, RV=19.856, Teff=6000+/-125, log(g)=4.00+/-0.25, Vrot=8.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.968, SNRe=35.1, R=m 2019-10-18 TRES, pha=89.72, RV=21.034, Teff=6000+/-125, log(g)=4.00+/-0.25, Vrot=8.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.963, SNRe=34.5, R=m The preliminary orbit for a massive hot Jupiter is confirmed. Let's get several more TRES observations to fill out the phase coverage. T0281408474, 06:37:03.13 01:46:03.18, V=10.1, PM=2.2, J-K=0.36, Period=3.4 TOI-728,Rp=13 We have 13 TRES observations now. Is the orbit good enough to publish? I'd like to see an updated multi-order analysis and an orbital solution with eccentricity as a free parameter before investing more telescope time. I have put this on hold for now. WIYN speckle imaging using NESSI was taken of TIC281408474 on 2019-10-11. Speckle images were acquired at 562 and 832nm No secondary sources were detected. See separate plots/tables for the limiting magnitude of the field as a function of distance from the target star."
+    },
+    "state": {
+      "notes": "T0281408474, 06:37:03.13 01:46:03.18, V=10.1, PM=0.0, J-K=0.36, Period=3.4 TOI-628,Rp=13 2019-05-01 TRES, pha=39.74, RV=21.293, Teff=5750+/-125, log(g)=4.00+/-0.25, Vrot=8.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.934, SNRe=25.8, R=m 2019-10-03 TRES, pha=85.31, RV=19.683, Teff=6000+/-125, log(g)=4.00+/-0.25, Vrot=8.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.970, SNRe=36.5, R=m The second TRES observation shows a velocity shift that implies a hot Jupiter with mass of at least six Jupiters. Let's get a couple more observations near quadratures, to see if this preliminary orbit holds up. T0281408474, 06:37:03.13 01:46:03.10, V=10.1, PM=0.0, J-K=0.36, Period=3.4 TOI-628,Rp=13 2019-05-01 TRES, pha=39.74, RV=21.293, Teff=5750+/-125, log(g)=4.00+/-0.25, Vrot=8.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.934, SNRe=25.8, R=m The first TRES observation reveals a Sun-like spectrum, perhaps slightly evolved. This is confirmed by Gaia DR2, which quotes a size of 1.44 Ro. This is getting very low in the evening sky. We may have to wait until next season to check the opposite quadrature. T0281408474, 06:37:03.13 01:46:03.18, V=10.1, PM=0.0, J-K=0.36, Period=3.4 TOI-628,Rp=13 2019-05-01 TRES, pha=39.74, RV=21.293, Teff=5750+/-125, log(g)=4.00+/-0.25, Vrot=8.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.934, SNRe=25.8, R=m 2019-10-03 TRES, pha=85.31, RV=19.683, Teff=6000+/-125, log(g)=4.00+/-0.25, Vrot=8.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.970, SNRe=36.5, R=m 2019-10-13 TRES, pha=88.26, RV=19.867, Teff=5750+/-125, log(g)=4.00+/-0.25, Vrot=8.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.967, SNRe=35.1, R=m This is looking like a fairly massive hot Jupiter, maybe 5 Mjup.. Nobody has signed up for it on the SG2/SG4 Observation Coordinator. Should we go for an orbit with TRES? Let's get a TRES observation near phase 0.75 to check for a long-term drift since last May. T0281408474, 06:37:03.13 01:46:03.18, V=10.1, PM=0.0, J-K=0.36, Period=3.4 TOI-628,Rp=13 2019-05-01 TRES, pha=39.74, RV=21.293, Teff=5750+/-125, log(g)=4.00+/-0.25, Vrot=8.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.934, SNRe=25.8, R=m 2019-10-03 TRES, pha=85.31, RV=19.683, Teff=6000+/-125, log(g)=4.00+/-0.25, Vrot=8.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.970, SNRe=36.5, R=m 2019-10-13 TRES, pha=88.26, RV=19.856, Teff=6000+/-125, log(g)=4.00+/-0.25, Vrot=8.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.968, SNRe=35.1, R=m 2019-10-18 TRES, pha=89.72, RV=21.034, Teff=6000+/-125, log(g)=4.00+/-0.25, Vrot=8.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.963, SNRe=34.5, R=m The preliminary orbit for a massive hot Jupiter is confirmed. Let's get several more TRES observations to fill out the phase coverage. T0281408474, 06:37:03.13 01:46:03.18, V=10.1, PM=2.2, J-K=0.36, Period=3.4 TOI-728,Rp=13 We have 13 TRES observations now. Is the orbit good enough to publish? I'd like to see an updated multi-order analysis and an orbital solution with eccentricity as a free parameter before investing more telescope time. I have put this on hold for now. WIYN speckle imaging using NESSI was taken of TIC281408474 on 2019-10-11. Speckle images were acquired at 562 and 832nm No secondary sources were detected. See separate plots/tables for the limiting magnitude of the field as a function of distance from the target star."
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "imaging_reports_no_companion": {
+          "type": "noul",
+          "noul": 0.77
+        },
+        "imaging_reports_companion_present": {
+          "type": "noul",
+          "noul": 0.06
+        },
+        "spectroscopy_indicates_nonplanetary_companion": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "spectroscopy_consistent_with_planet": {
+          "type": "noul",
+          "noul": 0.92
+        },
+        "host_star_described_as_evolved": {
+          "type": "noul",
+          "noul": 0.81
+        },
+        "followup_reported_concluded": {
+          "type": "noul",
+          "noul": 0.06
+        },
+        "reports_on_target_detection": {
+          "type": "noul",
+          "noul": 0.06
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 2.0,
+          "confidence": 0.96,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'perhaps', 'may be'; the conclusion is not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats or a request for more data",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.0,
+            "1": 0.02,
+            "2": 0.96,
+            "3": 0.02,
+            "4": 0.0
+          }
+        },
+        "indicates_retired_or_rejected": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.12
+        },
+        "contains_object_designation": {
+          "type": "noul",
+          "noul": 0.99
+        }
+      },
+      "usage": {
+        "input_tokens": 4876,
+        "output_tokens": 243
+      }
+    }
+  },
+  "B13": {
+    "case": {
+      "cid": "B13",
+      "stratum": "S5_verylong",
+      "toi": "2175.01",
+      "tic": 405717754,
+      "len": 17836,
+      "text": "Extracted KOI20 observing note from ExoFOP-Kepler on 2020-11-02 Note on observation request: duration requires larger stellar radius Extracted KOI20 observing note from ExoFOP-Kepler on 2020-11-02 Teff=6000, log(g)=4.0, Vrot=4, Vrad=2.269 Four exposures with FIES obtained with Fast/Track telescope time awarded to Lars Buchhave as PI. The above velocity is the mean for just the single order used for classification. The corresponding plots are linked here: 20Sp-dl090610.ps When one of the observed spectra is used as the template and 48 of 78 of the orders are used to derive the velocity (rejecting the orders with telluric contamination), Lars gets three velocity differences compared to the template exposure, whose velocity is defined to be zero. When a circular orbit (namely a sine function) is fit to these four velocity points, with the epoch and period fixed to the photometric ephemeris from Kepler, Lars gets a result that suggests a semi-amplitude of 121 m/s and a minimum mass of 1.0 Jupiter masses. This is a preliminary result. The total elapsed time for each exposure was between 34 and 52 minutes, and the barycentric correction was applied for the midpoint of each visit. Lars has plans to implement the barycentric correction to individual exposures in the sequences of multiple exposures that comprise a visit. The velocity scatter for the individual orders in a given visit imply a standard error of the mean for that visit of 70 m/s, so this result should be viewed with caution. The bottom line is that we need better velocities to confirm this tantalizing result. That will require a bigger telescope, because the Kepler magnitude = 13.4. 20Vp-lb20120727e.ps Extracted KOI20 observing note from ExoFOP-Kepler on 2020-11-02 Per FOP telecon: Recon looks OK. Ready for HIRES. Extracted KOI20 observing note from ExoFOP-Kepler on 2020-11-02 Per FOP telecon: FIES rv curve shows every indication of a 0.8 Mj planet. High priority for HIRES. Extracted KOI20 observing note from ExoFOP-Kepler on 2020-11-02 SME spectral analysis by D.Fischer of HIRES spectrum: Teff: 5999.6 +/- 44K Log g: 4.18 +/- 0.1 Vsini: 2.68 +/- 0.5 km/s [Fe/H]: +0.10 +/- 0.05 A plot of the Mg b section of the HIRES spectrum showing the synthesis: 20Sp-gm20120727h.pdf Extracted KOI20 observing note from ExoFOP-Kepler on 2020-11-02 The four velocities from HIRES, to date: BJD-2450000 Velocity (m/s) Unc. ----------------------------------- 5014.9123 -26.09 3.65 5016.7910 32.07 3.75 5017.1057 -15.79 3.51 5019.1116 9.80 4.44 ----------------------------------- I failed to find an acceptable orbital fit. Here is a representative (failed) effort: 20Vp-gm090708.ps.pdf Extracted KOI20 observing note from ExoFOP-Kepler on 2020-11-02 Lars has plotted the FIES and HIRES velocities phased to the photometric ephemeris. The plot thickens. 20Vp-lb20120727g.pdf Extracted KOI20 observing note from ExoFOP-Kepler on 2020-11-02 Per FOP telecon of 090722: Still high priority even though we don't have a good orbit fit yet. Bisector analysis is rumored to be OK. Continue to get 5 or 6 more HIRES measurements. Extracted KOI20 observing note from ExoFOP-Kepler on 2020-11-02 ----------------------------------------- HIRES velocities for k00020 BJD-2450000 Vel (m/s) Unc (m/s) ----------------------------------------- 5014.91234 -20.6 4.9 5016.79104 53.8 5.1 5017.10568 6.6 4.5 5019.11155 53.6 5.5 5027.05631 -75.8 5.3 5041.99855 -27.3 6.7 5042.79449 9.9 5.8 ----------------------------------------- The Keck-HIRES velocities do not phase up with the Kepler photometry. Bisector analysis is next. If no bisector variations emerge, this KOI definitely needs 2 or 3 more HIRES velocities to understand it. It could be multiple planets making the RV depart from a simple single-planet orbital solution. 20gm-Vp090808.pdf Extracted KOI20 observing note from ExoFOP-Kepler on 2020-11-02 It looks to me like this could be a blended triple, and therefore we need an analysis of the bisectors. If the HIRES extracted spectra can be uploaded as fits files, Lars can do the analysis. Extracted KOI20 observing note from ExoFOP-Kepler on 2020-11-02 Bisector analysis of the 7 existing HIRES spectra. It does not look to me like there are any strong bisector variations. The errors in the bisectors are a bit bigger then on e.g. K00005. Bisectors are not an exact science, but the variations do not look too worrisome to me. 20Vp-lb20090819.ps Extracted KOI20 observing note from ExoFOP-Kepler on 2020-11-02 D.Fischer's updated SME LTE analysis of two HIRES spectra: Vmac Vmic Star ID Teff +/- Log g +/- Vsini +/- [Fe/H] +/- [km/s] [km/s] K00020 6023 (60) 4.25 (0.1) 2.6 (1.0) 0.10 (0.06) 4.4 0.9 2.1 K00020 6020 (60) 4.27 (0.1) 2.5 (1.0) 0.05 (0.06) 4.4 0.9 3.0 Extracted KOI20 observing note from ExoFOP-Kepler on 2020-11-02 ----------------------------------------- HIRES velocities for K00020 Updated: 16 September 2009 BJD-2450000 Vel (m/s) Unc (m/s) ----------------------------------------- 5014.91234 -5.7 4.8 5016.79104 54.0 5.5 5017.10568 -3.7 4.6 5019.11155 65.2 6.4 5027.05631 -59.7 5.9 5041.99855 -5.0 7.5 5042.79449 40.0 6.9 5073.83165 68.0 4.8 5075.83091 -40.9 4.0 5080.87564 -73.5 4.2 5084.86254 -38.2 4.3 ----------------------------------------- Extracted KOI20 observing note from ExoFOP-Kepler on 2020-11-02 HIRES RVs vs time (dots) overplotted on the predicted RV curve (dashed) from a circular orbit model having a period and epoch pre-set by transits. The measured RVs correlate strongly with the predicted RVs. 20gm-Vp090921.pdf But two major outliers give pause, and the RV RMS of 32.9 m/s is higher than expected. Support for the planet model is weakened. The computed density of 0.114 g/cc is much lower than plausible for a gravitationally bound giant gaseous planet with a 4.44 d period. The implied planet mass of 0.458 Mjup is unlikely to be in error by more than 10% as it depends only on the RV amplitude of 50 m/s that is clearly the highest possible value. The planet radius is abnormally large, R = 1.71 R_jup, causing the density to be too low. The great transit depth of 0.016 (1.6%) drives the large planet radius. There seems little escape from the too-large radius inferred from the transit, rendering the too-low density of the planet another sign that the planet model is not acceptable. All of the inconsistencies taken together indicate a blend or triple system. A The crowding metric, photometry, and centroids exhibit no sign of a stellar neighbor. AO would be useful. The template is high quality, two exposures of 25 minutes each, taken though the B1 decker (0.57 arcsec), implying high integrity for the RVs. We need AO, bisectors, and more RVs to look for a possible additional planet causing the outliers. Extracted KOI20 observing note from ExoFOP-Kepler on 2020-11-02 Mt. Wilson S-value and log R'hk, and Ca II K line plot from HIRES: 20Sp-hi20090922.pdf Extracted KOI20 observing note from ExoFOP-Kepler on 2020-11-02 WIYN speckle image reveals a single star. Extracted KOI20 observing note from ExoFOP-Kepler on 2020-11-02 TCERT 2009Sept22: Seems to be a correlation between the RVs and the photometry, but there are some serious velocity outliers that cannot yet be explained. Bisector analysis looks clean. What to do? Keep observing, look carefully at AO, and consider multi-planet fit to RV data. Extracted KOI20 observing note from ExoFOP-Kepler on 2020-11-02 The HIRES guider image (fits file) is available. The dimensions on the sky are 43\"x 57\". 20Fv-hi091013.fits (right click to download) Extracted KOI20 observing note from ExoFOP-Kepler on 2020-11-02 Revised HIRES Radial Velocities for K00020 Julian Date, Radial Velocity, Error in RV -------------------------------------------------------- 2455014.912335 -16.50 8.96 2455016.791039 55.26 8.98 2455017.105683 -2.53 8.37 2455019.111551 54.30 11.68 2455027.056306 -52.34 9.93 2455041.998546 14.03 13.21 2455042.794494 57.11 12.01 2455073.831652 54.10 7.87 2455075.830911 -47.66 6.99 2455080.875641 -72.92 6.63 2455084.862537 -49.78 7.20 2455134.826060 6.09 8.53 Extracted KOI20 observing note from ExoFOP-Kepler on 2020-11-02 Speckle imaging at WIYN has shown that KOI 20 is a single star as observed within a box of size 2.76 x 2.76 arcsec centered on the target. No companion is detected to a magnitude limit below the target star of 4.3 mags in 'R' and 2.5 mags in 'V'. Extracted KOI20 observing note from ExoFOP-Kepler on 2020-11-02 An image taken with the Lick Observatory 1-m Nickel Telescope is available in .pdf and .fits format. Each pdf has a 1.2'x1.2' view centered on the star, and a close-up view of the star in an 11\"x11\" field. The seeing is ~ 1.5\". No companions visible from 2\" to 5\" away from the star down to delta_mag = 5 20Ic-hi20100709.pdf Extracted KOI20 observing note from ExoFOP-Kepler on 2020-11-02 Per the TCERT request, we took two additional HIRES spectra in August 2010. Here is a list of all RVs, including those from last season. obnm UT date jd mnvel errvel mdchi cts ************************************************************************* rj72.138 2009/07/02 15014.912335 -10.86 4.73 1.039 2061 rj72.724 2009/07/04 15016.791039 46.92 4.64 1.050 1809 rj72.832 2009/07/04 15017.105683 3.47 4.18 1.046 2086 rj72.1095 2009/07/06 15019.111551 38.90 5.18 1.048 1611 rj73.94 2009/07/14 15027.056306 -61.14 5.25 1.033 1546 rj74.119 2009/07/29 15041.998546 -4.94 6.33 1.052 1193 rj74.275 2009/07/30 15042.794494 44.53 5.79 1.043 1471 rj76.95 2009/08/30 15073.831652 53.70 3.98 1.058 3373 rj76.485 2009/09/01 15075.830911 -47.89 3.53 1.077 5232 rj76.1515 2009/09/06 15080.875641 -67.81 3.44 1.083 5236 rj76.2289 2009/09/10 15084.862537 -40.08 3.16 1.085 5155 rj78.427 2009/10/30 15134.826060 0.55 4.22 1.112 3647 rj97.2573 2010/08/29 15437.780123 70.97 3.59 1.097 5321 rj97.2988 2010/08/31 15439.753817 -28.25 3.22 1.130 5365 =============================================== Many spectra from last season were taken with short exposures and/or moon light contamination. To eliminate those RVs blindly, I rejected all RV having an internal error greater than 5.0 m/s. This blindly removed 4 RVs, all presumably poor quality, without regard to the RVs themselves. Here is the best-fit Keplerian model, using the ephemeris from the photometric transit fit, but allowing the eccentricity to float. I adopted a stellar mass of 1.1 M_sun provisionally, consistent with the SME analysis that gives Teff = 6000 and log g =4.26. The star appears to be a G0V main sequence star of nearly solar metallicity. 20gm-Vp100912.eps The best-fit planet mass is 0.52 Mjup. The best-fit eccentricity is 0.2 +- 0.1 . A better analysis is needed to determine if the eccentricity is probably eccentric. Extracted KOI20 observing note from ExoFOP-Kepler on 2020-11-02 [Observing notes 2 of 2] I also want to mention that the internal errors of the FIES velocities is rather high. I determine the internal error by Verr = rms(v_orders)/sqrt(N), where v_orders is the RV from the individual orders in the exposure and N is the number of orders used. Usually, even for faint targets, we have and Verr Here are the FIES velocities: filename hjd v_CCFsum(m/s) verr(m/s) K00020.01_2009-06-11_02h46m26s_cb.spec 2454993.630503 184.7 44.1 K00020.01_2009-06-12_02h31m48s_cb.spec 2454994.623893 86.1 29.2 K00020.01_2009-06-13_02h50m30s_cb.spec 2454995.636900 26.0 27.5 K00020.01_2009-06-15_02h16m14s_cb.spec 2454997.616675 137.1 21.1 K00020.01_2009-07-01_03h08m07s_cb.spec 2455013.652976 37.6 23.0 K00020.01_2009-10-02_22h53m57s_cb.spec 2455107.476779 0.0 15.4 K00020.01_2009-10-03_22h37m34s_cb.spec 2455108.465373 51.8 15.4 K00020.01_2009-10-04_22h35m07s_cb.spec 2455109.463643 6.4 19.6 K00020.01_2009-10-06_23h45m20s_cb.spec 2455111.512344 14.5 28.7 Bisector vs time plot 20Vp-lb20100913a.ps Bisectors phased to the photometric ephemeris 20Vp-lb20100913b.eps Fit to bisectors, phase to the photometric ephemeris 20Vp-lb20100913c.ps FIES RV phase plot 20Vp-lb20100913d.ps Extracted KOI20 observing note from ExoFOP-Kepler on 2020-11-02 [Observing notes 1 of 2] Hi all, I wanted to chime in with what I have on K00020. I ran a bisector analysis of the HIRES spectra Geoff used in the RV analysis (without the 4 RVs with internal error > 5 m/s, which indeed gave large bisector variations). There is a noticeable bisector variation with time, see attached plot 20Vp-lb20100913a.ps, where the Keck RV are in the top panel and the bisectors are in the bottom panel. The phased bisectors and RVs are plotted in 20Vp-lb20100913b.eps (circular orbit). I tried to fit the bisector variations phased to the photometric ephemeris, and there does not appear to be a correlation: 20Vp-lb20100913c.ps. The large bisector variations should raise a flag of caution, but perhaps we are seeing moonlight contamination, which is affecting the bisectors, but to a lesser extent the RVs, which was the case for K377. At least the bisector variations do not seem to be in phase with the photometric ephemeris. Here are the bisector variations from the HIRES spectra: filename hjd phase bs(m/s) bserr(m/s) k00020ScH1-gm55014.91233.crr 2455014.912362 2.457 44.0 5.8 k00020ScH1-gm55016.79103.crr 2455016.790900 2.880 49.5 7.0 k00020ScH1-gm55017.10568.crr 2455017.105772 2.951 28.1 5.0 k00020ScH1-gm55019.11155.crr 2455019.111546 3.403 29.0 6.0 k00020ScH1-gm55041.99854.crr 2455041.998635 8.560 23.0 5.7 k00020ScH1-gm55042.79449.crr 2455042.794491 8.740 40.2 6.0 k00020ScH1-gm55073.83165.crr 2455073.831400 15.733 -16.2 2.6 k00020ScH1-gm55075.83091.crr 2455075.831039 16.184 -31.2 3.0 k00020ScH1-gm55080.87564.crr 2455080.875775 17.320 -81.9 8.2 k00020ScH1-gm55084.86253.crr 2455084.857366 18.218 18.8 4.6 k00020ScH1-gm55134.82606.crr 2455134.826548 29.477 -154.3 16.6 k00020ScH1-hi55437.78012.crr 2455437.780562 97.741 23.8 4.8 k00020ScH1-hi55439.75381.crr 2455439.753857 98.186 27.1 4.8 bsMean RMS = 58.86 I also have 9 FIES RVs from last season. I am not sure what to make of them, though. The initial 4 FIES velocities phase up, with large errors, and give a K comparable to what Geoff found in his latest report (HIRES K=61 m/s, FIES initial 4 velocities circular orbit K=71 m/s). If I remember the timeline for K20 correctly, I came back reporting the initial FIES velocities phased up indicating a planet, Geoff then reported the initial HIRES velocities did not make sense. I then went back to get more velocities with FIES, but the last five FIES RVs did not phase up very well with the initial four. And now, with more HIRES velocities, there does indeed seem to be RV variations in phase with the photometric ephemeris! I have attached a phase plot of the FIES velocities (20Vp-lb20100913d.ps). Extracted KOI20 observing note from ExoFOP-Kepler on 2020-11-02 HIRES Velocity plots over time, phased plots and correlation. 20Sp-hi20100922.pdf Extracted KOI20 observing note from ExoFOP-Kepler on 2020-11-02 A HIRES guider snap is avaible in .pdf and .fits formats(orientations may differ). The pdf shows the field surrounding the KOI and a contour plot. The contours shown on the pdf may give a first order guess at the magnitudes of the surrounding stars. Magnitudes on the pdfs should be read as magnitudes fainter than the primary. Images are available in the finder_chart section. 20Fv-hi091013.pdf Extracted KOI20 observing note from ExoFOP-Kepler on 2020-11-02 Debra Fischer's revised SME results: Star Teff logg [Fe/H] vsini chisq K00020 5947 [44] 4.1 [.1] +0.08 [04] 0.5 [.5] 2.1 K00020 6001 [44] 4.2 [.1] +0.06 [04] 1.1 [.5] 2.9 Extracted KOI20 observing note from ExoFOP-Kepler on 2020-11-02 From Geoff Marcy: My student, Carly Chubak, ran a cross correlation of all 18 Keck-HIRES spectra we have of KOI-20. We used the solar spectrum as the template, with the goal of detecting the second set of lines from any G- or K-type star located within an arcsec of the primary star. This test has the great value of detecting any companion star, especially G or K-type stars, that might be blended with the primary star. I attach a representative set of these cross-correlation functions (actually chi^2). The narrow dip is the chi^2 statistic of the spectrum of KOI-20 with the solar spectrum, as a function of displacement of the two in units of km/s. The line width is ~5 km/s, consistent with the low rotational Vsini of 1 km/s for the star. Any companion star 10% the brightness of the primary star (KOI-20) would easily show up as a second dip, which is not seen. Thus we can rule out any companions that are brighter than 10% that of the star. For gravitationally bound companions, this rules out any other G-type stars and the K0 stars, i.e. 0.8 - 1.0 Msun. The only way such a star could hide would be if it had the same line-of-sight velocity as the primary star, and also didn't change velocity during the year, which seem unlikely if it had a tertiary star (\"C\") that causing the dimmings. Therefore, the absence of a second dip in the cross correlation (chi^2) rules out G-type companions. And it rules out all background stars within 1 arcsec having a brightness greater than 10% that of the primary. Between this lack of a second set of stellar lines, and the secondary depths from Spitzer and Kepler, the probability of a false positive seems miniscule. I hope this helps. Geoff 20C-hi110401.png Extracted KOI20 observing note from ExoFOP-Kepler on 2020-11-02 Radial Velocity Analysis for all available RVs from Keck/HIRES is avaialble below. Plots include RV vs time, RV vs phase, and mass determination from MCMC analysis. Eccentricity is fixed at zero. I thought this published planet would be a good check for the RV analysis used on other systems. 20Vp-hi20120123.pdf Extracted KOI20 observing note from ExoFOP-Kepler on 2020-11-02 Robo-AO i-imaging of KOI-20 on 2014-08-22 No companions detected within 4.0\" https://arxiv.org/abs/1605.03584"
+    },
+    "state": {
+      "notes": "Extracted KOI20 observing note from ExoFOP-Kepler on 2020-11-02 Note on observation request: duration requires larger stellar radius Extracted KOI20 observing note from ExoFOP-Kepler on 2020-11-02 Teff=6000, log(g)=4.0, Vrot=4, Vrad=2.269 Four exposures with FIES obtained with Fast/Track telescope time awarded to Lars Buchhave as PI. The above velocity is the mean for just the single order used for classification. The corresponding plots are linked here: 20Sp-dl090610.ps When one of the observed spectra is used as the template and 48 of 78 of the orders are used to derive the velocity (rejecting the orders with telluric contamination), Lars gets three velocity differences compared to the template exposure, whose velocity is defined to be zero. When a circular orbit (namely a sine function) is fit to these four velocity points, with the epoch and period fixed to the photometric ephemeris from Kepler, Lars gets a result that suggests a semi-amplitude of 121 m/s and a minimum mass of 1.0 Jupiter masses. This is a preliminary result. The total elapsed time for each exposure was between 34 and 52 minutes, and the barycentric correction was applied for the midpoint of each visit. Lars has plans to implement the barycentric correction to individual exposures in the sequences of multiple exposures that comprise a visit. The velocity scatter for the individual orders in a given visit imply a standard error of the mean for that visit of 70 m/s, so this result should be viewed with caution. The bottom line is that we need better velocities to confirm this tantalizing result. That will require a bigger telescope, because the Kepler magnitude = 13.4. 20Vp-lb20120727e.ps Extracted KOI20 observing note from ExoFOP-Kepler on 2020-11-02 Per FOP telecon: Recon looks OK. Ready for HIRES. Extracted KOI20 observing note from ExoFOP-Kepler on 2020-11-02 Per FOP telecon: FIES rv curve shows every indication of a 0.8 Mj planet. High priority for HIRES. Extracted KOI20 observing note from ExoFOP-Kepler on 2020-11-02 SME spectral analysis by D.Fischer of HIRES spectrum: Teff: 5999.6 +/- 44K Log g: 4.18 +/- 0.1 Vsini: 2.68 +/- 0.5 km/s [Fe/H]: +0.10 +/- 0.05 A plot of the Mg b section of the HIRES spectrum showing the synthesis: 20Sp-gm20120727h.pdf Extracted KOI20 observing note from ExoFOP-Kepler on 2020-11-02 The four velocities from HIRES, to date: BJD-2450000 Velocity (m/s) Unc. ----------------------------------- 5014.9123 -26.09 3.65 5016.7910 32.07 3.75 5017.1057 -15.79 3.51 5019.1116 9.80 4.44 ----------------------------------- I failed to find an acceptable orbital fit. Here is a representative (failed) effort: 20Vp-gm090708.ps.pdf Extracted KOI20 observing note from ExoFOP-Kepler on 2020-11-02 Lars has plotted the FIES and HIRES velocities phased to the photometric ephemeris. The plot thickens. 20Vp-lb20120727g.pdf Extracted KOI20 observing note from ExoFOP-Kepler on 2020-11-02 Per FOP telecon of 090722: Still high priority even though we don't have a good orbit fit yet. Bisector analysis is rumored to be OK. Continue to get 5 or 6 more HIRES measurements. Extracted KOI20 observing note from ExoFOP-Kepler on 2020-11-02 ----------------------------------------- HIRES velocities for k00020 BJD-2450000 Vel (m/s) Unc (m/s) ----------------------------------------- 5014.91234 -20.6 4.9 5016.79104 53.8 5.1 5017.10568 6.6 4.5 5019.11155 53.6 5.5 5027.05631 -75.8 5.3 5041.99855 -27.3 6.7 5042.79449 9.9 5.8 ----------------------------------------- The Keck-HIRES velocities do not phase up with the Kepler photometry. Bisector analysis is next. If no bisector variations emerge, this KOI definitely needs 2 or 3 more HIRES velocities to understand it. It could be multiple planets making the RV depart from a simple single-planet orbital solution. 20gm-Vp090808.pdf Extracted KOI20 observing note from ExoFOP-Kepler on 2020-11-02 It looks to me like this could be a blended triple, and therefore we need an analysis of the bisectors. If the HIRES extracted spectra can be uploaded as fits files, Lars can do the analysis. Extracted KOI20 observing note from ExoFOP-Kepler on 2020-11-02 Bisector analysis of the 7 existing HIRES spectra. It does not look to me like there are any strong bisector variations. The errors in the bisectors are a bit bigger then on e.g. K00005. Bisectors are not an exact science, but the variations do not look too worrisome to me. 20Vp-lb20090819.ps Extracted KOI20 observing note from ExoFOP-Kepler on 2020-11-02 D.Fischer's updated SME LTE analysis of two HIRES spectra: Vmac Vmic Star ID Teff +/- Log g +/- Vsini +/- [Fe/H] +/- [km/s] [km/s] K00020 6023 (60) 4.25 (0.1) 2.6 (1.0) 0.10 (0.06) 4.4 0.9 2.1 K00020 6020 (60) 4.27 (0.1) 2.5 (1.0) 0.05 (0.06) 4.4 0.9 3.0 Extracted KOI20 observing note from ExoFOP-Kepler on 2020-11-02 ----------------------------------------- HIRES velocities for K00020 Updated: 16 September 2009 BJD-2450000 Vel (m/s) Unc (m/s) ----------------------------------------- 5014.91234 -5.7 4.8 5016.79104 54.0 5.5 5017.10568 -3.7 4.6 5019.11155 65.2 6.4 5027.05631 -59.7 5.9 5041.99855 -5.0 7.5 5042.79449 40.0 6.9 5073.83165 68.0 4.8 5075.83091 -40.9 4.0 5080.87564 -73.5 4.2 5084.86254 -38.2 4.3 ----------------------------------------- Extracted KOI20 observing note from ExoFOP-Kepler on 2020-11-02 HIRES RVs vs time (dots) overplotted on the predicted RV curve (dashed) from a circular orbit model having a period and epoch pre-set by transits. The measured RVs correlate strongly with the predicted RVs. 20gm-Vp090921.pdf But two major outliers give pause, and the RV RMS of 32.9 m/s is higher than expected. Support for the planet model is weakened. The computed density of 0.114 g/cc is much lower than plausible for a gravitationally bound giant gaseous planet with a 4.44 d period. The implied planet mass of 0.458 Mjup is unlikely to be in error by more than 10% as it depends only on the RV amplitude of 50 m/s that is clearly the highest possible value. The planet radius is abnormally large, R = 1.71 R_jup, causing the density to be too low. The great transit depth of 0.016 (1.6%) drives the large planet radius. There seems little escape from the too-large radius inferred from the transit, rendering the too-low density of the planet another sign that the planet model is not acceptable. All of the inconsistencies taken together indicate a blend or triple system. A The crowding metric, photometry, and centroids exhibit no sign of a stellar neighbor. AO would be useful. The template is high quality, two exposures of 25 minutes each, taken though the B1 decker (0.57 arcsec), implying high integrity for the RVs. We need AO, bisectors, and more RVs to look for a possible additional planet causing the outliers. Extracted KOI20 observing note from ExoFOP-Kepler on 2020-11-02 Mt. Wilson S-value and log R'hk, and Ca II K line plot from HIRES: 20Sp-hi20090922.pdf Extracted KOI20 observing note from ExoFOP-Kepler on 2020-11-02 WIYN speckle image reveals a single star. Extracted KOI20 observing note from ExoFOP-Kepler on 2020-11-02 TCERT 2009Sept22: Seems to be a correlation between the RVs and the photometry, but there are some serious velocity outliers that cannot yet be explained. Bisector analysis looks clean. What to do? Keep observing, look carefully at AO, and consider multi-planet fit to RV data. Extracted KOI20 observing note from ExoFOP-Kepler on 2020-11-02 The HIRES guider image (fits file) is available. The dimensions on the sky are 43\"x 57\". 20Fv-hi091013.fits (right click to download) Extracted KOI20 observing note from ExoFOP-Kepler on 2020-11-02 Revised HIRES Radial Velocities for K00020 Julian Date, Radial Velocity, Error in RV -------------------------------------------------------- 2455014.912335 -16.50 8.96 2455016.791039 55.26 8.98 2455017.105683 -2.53 8.37 2455019.111551 54.30 11.68 2455027.056306 -52.34 9.93 2455041.998546 14.03 13.21 2455042.794494 57.11 12.01 2455073.831652 54.10 7.87 2455075.830911 -47.66 6.99 2455080.875641 -72.92 6.63 2455084.862537 -49.78 7.20 2455134.826060 6.09 8.53 Extracted KOI20 observing note from ExoFOP-Kepler on 2020-11-02 Speckle imaging at WIYN has shown that KOI 20 is a single star as observed within a box of size 2.76 x 2.76 arcsec centered on the target. No companion is detected to a magnitude limit below the target star of 4.3 mags in 'R' and 2.5 mags in 'V'. Extracted KOI20 observing note from ExoFOP-Kepler on 2020-11-02 An image taken with the Lick Observatory 1-m Nickel Telescope is available in .pdf and .fits format. Each pdf has a 1.2'x1.2' view centered on the star, and a close-up view of the star in an 11\"x11\" field. The seeing is ~ 1.5\". No companions visible from 2\" to 5\" away from the star down to delta_mag = 5 20Ic-hi20100709.pdf Extracted KOI20 observing note from ExoFOP-Kepler on 2020-11-02 Per the TCERT request, we took two additional HIRES spectra in August 2010. Here is a list of all RVs, including those from last season. obnm UT date jd mnvel errvel mdchi cts ************************************************************************* rj72.138 2009/07/02 15014.912335 -10.86 4.73 1.039 2061 rj72.724 2009/07/04 15016.791039 46.92 4.64 1.050 1809 rj72.832 2009/07/04 15017.105683 3.47 4.18 1.046 2086 rj72.1095 2009/07/06 15019.111551 38.90 5.18 1.048 1611 rj73.94 2009/07/14 15027.056306 -61.14 5.25 1.033 1546 rj74.119 2009/07/29 15041.998546 -4.94 6.33 1.052 1193 rj74.275 2009/07/30 15042.794494 44.53 5.79 1.043 1471 rj76.95 2009/08/30 15073.831652 53.70 3.98 1.058 3373 rj76.485 2009/09/01 15075.830911 -47.89 3.53 1.077 5232 rj76.1515 2009/09/06 15080.875641 -67.81 3.44 1.083 5236 rj76.2289 2009/09/10 15084.862537 -40.08 3.16 1.085 5155 rj78.427 2009/10/30 15134.826060 0.55 4.22 1.112 3647 rj97.2573 2010/08/29 15437.780123 70.97 3.59 1.097 5321 rj97.2988 2010/08/31 15439.753817 -28.25 3.22 1.130 5365 =============================================== Many spectra from last season were taken with short exposures and/or moon light contamination. To eliminate those RVs blindly, I rejected all RV having an internal error greater than 5.0 m/s. This blindly removed 4 RVs, all presumably poor quality, without regard to the RVs themselves. Here is the best-fit Keplerian model, using the ephemeris from the photometric transit fit, but allowing the eccentricity to float. I adopted a stellar mass of 1.1 M_sun provisionally, consistent with the SME analysis that gives Teff = 6000 and log g =4.26. The star appears to be a G0V main sequence star of nearly solar metallicity. 20gm-Vp100912.eps The best-fit planet mass is 0.52 Mjup. The best-fit eccentricity is 0.2 +- 0.1 . A better analysis is needed to determine if the eccentricity is probably eccentric. Extracted KOI20 observing note from ExoFOP-Kepler on 2020-11-02 [Observing notes 2 of 2] I also want to mention that the internal errors of the FIES velocities is rather high. I determine the internal error by Verr = rms(v_orders)/sqrt(N), where v_orders is the RV from the individual orders in the exposure and N is the number of orders used. Usually, even for faint targets, we have and Verr Here are the FIES velocities: filename hjd v_CCFsum(m/s) verr(m/s) K00020.01_2009-06-11_02h46m26s_cb.spec 2454993.630503 184.7 44.1 K00020.01_2009-06-12_02h31m48s_cb.spec 2454994.623893 86.1 29.2 K00020.01_2009-06-13_02h50m30s_cb.spec 2454995.636900 26.0 27.5 K00020.01_2009-06-15_02h16m14s_cb.spec 2454997.616675 137.1 21.1 K00020.01_2009-07-01_03h08m07s_cb.spec 2455013.652976 37.6 23.0 K00020.01_2009-10-02_22h53m57s_cb.spec 2455107.476779 0.0 15.4 K00020.01_2009-10-03_22h37m34s_cb.spec 2455108.465373 51.8 15.4 K00020.01_2009-10-04_22h35m07s_cb.spec 2455109.463643 6.4 19.6 K00020.01_2009-10-06_23h45m20s_cb.spec 2455111.512344 14.5 28.7 Bisector vs time plot 20Vp-lb20100913a.ps Bisectors phased to the photometric ephemeris 20Vp-lb20100913b.eps Fit to bisectors, phase to the photometric ephemeris 20Vp-lb20100913c.ps FIES RV phase plot 20Vp-lb20100913d.ps Extracted KOI20 observing note from ExoFOP-Kepler on 2020-11-02 [Observing notes 1 of 2] Hi all, I wanted to chime in with what I have on K00020. I ran a bisector analysis of the HIRES spectra Geoff used in the RV analysis (without the 4 RVs with internal error > 5 m/s, which indeed gave large bisector variations). There is a noticeable bisector variation with time, see attached plot 20Vp-lb20100913a.ps, where the Keck RV are in the top panel and the bisectors are in the bottom panel. The phased bisectors and RVs are plotted in 20Vp-lb20100913b.eps (circular orbit). I tried to fit the bisector variations phased to the photometric ephemeris, and there does not appear to be a correlation: 20Vp-lb20100913c.ps. The large bisector variations should raise a flag of caution, but perhaps we are seeing moonlight contamination, which is affecting the bisectors, but to a lesser extent the RVs, which was the case for K377. At least the bisector variations do not seem to be in phase with the photometric ephemeris. Here are the bisector variations from the HIRES spectra: filename hjd phase bs(m/s) bserr(m/s) k00020ScH1-gm55014.91233.crr 2455014.912362 2.457 44.0 5.8 k00020ScH1-gm55016.79103.crr 2455016.790900 2.880 49.5 7.0 k00020ScH1-gm55017.10568.crr 2455017.105772 2.951 28.1 5.0 k00020ScH1-gm55019.11155.crr 2455019.111546 3.403 29.0 6.0 k00020ScH1-gm55041.99854.crr 2455041.998635 8.560 23.0 5.7 k00020ScH1-gm55042.79449.crr 2455042.794491 8.740 40.2 6.0 k00020ScH1-gm55073.83165.crr 2455073.831400 15.733 -16.2 2.6 k00020ScH1-gm55075.83091.crr 2455075.831039 16.184 -31.2 3.0 k00020ScH1-gm55080.87564.crr 2455080.875775 17.320 -81.9 8.2 k00020ScH1-gm55084.86253.crr 2455084.857366 18.218 18.8 4.6 k00020ScH1-gm55134.82606.crr 2455134.826548 29.477 -154.3 16.6 k00020ScH1-hi55437.78012.crr 2455437.780562 97.741 23.8 4.8 k00020ScH1-hi55439.75381.crr 2455439.753857 98.186 27.1 4.8 bsMean RMS = 58.86 I also have 9 FIES RVs from last season. I am not sure what to make of them, though. The initial 4 FIES velocities phase up, with large errors, and give a K comparable to what Geoff found in his latest report (HIRES K=61 m/s, FIES initial 4 velocities circular orbit K=71 m/s). If I remember the timeline for K20 correctly, I came back reporting the initial FIES velocities phased up indicating a planet, Geoff then reported the initial HIRES velocities did not make sense. I then went back to get more velocities with FIES, but the last five FIES RVs did not phase up very well with the initial four. And now, with more HIRES velocities, there does indeed seem to be RV variations in phase with the photometric ephemeris! I have attached a phase plot of the FIES velocities (20Vp-lb20100913d.ps). Extracted KOI20 observing note from ExoFOP-Kepler on 2020-11-02 HIRES Velocity plots over time, phased plots and correlation. 20Sp-hi20100922.pdf Extracted KOI20 observing note from ExoFOP-Kepler on 2020-11-02 A HIRES guider snap is avaible in .pdf and .fits formats(orientations may differ). The pdf shows the field surrounding the KOI and a contour plot. The contours shown on the pdf may give a first order guess at the magnitudes of the surrounding stars. Magnitudes on the pdfs should be read as magnitudes fainter than the primary. Images are available in the finder_chart section. 20Fv-hi091013.pdf Extracted KOI20 observing note from ExoFOP-Kepler on 2020-11-02 Debra Fischer's revised SME results: Star Teff logg [Fe/H] vsini chisq K00020 5947 [44] 4.1 [.1] +0.08 [04] 0.5 [.5] 2.1 K00020 6001 [44] 4.2 [.1] +0.06 [04] 1.1 [.5] 2.9 Extracted KOI20 observing note from ExoFOP-Kepler on 2020-11-02 From Geoff Marcy: My student, Carly Chubak, ran a cross correlation of all 18 Keck-HIRES spectra we have of KOI-20. We used the solar spectrum as the template, with the goal of detecting the second set of lines from any G- or K-type star located within an arcsec of the primary star. This test has the great value of detecting any companion star, especially G or K-type stars, that might be blended with the primary star. I attach a representative set of these cross-correlation functions (actually chi^2). The narrow dip is the chi^2 statistic of the spectrum of KOI-20 with the solar spectrum, as a function of displacement of the two in units of km/s. The line width is ~5 km/s, consistent with the low rotational Vsini of 1 km/s for the star. Any companion star 10% the brightness of the primary star (KOI-20) would easily show up as a second dip, which is not seen. Thus we can rule out any companions that are brighter than 10% that of the star. For gravitationally bound companions, this rules out any other G-type stars and the K0 stars, i.e. 0.8 - 1.0 Msun. The only way such a star could hide would be if it had the same line-of-sight velocity as the primary star, and also didn't change velocity during the year, which seem unlikely if it had a tertiary star (\"C\") that causing the dimmings. Therefore, the absence of a second dip in the cross correlation (chi^2) rules out G-type companions. And it rules out all background stars within 1 arcsec having a brightness greater than 10% that of the primary. Between this lack of a second set of stellar lines, and the secondary depths from Spitzer and Kepler, the probability of a false positive seems miniscule. I hope this helps. Geoff 20C-hi110401.png Extracted KOI20 observing note from ExoFOP-Kepler on 2020-11-02 Radial Velocity Analysis for all available RVs from Keck/HIRES is avaialble below. Plots include RV vs time, RV vs phase, and mass determination from MCMC analysis. Eccentricity is fixed at zero. I thought this published planet would be a good check for the RV analysis used on other systems. 20Vp-hi20120123.pdf Extracted KOI20 observing note from ExoFOP-Kepler on 2020-11-02 Robo-AO i-imaging of KOI-20 on 2014-08-22 No companions detected within 4.0\" https://arxiv.org/abs/1605.03584"
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "imaging_reports_no_companion": {
+          "type": "noul",
+          "noul": 0.93
+        },
+        "imaging_reports_companion_present": {
+          "type": "noul",
+          "noul": 0.05
+        },
+        "spectroscopy_indicates_nonplanetary_companion": {
+          "type": "noul",
+          "noul": 0.07
+        },
+        "spectroscopy_consistent_with_planet": {
+          "type": "noul",
+          "noul": 0.89
+        },
+        "host_star_described_as_evolved": {
+          "type": "noul",
+          "noul": 0.05
+        },
+        "followup_reported_concluded": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "reports_on_target_detection": {
+          "type": "noul",
+          "noul": 0.18
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 2.01,
+          "confidence": 0.81,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'perhaps', 'may be'; the conclusion is not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats or a request for more data",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.0,
+            "1": 0.11,
+            "2": 0.78,
+            "3": 0.09,
+            "4": 0.02
+          }
+        },
+        "indicates_retired_or_rejected": {
+          "type": "noul",
+          "noul": 0.08
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.61
+        },
+        "contains_object_designation": {
+          "type": "noul",
+          "noul": 0.98
+        }
+      },
+      "usage": {
+        "input_tokens": 10381,
+        "output_tokens": 243
+      }
+    }
+  },
+  "B14": {
+    "case": {
+      "cid": "B14",
+      "stratum": "S5_verylong",
+      "toi": "4589.01",
+      "tic": 164458714,
+      "len": 10945,
+      "text": "Extracted KOI42 observing note from ExoFOP-Kepler on 2020-11-02 Note from observation request: single transit; 0.23 R_j Extracted KOI42 observing note from ExoFOP-Kepler on 2020-11-02 We saw, on the HIRES guider, a star about 3 mag fainter located 1.3 \" away. Extracted KOI42 observing note from ExoFOP-Kepler on 2020-11-02 Steve Howell reports K42 has a fainter companion barely in our box at about 1.2\" away, no doubt the same companion seen on the HIRES guider (noted 2009-06-13). Spectroscopy is possible only in good seeing. Extracted KOI42 observing note from ExoFOP-Kepler on 2020-11-02 Teff=6250, log(g)=4.0, Vrot=16, Vrad=-41.18 One McDonald 2.7-m coude spectrum from 2454989.9274 42Sp-DL090607.ps 42Lp-so090606.pdf Extracted KOI42 observing note from ExoFOP-Kepler on 2020-11-02 Teff=6500, log(g)=4.0, Vrot=16, Vrad=-40.16 One TRES spectrum. What do the HIRES velocities show? If the HIRES template exposure can be uploaded, Lars can run his classification analysis. 42Sp-dl090614.ps Extracted KOI42 observing note from ExoFOP-Kepler on 2020-11-02 Per FOP telecon: Waiting to see HIRES results. Possible trouble from nearby companion. No centroid data yet. Is bright so would be nice for a planet. Leave at FOP P2. Extracted KOI42 observing note from ExoFOP-Kepler on 2020-11-02 HIRES RV using telluric lines (0.13 km/s): On BJD = 2454988.9797, RV = -39.966 km/s This RV is 0.2 km/s higher than from TRES, but 1.2 km/s higher than from McD. The companion 1.2\" away makes this KOI too seeing-dependent for reliable follow-up, in my view. P2 probably should become P3. Extracted KOI42 observing note from ExoFOP-Kepler on 2020-11-02 Per FOP telecon of 090722: Star only 2.2 mag fainter within 1.2\" makes this a difficult star to get good HIRES measurements on. Keep at FOP priority 3 and wait for more photometry and centroid work. Consider Spitzer observations. Extracted KOI42 observing note from ExoFOP-Kepler on 2020-11-02 This is on hold for now, but let's keep it on the active list, because it is so bright. We may decide it is worth a special effort some time in the future. Extracted KOI42 observing note from ExoFOP-Kepler on 2020-11-02 NOTE: Out of time order TCERT 09Jul21: cdpp: 1 transit - two more in Q1 data another TCE event at hjd=91 modeling looks good; very bright star good candidate Move to high priority Extracted KOI42 observing note from ExoFOP-Kepler on 2020-11-02 Speckle image shows close companion 2.2 mags fainter at 1\" separation Extracted KOI42 observing note from ExoFOP-Kepler on 2020-11-02 Re-looking at the speckle two-color data taken in June 2009 and comparing it to the Oct data, KOI 42 _may_ have, in addition to its wide companion, a close (0.06\") companion. The data are not statistically significant, but both \"g\" and \"r\" reconstructed images show a suspicious looking thing at the same separation and PA. It is certainly on the re-observe list. So for now, it is a \"maybe\" for a very close companion and a for sure for the obvious one 1.6 or so arcsec away. I'll add this not to the FOP website. Extracted KOI42 observing note from ExoFOP-Kepler on 2020-11-02 KOI-42 had Q1 SC data enabling an early asteroseismic analysis. J\u00f8rgen and Hans have exercised the KASOC pipeline on KOI-42 resulting in clear detection of 18 individual frequencies and clear identification of l = 0, 1, and 2 modes. Following computation of stellar evolution models over a suitable mass range, and assuming [Fe/H] = -0.3,0,0.3 it is possible to select models within 2 sigma of T_eff (6000 to 6800 K based on preliminary spectroscopic reports by Latham below) and constrain the mean stellar density, which is: 0.689 +/- 0.017 g/cm^3. Only relatively weak constraints on mass and radius separately follow: M = 1.2 +/- 0.2, R = 1.34 +/- 0.06 solar. Current modeling does not yet provide good solutions for the individual frequencies, the quoted stellar density is based on the observed large separation. Key information needed are improved quantities from spectroscopy: T_eff, [Fe/H] and Vsini is also important since in the 16 km/s range of the initial solution confusion of modes given the substantial influence of rotation is possible. Extracted KOI42 observing note from ExoFOP-Kepler on 2020-11-02 KOI 42 has a close, faint companion according to a speckle observation obtained at WIYN. The companion reported here is _not_ the one shown in the DSS or the \"high res\" slit image. That star is also to the SW of KOI42 but is 6-7 arcsec away. The companion seen by speckle is 1.55 arcsec away at at PA of 200-202 degrees and is 4 mags fainter in R and 5 mags fainter in V. Extracted KOI42 observing note from ExoFOP-Kepler on 2020-11-02 An image taken with the Lick Observatory 1-m Nickel Telescope is available in .pdf and .fits format. Each pdf has a 1.2'x1.2' view centered on the star, and a close-up view of the star in an 11\"x11\" field. The seeing is ~ 1.5\". The close companion found with speckle is difficult to see in this image, as the separation of the target and companion is only ~1.0\" 42Ic-hi20100710.pdf Extracted KOI42 observing note from ExoFOP-Kepler on 2020-11-02 A HIRES guider snap is avaible in .pdf and .fits formats(orientations may differ). The pdf shows the field surrounding the KOI and a contour plot. The contours shown on the pdf may give a first order guess at the magnitudes of the surrounding stars. Magnitudes on the pdfs should be read as magnitudes fainter than the primary. Images are available in the finder_chart section. Star is on the slit, and magnitudes may not be accurate. 42Fv-hi091022.pdf Extracted KOI42 observing note from ExoFOP-Kepler on 2020-11-02 MMT ARIES AO image in J and Ks shows companion star 1.6 arcsec separation 42Ir-ad20120727h.jpg 42Ir-ad20120727g.jpg Extracted KOI42 observing note from ExoFOP-Kepler on 2020-11-02 Details for MMT ARIES AO images: Binary separation: 1.58\" Mag difference: 1.9 (Ks), 2.2 (J) Seeing: 0.12\" (Ks), 0.26\" (J) Limit on other objects: there is a faint star 13.8\" from the target, which is fainter than the bright binary component by 6.5 mag in Ks and 7.1 mag in J. This is about as faint as objects could reliably be detected. Extracted KOI42 observing note from ExoFOP-Kepler on 2020-11-02 Debra Fischer's updated SME analysis Star Teff logg [Fe/H] vsini chisq K00042 6170 [250] 4.1 [.25] -0.04 [15] 13 [1] 9.9 Extracted KOI42 observing note from ExoFOP-Kepler on 2020-11-02 ARIES AO observations for 00042 were taken on 20100503 in F/30 in J and Ks (plate scale = 0.02\" per pixel, FOV = 20.5\"). The seeing was 0.1\" in J and 0.1\" in Ks. 1 companion star(s) detected within 4.0\" of the target: 1.9 mag fainter in Ks at 1.58\". Limits on additional companions: Ks , J PNG images: Ks , J FITS images: Ks , J Extracted KOI42 observing note from ExoFOP-Kepler on 2020-11-02 An asteroseismic grid-based solution has now been provided via a process orchestrated by Bill Chaplin with inputs from most members of the KASOC. The procedure is roughly this: 1) An SME or SPC solution for Teff and [Fe/H] was provided by Debra Fischer or Lars Buchhave using available spectroscopy. 2) The SC time series were analyzed by several members of KASOC returning the global oscillation parameters giving the mean separation between successive modes and the frequency of peak power. 3) The global oscillations parameters are used in a stellar evolution grid-based solution yielding most fundamentally the mean stellar density, but also radius, mass and in this case log(g). 4) The resulting asteroseismic based log(g) is then adopted by Debra (SME) or Lars (SPC) as a prior for a new spectroscopic solution for Teff and [Fe/H] in particular. 5) Using the new, iterated Teff and [Fe/H] the global oscillations parameters are again used in deriving mean stellar density, radius and mass in the context of stellar evolution constraints. These results follow as the median from several independent pipelines created by multiple KASOC members. Results for this star (solar or cgs units) are: KIC Radius Mass Mean Density 8866102 1.368 +/- 0.027 1.270 +/- 0.058 0.6947 +/- 0.0157 log(g) Teff [Fe/H] 4.2656 +/- 0.0069 6343 +/- 66 0.05 +/- 0.11 Extracted KOI42 observing note from ExoFOP-Kepler on 2020-11-02 This KOI has been confirmed and is now named Kepler-410. Author: Van Eylen, Vincent, et. al. Title: \"What asteroseismology can do for exoplanets: Kepler-410A b is a Small Neptune around a bright star, in an eccentric orbit consistent with low obliquity\" link: http://adsabs.harvard.edu/abs/2013arXiv1312.4938V Abstract: We confirm the Kepler planet candidate Kepler-410b (KOI-42b) as a Neptune sized exoplanet on a 17.8 day, eccentric orbit around the bright (Kp = 9.4) star Kepler-410A. This is the third brightest confirmed planet host star in the Kepler field and one of the brightest hosts of all currently known transiting exoplanets. Kepler-410 consists of a blend between the fast rotating planet host star (Kepler-410A) and a fainter star (Kepler-410B), which has complicated the confirmation of the planetary candidate. Employing asteroseismology, using constraints from the transit light curve, adaptive optics and speckle images, and Spitzer transit observations, we demonstrate that the candidate can only be an exoplanet orbiting Kepler-410A. Via asteroseismology we determine the following stellar and planetary parameters with high precision; M$_\\\\star = 1.214 \\\\pm 0.033$ M$_\\\\odot$, R$_\\\\star = 1.352 \\\\pm 0.010$ R$_\\\\odot$, Age = $2.76 \\\\pm 0.54$ Gyr, planetary radius ($2.838 \\\\pm 0.054$ R$_\\\\oplus$), and orbital eccentricity ($0.17^{+0.07}_{-0.06}$). In addition, rotational splitting of the pulsation modes allows for a measurement of Kepler-410A's inclination and rotation rate. Our measurement of an inclination of $82.5^{+7.5}_{-2.5}$ [$^\\\\circ$] indicates a low obliquity in this system. Transit timing variations indicate the presence of at least one additional (non-transiting) planet in the system. Extracted KOI42 observing note from ExoFOP-Kepler on 2020-11-02 Possible nearby companion = Yes (1.65\" companion; see Palomar AO Image ) Extracted KOI42 observing note from ExoFOP-Kepler on 2020-11-02 Nearby stars detected in Robo-AO LP600-imaging of KOI-42 Separation: 1.74\" +/- 0.06\" Magnitude difference: 3.04 +/- 0.17 Position angle: 35 +/- 2 degrees https://arxiv.org/abs/1604.08604 Extracted KOI42 observing note from ExoFOP-Kepler on 2020-11-02 Possible nearby companion = Yes (1.67\" companion (Keck/NIRC2, MMT/ARIES, Palomar/PHARO, Palomar/Robo-AO, WIYN/DSSI)) Extracted KOI42 observing note from ExoFOP-Kepler on 2020-11-02 New analysis of TTVs of Kepler-410Ab (link: http://adsabs.harvard.edu/abs/2017MNRAS.469.2907G ). Kep410-ttv.dat Extracted KOI42 observing note from ExoFOP-Kepler on 2020-11-02 60 RV measurements (three years period) & TTVs re-analysis (possible explanation is Mars-size planet near to 2:3 MMR) (link: https://ui.adsabs.harvard.edu/#abs/2019MNRAS.484.4352G ) rv_ispec-ta3-v_std-corr.dat"
+    },
+    "state": {
+      "notes": "Extracted KOI42 observing note from ExoFOP-Kepler on 2020-11-02 Note from observation request: single transit; 0.23 R_j Extracted KOI42 observing note from ExoFOP-Kepler on 2020-11-02 We saw, on the HIRES guider, a star about 3 mag fainter located 1.3 \" away. Extracted KOI42 observing note from ExoFOP-Kepler on 2020-11-02 Steve Howell reports K42 has a fainter companion barely in our box at about 1.2\" away, no doubt the same companion seen on the HIRES guider (noted 2009-06-13). Spectroscopy is possible only in good seeing. Extracted KOI42 observing note from ExoFOP-Kepler on 2020-11-02 Teff=6250, log(g)=4.0, Vrot=16, Vrad=-41.18 One McDonald 2.7-m coude spectrum from 2454989.9274 42Sp-DL090607.ps 42Lp-so090606.pdf Extracted KOI42 observing note from ExoFOP-Kepler on 2020-11-02 Teff=6500, log(g)=4.0, Vrot=16, Vrad=-40.16 One TRES spectrum. What do the HIRES velocities show? If the HIRES template exposure can be uploaded, Lars can run his classification analysis. 42Sp-dl090614.ps Extracted KOI42 observing note from ExoFOP-Kepler on 2020-11-02 Per FOP telecon: Waiting to see HIRES results. Possible trouble from nearby companion. No centroid data yet. Is bright so would be nice for a planet. Leave at FOP P2. Extracted KOI42 observing note from ExoFOP-Kepler on 2020-11-02 HIRES RV using telluric lines (0.13 km/s): On BJD = 2454988.9797, RV = -39.966 km/s This RV is 0.2 km/s higher than from TRES, but 1.2 km/s higher than from McD. The companion 1.2\" away makes this KOI too seeing-dependent for reliable follow-up, in my view. P2 probably should become P3. Extracted KOI42 observing note from ExoFOP-Kepler on 2020-11-02 Per FOP telecon of 090722: Star only 2.2 mag fainter within 1.2\" makes this a difficult star to get good HIRES measurements on. Keep at FOP priority 3 and wait for more photometry and centroid work. Consider Spitzer observations. Extracted KOI42 observing note from ExoFOP-Kepler on 2020-11-02 This is on hold for now, but let's keep it on the active list, because it is so bright. We may decide it is worth a special effort some time in the future. Extracted KOI42 observing note from ExoFOP-Kepler on 2020-11-02 NOTE: Out of time order TCERT 09Jul21: cdpp: 1 transit - two more in Q1 data another TCE event at hjd=91 modeling looks good; very bright star good candidate Move to high priority Extracted KOI42 observing note from ExoFOP-Kepler on 2020-11-02 Speckle image shows close companion 2.2 mags fainter at 1\" separation Extracted KOI42 observing note from ExoFOP-Kepler on 2020-11-02 Re-looking at the speckle two-color data taken in June 2009 and comparing it to the Oct data, KOI 42 _may_ have, in addition to its wide companion, a close (0.06\") companion. The data are not statistically significant, but both \"g\" and \"r\" reconstructed images show a suspicious looking thing at the same separation and PA. It is certainly on the re-observe list. So for now, it is a \"maybe\" for a very close companion and a for sure for the obvious one 1.6 or so arcsec away. I'll add this not to the FOP website. Extracted KOI42 observing note from ExoFOP-Kepler on 2020-11-02 KOI-42 had Q1 SC data enabling an early asteroseismic analysis. J\u00f8rgen and Hans have exercised the KASOC pipeline on KOI-42 resulting in clear detection of 18 individual frequencies and clear identification of l = 0, 1, and 2 modes. Following computation of stellar evolution models over a suitable mass range, and assuming [Fe/H] = -0.3,0,0.3 it is possible to select models within 2 sigma of T_eff (6000 to 6800 K based on preliminary spectroscopic reports by Latham below) and constrain the mean stellar density, which is: 0.689 +/- 0.017 g/cm^3. Only relatively weak constraints on mass and radius separately follow: M = 1.2 +/- 0.2, R = 1.34 +/- 0.06 solar. Current modeling does not yet provide good solutions for the individual frequencies, the quoted stellar density is based on the observed large separation. Key information needed are improved quantities from spectroscopy: T_eff, [Fe/H] and Vsini is also important since in the 16 km/s range of the initial solution confusion of modes given the substantial influence of rotation is possible. Extracted KOI42 observing note from ExoFOP-Kepler on 2020-11-02 KOI 42 has a close, faint companion according to a speckle observation obtained at WIYN. The companion reported here is _not_ the one shown in the DSS or the \"high res\" slit image. That star is also to the SW of KOI42 but is 6-7 arcsec away. The companion seen by speckle is 1.55 arcsec away at at PA of 200-202 degrees and is 4 mags fainter in R and 5 mags fainter in V. Extracted KOI42 observing note from ExoFOP-Kepler on 2020-11-02 An image taken with the Lick Observatory 1-m Nickel Telescope is available in .pdf and .fits format. Each pdf has a 1.2'x1.2' view centered on the star, and a close-up view of the star in an 11\"x11\" field. The seeing is ~ 1.5\". The close companion found with speckle is difficult to see in this image, as the separation of the target and companion is only ~1.0\" 42Ic-hi20100710.pdf Extracted KOI42 observing note from ExoFOP-Kepler on 2020-11-02 A HIRES guider snap is avaible in .pdf and .fits formats(orientations may differ). The pdf shows the field surrounding the KOI and a contour plot. The contours shown on the pdf may give a first order guess at the magnitudes of the surrounding stars. Magnitudes on the pdfs should be read as magnitudes fainter than the primary. Images are available in the finder_chart section. Star is on the slit, and magnitudes may not be accurate. 42Fv-hi091022.pdf Extracted KOI42 observing note from ExoFOP-Kepler on 2020-11-02 MMT ARIES AO image in J and Ks shows companion star 1.6 arcsec separation 42Ir-ad20120727h.jpg 42Ir-ad20120727g.jpg Extracted KOI42 observing note from ExoFOP-Kepler on 2020-11-02 Details for MMT ARIES AO images: Binary separation: 1.58\" Mag difference: 1.9 (Ks), 2.2 (J) Seeing: 0.12\" (Ks), 0.26\" (J) Limit on other objects: there is a faint star 13.8\" from the target, which is fainter than the bright binary component by 6.5 mag in Ks and 7.1 mag in J. This is about as faint as objects could reliably be detected. Extracted KOI42 observing note from ExoFOP-Kepler on 2020-11-02 Debra Fischer's updated SME analysis Star Teff logg [Fe/H] vsini chisq K00042 6170 [250] 4.1 [.25] -0.04 [15] 13 [1] 9.9 Extracted KOI42 observing note from ExoFOP-Kepler on 2020-11-02 ARIES AO observations for 00042 were taken on 20100503 in F/30 in J and Ks (plate scale = 0.02\" per pixel, FOV = 20.5\"). The seeing was 0.1\" in J and 0.1\" in Ks. 1 companion star(s) detected within 4.0\" of the target: 1.9 mag fainter in Ks at 1.58\". Limits on additional companions: Ks , J PNG images: Ks , J FITS images: Ks , J Extracted KOI42 observing note from ExoFOP-Kepler on 2020-11-02 An asteroseismic grid-based solution has now been provided via a process orchestrated by Bill Chaplin with inputs from most members of the KASOC. The procedure is roughly this: 1) An SME or SPC solution for Teff and [Fe/H] was provided by Debra Fischer or Lars Buchhave using available spectroscopy. 2) The SC time series were analyzed by several members of KASOC returning the global oscillation parameters giving the mean separation between successive modes and the frequency of peak power. 3) The global oscillations parameters are used in a stellar evolution grid-based solution yielding most fundamentally the mean stellar density, but also radius, mass and in this case log(g). 4) The resulting asteroseismic based log(g) is then adopted by Debra (SME) or Lars (SPC) as a prior for a new spectroscopic solution for Teff and [Fe/H] in particular. 5) Using the new, iterated Teff and [Fe/H] the global oscillations parameters are again used in deriving mean stellar density, radius and mass in the context of stellar evolution constraints. These results follow as the median from several independent pipelines created by multiple KASOC members. Results for this star (solar or cgs units) are: KIC Radius Mass Mean Density 8866102 1.368 +/- 0.027 1.270 +/- 0.058 0.6947 +/- 0.0157 log(g) Teff [Fe/H] 4.2656 +/- 0.0069 6343 +/- 66 0.05 +/- 0.11 Extracted KOI42 observing note from ExoFOP-Kepler on 2020-11-02 This KOI has been confirmed and is now named Kepler-410. Author: Van Eylen, Vincent, et. al. Title: \"What asteroseismology can do for exoplanets: Kepler-410A b is a Small Neptune around a bright star, in an eccentric orbit consistent with low obliquity\" link: http://adsabs.harvard.edu/abs/2013arXiv1312.4938V Abstract: We confirm the Kepler planet candidate Kepler-410b (KOI-42b) as a Neptune sized exoplanet on a 17.8 day, eccentric orbit around the bright (Kp = 9.4) star Kepler-410A. This is the third brightest confirmed planet host star in the Kepler field and one of the brightest hosts of all currently known transiting exoplanets. Kepler-410 consists of a blend between the fast rotating planet host star (Kepler-410A) and a fainter star (Kepler-410B), which has complicated the confirmation of the planetary candidate. Employing asteroseismology, using constraints from the transit light curve, adaptive optics and speckle images, and Spitzer transit observations, we demonstrate that the candidate can only be an exoplanet orbiting Kepler-410A. Via asteroseismology we determine the following stellar and planetary parameters with high precision; M$_\\\\star = 1.214 \\\\pm 0.033$ M$_\\\\odot$, R$_\\\\star = 1.352 \\\\pm 0.010$ R$_\\\\odot$, Age = $2.76 \\\\pm 0.54$ Gyr, planetary radius ($2.838 \\\\pm 0.054$ R$_\\\\oplus$), and orbital eccentricity ($0.17^{+0.07}_{-0.06}$). In addition, rotational splitting of the pulsation modes allows for a measurement of Kepler-410A's inclination and rotation rate. Our measurement of an inclination of $82.5^{+7.5}_{-2.5}$ [$^\\\\circ$] indicates a low obliquity in this system. Transit timing variations indicate the presence of at least one additional (non-transiting) planet in the system. Extracted KOI42 observing note from ExoFOP-Kepler on 2020-11-02 Possible nearby companion = Yes (1.65\" companion; see Palomar AO Image ) Extracted KOI42 observing note from ExoFOP-Kepler on 2020-11-02 Nearby stars detected in Robo-AO LP600-imaging of KOI-42 Separation: 1.74\" +/- 0.06\" Magnitude difference: 3.04 +/- 0.17 Position angle: 35 +/- 2 degrees https://arxiv.org/abs/1604.08604 Extracted KOI42 observing note from ExoFOP-Kepler on 2020-11-02 Possible nearby companion = Yes (1.67\" companion (Keck/NIRC2, MMT/ARIES, Palomar/PHARO, Palomar/Robo-AO, WIYN/DSSI)) Extracted KOI42 observing note from ExoFOP-Kepler on 2020-11-02 New analysis of TTVs of Kepler-410Ab (link: http://adsabs.harvard.edu/abs/2017MNRAS.469.2907G ). Kep410-ttv.dat Extracted KOI42 observing note from ExoFOP-Kepler on 2020-11-02 60 RV measurements (three years period) & TTVs re-analysis (possible explanation is Mars-size planet near to 2:3 MMR) (link: https://ui.adsabs.harvard.edu/#abs/2019MNRAS.484.4352G ) rv_ispec-ta3-v_std-corr.dat"
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "imaging_reports_no_companion": {
+          "type": "noul",
+          "noul": 0.02
+        },
+        "imaging_reports_companion_present": {
+          "type": "noul",
+          "noul": 0.99
+        },
+        "spectroscopy_indicates_nonplanetary_companion": {
+          "type": "noul",
+          "noul": 0.07
+        },
+        "spectroscopy_consistent_with_planet": {
+          "type": "noul",
+          "noul": 0.19
+        },
+        "host_star_described_as_evolved": {
+          "type": "noul",
+          "noul": 0.07
+        },
+        "followup_reported_concluded": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "reports_on_target_detection": {
+          "type": "noul",
+          "noul": 0.64
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 2.7,
+          "confidence": 0.0,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'perhaps', 'may be'; the conclusion is not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats or a request for more data",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.0,
+            "1": 0.16,
+            "2": 0.32,
+            "3": 0.17,
+            "4": 0.35
+          }
+        },
+        "indicates_retired_or_rejected": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.98
+        },
+        "contains_object_designation": {
+          "type": "noul",
+          "noul": 0.99
+        }
+      },
+      "usage": {
+        "input_tokens": 6737,
+        "output_tokens": 243
+      }
+    }
+  },
+  "B15": {
+    "case": {
+      "cid": "B15",
+      "stratum": "S5_verylong",
+      "toi": "7458.01",
+      "tic": 169081296,
+      "len": 12119,
+      "text": "Extracted KOI261 observing note from ExoFOP-Kepler on 2020-11-02 McDonald 24/25 Mar 2010 Teff=5750 K, log(g)=4.5, Vrot=0 km/s, Vrad=-46.954 km/s, phase=11.05 Phase 11.25 = 55284.16 = 27/28 Mar 2010 261C-dl20120727a.ps 261Sr-WC55280.96467a.fits The spectrum was taken near the gamma crossing. Let's get an observation at quadrature. Extracted KOI261 observing note from ExoFOP-Kepler on 2020-11-02 TRES 26/27 Mar 2010 Teff=5750 K, log(g)=4.5, Vrot=4 km/s, Vrad=-46.837 km/s, phase=11.18 Phase 11.75 = 55292.28 = 4/5 Apr 2010 261C-sq20120727b.ps The classification and velocity are consistent with the McD spectrum. Let's get an observation at the opposite quadrature. Extracted KOI261 observing note from ExoFOP-Kepler on 2020-11-02 TRES 28/29 Mar 2010 Teff=5750 K, log(g)=4.5, Vrot=4 km/s, Vrad=-46.857 km/s, phase=11.30 Phase 11.75 = 55292.28 = 4/5 Apr 2010 261C-sq20120727b.ps This was observed near the same quadrature. Let's get one more spectrum at phase 0.75. Extracted KOI261 observing note from ExoFOP-Kepler on 2020-11-02 TRES 3/4 Apr 2010 Teff=5750 K, log(g)=4.5, Vrot=2 km/s, Vrad=-46.736 km/s, phase=11.67 261C-sq20120727b.ps The phase coverage is now good and the velocities are consistent within the errors. No more recon is needed. It's time for precise velocities. Extracted KOI261 observing note from ExoFOP-Kepler on 2020-11-02 An image taken with the Lick Observatory 1-m Nickel Telescope is available in .pdf and .fits format. Each pdf has a 1.2'x1.2' view centered on the star, and a close-up view of the star in an 11\"x11\" field. The seeing is ~ 1.5\". Companion star 3\" to the NE atleast 5 magnitudes fainter than primary. 261Ic-hi20100710.pdf Extracted KOI261 observing note from ExoFOP-Kepler on 2020-11-02 Revised HIRES Radial Velocities for k00261 Julian Date, Radial Velocity, Error in RV -------------------------------------------------------- 2455405.030168 2.19 2.81 2455405.889943 0.71 2.38 2455413.976523 -2.02 2.97 2455431.794557 -0.62 2.32 2455436.986914 2.51 2.14 2455437.966384 1.88 1.46 2455438.829298 1.13 2.11 2455455.819605 -1.39 2.61 -------------------------------------------------------- 261Sp-hi20100922.pdf Extracted KOI261 observing note from ExoFOP-Kepler on 2020-11-02 A HIRES guider snap is avaible in .pdf and .fits formats(orientations may differ). The pdf shows the field surrounding the KOI and a contour plot. The contours shown on the pdf may give a first order guess at the magnitudes of the surrounding stars. Magnitudes on the pdfs should be read as magnitudes fainter than the primary. Images are available in the finder_chart section. 261Fv-hi20100805.pdf Extracted KOI261 observing note from ExoFOP-Kepler on 2020-11-02 KOI-261 Rp = 6.2 Re, Per = 16d. SME analysis of HIRES spectra: K00261 Teff=5692 [44] logg=4.4 [.1] [Fe/H]= +0.04 [.04] Vsini=0.5 [.5] km/s The star is a G2 V star with solar metalicity. HIRES RVs are remarkable, shown below. The fit (circular orbit) gives: Mp = 7.98 Me rho = 0.2 g/cc The mass (8.0 Me) is very low for 6.2 Re, yielding a low density of 0.2 g/cc. Either the planet is gaseous or this is a non-detection. The RVs suggest the former, as the RVs phase up. Kepmag = 10.3 ; Saturated on Kepler images. No difference image analysis possible. If the mass and radius are correct, this is a remarkable planet, with R = 6.2 Re, but only 8.0 Me. Extracted KOI261 observing note from ExoFOP-Kepler on 2020-11-02 FOP KOI review Light Curve saturated noise varies by quarter eclipse sigma = 4.0 depth sigma = 1.9 Recon McD1: Teff=5750, log(g)=4.5, Vrot=0, Vrad=-46.954, phase=11.05 TRES1: Teff=5750, log(g)=4.5, Vrot=4, Vrad=-46.837, phase=11.18 TRES2: Teff=5750, log(g)=4.5, Vrot=4, Vrad=-46.857, phase=11.30 TRES3: Teff=5750, log(g)=4.5, Vrot=2, Vrad=-46.736, phase=11.67 the velocities are consistent within the errors Images Lick I band: Companion star 3\" to the NE atleast 5 magnitudes fainter than primary. No A/O or speckle. Centroid complicated by saturated pixels, but looks OK PRV On HIRES. RV variations OK! rating: 1 Extracted KOI261 observing note from ExoFOP-Kepler on 2020-11-02 Hi Doug, During your presentation I pulled up a power spectrum of KOI-261 from Q5M3 to see if oscillations are evident. If the KIC parameters were true oscillations should be obvious from inspection. I do not see from a simple inspection any hint of stellar oscillations. This is consistent with the downward revision of stellar radius you noted based on the spectroscopy. Cheers, Ron Extracted KOI261 observing note from ExoFOP-Kepler on 2020-11-02 ARIES AO images observed this object in bad seeing (0.47\" Ks, 0.68\" J), and found two faint, distant companions. Dist (\") Delta-Ks Delta-J 5.3\" 6.8 6.0 12.7\" 7.3 6.3 261Ia-ea20120727f.jpg 261Ia-ea20120727d.fits 261Ia-ea20120727e.jpg 261Ia-ea20120727c.fits Extracted KOI261 observing note from ExoFOP-Kepler on 2020-11-02 Revised HIRES Radial Velocities for k00261 Julian Date, Radial Velocity, Error in RV -------------------------------------------------------- 2455405.030168 1.73 2.82 2455405.889943 0.92 2.34 2455413.976523 -1.45 3.05 2455431.794557 1.62 2.15 2455436.986914 3.69 2.45 2455437.967023 2.07 1.59 2455438.829298 1.95 2.23 2455439.855631 -6.42 2.12 2455455.819605 0.25 2.46 2455486.833994 -0.37 2.60 2455542.714646 -2.04 2.56 2455544.703444 -6.85 2.98 -------------------------------------------------------- Extracted KOI261 observing note from ExoFOP-Kepler on 2020-11-02 filename hjd phase bs(m/s) bserr(m/s) k00261ScH1-hi55405.03016.crr 2455405.030492 24.695 -7.4 2.3 k00261ScH1-hi55405.88994.crr 2455405.889971 24.748 4.8 2.0 k00261ScH1-hi55413.97652.crr 2455413.976614 25.246 -2.0 2.0 k00261ScH1-hi55413.98901.crr 2455413.989140 25.247 5.3 2.1 k00261ScH1-hi55431.79455.crr 2455431.794491 26.343 -7.0 2.2 k00261ScH1-hi55436.98691.crr 2455436.987049 26.663 -2.7 1.6 k00261ScH1-hi55437.96092.crr 2455437.960872 26.723 10.0 2.0 k00261ScH1-hi55437.97174.crr 2455437.971858 26.724 9.3 1.8 k00261ScH1-hi55438.82929.crr 2455438.829400 26.777 3.0 4.3 k00261ScH1-hi55439.85563.crr 2455439.855518 26.840 1.2 2.8 k00261ScH1-hi55455.81960.crr 2455455.819713 27.823 -9.6 2.1 k00261ScH1-hi55486.83399.crr 2455486.834246 29.733 -4.8 1.5 bsMean RMS = 6.61 No bisector variations with phase. The two lastest spectra are not yet on the KFOP. Howard posted RVs for them below. Extracted KOI261 observing note from ExoFOP-Kepler on 2020-11-02 ARIES AO observations for 00261 were taken on 20100925 in F/30 in J and Ks (plate scale = 0.02\" per pixel, FOV = 20.5\"). The seeing was 0.3\" in J and 0.2\" in Ks. 1 companion star(s) detected within 6.0\" of the target: 5.2\", delta-J=7.1 mag, delta-Ks=6.8 fainter Limits on additional companions: Ks , J PNG images: Ks , J FITS images: Ks , J Extracted KOI261 observing note from ExoFOP-Kepler on 2020-11-02 Hi Avi, Thank you so much for this valuable comparison of active KOIs and EBs. I examined carefully your list: EB_KOI_match_active.txt to identify any KOIs for which we were obtaining precise RVs that were also thought to be EBs. The stars with precise RVs noted as being both a KOI and EB: 261 1661 (CBP, = Kepler 16) For KOI-261, our RVs show no evidence of a binary. The RVs span 400 days and have an RMS 3.0 m/s relative to the possible linear downward trend (~7 m/s during the past year) during the past year. In contrast, an eclipsing binary with P=16.24 d would have orbital speeds of ~100 km/s, 4 orders of magnitude faster than we measure. Thus, most of the light (99.9%) comes from a star that is *not* an eclipsing binary. Extracted KOI261 observing note from ExoFOP-Kepler on 2020-11-02 High Precision Radial Velocites from Keck/HIRES, uploaded Dec 2011. Errors include internal errors added in quadrature to 2.0m/s of Jitter. For observations taken before JD=2455130 additional error was added in quadrature to account for lack of sky subtraction in the spectra. The additional errors due to lack of sky subraction are a function of magnitude. # KOI BJD-2.45e6 RV(m/s) Error(m/s) k00261 5405.030168 1.96 2.46 k00261 5405.889943 1.38 2.32 k00261 5413.976523 -0.15 2.50 k00261 5431.794557 2.35 2.30 k00261 5436.986914 4.51 2.34 k00261 5437.960924 2.00 2.27 k00261 5437.971745 6.32 2.29 k00261 5438.829298 2.79 2.30 k00261 5439.855631 -4.53 2.29 k00261 5455.819605 1.89 2.35 k00261 5486.833994 0.69 2.39 k00261 5542.714646 -0.35 2.46 k00261 5544.703444 -5.15 2.50 k00261 5723.092577 0.08 2.54 k00261 5787.903358 -4.26 2.51 k00261 5795.035974 -5.96 2.41 k00261 5795.835975 -6.75 2.56 Extracted KOI261 observing note from ExoFOP-Kepler on 2020-11-02 Radial Velocity Analysis for all available RVs from Keck/HIRES is avaialble below. Plots include RV vs time, RV vs phase, and mass determination from MCMC analysis. Eccentricity is fixed at zero. 261Vp-hi20120123.pdf Extracted KOI261 observing note from ExoFOP-Kepler on 2020-11-02 Robo-AO i-band imaging of KOI-261 on 2012-07-18 No companions detected within 2.5\" http://arxiv.org/abs/1312.4958 Extracted KOI261 observing note from ExoFOP-Kepler on 2020-11-02 This system has precise RV measurements taken with Keck/HIRES from 2009-2012 summarized in Marcy et. al. (2014) http://adsabs.harvard.edu/abs/2014ApJS..210...20M The transiting planet has been validated having false a positive probability of Summary of planet properties. (table 2) Kepler # ___KOI Period(d) Radius(R_earth) Mass(M_earth) ******************************************************* Kepler-96b 261.01 16.2385 2.67 +/- 0.22 8.46 +/- 3.4 ******************************************************* RVs from Marcy et. al (2014), table 4 BJD-2.45e6 RV(m/s) RV_error(m/s) R'hk (stellar activity) ******************************************************* 5405.030168 2.55 2.47 -4.755 5405.889943 2.32 2.34 -4.745 5413.976523 0.62 2.48 -4.739 5431.794557 3.78 2.30 -4.765 5436.986914 5.95 2.35 -4.793 5437.960924 3.00 2.26 -4.765 5437.971745 7.19 2.30 -4.762 5438.829298 3.66 2.31 -4.758 5439.855631 -3.95 2.31 -4.758 5455.819605 2.30 2.38 -4.758 5486.833994 1.19 2.42 -4.775 5542.714646 0.82 2.46 -4.769 5544.703444 -5.41 2.55 -4.576 5723.092577 0.86 2.58 -4.663 5787.903358 -3.39 2.50 -4.758 5795.035974 -4.74 2.41 -4.755 5795.835975 -3.78 2.57 -4.775 6099.033843 5.65 2.59 -4.708 6111.925286 -12.19 2.59 -4.742 6145.907599 -6.48 2.52 -4.782 6148.981644 5.12 2.64 -4.779 6152.067220 -1.91 2.53 -4.797 6163.805762 2.65 2.43 -4.782 6164.846196 2.79 2.45 -4.786 6175.877276 -4.53 2.47 -4.797 6176.894658 -8.24 2.49 -4.786 ******************************************************* Extracted KOI261 observing note from ExoFOP-Kepler on 2020-11-02 High precision radial velocities (RVs) from Keck/HIRES. Errors include internal errors added in quadrature to 2.0 m/s of jitter. For observations taken before JD=2455130 additional error was added in quadrature to account for lack of sky subtraction in the spectra. The additional errors due to lack of sky subraction are a function of magnitude. ******************************************************* KOI BJD-2.45e6 RV(m/s) Error(m/s) ******************************************************* k00261 5405.0302 1.71 2.45 k00261 5405.8899 1.31 2.32 k00261 5413.9765 -0.45 2.46 k00261 5431.7946 2.79 2.34 k00261 5436.9869 5.81 2.40 k00261 5437.9609 2.90 2.31 k00261 5437.9717 7.07 2.32 k00261 5438.8293 4.18 2.36 k00261 5439.8556 -4.33 2.34 k00261 5455.8196 2.52 2.38 k00261 5486.8340 0.83 2.42 k00261 5542.7146 -0.05 2.47 k00261 5544.7034 -4.69 2.53 k00261 5723.0926 1.22 2.57 k00261 5787.9034 -3.91 2.48 k00261 5795.0360 -5.31 2.47 k00261 5795.8360 -4.87 2.57 k00261 6099.0338 5.37 2.53 k00261 6111.9253 -12.82 2.51 k00261 6145.9076 -7.11 2.53 k00261 6148.9816 4.34 2.65 k00261 6152.0672 -3.54 2.56 k00261 6163.8058 1.61 2.45 k00261 6164.8462 3.27 2.53 k00261 6175.8773 -4.80 2.46 k00261 6176.8947 -8.17 2.52 k00261 6469.0048 3.37 2.53 k00261 6474.0463 -0.01 2.46 k00261 6475.8508 -8.32 2.52 k00261 6477.8355 -4.90 2.52 k00261 6482.7954 9.86 2.61 k00261 6485.9562 1.43 2.51 k00261 6487.0107 6.28 2.50 k00261 6490.0423 3.68 2.50 k00261 6494.0108 4.90 2.53 Extracted KOI261 observing note from ExoFOP-Kepler on 2020-11-02 Possible nearby companion = Yes (3.36\" companion (Keck/NIRC2))"
+    },
+    "state": {
+      "notes": "Extracted KOI261 observing note from ExoFOP-Kepler on 2020-11-02 McDonald 24/25 Mar 2010 Teff=5750 K, log(g)=4.5, Vrot=0 km/s, Vrad=-46.954 km/s, phase=11.05 Phase 11.25 = 55284.16 = 27/28 Mar 2010 261C-dl20120727a.ps 261Sr-WC55280.96467a.fits The spectrum was taken near the gamma crossing. Let's get an observation at quadrature. Extracted KOI261 observing note from ExoFOP-Kepler on 2020-11-02 TRES 26/27 Mar 2010 Teff=5750 K, log(g)=4.5, Vrot=4 km/s, Vrad=-46.837 km/s, phase=11.18 Phase 11.75 = 55292.28 = 4/5 Apr 2010 261C-sq20120727b.ps The classification and velocity are consistent with the McD spectrum. Let's get an observation at the opposite quadrature. Extracted KOI261 observing note from ExoFOP-Kepler on 2020-11-02 TRES 28/29 Mar 2010 Teff=5750 K, log(g)=4.5, Vrot=4 km/s, Vrad=-46.857 km/s, phase=11.30 Phase 11.75 = 55292.28 = 4/5 Apr 2010 261C-sq20120727b.ps This was observed near the same quadrature. Let's get one more spectrum at phase 0.75. Extracted KOI261 observing note from ExoFOP-Kepler on 2020-11-02 TRES 3/4 Apr 2010 Teff=5750 K, log(g)=4.5, Vrot=2 km/s, Vrad=-46.736 km/s, phase=11.67 261C-sq20120727b.ps The phase coverage is now good and the velocities are consistent within the errors. No more recon is needed. It's time for precise velocities. Extracted KOI261 observing note from ExoFOP-Kepler on 2020-11-02 An image taken with the Lick Observatory 1-m Nickel Telescope is available in .pdf and .fits format. Each pdf has a 1.2'x1.2' view centered on the star, and a close-up view of the star in an 11\"x11\" field. The seeing is ~ 1.5\". Companion star 3\" to the NE atleast 5 magnitudes fainter than primary. 261Ic-hi20100710.pdf Extracted KOI261 observing note from ExoFOP-Kepler on 2020-11-02 Revised HIRES Radial Velocities for k00261 Julian Date, Radial Velocity, Error in RV -------------------------------------------------------- 2455405.030168 2.19 2.81 2455405.889943 0.71 2.38 2455413.976523 -2.02 2.97 2455431.794557 -0.62 2.32 2455436.986914 2.51 2.14 2455437.966384 1.88 1.46 2455438.829298 1.13 2.11 2455455.819605 -1.39 2.61 -------------------------------------------------------- 261Sp-hi20100922.pdf Extracted KOI261 observing note from ExoFOP-Kepler on 2020-11-02 A HIRES guider snap is avaible in .pdf and .fits formats(orientations may differ). The pdf shows the field surrounding the KOI and a contour plot. The contours shown on the pdf may give a first order guess at the magnitudes of the surrounding stars. Magnitudes on the pdfs should be read as magnitudes fainter than the primary. Images are available in the finder_chart section. 261Fv-hi20100805.pdf Extracted KOI261 observing note from ExoFOP-Kepler on 2020-11-02 KOI-261 Rp = 6.2 Re, Per = 16d. SME analysis of HIRES spectra: K00261 Teff=5692 [44] logg=4.4 [.1] [Fe/H]= +0.04 [.04] Vsini=0.5 [.5] km/s The star is a G2 V star with solar metalicity. HIRES RVs are remarkable, shown below. The fit (circular orbit) gives: Mp = 7.98 Me rho = 0.2 g/cc The mass (8.0 Me) is very low for 6.2 Re, yielding a low density of 0.2 g/cc. Either the planet is gaseous or this is a non-detection. The RVs suggest the former, as the RVs phase up. Kepmag = 10.3 ; Saturated on Kepler images. No difference image analysis possible. If the mass and radius are correct, this is a remarkable planet, with R = 6.2 Re, but only 8.0 Me. Extracted KOI261 observing note from ExoFOP-Kepler on 2020-11-02 FOP KOI review Light Curve saturated noise varies by quarter eclipse sigma = 4.0 depth sigma = 1.9 Recon McD1: Teff=5750, log(g)=4.5, Vrot=0, Vrad=-46.954, phase=11.05 TRES1: Teff=5750, log(g)=4.5, Vrot=4, Vrad=-46.837, phase=11.18 TRES2: Teff=5750, log(g)=4.5, Vrot=4, Vrad=-46.857, phase=11.30 TRES3: Teff=5750, log(g)=4.5, Vrot=2, Vrad=-46.736, phase=11.67 the velocities are consistent within the errors Images Lick I band: Companion star 3\" to the NE atleast 5 magnitudes fainter than primary. No A/O or speckle. Centroid complicated by saturated pixels, but looks OK PRV On HIRES. RV variations OK! rating: 1 Extracted KOI261 observing note from ExoFOP-Kepler on 2020-11-02 Hi Doug, During your presentation I pulled up a power spectrum of KOI-261 from Q5M3 to see if oscillations are evident. If the KIC parameters were true oscillations should be obvious from inspection. I do not see from a simple inspection any hint of stellar oscillations. This is consistent with the downward revision of stellar radius you noted based on the spectroscopy. Cheers, Ron Extracted KOI261 observing note from ExoFOP-Kepler on 2020-11-02 ARIES AO images observed this object in bad seeing (0.47\" Ks, 0.68\" J), and found two faint, distant companions. Dist (\") Delta-Ks Delta-J 5.3\" 6.8 6.0 12.7\" 7.3 6.3 261Ia-ea20120727f.jpg 261Ia-ea20120727d.fits 261Ia-ea20120727e.jpg 261Ia-ea20120727c.fits Extracted KOI261 observing note from ExoFOP-Kepler on 2020-11-02 Revised HIRES Radial Velocities for k00261 Julian Date, Radial Velocity, Error in RV -------------------------------------------------------- 2455405.030168 1.73 2.82 2455405.889943 0.92 2.34 2455413.976523 -1.45 3.05 2455431.794557 1.62 2.15 2455436.986914 3.69 2.45 2455437.967023 2.07 1.59 2455438.829298 1.95 2.23 2455439.855631 -6.42 2.12 2455455.819605 0.25 2.46 2455486.833994 -0.37 2.60 2455542.714646 -2.04 2.56 2455544.703444 -6.85 2.98 -------------------------------------------------------- Extracted KOI261 observing note from ExoFOP-Kepler on 2020-11-02 filename hjd phase bs(m/s) bserr(m/s) k00261ScH1-hi55405.03016.crr 2455405.030492 24.695 -7.4 2.3 k00261ScH1-hi55405.88994.crr 2455405.889971 24.748 4.8 2.0 k00261ScH1-hi55413.97652.crr 2455413.976614 25.246 -2.0 2.0 k00261ScH1-hi55413.98901.crr 2455413.989140 25.247 5.3 2.1 k00261ScH1-hi55431.79455.crr 2455431.794491 26.343 -7.0 2.2 k00261ScH1-hi55436.98691.crr 2455436.987049 26.663 -2.7 1.6 k00261ScH1-hi55437.96092.crr 2455437.960872 26.723 10.0 2.0 k00261ScH1-hi55437.97174.crr 2455437.971858 26.724 9.3 1.8 k00261ScH1-hi55438.82929.crr 2455438.829400 26.777 3.0 4.3 k00261ScH1-hi55439.85563.crr 2455439.855518 26.840 1.2 2.8 k00261ScH1-hi55455.81960.crr 2455455.819713 27.823 -9.6 2.1 k00261ScH1-hi55486.83399.crr 2455486.834246 29.733 -4.8 1.5 bsMean RMS = 6.61 No bisector variations with phase. The two lastest spectra are not yet on the KFOP. Howard posted RVs for them below. Extracted KOI261 observing note from ExoFOP-Kepler on 2020-11-02 ARIES AO observations for 00261 were taken on 20100925 in F/30 in J and Ks (plate scale = 0.02\" per pixel, FOV = 20.5\"). The seeing was 0.3\" in J and 0.2\" in Ks. 1 companion star(s) detected within 6.0\" of the target: 5.2\", delta-J=7.1 mag, delta-Ks=6.8 fainter Limits on additional companions: Ks , J PNG images: Ks , J FITS images: Ks , J Extracted KOI261 observing note from ExoFOP-Kepler on 2020-11-02 Hi Avi, Thank you so much for this valuable comparison of active KOIs and EBs. I examined carefully your list: EB_KOI_match_active.txt to identify any KOIs for which we were obtaining precise RVs that were also thought to be EBs. The stars with precise RVs noted as being both a KOI and EB: 261 1661 (CBP, = Kepler 16) For KOI-261, our RVs show no evidence of a binary. The RVs span 400 days and have an RMS 3.0 m/s relative to the possible linear downward trend (~7 m/s during the past year) during the past year. In contrast, an eclipsing binary with P=16.24 d would have orbital speeds of ~100 km/s, 4 orders of magnitude faster than we measure. Thus, most of the light (99.9%) comes from a star that is *not* an eclipsing binary. Extracted KOI261 observing note from ExoFOP-Kepler on 2020-11-02 High Precision Radial Velocites from Keck/HIRES, uploaded Dec 2011. Errors include internal errors added in quadrature to 2.0m/s of Jitter. For observations taken before JD=2455130 additional error was added in quadrature to account for lack of sky subtraction in the spectra. The additional errors due to lack of sky subraction are a function of magnitude. # KOI BJD-2.45e6 RV(m/s) Error(m/s) k00261 5405.030168 1.96 2.46 k00261 5405.889943 1.38 2.32 k00261 5413.976523 -0.15 2.50 k00261 5431.794557 2.35 2.30 k00261 5436.986914 4.51 2.34 k00261 5437.960924 2.00 2.27 k00261 5437.971745 6.32 2.29 k00261 5438.829298 2.79 2.30 k00261 5439.855631 -4.53 2.29 k00261 5455.819605 1.89 2.35 k00261 5486.833994 0.69 2.39 k00261 5542.714646 -0.35 2.46 k00261 5544.703444 -5.15 2.50 k00261 5723.092577 0.08 2.54 k00261 5787.903358 -4.26 2.51 k00261 5795.035974 -5.96 2.41 k00261 5795.835975 -6.75 2.56 Extracted KOI261 observing note from ExoFOP-Kepler on 2020-11-02 Radial Velocity Analysis for all available RVs from Keck/HIRES is avaialble below. Plots include RV vs time, RV vs phase, and mass determination from MCMC analysis. Eccentricity is fixed at zero. 261Vp-hi20120123.pdf Extracted KOI261 observing note from ExoFOP-Kepler on 2020-11-02 Robo-AO i-band imaging of KOI-261 on 2012-07-18 No companions detected within 2.5\" http://arxiv.org/abs/1312.4958 Extracted KOI261 observing note from ExoFOP-Kepler on 2020-11-02 This system has precise RV measurements taken with Keck/HIRES from 2009-2012 summarized in Marcy et. al. (2014) http://adsabs.harvard.edu/abs/2014ApJS..210...20M The transiting planet has been validated having false a positive probability of Summary of planet properties. (table 2) Kepler # ___KOI Period(d) Radius(R_earth) Mass(M_earth) ******************************************************* Kepler-96b 261.01 16.2385 2.67 +/- 0.22 8.46 +/- 3.4 ******************************************************* RVs from Marcy et. al (2014), table 4 BJD-2.45e6 RV(m/s) RV_error(m/s) R'hk (stellar activity) ******************************************************* 5405.030168 2.55 2.47 -4.755 5405.889943 2.32 2.34 -4.745 5413.976523 0.62 2.48 -4.739 5431.794557 3.78 2.30 -4.765 5436.986914 5.95 2.35 -4.793 5437.960924 3.00 2.26 -4.765 5437.971745 7.19 2.30 -4.762 5438.829298 3.66 2.31 -4.758 5439.855631 -3.95 2.31 -4.758 5455.819605 2.30 2.38 -4.758 5486.833994 1.19 2.42 -4.775 5542.714646 0.82 2.46 -4.769 5544.703444 -5.41 2.55 -4.576 5723.092577 0.86 2.58 -4.663 5787.903358 -3.39 2.50 -4.758 5795.035974 -4.74 2.41 -4.755 5795.835975 -3.78 2.57 -4.775 6099.033843 5.65 2.59 -4.708 6111.925286 -12.19 2.59 -4.742 6145.907599 -6.48 2.52 -4.782 6148.981644 5.12 2.64 -4.779 6152.067220 -1.91 2.53 -4.797 6163.805762 2.65 2.43 -4.782 6164.846196 2.79 2.45 -4.786 6175.877276 -4.53 2.47 -4.797 6176.894658 -8.24 2.49 -4.786 ******************************************************* Extracted KOI261 observing note from ExoFOP-Kepler on 2020-11-02 High precision radial velocities (RVs) from Keck/HIRES. Errors include internal errors added in quadrature to 2.0 m/s of jitter. For observations taken before JD=2455130 additional error was added in quadrature to account for lack of sky subtraction in the spectra. The additional errors due to lack of sky subraction are a function of magnitude. ******************************************************* KOI BJD-2.45e6 RV(m/s) Error(m/s) ******************************************************* k00261 5405.0302 1.71 2.45 k00261 5405.8899 1.31 2.32 k00261 5413.9765 -0.45 2.46 k00261 5431.7946 2.79 2.34 k00261 5436.9869 5.81 2.40 k00261 5437.9609 2.90 2.31 k00261 5437.9717 7.07 2.32 k00261 5438.8293 4.18 2.36 k00261 5439.8556 -4.33 2.34 k00261 5455.8196 2.52 2.38 k00261 5486.8340 0.83 2.42 k00261 5542.7146 -0.05 2.47 k00261 5544.7034 -4.69 2.53 k00261 5723.0926 1.22 2.57 k00261 5787.9034 -3.91 2.48 k00261 5795.0360 -5.31 2.47 k00261 5795.8360 -4.87 2.57 k00261 6099.0338 5.37 2.53 k00261 6111.9253 -12.82 2.51 k00261 6145.9076 -7.11 2.53 k00261 6148.9816 4.34 2.65 k00261 6152.0672 -3.54 2.56 k00261 6163.8058 1.61 2.45 k00261 6164.8462 3.27 2.53 k00261 6175.8773 -4.80 2.46 k00261 6176.8947 -8.17 2.52 k00261 6469.0048 3.37 2.53 k00261 6474.0463 -0.01 2.46 k00261 6475.8508 -8.32 2.52 k00261 6477.8355 -4.90 2.52 k00261 6482.7954 9.86 2.61 k00261 6485.9562 1.43 2.51 k00261 6487.0107 6.28 2.50 k00261 6490.0423 3.68 2.50 k00261 6494.0108 4.90 2.53 Extracted KOI261 observing note from ExoFOP-Kepler on 2020-11-02 Possible nearby companion = Yes (3.36\" companion (Keck/NIRC2))"
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "imaging_reports_no_companion": {
+          "type": "noul",
+          "noul": 0.05
+        },
+        "imaging_reports_companion_present": {
+          "type": "noul",
+          "noul": 0.98
+        },
+        "spectroscopy_indicates_nonplanetary_companion": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "spectroscopy_consistent_with_planet": {
+          "type": "noul",
+          "noul": 0.92
+        },
+        "host_star_described_as_evolved": {
+          "type": "noul",
+          "noul": 0.05
+        },
+        "followup_reported_concluded": {
+          "type": "noul",
+          "noul": 0.94
+        },
+        "reports_on_target_detection": {
+          "type": "noul",
+          "noul": 0.16
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 2.49,
+          "confidence": 0.37,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'perhaps', 'may be'; the conclusion is not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats or a request for more data",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.0,
+            "1": 0.21,
+            "2": 0.22,
+            "3": 0.44,
+            "4": 0.13
+          }
+        },
+        "indicates_retired_or_rejected": {
+          "type": "noul",
+          "noul": 0.08
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.94
+        },
+        "contains_object_designation": {
+          "type": "noul",
+          "noul": 0.99
+        }
+      },
+      "usage": {
+        "input_tokens": 9484,
+        "output_tokens": 243
+      }
+    }
+  },
+  "B16": {
+    "case": {
+      "cid": "B16",
+      "stratum": "T01_neb_beb",
+      "toi": "339.01",
+      "tic": 69838258,
+      "len": 360,
+      "text": "TESS difference image centroid shift not conclusive; From Coel: {1SWASP J223141.19-215644.6 => Blend, star at 31\" is an EB. WASP: P = 6.732072, E = 2453864.3344 2014-11-14 LD: \"Partial transit window observed with TRAPPIST in blue-blocking filter on 2014-11-12. This is a blend. The eclipse is on a nearby star, V-shaped and at least 20%-deep.} Retired as NEB."
+    },
+    "state": {
+      "notes": "TESS difference image centroid shift not conclusive; From Coel: {1SWASP J223141.19-215644.6 => Blend, star at 31\" is an EB. WASP: P = 6.732072, E = 2453864.3344 2014-11-14 LD: \"Partial transit window observed with TRAPPIST in blue-blocking filter on 2014-11-12. This is a blend. The eclipse is on a nearby star, V-shaped and at least 20%-deep.} Retired as NEB."
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "imaging_reports_no_companion": {
+          "type": "noul",
+          "noul": 0.03
+        },
+        "imaging_reports_companion_present": {
+          "type": "noul",
+          "noul": 0.95
+        },
+        "spectroscopy_indicates_nonplanetary_companion": {
+          "type": "noul",
+          "noul": 0.95
+        },
+        "spectroscopy_consistent_with_planet": {
+          "type": "noul",
+          "noul": 0.05
+        },
+        "host_star_described_as_evolved": {
+          "type": "noul",
+          "noul": 0.05
+        },
+        "followup_reported_concluded": {
+          "type": "noul",
+          "noul": 0.24
+        },
+        "reports_on_target_detection": {
+          "type": "noul",
+          "noul": 0.07
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 3.15,
+          "confidence": 0.52,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'perhaps', 'may be'; the conclusion is not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats or a request for more data",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.0,
+            "1": 0.01,
+            "2": 0.19,
+            "3": 0.44,
+            "4": 0.36
+          }
+        },
+        "indicates_retired_or_rejected": {
+          "type": "noul",
+          "noul": 0.99
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.05
+        },
+        "contains_object_designation": {
+          "type": "noul",
+          "noul": 0.9
+        }
+      },
+      "usage": {
+        "input_tokens": 3282,
+        "output_tokens": 243
+      }
+    }
+  },
+  "B17": {
+    "case": {
+      "cid": "B17",
+      "stratum": "T02_sb",
+      "toi": "7519.01",
+      "tic": 156678143,
+      "len": 959,
+      "text": "Gaia DR3 NSS lists this as a SB1 system with the same period as the TOI period, with an RV amplitude of 34.39\u00b10.85 km/s. This system is an eclipsing binary. T0156678143, 04:47:10.42 37:42:46.00, V=12.0, PM=19.3, J-K=0.45, Period=7.3 TOI-7519,Rp=13.2 2025-11-29 TRES, pha=49.30, RV=57.172, Teff=6500+/-125, log(g)=4.00+/-0.25, Vrot=6.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.929, SNRe=31.7, R=m The first TRES observation reveals an F star with modest rotation and perhaps somewhat evolved. Let's get a second TRES recon spectrum near phase 0.75. T0156678143, 04:47:10.42 37:42:46.00, V=12.0, PM=19.3, J-K=0.45, Period=7.3 TOI-7519,Rp=13.2 The quick-look Mg b velocities for the three TRES observations span a range of 47.5 km/s and are in phase with the photometric ephemeris if the transit-like events are secondary eclipses in an eclipsing binary with a mid dwarf companion. The TRES observations are definitely single-lined. No more TRES recon spectra are needed."
+    },
+    "state": {
+      "notes": "Gaia DR3 NSS lists this as a SB1 system with the same period as the TOI period, with an RV amplitude of 34.39\u00b10.85 km/s. This system is an eclipsing binary. T0156678143, 04:47:10.42 37:42:46.00, V=12.0, PM=19.3, J-K=0.45, Period=7.3 TOI-7519,Rp=13.2 2025-11-29 TRES, pha=49.30, RV=57.172, Teff=6500+/-125, log(g)=4.00+/-0.25, Vrot=6.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.929, SNRe=31.7, R=m The first TRES observation reveals an F star with modest rotation and perhaps somewhat evolved. Let's get a second TRES recon spectrum near phase 0.75. T0156678143, 04:47:10.42 37:42:46.00, V=12.0, PM=19.3, J-K=0.45, Period=7.3 TOI-7519,Rp=13.2 The quick-look Mg b velocities for the three TRES observations span a range of 47.5 km/s and are in phase with the photometric ephemeris if the transit-like events are secondary eclipses in an eclipsing binary with a mid dwarf companion. The TRES observations are definitely single-lined. No more TRES recon spectra are needed."
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "imaging_reports_no_companion": {
+          "type": "noul",
+          "noul": 0.03
+        },
+        "imaging_reports_companion_present": {
+          "type": "noul",
+          "noul": 0.42
+        },
+        "spectroscopy_indicates_nonplanetary_companion": {
+          "type": "noul",
+          "noul": 0.97
+        },
+        "spectroscopy_consistent_with_planet": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "host_star_described_as_evolved": {
+          "type": "noul",
+          "noul": 0.91
+        },
+        "followup_reported_concluded": {
+          "type": "noul",
+          "noul": 0.96
+        },
+        "reports_on_target_detection": {
+          "type": "noul",
+          "noul": 0.36
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 3.44,
+          "confidence": 0.53,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'perhaps', 'may be'; the conclusion is not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats or a request for more data",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.0,
+            "1": 0.01,
+            "2": 0.09,
+            "3": 0.34,
+            "4": 0.56
+          }
+        },
+        "indicates_retired_or_rejected": {
+          "type": "noul",
+          "noul": 0.06
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.05
+        },
+        "contains_object_designation": {
+          "type": "noul",
+          "noul": 0.99
+        }
+      },
+      "usage": {
+        "input_tokens": 3550,
+        "output_tokens": 243
+      }
+    }
+  },
+  "B18": {
+    "case": {
+      "cid": "B18",
+      "stratum": "T03_imaging_clean",
+      "toi": "5178.01",
+      "tic": 149969625,
+      "len": 372,
+      "text": "Extracted EPIC201528828 observing note from ExoFOP-K2 on 2021-10-27 WIYN speckle imaging was taken of EPIC201528828 on 2017-03-11. The field was centered on the target star. Speckle images were acquired at 562nm and 832nm. No secondary sources were detected. See separate plots/tables for the limiting magnitude of the field as a function of distance from the target star."
+    },
+    "state": {
+      "notes": "Extracted EPIC201528828 observing note from ExoFOP-K2 on 2021-10-27 WIYN speckle imaging was taken of EPIC201528828 on 2017-03-11. The field was centered on the target star. Speckle images were acquired at 562nm and 832nm. No secondary sources were detected. See separate plots/tables for the limiting magnitude of the field as a function of distance from the target star."
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "imaging_reports_no_companion": {
+          "type": "noul",
+          "noul": 0.65
+        },
+        "imaging_reports_companion_present": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "spectroscopy_indicates_nonplanetary_companion": {
+          "type": "noul",
+          "noul": 0.05
+        },
+        "spectroscopy_consistent_with_planet": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "host_star_described_as_evolved": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "followup_reported_concluded": {
+          "type": "noul",
+          "noul": 0.03
+        },
+        "reports_on_target_detection": {
+          "type": "noul",
+          "noul": 0.03
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 3.11,
+          "confidence": 0.9,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'perhaps', 'may be'; the conclusion is not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats or a request for more data",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.0,
+            "1": 0.0,
+            "2": 0.0,
+            "3": 0.89,
+            "4": 0.11
+          }
+        },
+        "indicates_retired_or_rejected": {
+          "type": "noul",
+          "noul": 0.03
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.03
+        },
+        "contains_object_designation": {
+          "type": "noul",
+          "noul": 0.9
+        }
+      },
+      "usage": {
+        "input_tokens": 3251,
+        "output_tokens": 243
+      }
+    }
+  },
+  "B19": {
+    "case": {
+      "cid": "B19",
+      "stratum": "T04_imaging_comp",
+      "toi": "2517.01",
+      "tic": 48178229,
+      "len": 529,
+      "text": "T0048178229, 06:36:41.42 -23:18:35.20, V=10.4, PM=7.6, J-K=0.21, Period=2.7 TOI-2517,Rp=5.1 2021-03-25 TRES, pha=27.23, RV=31.006, Teff=6750+/-125, log(g)=3.50+/-0.25, Vrot=30.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.934, SNRe=40.8, R=m The first TRES observation reveals an early F star that is somewhat evolved and has a fair amount of rotation. Gaia DR2 says that there is a nearby companion at 1.4 arcsec separation and 5 magnitudes fainter. A recent report from SG1 indicates there is an NEB. No more TRES recon spectra are needed."
+    },
+    "state": {
+      "notes": "T0048178229, 06:36:41.42 -23:18:35.20, V=10.4, PM=7.6, J-K=0.21, Period=2.7 TOI-2517,Rp=5.1 2021-03-25 TRES, pha=27.23, RV=31.006, Teff=6750+/-125, log(g)=3.50+/-0.25, Vrot=30.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.934, SNRe=40.8, R=m The first TRES observation reveals an early F star that is somewhat evolved and has a fair amount of rotation. Gaia DR2 says that there is a nearby companion at 1.4 arcsec separation and 5 magnitudes fainter. A recent report from SG1 indicates there is an NEB. No more TRES recon spectra are needed."
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "imaging_reports_no_companion": {
+          "type": "noul",
+          "noul": 0.02
+        },
+        "imaging_reports_companion_present": {
+          "type": "noul",
+          "noul": 0.97
+        },
+        "spectroscopy_indicates_nonplanetary_companion": {
+          "type": "noul",
+          "noul": 0.09
+        },
+        "spectroscopy_consistent_with_planet": {
+          "type": "noul",
+          "noul": 0.11
+        },
+        "host_star_described_as_evolved": {
+          "type": "noul",
+          "noul": 0.99
+        },
+        "followup_reported_concluded": {
+          "type": "noul",
+          "noul": 0.98
+        },
+        "reports_on_target_detection": {
+          "type": "noul",
+          "noul": 0.06
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 3.46,
+          "confidence": 0.55,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'perhaps', 'may be'; the conclusion is not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats or a request for more data",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.0,
+            "1": 0.01,
+            "2": 0.01,
+            "3": 0.48,
+            "4": 0.5
+          }
+        },
+        "indicates_retired_or_rejected": {
+          "type": "noul",
+          "noul": 0.11
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.06
+        },
+        "contains_object_designation": {
+          "type": "noul",
+          "noul": 0.98
+        }
+      },
+      "usage": {
+        "input_tokens": 3381,
+        "output_tokens": 243
+      }
+    }
+  },
+  "B20": {
+    "case": {
+      "cid": "B20",
+      "stratum": "T05_rv_rules_out",
+      "toi": "1317.01",
+      "tic": 165523947,
+      "len": 1061,
+      "text": "T0165523947, 21:07:15.33 40:10:01.80, V=10.7, PM=3.6, J-K=0.16, Period=3.0 TOI-1317,Rp=14.3 2019-10-20 TRES, pha=21.72, RV=14.334, Teff=8250+/-125, log(g)=2.00+/-0.25, Vrot=40.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.694, SNRe=35.0, R=m 2019-10-28 TRES, pha=24.32, RV=14.157, Teff=8750+/-125, log(g)=2.50+/-0.25, Vrot=35.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.630, SNRe=33.1, R=m The second TRES observations a small velocity shift that is consistent with the photometric ephemeris for a hot Jupiter companion, and may be significant. It does rule out a brown dwarf. No more TRES observations are needed. T0165523947, 21:07:15.33 40:10:01.80, V=10.7, PM=3.6, J-K=0.16, Period=3.0 TOI-1317,Rp=14.3 2019-10-20 TRES, pha=21.72, RV=14.334, Teff=8250+/-125, log(g)=2.00+/-0.25, Vrot=40.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.694, SNRe=35.0, R=m The first TRES observation reveals an A star with moderate rotation. Gaia DR2 says it is cooler but evolved, with stellar radius 3.77 Rsun. Let's get a second recon spectrum near phase 0.25 to check for a brown dwarf or stellar companion."
+    },
+    "state": {
+      "notes": "T0165523947, 21:07:15.33 40:10:01.80, V=10.7, PM=3.6, J-K=0.16, Period=3.0 TOI-1317,Rp=14.3 2019-10-20 TRES, pha=21.72, RV=14.334, Teff=8250+/-125, log(g)=2.00+/-0.25, Vrot=40.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.694, SNRe=35.0, R=m 2019-10-28 TRES, pha=24.32, RV=14.157, Teff=8750+/-125, log(g)=2.50+/-0.25, Vrot=35.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.630, SNRe=33.1, R=m The second TRES observations a small velocity shift that is consistent with the photometric ephemeris for a hot Jupiter companion, and may be significant. It does rule out a brown dwarf. No more TRES observations are needed. T0165523947, 21:07:15.33 40:10:01.80, V=10.7, PM=3.6, J-K=0.16, Period=3.0 TOI-1317,Rp=14.3 2019-10-20 TRES, pha=21.72, RV=14.334, Teff=8250+/-125, log(g)=2.00+/-0.25, Vrot=40.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.694, SNRe=35.0, R=m The first TRES observation reveals an A star with moderate rotation. Gaia DR2 says it is cooler but evolved, with stellar radius 3.77 Rsun. Let's get a second recon spectrum near phase 0.25 to check for a brown dwarf or stellar companion."
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "imaging_reports_no_companion": {
+          "type": "noul",
+          "noul": 0.03
+        },
+        "imaging_reports_companion_present": {
+          "type": "noul",
+          "noul": 0.08
+        },
+        "spectroscopy_indicates_nonplanetary_companion": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "spectroscopy_consistent_with_planet": {
+          "type": "noul",
+          "noul": 0.93
+        },
+        "host_star_described_as_evolved": {
+          "type": "noul",
+          "noul": 0.95
+        },
+        "followup_reported_concluded": {
+          "type": "noul",
+          "noul": 0.95
+        },
+        "reports_on_target_detection": {
+          "type": "noul",
+          "noul": 0.07
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 2.22,
+          "confidence": 0.21,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'perhaps', 'may be'; the conclusion is not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats or a request for more data",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.0,
+            "1": 0.28,
+            "2": 0.3,
+            "3": 0.34,
+            "4": 0.08
+          }
+        },
+        "indicates_retired_or_rejected": {
+          "type": "noul",
+          "noul": 0.05
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.06
+        },
+        "contains_object_designation": {
+          "type": "noul",
+          "noul": 0.99
+        }
+      },
+      "usage": {
+        "input_tokens": 3705,
+        "output_tokens": 243
+      }
+    }
+  },
+  "B21": {
+    "case": {
+      "cid": "B21",
+      "stratum": "T06_rv_binary",
+      "toi": "1423.01",
+      "tic": 346418409,
+      "len": 1179,
+      "text": "T0346418409, 22:58:26.42 39:39:31.90, V=0.0, PM=87.7, J-K=0.57, Period=2.8 TOI-1423,Rp=6.4 2019-11-09 TRES, pha=20.22, RV=-15.098, Teff=5000+/-125, log(g)=4.50+/-0.25, Vrot=1.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.969, SNRe=30.2, R=m The first TRES observation reveals an early K dwarf with almost no rotation. Let's get a second TRES observation near phase 0.75. T0346418409, 22:58:26.42 39:39:31.90, V=11.7, PM=87.7, J-K=0.57, Period=2.8 TOI-1423,Rp=6.4 2019-11-09 TRES, pha=20.22, RV=-15.098, Teff=5000+/-125, log(g)=4.50+/-0.25, Vrot=1.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.969, SNRe=30.2, R=m 2019-12-19 TRES, pha=34.73, RV=-14.686, Teff=5000+/-125, log(g)=4.50+/-0.25, Vrot=2.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.932, SNRe=18.5, R=m The second TRES observation yields a significant velocity shift that is in phase with the photometric ephemeris and implies a hot Jupiter companion. No more recon spectra are needed. WIYN speckle imaging using NESSI was taken of TIC346418409 on 2021-10-24. Speckle images were acquired at 562 and 832nm No secondary sources were detected. See separate plots/tables for the limiting magnitude of the field as a function of distance from the target star."
+    },
+    "state": {
+      "notes": "T0346418409, 22:58:26.42 39:39:31.90, V=0.0, PM=87.7, J-K=0.57, Period=2.8 TOI-1423,Rp=6.4 2019-11-09 TRES, pha=20.22, RV=-15.098, Teff=5000+/-125, log(g)=4.50+/-0.25, Vrot=1.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.969, SNRe=30.2, R=m The first TRES observation reveals an early K dwarf with almost no rotation. Let's get a second TRES observation near phase 0.75. T0346418409, 22:58:26.42 39:39:31.90, V=11.7, PM=87.7, J-K=0.57, Period=2.8 TOI-1423,Rp=6.4 2019-11-09 TRES, pha=20.22, RV=-15.098, Teff=5000+/-125, log(g)=4.50+/-0.25, Vrot=1.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.969, SNRe=30.2, R=m 2019-12-19 TRES, pha=34.73, RV=-14.686, Teff=5000+/-125, log(g)=4.50+/-0.25, Vrot=2.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.932, SNRe=18.5, R=m The second TRES observation yields a significant velocity shift that is in phase with the photometric ephemeris and implies a hot Jupiter companion. No more recon spectra are needed. WIYN speckle imaging using NESSI was taken of TIC346418409 on 2021-10-24. Speckle images were acquired at 562 and 832nm No secondary sources were detected. See separate plots/tables for the limiting magnitude of the field as a function of distance from the target star."
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "imaging_reports_no_companion": {
+          "type": "noul",
+          "noul": 0.8
+        },
+        "imaging_reports_companion_present": {
+          "type": "noul",
+          "noul": 0.06
+        },
+        "spectroscopy_indicates_nonplanetary_companion": {
+          "type": "noul",
+          "noul": 0.03
+        },
+        "spectroscopy_consistent_with_planet": {
+          "type": "noul",
+          "noul": 0.97
+        },
+        "host_star_described_as_evolved": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "followup_reported_concluded": {
+          "type": "noul",
+          "noul": 0.95
+        },
+        "reports_on_target_detection": {
+          "type": "noul",
+          "noul": 0.07
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 3.26,
+          "confidence": 0.78,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'perhaps', 'may be'; the conclusion is not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats or a request for more data",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.0,
+            "1": 0.0,
+            "2": 0.0,
+            "3": 0.74,
+            "4": 0.26
+          }
+        },
+        "indicates_retired_or_rejected": {
+          "type": "noul",
+          "noul": 0.03
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.21
+        },
+        "contains_object_designation": {
+          "type": "noul",
+          "noul": 0.99
+        }
+      },
+      "usage": {
+        "input_tokens": 3743,
+        "output_tokens": 243
+      }
+    }
+  },
+  "B22": {
+    "case": {
+      "cid": "B22",
+      "stratum": "T07_giant_host",
+      "toi": "2151.01",
+      "tic": 23389848,
+      "len": 1093,
+      "text": "T0023389848, 18:20:28.31 30:51:20.90, V=10.8, PM=17.7, J-K=0.42, Period=15.6 TOI-2151,Rp=16.1 2020-08-19 TRES, pha=4.24, RV=-29.874, Teff=5750+/-125, log(g)=4.00+/-0.25, Vrot=8.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.949, SNRe=27.9, R=m The first TRES observation reveals an early G star, somewhat evolved. Let's get a second TRES recon spectrum near phase 0.75 T0023389848, 18:20:28.31 30:51:20.90, V=10.8, PM=17.7, J-K=0.42, Period=15.6 TOI-2151,Rp=16.1 2020-08-19 TRES, pha=4.24, RV=-29.874, Teff=5750+/-125, log(g)=4.00+/-0.25, Vrot=8.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.949, SNRe=27.9, R=m 2020-09-11 TRES, pha=5.71, RV=-77.097, Teff=5750+/-125, log(g)=4.00+/-0.25, Vrot=6.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.944, SNRe=28.1, R=m The two TRES observations yield a velocity offset of 47.2 km/s that is out of phase with the photometric ephemeris. There is a gap in the TESS light curve at phase 0.5, so the transit event could be the secondary eclipse of an eclipsing binary for which the primary eclipse falls in the gap. A planetary companion is ruled out, so no more TRES recon spectra are needed."
+    },
+    "state": {
+      "notes": "T0023389848, 18:20:28.31 30:51:20.90, V=10.8, PM=17.7, J-K=0.42, Period=15.6 TOI-2151,Rp=16.1 2020-08-19 TRES, pha=4.24, RV=-29.874, Teff=5750+/-125, log(g)=4.00+/-0.25, Vrot=8.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.949, SNRe=27.9, R=m The first TRES observation reveals an early G star, somewhat evolved. Let's get a second TRES recon spectrum near phase 0.75 T0023389848, 18:20:28.31 30:51:20.90, V=10.8, PM=17.7, J-K=0.42, Period=15.6 TOI-2151,Rp=16.1 2020-08-19 TRES, pha=4.24, RV=-29.874, Teff=5750+/-125, log(g)=4.00+/-0.25, Vrot=8.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.949, SNRe=27.9, R=m 2020-09-11 TRES, pha=5.71, RV=-77.097, Teff=5750+/-125, log(g)=4.00+/-0.25, Vrot=6.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.944, SNRe=28.1, R=m The two TRES observations yield a velocity offset of 47.2 km/s that is out of phase with the photometric ephemeris. There is a gap in the TESS light curve at phase 0.5, so the transit event could be the secondary eclipse of an eclipsing binary for which the primary eclipse falls in the gap. A planetary companion is ruled out, so no more TRES recon spectra are needed."
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "imaging_reports_no_companion": {
+          "type": "noul",
+          "noul": 0.03
+        },
+        "imaging_reports_companion_present": {
+          "type": "noul",
+          "noul": 0.07
+        },
+        "spectroscopy_indicates_nonplanetary_companion": {
+          "type": "noul",
+          "noul": 0.77
+        },
+        "spectroscopy_consistent_with_planet": {
+          "type": "noul",
+          "noul": 0.06
+        },
+        "host_star_described_as_evolved": {
+          "type": "noul",
+          "noul": 0.98
+        },
+        "followup_reported_concluded": {
+          "type": "noul",
+          "noul": 0.97
+        },
+        "reports_on_target_detection": {
+          "type": "noul",
+          "noul": 0.14
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 3.18,
+          "confidence": 0.48,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'perhaps', 'may be'; the conclusion is not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats or a request for more data",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.0,
+            "1": 0.08,
+            "2": 0.07,
+            "3": 0.45,
+            "4": 0.4
+          }
+        },
+        "indicates_retired_or_rejected": {
+          "type": "noul",
+          "noul": 0.35
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.05
+        },
+        "contains_object_designation": {
+          "type": "noul",
+          "noul": 0.98
+        }
+      },
+      "usage": {
+        "input_tokens": 3717,
+        "output_tokens": 243
+      }
+    }
+  },
+  "B23": {
+    "case": {
+      "cid": "B23",
+      "stratum": "T08_ephemeris",
+      "toi": "4443.02",
+      "tic": 158241252,
+      "len": 1150,
+      "text": "T0158241252, 18:17:04.53 21:54:33.90, V=8.5, PM=57.0, J-K=0.30, Period=1.9 TOI-4443,Rp=1.5 2021-09-18 TRES, pha=45.70, RV=-27.777, Teff=6000+/-125, log(g)=4.50+/-0.25, Vrot=4.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.981, SNRe=47.9, R=m The first TRES observation reveals a good-looking G dwarf that is nearby and very bright. Let's get a second TRES recon spectrum near phase 0.25. T0158241252, 18:17:04.53 21:54:33.90, V=8.5, PM=57.0, J-K=0.30, Period=1.9 TOI-4443,Rp=1.5 2021-09-18 TRES, pha=45.70, RV=-27.777, Teff=6000+/-125, log(g)=4.50+/-0.25, Vrot=4.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.981, SNRe=47.9, R=m 2021-09-19 TRES, pha=46.23, RV=-27.685, Teff=6000+/-125, log(g)=4.50+/-0.25, Vrot=4.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.968, SNRe=38.1, R=m The two TRES observations yield a velocity offset of 92 m/s that is out of phase with the photometric ephemeris. No more TRES recon spectra are needed. WIYN speckle imaging using NESSI was taken of TIC158241252 on 2022-04-18.Speckle images were acquired at 832nmNo secondary sources were detected.See separate plots/tables for the limiting magnitudeof the field as a function of distance from the targetstar."
+    },
+    "state": {
+      "notes": "T0158241252, 18:17:04.53 21:54:33.90, V=8.5, PM=57.0, J-K=0.30, Period=1.9 TOI-4443,Rp=1.5 2021-09-18 TRES, pha=45.70, RV=-27.777, Teff=6000+/-125, log(g)=4.50+/-0.25, Vrot=4.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.981, SNRe=47.9, R=m The first TRES observation reveals a good-looking G dwarf that is nearby and very bright. Let's get a second TRES recon spectrum near phase 0.25. T0158241252, 18:17:04.53 21:54:33.90, V=8.5, PM=57.0, J-K=0.30, Period=1.9 TOI-4443,Rp=1.5 2021-09-18 TRES, pha=45.70, RV=-27.777, Teff=6000+/-125, log(g)=4.50+/-0.25, Vrot=4.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.981, SNRe=47.9, R=m 2021-09-19 TRES, pha=46.23, RV=-27.685, Teff=6000+/-125, log(g)=4.50+/-0.25, Vrot=4.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.968, SNRe=38.1, R=m The two TRES observations yield a velocity offset of 92 m/s that is out of phase with the photometric ephemeris. No more TRES recon spectra are needed. WIYN speckle imaging using NESSI was taken of TIC158241252 on 2022-04-18.Speckle images were acquired at 832nmNo secondary sources were detected.See separate plots/tables for the limiting magnitudeof the field as a function of distance from the targetstar."
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "imaging_reports_no_companion": {
+          "type": "noul",
+          "noul": 0.78
+        },
+        "imaging_reports_companion_present": {
+          "type": "noul",
+          "noul": 0.05
+        },
+        "spectroscopy_indicates_nonplanetary_companion": {
+          "type": "noul",
+          "noul": 0.06
+        },
+        "spectroscopy_consistent_with_planet": {
+          "type": "noul",
+          "noul": 0.13
+        },
+        "host_star_described_as_evolved": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "followup_reported_concluded": {
+          "type": "noul",
+          "noul": 0.96
+        },
+        "reports_on_target_detection": {
+          "type": "noul",
+          "noul": 0.06
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 3.27,
+          "confidence": 0.74,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'perhaps', 'may be'; the conclusion is not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats or a request for more data",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.0,
+            "1": 0.0,
+            "2": 0.02,
+            "3": 0.69,
+            "4": 0.29
+          }
+        },
+        "indicates_retired_or_rejected": {
+          "type": "noul",
+          "noul": 0.06
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.05
+        },
+        "contains_object_designation": {
+          "type": "noul",
+          "noul": 0.99
+        }
+      },
+      "usage": {
+        "input_tokens": 3745,
+        "output_tokens": 243
+      }
+    }
+  },
+  "B24": {
+    "case": {
+      "cid": "B24",
+      "stratum": "T09_kepler_note",
+      "toi": "7909.01",
+      "tic": 27454084,
+      "len": 2061,
+      "text": "Extracted KOI1474 observing note from ExoFOP-Kepler on 2020-11-02 2011-04-16 TRES, phase=9.16, Teff=6000, log(g)=3.5, Vrot=16, Vrad=-25.403, ccfPeak=0.906 1474C-SQ20110424.ps The light curve for this target looks strange. It appears as though the depth is getting shallower over time, and if my eyes are following each successive transit correctly (see *'s vs +'s), the time of mid-transit is shifting. It seems like there are some dynamics here and/or these are stellar eclipses. With a modeled companion radius of 1.75 R_J, it wouldn't surprise me to find that this is a false positive. Let's get another exposure to look for velocity variation. Extracted KOI1474 observing note from ExoFOP-Kepler on 2020-11-02 2011-04-16 TRES, phase=9.16, Teff=6000, log(g)=3.5, Vrot=16, Vrad=-25.403, ccfPeak=0.906 2011-05-21 TRES, phase=9.66, Teff=6250, log(g)=4.0, Vrot=16, Vrad=-24.887, ccfPeak=0.935 1474C-SQ20110526.ps The velocity variation of 600 m/s is probably within the errors given that the spectra are from 2 different instruments. However, given the suspicious light curve ( here ), I wouldn't be surprised if the variation is due in part to an unseen companion or even the transiting object itself. This deserves more attention, but probably not more velocities right now. Those should be requested if there is evidence that they will be helpful. Extracted KOI1474 observing note from ExoFOP-Kepler on 2020-11-02 WIYN speckle imaging was taken of K01474 on 2011-06-15. The 2.8x2.8 arcsec FOV was centered on the target star. No secondary sources were detected. See separate plots/tables for the limiting magnitude of the field as a function of distance from the target star. Extracted KOI1474 observing note from ExoFOP-Kepler on 2020-11-02 No companion detected within 4 arcsec Extracted KOI1474 observing note from ExoFOP-Kepler on 2020-11-02 No companion detected within 4 arcsec Extracted KOI1474 observing note from ExoFOP-Kepler on 2020-11-02 Robo-AO imaging of KOI-1474 on 2013-08-16 No companions detected within 4.0\" https://arxiv.org/abs/1604.08604"
+    },
+    "state": {
+      "notes": "Extracted KOI1474 observing note from ExoFOP-Kepler on 2020-11-02 2011-04-16 TRES, phase=9.16, Teff=6000, log(g)=3.5, Vrot=16, Vrad=-25.403, ccfPeak=0.906 1474C-SQ20110424.ps The light curve for this target looks strange. It appears as though the depth is getting shallower over time, and if my eyes are following each successive transit correctly (see *'s vs +'s), the time of mid-transit is shifting. It seems like there are some dynamics here and/or these are stellar eclipses. With a modeled companion radius of 1.75 R_J, it wouldn't surprise me to find that this is a false positive. Let's get another exposure to look for velocity variation. Extracted KOI1474 observing note from ExoFOP-Kepler on 2020-11-02 2011-04-16 TRES, phase=9.16, Teff=6000, log(g)=3.5, Vrot=16, Vrad=-25.403, ccfPeak=0.906 2011-05-21 TRES, phase=9.66, Teff=6250, log(g)=4.0, Vrot=16, Vrad=-24.887, ccfPeak=0.935 1474C-SQ20110526.ps The velocity variation of 600 m/s is probably within the errors given that the spectra are from 2 different instruments. However, given the suspicious light curve ( here ), I wouldn't be surprised if the variation is due in part to an unseen companion or even the transiting object itself. This deserves more attention, but probably not more velocities right now. Those should be requested if there is evidence that they will be helpful. Extracted KOI1474 observing note from ExoFOP-Kepler on 2020-11-02 WIYN speckle imaging was taken of K01474 on 2011-06-15. The 2.8x2.8 arcsec FOV was centered on the target star. No secondary sources were detected. See separate plots/tables for the limiting magnitude of the field as a function of distance from the target star. Extracted KOI1474 observing note from ExoFOP-Kepler on 2020-11-02 No companion detected within 4 arcsec Extracted KOI1474 observing note from ExoFOP-Kepler on 2020-11-02 No companion detected within 4 arcsec Extracted KOI1474 observing note from ExoFOP-Kepler on 2020-11-02 Robo-AO imaging of KOI-1474 on 2013-08-16 No companions detected within 4.0\" https://arxiv.org/abs/1604.08604"
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "imaging_reports_no_companion": {
+          "type": "noul",
+          "noul": 0.97
+        },
+        "imaging_reports_companion_present": {
+          "type": "noul",
+          "noul": 0.05
+        },
+        "spectroscopy_indicates_nonplanetary_companion": {
+          "type": "noul",
+          "noul": 0.17
+        },
+        "spectroscopy_consistent_with_planet": {
+          "type": "noul",
+          "noul": 0.09
+        },
+        "host_star_described_as_evolved": {
+          "type": "noul",
+          "noul": 0.07
+        },
+        "followup_reported_concluded": {
+          "type": "noul",
+          "noul": 0.11
+        },
+        "reports_on_target_detection": {
+          "type": "noul",
+          "noul": 0.42
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 1.67,
+          "confidence": 0.71,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'perhaps', 'may be'; the conclusion is not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats or a request for more data",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.0,
+            "1": 0.34,
+            "2": 0.65,
+            "3": 0.01,
+            "4": 0.0
+          }
+        },
+        "indicates_retired_or_rejected": {
+          "type": "noul",
+          "noul": 0.08
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.05
+        },
+        "contains_object_designation": {
+          "type": "noul",
+          "noul": 0.98
+        }
+      },
+      "usage": {
+        "input_tokens": 3866,
+        "output_tokens": 243
+      }
+    }
+  },
+  "B25": {
+    "case": {
+      "cid": "B25",
+      "stratum": "T10_validated",
+      "toi": "192.01",
+      "tic": 183537452,
+      "len": 187,
+      "text": "45 CORALIE RVs from 2009-08-27 to 2021-11-09. RVs, CCF, Spectra available on DACE: https://dace.unige.ch/radialVelocities/?pattern=Wasp-29 Status: WASP-29 published by Hellier et al. 2010"
+    },
+    "state": {
+      "notes": "45 CORALIE RVs from 2009-08-27 to 2021-11-09. RVs, CCF, Spectra available on DACE: https://dace.unige.ch/radialVelocities/?pattern=Wasp-29 Status: WASP-29 published by Hellier et al. 2010"
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "imaging_reports_no_companion": {
+          "type": "noul",
+          "noul": 0.03
+        },
+        "imaging_reports_companion_present": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "spectroscopy_indicates_nonplanetary_companion": {
+          "type": "noul",
+          "noul": 0.05
+        },
+        "spectroscopy_consistent_with_planet": {
+          "type": "noul",
+          "noul": 0.29
+        },
+        "host_star_described_as_evolved": {
+          "type": "noul",
+          "noul": 0.05
+        },
+        "followup_reported_concluded": {
+          "type": "noul",
+          "noul": 0.03
+        },
+        "reports_on_target_detection": {
+          "type": "noul",
+          "noul": 0.05
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 3.81,
+          "confidence": 0.84,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'perhaps', 'may be'; the conclusion is not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats or a request for more data",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.02,
+            "1": 0.0,
+            "2": 0.0,
+            "3": 0.11,
+            "4": 0.87
+          }
+        },
+        "indicates_retired_or_rejected": {
+          "type": "noul",
+          "noul": 0.03
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.97
+        },
+        "contains_object_designation": {
+          "type": "noul",
+          "noul": 0.99
+        }
+      },
+      "usage": {
+        "input_tokens": 3212,
+        "output_tokens": 243
+      }
+    }
+  },
+  "B26": {
+    "case": {
+      "cid": "B26",
+      "stratum": "T11_double_lined",
+      "toi": "582.01",
+      "tic": 287474726,
+      "len": 998,
+      "text": "T0287474726, 08:28:30.74 -28:21:33.30, V=9.4, PM=0.0, J-K=0.00, Period=3.7 2019-04-21 TRES, pha=20.18, RV=79.438, Teff=6000+/-125, log(g)=2.00+/-0.25, Vrot=180.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.444, SNRe=43.8, R=m The first TRES observation reveals a very hot star with extremely rapid rotation. The core of Halpha is sharp and curious. Either it is doubled or there is an sharp emission feature offset to the blue. No more TRES observations are needed, unless George requests them. T0287474726, 08:28:30.74 -28:21:33.30, V=9.4, PM=0.0, J-K=0.00, Period=3.7 \u00bf, TOI-\u00bf The second TRES observation confirms the very rapid rotation, so pay no attention to the values reported by the standard pipeline for stellar parameters. The Halpha line is again doubled, but the stronger and weaker cores do not swap sides, as would be expected if this is a double-lined binary, because the two exposures are at opposite quadratures. This is not a good target for PRV work, and no more TRES observations are needed"
+    },
+    "state": {
+      "notes": "T0287474726, 08:28:30.74 -28:21:33.30, V=9.4, PM=0.0, J-K=0.00, Period=3.7 2019-04-21 TRES, pha=20.18, RV=79.438, Teff=6000+/-125, log(g)=2.00+/-0.25, Vrot=180.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.444, SNRe=43.8, R=m The first TRES observation reveals a very hot star with extremely rapid rotation. The core of Halpha is sharp and curious. Either it is doubled or there is an sharp emission feature offset to the blue. No more TRES observations are needed, unless George requests them. T0287474726, 08:28:30.74 -28:21:33.30, V=9.4, PM=0.0, J-K=0.00, Period=3.7 \u00bf, TOI-\u00bf The second TRES observation confirms the very rapid rotation, so pay no attention to the values reported by the standard pipeline for stellar parameters. The Halpha line is again doubled, but the stronger and weaker cores do not swap sides, as would be expected if this is a double-lined binary, because the two exposures are at opposite quadratures. This is not a good target for PRV work, and no more TRES observations are needed"
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "imaging_reports_no_companion": {
+          "type": "noul",
+          "noul": 0.03
+        },
+        "imaging_reports_companion_present": {
+          "type": "noul",
+          "noul": 0.07
+        },
+        "spectroscopy_indicates_nonplanetary_companion": {
+          "type": "noul",
+          "noul": 0.1
+        },
+        "spectroscopy_consistent_with_planet": {
+          "type": "noul",
+          "noul": 0.06
+        },
+        "host_star_described_as_evolved": {
+          "type": "noul",
+          "noul": 0.08
+        },
+        "followup_reported_concluded": {
+          "type": "noul",
+          "noul": 0.97
+        },
+        "reports_on_target_detection": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 3.18,
+          "confidence": 0.65,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'perhaps', 'may be'; the conclusion is not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats or a request for more data",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.0,
+            "1": 0.01,
+            "2": 0.1,
+            "3": 0.59,
+            "4": 0.3
+          }
+        },
+        "indicates_retired_or_rejected": {
+          "type": "noul",
+          "noul": 0.07
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "contains_object_designation": {
+          "type": "noul",
+          "noul": 0.92
+        }
+      },
+      "usage": {
+        "input_tokens": 3506,
+        "output_tokens": 243
+      }
+    }
+  },
+  "B27": {
+    "case": {
+      "cid": "B27",
+      "stratum": "T12_glued_negation",
+      "toi": "4463.01",
+      "tic": 8599009,
+      "len": 1189,
+      "text": "T0008599009, 18:37:25.95 18:43:47.00, V=11.0, PM=51.0, J-K=0.40, Period=2.9 TOI-4463,Rp=12.3 2021-09-16 TRES, pha=20.21, RV=-89.769, Teff=5750+/-125, log(g)=4.50+/-0.25, Vrot=4.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.977, SNRe=40.7, R=m The first TRES observation reveals a good-looking Sun-like spectrum. Let's get a second TRES recon spectrum near phase 0.75. T0008599009, 18:37:25.95 18:43:47.00, V=11.0, PM=51.0, J-K=0.40, Period=2.9 TOI-4463,Rp=12.3 2021-09-16 TRES, pha=20.21, RV=-89.769, Teff=5750+/-125, log(g)=4.50+/-0.25, Vrot=4.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.977, SNRe=40.7, R=m 2021-09-29 TRES, pha=24.70, RV=-89.546, Teff=5750+/-125, log(g)=4.50+/-0.25, Vrot=4.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.974, SNRe=40.4, R=m The two TRES observations yield a velocity offset of 223 m/s that is in phase with the photometric ephemeris and is consistent with a companion of about one Jupiter mass. No more TRES recon spectra are needed. WIYN speckle imaging using NESSI was taken of TIC8599009 on 2022-05-05.Speckle images were acquired at 832nmNo secondary sources were detected.See separate plots/tables for the limiting magnitudeof the field as a function of distance from the targetstar."
+    },
+    "state": {
+      "notes": "T0008599009, 18:37:25.95 18:43:47.00, V=11.0, PM=51.0, J-K=0.40, Period=2.9 TOI-4463,Rp=12.3 2021-09-16 TRES, pha=20.21, RV=-89.769, Teff=5750+/-125, log(g)=4.50+/-0.25, Vrot=4.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.977, SNRe=40.7, R=m The first TRES observation reveals a good-looking Sun-like spectrum. Let's get a second TRES recon spectrum near phase 0.75. T0008599009, 18:37:25.95 18:43:47.00, V=11.0, PM=51.0, J-K=0.40, Period=2.9 TOI-4463,Rp=12.3 2021-09-16 TRES, pha=20.21, RV=-89.769, Teff=5750+/-125, log(g)=4.50+/-0.25, Vrot=4.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.977, SNRe=40.7, R=m 2021-09-29 TRES, pha=24.70, RV=-89.546, Teff=5750+/-125, log(g)=4.50+/-0.25, Vrot=4.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.974, SNRe=40.4, R=m The two TRES observations yield a velocity offset of 223 m/s that is in phase with the photometric ephemeris and is consistent with a companion of about one Jupiter mass. No more TRES recon spectra are needed. WIYN speckle imaging using NESSI was taken of TIC8599009 on 2022-05-05.Speckle images were acquired at 832nmNo secondary sources were detected.See separate plots/tables for the limiting magnitudeof the field as a function of distance from the targetstar."
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "imaging_reports_no_companion": {
+          "type": "noul",
+          "noul": 0.71
+        },
+        "imaging_reports_companion_present": {
+          "type": "noul",
+          "noul": 0.07
+        },
+        "spectroscopy_indicates_nonplanetary_companion": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "spectroscopy_consistent_with_planet": {
+          "type": "noul",
+          "noul": 0.98
+        },
+        "host_star_described_as_evolved": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "followup_reported_concluded": {
+          "type": "noul",
+          "noul": 0.96
+        },
+        "reports_on_target_detection": {
+          "type": "noul",
+          "noul": 0.06
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 3.12,
+          "confidence": 0.88,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'perhaps', 'may be'; the conclusion is not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats or a request for more data",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.0,
+            "1": 0.0,
+            "2": 0.01,
+            "3": 0.86,
+            "4": 0.13
+          }
+        },
+        "indicates_retired_or_rejected": {
+          "type": "noul",
+          "noul": 0.03
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.14
+        },
+        "contains_object_designation": {
+          "type": "noul",
+          "noul": 0.99
+        }
+      },
+      "usage": {
+        "input_tokens": 3753,
+        "output_tokens": 243
+      }
+    }
+  }
+}

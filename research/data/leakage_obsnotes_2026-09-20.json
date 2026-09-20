@@ -1,0 +1,86 @@
+{
+  "corpus": {
+    "n": 1482,
+    "base_rate": 0.5377867746288799
+  },
+  "clauses": {
+    "L1_retired": {
+      "n": 17,
+      "pct": 1.147098515519568,
+      "p_y1": 0.23529411764705882,
+      "marginal": 10
+    },
+    "L2_tfop_disposition": {
+      "n": 0,
+      "pct": 0.0,
+      "p_y1": null,
+      "marginal": 0
+    },
+    "L3_confirmed": {
+      "n": 101,
+      "pct": 6.815114709851552,
+      "p_y1": 0.8910891089108911,
+      "marginal": 19
+    },
+    "L4a_designation_catalogue": {
+      "n": 1,
+      "pct": 0.06747638326585695,
+      "p_y1": 1.0,
+      "marginal": 0
+    },
+    "L4b_designation_planet_letter": {
+      "n": 0,
+      "pct": 0.0,
+      "p_y1": null,
+      "marginal": 0
+    },
+    "L5_explicit_disposition": {
+      "n": 0,
+      "pct": 0.0,
+      "p_y1": null,
+      "marginal": 0
+    },
+    "L6_archive_provenance": {
+      "n": 231,
+      "pct": 15.587044534412955,
+      "p_y1": 0.948051948051948,
+      "marginal": 82
+    },
+    "L7_structured_disposition_field": {
+      "n": 136,
+      "pct": 9.176788124156545,
+      "p_y1": 0.9411764705882353,
+      "marginal": 0
+    },
+    "L8_status_line": {
+      "n": 97,
+      "pct": 6.545209176788124,
+      "p_y1": 0.865979381443299,
+      "marginal": 53
+    },
+    "L9_disposition_transition": {
+      "n": 11,
+      "pct": 0.7422402159244265,
+      "p_y1": 0.36363636363636365,
+      "marginal": 4
+    }
+  },
+  "stripped": {
+    "n": 368,
+    "p_y1": 0.875
+  },
+  "g5_arm": {
+    "n": 1114,
+    "tic": 1043,
+    "base_rate": 0.4263913824057451
+  },
+  "g5_arm_without_L6": {
+    "n": 1196,
+    "tic": 1122,
+    "base_rate": 0.46321070234113715
+  },
+  "tripwire": {
+    "clause": "L5_explicit_disposition",
+    "fired": 0
+  }
+}

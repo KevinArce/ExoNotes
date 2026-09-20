@@ -1869,3 +1869,453 @@ size, the raised 0.68 detection bar and the G1 result are timestamped in public 
 writes a question and before any full-corpus Jev call. Jev spend unchanged at **~$0.0046**.
 **Next:** TASK B, per `HANDOFF_PROMPT.md`.
 ---
+## [2026-09-20T18:58Z] SESSION START — Claude Opus 5
+**Resumption:** last entry is the 18:52Z `COMMIT + PUSH — DONE`, `Next:` = TASK B. No orphan
+`STARTED`. Nothing interrupted.
+**Read before acting:** `WORKLOG.md` tail from 17:05Z, `PREREGISTRATION.md` §11.2 (A-13…A-17)
+then §11.1 (A-1…A-8) and §2/§5, `AUDIT_01_PREFLIGHT_REVIEW.md`, `PLAN.md` §0.5 + §1,
+`research/05_question_design_gate.md`, `src/exonotes/questions.py`,
+`scripts/025_question_gate.py`.
+
+**Handoff open item is already closed — no action needed.** `HANDOFF_PROMPT.md` still carries a
+🚩 OPEN ITEM saying TASK A/A2 are "complete but UNCOMMITTED". They were committed at 18:52Z
+(`cfe8569`) and pushed. Verified now: `git status` clean, `git log` carries `cfe8569` and
+`4e4983c`. The handoff text is stale on this point; the 18:52Z entry is authoritative.
+
+**Discrepancy recorded — `HANDOFF_PROMPT.md` cites an amendment "A-9" that does not exist.**
+The handoff's TASK B constraint reads "**Blind the cases (A-9)**". `PREREGISTRATION.md` §11.1
+runs A-1 … A-8 and §11.2 runs A-13 … A-17; there is no A-9 … A-12 in the registration. The
+blinding requirement is real but is recorded in `WORKLOG.md` 16:—Z audit block ("Question-gate
+cases must be **label-blinded** in TASK B; the r4 cases carried `y=`") and in
+`AUDIT_01_PREFLIGHT_REVIEW.md`, **not** as a registered amendment. It is binding regardless of
+its number, is followed here, and is registered properly in §11.3 as part of this task rather
+than left as a dangling reference.
+
+**State verified read-only before starting:**
+- `analysis_set_obsnotes` = **1,482 rows / 1,388 TIC / base 0.5378**, matching A-13.
+- Length distribution of `notes`, measured now: min 20 · p10 205 · p25 386 · **p50 870** ·
+  p75 1,266 · p90 2,121 · **p95 3,261** · p99 11,391 · **max 41,268** · total 1,898,624 chars.
+- DuckDB tables present: `analysis_set`, `analysis_set_obsnotes`, `baseline_results`,
+  `baseline_summary`, `gate_g1_obsnotes`, `ingest_provenance`, `ingest_stats`, `noise_floor`,
+  `noise_floor_obsnotes`, `obsnotes_coverage`, `obsnotes_raw`, `obsnotes_text`, `toi_snapshot`.
+
+**Live TypeSafe docs read this session** (per project memory, which directs the `typesafe-ai`
+skill + live docs): `concepts/state`, `primitives/noul`, `primitives/score`,
+`primitives/advanced`, `api`, `models`, `model-jaggedness/jev-1.13`. Three things bind TASK B:
+1. **`criteria: {true, false}` is the documented Noul field** for stating the negative case,
+   which §2.4 rule 2 requires. It also accepts **structured** values (`{what, examples}`), and
+   `instructions` accepts `{question, inspect, focus}`. Both are documented, not invented.
+2. **Context limits:** 64k tokens per request, **32k for `state` plus the longest question**.
+   The 41,268-char max row is ~10.3k tokens, so it fits — **truncation is not forced by the
+   API limit.** The handoff's "truncate or the tripwire will fire" is a cost concern, not a
+   hard limit, and the cost re-projection is what settles it.
+3. **`jev-1.13` documents accuracy loss on large states carrying irrelevant detail** — named
+   "context rot" on the jaggedness page. Our p95 row is 3,261 chars and the max is 41,268, and
+   a long row is many notes concatenated across years, most of them irrelevant to any one
+   question. **This is a first-class risk to TASK B and C and must be measured on long cases,
+   not assumed away.** The gate case set is therefore stratified to over-sample the long tail.
+**Picking up:** TASK B — re-run Step 2.5 on observer-note text.
+**Jev spend this step:** $0.00 · **running total:** ~$0.0046
+---
+## [2026-09-20T19:02Z] TASK B — STARTED
+**Doing:** re-run Step 2.5 (the question-design gate) against **real observer-note text**, as
+`PREREGISTRATION.md` §2 requires as a binding precondition of Step 3, and re-freeze the set
+under a new `QUESTION_SET_VERSION`.
+**Method:** same as `scripts/025_question_gate.py` — ~20–25 cases drawn **verbatim** from
+`analysis_set_obsnotes.notes`, each question's positive / negative / nearest confusable, every
+answer inspected by eye.
+**Binding constraints being applied** (handoff + §11.1/§11.2):
+- Candidate features are judged against the **≈0.68** univariate-AUC bar of **A-15**, not 0.65.
+- Cases are **label-blinded**: sampled programmatically across the length distribution, `y`
+  withheld from the case file and from my expectations until every answer is inspected.
+- **Model pinned** `MODEL = "jev-1.13.0"` (A-5), with `response["model"]` asserted before persist.
+- **State is `{"notes": ...}`** (A-4). No `toi`.
+- The two questions deleted on `Comments` (§2.3) are **restored as candidates**.
+- Every added column costs ~**0.0115** of dilution (A-15), so a question that cannot plausibly
+  clear 0.68 does not earn a column.
+**Command:** `.venv/bin/python scripts/031_question_gate_obsnotes.py`
+**Idempotent:** yes — responses cached content-addressed on
+`sha256(MODEL + QUESTION_SET_VERSION + state + questions)` under `data/cache/gate_obsnotes/`.
+A re-run costs $0. Bumping `QUESTION_SET_VERSION` is what forces a real re-test.
+**Jev spend this step:** $0.00 so far · **running total:** ~$0.0046
+---
+## [2026-09-20T19:14Z] TASK B — PHASE 1 FINDING: the §2.1 question set has almost no support in this corpus
+**What this is.** The $0 prevalence check that `research/05` §4 ran on `Comments` before spending
+anything, repeated on the obsnotes corpus. It is the cheapest decision-relevant measurement
+available and it changes what TASK B should write. **No Jev call was made.**
+
+### The corpus is a different genre from `Comments`
+`Comments` was TFOP vetting shorthand (`TFOP FP; retired as NEB`). Observer notes are dominated
+by **reconnaissance-spectroscopy and speckle-imaging reports**: a machine-written header block
+(`T0<TIC>, RA DEC, V=…, PM=…, J-K=…, Period=… TOI-…,Rp=…` then `<date> TRES, pha=…, RV=…,
+Teff=…, log(g)=…, Vrot=…, ccf=…, SNRe=…`) followed by one or two human sentences that carry the
+actual judgment — *"The first TRES observation reveals a late F dwarf"*, *"the velocity offset
+is out of phase with the inner planet — this pretty much rules out a stellar or brown dwarf
+companion"*, *"No secondary sources were detected"*, *"No more TRES recon spectra are needed."*
+The header block is **repeated verbatim once per appended note**, so a long row is mostly
+duplicated boilerplate. `latham` alone wrote 2,138 of the 3,963 observer notes across 1,040 TIC.
+
+### Subject-matter prevalence and the univariate AUC ceiling
+For a binary feature, `AUC = 0.5 + (P(fires|y=1) − P(fires|y=0))/2` exactly. Measured on all
+1,482 rows (797 pos / 685 neg, base 0.5378), with deliberately over-broad regexes:
+
+| subject matter | n | % | P(y=1) | AUC | \|AUC\| |
+| :--- | ---: | ---: | ---: | ---: | ---: |
+| TRES recon boilerplate | 954 | 64.4% | 0.433 | 0.364 | **0.636** |
+| follow-up concluded ("no more … needed") | 819 | 55.3% | 0.436 | 0.387 | **0.613** |
+| speckle / "no secondary sources" | 412 | 27.8% | 0.738 | 0.612 | **0.612** |
+| giant / evolved host | 365 | 24.6% | 0.356 | 0.410 | 0.590 |
+| KOI / ExoFOP-Kepler | 108 | 7.3% | 0.954 | 0.561 | 0.561 |
+| DACE / CORALIE / HARPS | 119 | 8.0% | 0.849 | 0.550 | 0.550 |
+| confirmed / validated | 105 | 7.1% | 0.867 | 0.547 | 0.547 |
+| spectroscopic binary (SB1/SB2/SEB) | 70 | 4.7% | 0.114 | 0.460 | 0.540 |
+| RV variation / offset | 642 | 43.3% | 0.492 | 0.460 | 0.540 |
+| **offset EB (NEB/BEB)** | 60 | 4.0% | 0.083 | 0.463 | 0.537 |
+| ephemeris problem | 184 | 12.4% | 0.402 | 0.466 | 0.534 |
+| companion / blend | 471 | 31.8% | 0.495 | 0.472 | 0.528 |
+| **transit morphology** | 47 | 3.2% | 0.340 | 0.487 | 0.513 |
+| retired / rejected | 53 | 3.6% | 0.472 | 0.495 | 0.505 |
+| on-target detection | 21 | 1.4% | 0.381 | 0.496 | 0.504 |
+| **instrumental artifact** | 23 | 1.6% | 0.652 | 0.504 | 0.504 |
+
+**Not one probe clears the A-15 bar of ≈0.68.** The best is 0.636.
+
+### Five of the eight `TIER_PREDICTIVE` questions are near-dead here
+`reports_offset_eclipsing_binary` (4.0% of rows), `mentions_spectroscopic_binary` (4.7%),
+`describes_transit_morphology` (3.2%), `mentions_instrumental_artifact` (**1.6%**) and
+`asserts_ephemeris_problem` (12.4%, AUC 0.534) have essentially no support. §2.3 deleted two
+questions from the `Comments` set for exactly this — *"a feature that is constant across 99.6% of
+rows costs tokens on every call and contributes nothing"* — and the same rule now applies to
+these. `mentions_instrumental_artifact` at **23 rows of 1,482** is in the same position
+`indicates_followup_complete` was in on `Comments`.
+
+### The strongest signals in this corpus are PROVENANCE, not content — and B+meta already has them
+The top three probes all answer *"which follow-up group wrote a note here?"*, not *"what does the
+note say?"*. Measured directly, with grouped 5-fold OOF:
+
+| metadata-only feature | AUC | \|AUC\| |
+| :--- | ---: | ---: |
+| `n_authors` | 0.609 | 0.609 |
+| notes by `latham` (TRES recon) | 0.401 | 0.599 |
+| notes by `everett` (speckle) | 0.586 | 0.586 |
+| `n_notes_obs` | 0.571 | 0.571 |
+| `n_chars` | 0.504 | 0.504 |
+| **all six together, grouped 5-fold OOF** | | **0.6817** |
+
+**A model with no text content at all reaches 0.6817 AUC — the same 0.68 a single Jev feature
+must clear to be visible.** A-7 added the **B+meta** arm on the suspicion that `evidence_depth`
+was a semantic proxy for note count; that suspicion is now **measured and much stronger than
+when it was registered.** This is the decisive design constraint for TASK B:
+
+> **A question earns a column only if its judgment is NOT recoverable from who wrote the note,
+> how many notes there are, and how long they are.** A noul that effectively detects "a speckle
+> imager reported here" is `n_everett` with extra steps, and will be absorbed by B+meta.
+
+### What this does NOT mean
+A regex is a tight proxy for a fixed token (`NEB`, `SB1`) and a **loose** one for a judgment
+("the host is evolved, so the depth implies a stellar companion"; "the RV conclusion rules out a
+stellar companion"). Jev can beat the token where the judgment is semantic and the token is not,
+which is where the remaining candidates are drawn from. These ceilings bound the **subject
+matter's** prevalence, not Jev's accuracy on it.
+**Jev spend this step:** $0.00 · **running total:** ~$0.0046
+**Next:** build the label-blinded case set, then write the r5 candidate questions against these
+findings.
+---
+## [2026-09-20T19:41Z] TASK B — ROUND r5 RESULT: 212/221, and the failures are diagnostic
+**Command:** `.venv/bin/python scripts/032_question_gate_obsnotes.py`
+**Artifacts:** `scripts/031_gate_cases_obsnotes.py` (blinded sampler),
+`scripts/032_question_gate_obsnotes.py`, `src/exonotes/questions.py` (`2026-09-20.r5`),
+`research/data/gate_cases_obsnotes_2026-09-20.json`,
+`research/data/gate_obsnotes_2026-09-20.r5_2026-09-20.json`,
+`data/cache/gate_obsnotes/` (27 responses).
+**Result:** **212/221 assertions passed · 9 FAILED · 12 mid-band nouls.**
+**27 new API calls · 113,948 input tokens · $0.00479** · running total **~$0.0094**.
+Model assertion held: every response reported `jev-1.13.0` (A-5).
+Cases are label-blinded — `--unblind` has **not** been run; `y` has not been looked at.
+
+### The glued-negation hypothesis is REFUTED
+19:31Z flagged that ExoFOP's raw HTML glues the imaging negation to the previous token on 129
+rows (`…acquired at 832nmNo secondary sources were detected.`) and predicted it might flip the
+judgment. **It does not.** Measured on the matched pair the sampler drew on purpose:
+
+| case | boilerplate form | length | `imaging_reports_no_companion` |
+| :--- | :--- | ---: | ---: |
+| B27 | **run-together** (`832nmNo`) | 1,189 | **0.71** |
+| B23 | **run-together** | 1,150 | **0.78** |
+| B09 | **run-together** | 1,122 | **0.77** |
+| B18 | **clean, spaced** | 372 | **0.65** ← fails |
+| B01 | **run-together** | 255 | **0.56** ← fails |
+| B02 | **run-together** | 256 | **0.58** ← fails |
+
+The clean short case scores **lower** than three run-together long ones. The glue is not the
+variable; **length is** — and in the *opposite* direction to the context-rot risk logged at
+18:58Z. The question fails on short notes that contain **nothing but** the imaging boilerplate
+(0.56 / 0.58 / 0.65) and succeeds once that same boilerplate sits inside a longer note
+(0.71 – 0.97 across B07, B09, B10, B11, B12, B13, B21, B23, B24, B27). **No text-normalisation
+fix is warranted; A-17 needs no further amendment on this point.**
+
+### Diagnosis: a negative clause cancelling its own positive — the SAME failure as r3
+`research/05` §5 recorded it once already: `mentions_instrumental_artifact` said *"answer no if
+the text only reports low SNR"*, met a case that had both, and landed at 0.69. My r5 instruction
+carries two exclusions — *"answer no if the text only says that imaging was taken"* and *"saying
+that a limiting magnitude or a plot is available is not a finding"* — and in a standalone
+imaging note **those two clauses describe most of the text**. The finding sentence is one of four;
+the other three are the things I told the model not to count. So it splits. In a longer note the
+excluded material is a small fraction and the finding dominates. **The exclusion must be scoped:
+it applies only when no finding is reported at all.**
+
+### The other eight failures, each with its cause
+| case | question | got | want | cause |
+| :--- | :--- | ---: | :---: | :--- |
+| B19 | `spectroscopy_indicates_nonplanetary_companion` | 0.09 | Y | **The instruction never expands `NEB`.** The text says only *"SG1 indicates there is an NEB"*. This is exactly `research/05` §2: *the corpus speaks in abbreviations, so the question has to as well.* |
+| B11 | `spectroscopy_consistent_with_planet` | 0.38 | Y | Cues list *"rules out a brown dwarf"* but not *"rules out … an eccentric eclipsing binary"*. An EB **is** a stellar companion; the cue list has a real gap. |
+| B08 | `spectroscopy_consistent_with_planet` | 0.64 | Y | Planetary nature established by published RV follow-up, phrased as a paper abstract rather than as a recon conclusion. |
+| B22 | `indicates_retired_or_rejected` | 0.35 | N | Model infers *planetary companion ruled out → rejected*. A multi-hop inference to be **named and forbidden** (§2.4 rule 3). |
+| B17 | `imaging_reports_companion_present` | 0.42 | N | A companion inferred from **radial velocities**, with no imaging in the note at all, is leaking into an imaging question. |
+| B13 | `indicates_confirmed_planet` | 0.61 | Y | 17,836 chars; the phrase *"I thought this published planet would be a good check"* is genuinely incidental. **Accepted, not reworded** — see below. |
+| B01/B02/B18 | `imaging_reports_no_companion` | 0.56/0.58/0.65 | Y | the scoped-exclusion defect above. |
+
+### What already works, and will not be touched
+- **`host_star_described_as_evolved` is the cleanest question in the set.** Positives 0.81–0.99
+  (B04, B05, B12, B17, B19, B20, B22), negatives 0.03–0.08, **zero mid-band**. It passed both
+  traps it was built against: B08's *"giant extrasolar planets"* (giant describes the **planet**)
+  scored **0.08**, and B26's `log(g)=2.00` header was correctly ignored at **0.08**.
+- **`followup_reported_concluded`**: positives 0.93–0.98, negatives 0.03–0.24, zero mid-band.
+- **`spectroscopy_indicates_nonplanetary_companion`** away from B19: 0.77–0.97 positive,
+  0.03–0.17 negative.
+
+### `reports_on_target_detection` is DELETED, on the evidence it was restored to produce
+§2.3 restored it as a candidate because `Comments` lacked support and obsnotes might not.
+**Measured: 1.4% of rows carry the subject matter, and across all 27 cases the question never
+once returned a clear positive** — its whole range is 0.03–0.64, with four cases in the mid-band
+(B11 0.50, B14 0.64, B24 0.42, B17 0.36). That is the definition of a near-0.5 noise column
+under §2.4 rule 6, and it would cost ~0.0115 of A-15 dilution to carry. **Deleted for the same
+reason it was deleted on `Comments`, now measured on this corpus rather than assumed.**
+
+### Decision rule fixed BEFORE r6 runs, as `research/05` §3.1 requires
+r6 is the **second** wording of these five questions. §2.4 rule 4 says delete rather than reword
+a third time. Committed now, before the r6 call:
+> **If `imaging_reports_no_companion` does not reach ≥ 0.70 on B01, B02 and B18 in r6, the
+> question is deleted, not reworded.** Same rule for `spectroscopy_indicates_nonplanetary_companion`
+> on B19, and for `indicates_retired_or_rejected` on B22.
+> **B13's `indicates_confirmed_planet` 0.61 is accepted as a boundary case and NOT rewritten** —
+> rewriting to clear one incidental phrase inside a 17.8k-char note is fitting the question to
+> this 27-case set, which is the overfitting the pre-registration exists to prevent.
+**Jev spend this step:** $0.00479 · **running total:** ~$0.0094
+**Next:** apply the five scoped fixes, bump to r6, re-run (cache makes unchanged questions free).
+---
+## [2026-09-20T19:58Z] TASK B — ROUND r6 RESULT: 219/221, all five decision-rule cases PASS
+**Command:** `.venv/bin/python scripts/032_question_gate_obsnotes.py`
+**Result:** **219/221 assertions passed · 2 FAILED · 3 mid-band nouls** (was 12 in r5).
+**27 new API calls · 119,051 input tokens · $0.00500** · running total **~$0.0144**.
+Every response reported `jev-1.13.0`; the A-5 assertion held on all 27.
+
+### The rule fixed before r6 ran, judged on r6's numbers
+| case | question | r5 | **r6** | required | verdict |
+| :--- | :--- | ---: | ---: | :--- | :--- |
+| B01 | `imaging_reports_no_companion` | 0.56 | **0.80** | ≥ 0.70 | **PASS** |
+| B02 | `imaging_reports_no_companion` | 0.58 | **0.77** | ≥ 0.70 | **PASS** |
+| B18 | `imaging_reports_no_companion` | 0.65 | **0.86** | ≥ 0.70 | **PASS** |
+| B19 | `spectroscopy_indicates_nonplanetary_companion` | 0.09 | **0.84** | ≥ 0.70 | **PASS** |
+| B22 | `indicates_retired_or_rejected` | 0.35 | **0.07** | ≤ 0.30 | **PASS** |
+
+No question reaches a third wording, so §2.4 rule 4 is not triggered.
+
+### What each repair did
+1. **Scoping the imaging exclusion** ("those sentences are not findings, but they do not count
+   *against* one either") lifted every standalone imaging note over the bar and also raised the
+   embedded ones: B07 0.82→0.90, B09 0.77→0.88, B10 0.84→0.91, B11 0.87→0.95, B24 0.97→0.97.
+   **The same repair that fixed the failures improved the cases that already passed**, which is
+   what distinguishes a real fix from fitting to the failing case.
+2. **Expanding `NEB`/`BEB` inside the instruction**: B19 0.09 → **0.84**. This is the third time
+   this project has paid for the same lesson (`research/05` §2): **the corpus speaks in
+   abbreviations, so the question has to as well.**
+3. **Naming "ruled out → rejected" and forbidding it**: B22 `indicates_retired_or_rejected`
+   0.35 → **0.07**. §2.4 rule 3 again, and again it worked where describing the positive better
+   would not have.
+4. **Naming "RV companion → a star was seen"**: B17 `imaging_reports_companion_present`
+   0.42 → **0.07**, with the four genuine imaging detections unmoved (B14 0.99, B15 0.98,
+   B16 0.95, B19 0.96).
+5. **Adding "rules out an eclipsing binary" to the planet-side cues**: B11 0.38 → **0.81**,
+   B08 0.64 → **0.83**.
+
+### The two residual failures, accepted rather than reworded
+- **B13 `indicates_confirmed_planet` 0.61 → 0.56.** Accepted in advance by the rule fixed at
+  19:41Z. The phrase is *"I thought this published planet would be a good check for the RV
+  analysis"*, incidental, inside 17,836 characters.
+- **B10 `spectroscopy_consistent_with_planet` 0.22 → 0.35.** A **regression introduced by fix 5**
+  — broadening the planet-side cues pulled up a note whose only statement is *"a small velocity
+  shift that is consistent with the photometric ephemeris"*, with no companion-mass conclusion.
+  Caught only because every case is re-tested every round, exactly as in `research/05` §5.
+  **Accepted at 2/221 rather than reworded a third time**, per §2.4 rule 4 and the r4 precedent.
+- B25 `spectroscopy_consistent_with_planet` 0.31 is unasserted but sits just above the band.
+
+### Context rot: measured, and smaller than feared
+18:58Z flagged jev-1.13's documented accuracy loss on large states. Across the three long cases
+the questions mostly hold: B14 (10,945 ch) `imaging_reports_companion_present` **0.99** and
+`imaging_reports_no_companion` **0.02**; B15 (12,119 ch) **0.98 / 0.21**; B13 (17,836 ch)
+`imaging_reports_no_companion` **0.97**. The one soft spot is B13's incidental `published`
+phrase at 0.56. **Long states are not disqualifying for this question set**, and B15's 0.21 on
+`imaging_reports_no_companion` — a note that contains both a clean-imaging sentence and a
+`3.36" companion` report — is the correct reading of a genuinely mixed note, not a failure.
+
+### Unblinding — done only now, after every answer above was inspected
+`scripts/031_gate_cases_obsnotes.py --unblind`. The 27 cases are **16 positive / 11 negative**
+(0.59 vs the 0.5378 corpus base rate), so the blinded sampler did not draw a degenerate set.
+**Reported, not acted on.** No question was kept, dropped, or reworded on the basis of these
+labels, and no wording changed after this command was run. 27 cases cannot estimate an AUC, and
+selecting questions by their correlation with `y` on 27 rows is precisely the overfitting the
+pre-registration exists to prevent. Recorded for the audit trail only.
+
+### The frozen set
+`QUESTION_SET_VERSION = "2026-09-20.r6"` — **7 `TIER_PREDICTIVE` + 3 `TIER_LABEL_ECHO` = 10**:
+`imaging_reports_no_companion`, `imaging_reports_companion_present`,
+`spectroscopy_indicates_nonplanetary_companion`, `spectroscopy_consistent_with_planet`,
+`host_star_described_as_evolved`, `followup_reported_concluded`, `author_certainty` (Score);
+`indicates_retired_or_rejected`, `indicates_confirmed_planet`, `contains_object_designation`.
+**k = 7 for the headline model D**, down from the provisional 8 the A-15 noise floor assumed.
+
+**Noted for TASK C, not acted on:** `contains_object_designation` returns ≥ 0.90 on 26 of 27
+cases (the exception is B03, which carries no designation at all). It is close to a constant
+column. It is `TIER_LABEL_ECHO`, so it never enters the headline; it exists to detect the §2.0
+leakage channel, and a near-constant high value is consistent with that channel being present
+almost everywhere in this corpus. A-8 item 11's low-variance exemption for G3 may apply to it.
+**Jev spend this step:** $0.00500 · **running total:** ~$0.0144
+**Next:** re-run the A-2/A-15 noise floor at the frozen k = 7, re-project the TASK C cost from
+the realised length distribution, then register §11.3.
+---
+## [2026-09-20T20:09Z] TASK B — DONE
+**Result:** Step 2.5 is re-run on real observer-note text and the question set is re-frozen at
+**`2026-09-20.r6`**, discharging `PREREGISTRATION.md` §2's binding precondition on Step 3.
+
+| | |
+| :--- | :--- |
+| frozen set | **7 `TIER_PREDICTIVE` + 3 `TIER_LABEL_ECHO` = 10** (was 8 + 3 = 11) |
+| gate | **219/221 assertions on 27 label-blinded real notes**, 3 mid-band |
+| rounds | r5 (212/221, 12 mid-band) → r6. **No question reached a third wording.** |
+| k for model D | **7** (was provisionally 8) |
+| dilution floor / MDE at k=7 | **−0.0105 / +0.0082**; bar unchanged at **≈0.68** |
+| TASK C projection | **$0.2434**, tripwire $0.50 **does not fire**; **no truncation** |
+| Jev spend | 54 calls, 233k input tokens, **$0.00979** this task |
+
+**Registered as `PREREGISTRATION.md` §11.3, amendments A-18 … A-23.** §2's warning box is
+marked discharged and now points at §11.3, which supersedes the §2.1/§2.2 tables.
+
+### The three things a later reader most needs from this task
+1. **The corpus does not contain the study §2 was designed around.** Six of the eight r4
+   predictive questions were retired on measured prevalence — `mentions_instrumental_artifact`
+   had **23 supporting rows out of 1,482**. `Comments` was TFOP vetting shorthand; observer
+   notes are reconnaissance-spectroscopy and speckle-imaging reports. The questions were
+   rebuilt around what is actually here (A-19).
+2. **Metadata alone scores 0.6817 AUC — the same bar a Jev feature must clear.** The strongest
+   signals in this corpus are provenance (which group wrote a note), not content, and A-7's
+   B+meta arm holds all of it. Every r6 question is written to be unanswerable from author,
+   note count, or length, and `evidence_depth` was retired for failing that test (A-23).
+3. **A null is the registered expectation, not a surprise.** No content probe in this corpus
+   clears 0.68 by regex; the best is 0.643. That is written down **before** any feature exists
+   (A-23), next to §8.1's standing commitment to publish a null.
+
+### Corrections to earlier entries in this session, recorded rather than edited
+- **19:31Z was wrong about the run-together text mattering.** I predicted the glued negation
+  (`832nmNo secondary sources were detected`, 129 rows) might flip the imaging judgment. It does
+  not: the clean short case B18 scored **lower** (0.65) than three glued long ones (0.71–0.78).
+  Length drove it, not the glue, and the repair was to the instruction, not to the text. **No
+  amendment to A-17 was warranted and none was made.**
+- **19:14Z's worry that long states would be the problem was also wrong in direction.** The
+  failures were on the **shortest** cases (255/256/372 chars), because my own exclusion clause
+  described most of a standalone imaging note. jev-1.13 held up on 10.9k and 12.1k-char states
+  (0.99 and 0.98 on the imaging question).
+- My sampler's first T04 regex matched `No secondary sources were **detected**` and drew a
+  duplicate rather than a companion-detection case. Fixed in
+  `scripts/031_gate_cases_obsnotes.py` with a comment recording why the obvious regex is wrong.
+
+**Artifacts:** `src/exonotes/questions.py` (r6), `scripts/031_gate_cases_obsnotes.py` (new),
+`scripts/032_question_gate_obsnotes.py` (new),
+`research/data/gate_cases_obsnotes_2026-09-20.json` (new),
+`research/data/gate_obsnotes_2026-09-20.r5_2026-09-20.json` +
+`…r6_2026-09-20.json` (new), `research/data/noise_floor_analysis_set_obsnotes_2026-09-20.json`
+(re-measured at k=7), `duckdb::noise_floor_obsnotes` (k=7),
+`PREREGISTRATION.md` §11.3 + §2 discharge note, `data/cache/gate_obsnotes/` (54 responses).
+**Jev spend this step:** $0.00500 · **running total:** ~$0.0144
+**Next:** TASK B2 — re-derive the G5 clause set on observer-note text ($0 Jev), register it in
+§11 before TASK C. The binding order is B and B2 → C.
+---
+## [2026-09-20T20:26Z] TASK B2 — STARTED / DONE
+**Doing:** re-derive the G5 clause set on observer-note text, as **A-3** requires, measure n
+and P(y=1) per clause exactly as §5 does, audit the marginal rows by eye, and register the
+result in §11 **before** TASK C.
+**Command:** `.venv/bin/python scripts/033_leakage_obsnotes.py`
+**Idempotent:** yes — read-only against the corpus, `CREATE OR REPLACE` on its own tables.
+**Jev spend this step:** **$0.00** — this is a regex measurement, no API calls.
+
+### A-3 confirmed by measurement: the `Comments` clause set is inoperative here
+Run as-is on the 1,482 obsnotes rows, `L2` fires on **0**, `L4b` on **0**, `L4a` on **1**,
+`L1` on 17. Only `L3` does real work (101 rows). Whole set: **118 rows (8.0%)**, against
+**368 (24.8%)** for the set derived here. L4a/L4b are anchored to a comment that *is* a
+designation — an observer note never is.
+
+### The registered set: 10 clauses, three of them new
+`OBSNOTES_PATTERNS` in `src/exonotes/leakage.py`. Full table in `PREREGISTRATION.md` §11.4.
+**G5 arm = 1,114 rows · 1,043 TIC · base 0.426** (stripped 368 rows at P(y=1)=0.875).
+
+| new clause | n | % | P(y=1) | what it catches |
+| :--- | ---: | ---: | ---: | :--- |
+| `L6_archive_provenance` | 231 | 15.6% | **0.948** | `Extracted KOI178 observing note from ExoFOP-Kepler` |
+| `L7_structured_disposition_field` | 136 | 9.2% | 0.941 | `Possible planetary candidate = Yes` — the Kepler/K2 analogue of `Master Disp:` |
+| `L8_status_line` | 97 | 6.5% | 0.866 | `Status: Solved by ESPRESSO-GTO (Sozzetti et al. 2021)` |
+| `L9_disposition_transition` | 11 | 0.7% | 0.364 | `PC => NEB`, `VPC -> VPC+` |
+
+### The §5 eye audit, on the rows each clause strips ALONE
+- **`L1` (10 marginal): clean.** All genuine — *"Retired as an NEB"*, *"Retired as a False
+  Alarm (FA)"*, *"retired as a false positive due to a nearby eclipsing binaries"*.
+- **`L9` (4): clean.** All genuine transitions.
+- **`L3` (19): clean, with a known over-strip** — *"Data will be published in Lillo-Box et al.
+  (2014) in prep"* is future tense and not a confirmation. Safe direction per §5.
+- **`L8` (53): MIXED, and recorded as such.** Most carry the verdict, but some carry only an
+  observation — *"Status: No significant RV variation (RMS 4.4 m/s …), SB2 ruled out"*. L8
+  over-strips those.
+- **`L6` (82): carry NO disposition statement at all.** They read *"Extracted KOI178 observing
+  note from ExoFOP-Kepler on 2020-11-02 Lick Recon: …"* and then ordinary observation.
+
+### `L1_retired` is not the one-directional marker it was on `Comments`
+P(y=1) = **0.235** here against **0.006** there, because observer notes record positive
+transitions too: *"VPC -> VPC+ (and retired from SG1)"*, *"PC->CPC (and retired from SG1)"*.
+Still a disposition echo, still stripped — but the asymmetry that made it look like a pure
+negative marker on `Comments` does not exist here.
+
+### The one judgment call, registered with both arms
+`L6` strips on **provenance**, not on a disposition statement, so it is not "label echo" in
+§2.0's sense. It is stripped because the provenance string alone predicts the label at
+**0.948**, which is the effect G5 exists to rule out whatever its form; §5's standing
+over-stripping rule decides it. **Both arms are registered before any result is seen** (A-25):
+
+| arm | rows | TIC | base |
+| :--- | ---: | ---: | ---: |
+| **G5 registered (with L6)** | **1,114** | **1,043** | **0.426** |
+| sensitivity (without L6) | 1,196 | 1,122 | 0.463 |
+
+**A G5 verdict that flips between the two will be reported as flipping**, not settled after the
+fact by choosing the arm with the nicer answer.
+
+### Audit 01's `false positive` reading is now measured and is wrong
+`false positive` fires on 31 rows at **P(y=1) = 0.613 — above the 0.5378 base rate.** In
+observer notes the phrase is usually speculation (*"I wouldn't be surprised if this is a false
+positive"*), not a disposition. **Not stripped.** `NEB`/`BEB` (34 rows, 0.059) and *"is an
+eclipsing binary"* (17 rows, 0.059) are also **not stripped**: they are observational findings
+and are exactly what model D is meant to be reading. Recorded in A-26 so the choice is visible.
+
+### Tripwire
+`L5_explicit_disposition` fires on **0 of 1,482** rows — the `Groupname` filter removes the
+disposition channel completely, as §1.2 and A-13 record. **Now enforced in code:**
+`scripts/033_leakage_obsnotes.py` raises and refuses to write its output if L5 ever fires,
+saying in the message that this is a pipeline bug and not a finding, and that Step 3 stops.
+
+**Registered as `PREREGISTRATION.md` §11.4, amendments A-24 … A-27.**
+**Artifacts:** `src/exonotes/leakage.py` (rewritten: `OBSNOTES_PATTERNS` + `COMMENTS_PATTERNS`
+kept for provenance), `scripts/033_leakage_obsnotes.py` (new),
+`research/data/leakage_obsnotes_2026-09-20.json` (new), `duckdb::leakage_obsnotes`,
+`duckdb::g5_arm_obsnotes` (new).
+**Jev spend this step:** $0.00 · **running total:** ~$0.0144
+**Next:** TASK C — Step 3, the full run. Projected **$0.2434** (A-21), tripwire $0.50.
+Both preconditions are now discharged: B is `DONE` at 20:09Z, B2 is `DONE` here.
+---
