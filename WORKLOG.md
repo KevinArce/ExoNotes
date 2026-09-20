@@ -1388,3 +1388,30 @@ Item 9's grep (`/(Users|home)/[a-z]`) **missed** the `/private/tmp/...` path in
 `HANDOFF_PROMPT.md` (side quest closed, G2 noise-floor note added).
 **Next:** `HANDOFF_PROMPT.md` TASK A — pull the obsnotes corpus.
 ---
+## [2026-09-20T01:33Z] SIDE QUEST 01 — SECOND RUN ALSO GREEN; NONDETERMINISM FINDING STRENGTHENED
+**Run:** [35481621813](https://github.com/KevinArce/ExoNotes/actions/runs/35481621813) —
+`conclusion: success`. Triggered by the doc/verifier commit, which usefully re-validated the
+edits I had just made to `029_verify_reproduction.py`.
+**Idempotent:** yes. **Jev spend:** $0.00 · **running total:** ~$0.0046
+
+**The second run reproduced `B = 0.9149` to four decimals, exactly as the first did**, on a
+separate runner instance. That upgrades yesterday's claim:
+
+| platform | runs | baseline B AUC |
+| :--- | ---: | ---: |
+| macos/arm64 (dev host) | 2 | **0.9154** |
+| linux/x64 (GH runner) | 2 | **0.9149** |
+
+Two independent observations per platform, **identical within each platform, differing by
+5×10⁻⁴ between them**, on byte-identical inputs. So the difference is a **systematic
+architecture effect, not run-to-run randomness** — which is the more useful conclusion, because a
+systematic offset is something you control for by pinning the platform, whereas randomness would
+have to be averaged out. The G2 guidance stands and is now better evidenced: **run
+model-vs-model comparisons on a single platform; treat any claimed ΔAUC below ~10⁻³ as noise.**
+
+**Also confirmed working as designed:** this commit touched only `WORKLOG.md`, which is **not** in
+the workflow's trigger paths (`scripts/**`, `src/**`, `requirements.txt`,
+`.github/workflows/reproduce.yml`), so it does **not** trigger another ExoFOP pull. The path
+filter is doing its job of keeping load off a public archive.
+**Next:** `HANDOFF_PROMPT.md` TASK A — pull the obsnotes corpus.
+---
