@@ -201,15 +201,19 @@ row, all questions per request, content-addressed cache, persist **full raw resp
 
 ---
 
-## 🚩 OPEN ITEMS FOR THE USER — do not decide these alone
+## 🚩 OPEN ITEMS FOR THE USER
 
-1. **A force-push is still pending and has NOT been run.** Commit `20c11ae` was mis-attributed and
-   amended to `6b28005`. It was already pushed, so publishing the correction needs:
-   ```
-   git push --force-with-lease origin master
-   ```
-   This rewrites public history. **Ask before running it.** Leaving the old commit published and
-   using the right identity from here on is a legitimate alternative.
+**There are none. Both previous items are closed and verified.** Start at TASK A.
+
+1. ~~Force-push to correct commit attribution~~ — **CLOSED 2026-09-20T01:14Z, verified again
+   after the audit-01 push.** All 13 commits on `origin/master` are authored *and* committed by
+   `KevinArce <iav.kevinarce@ufg.edu.sv>`; `git log --format='%an <%ae>' | sort -u` returns
+   exactly one identity. `20c11ae` is **not an ancestor of `origin/master`** and survives only as
+   a dangling local reflog object. Ordinary `git push` works — the branch is not diverged.
+   *(The previous handoff listed this as pending after it had already been done, and audit 01's
+   first draft repeated the error. Verify before carrying an open item forward.)*
+   **Standing caveat:** GitHub still serves unreachable commits by direct SHA for some time. The
+   attribution is off the branch, not cryptographically erased.
 
 2. ~~Clean-clone reproduction~~ — **CLOSED 2026-09-20**. `PLAN.md` §11.6 is 10/10 and the check
    re-runs weekly. Note what it does **not** cover: it reruns ingest and baselines only and makes

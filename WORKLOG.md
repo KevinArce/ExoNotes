@@ -1483,3 +1483,29 @@ are recorded rather than dropped.
 **Jev spend this step:** $0.00 · **running total:** ~$0.0046
 **Next:** `HANDOFF_PROMPT.md` TASK A — pull the obsnotes corpus, with the A-10/A-11 assertions.
 ---
+## [2026-09-20T17:03Z] CORRECTION — the "pending force-push" open item was already closed
+**What was wrong:** `HANDOFF_PROMPT.md` carried "a force-push is still pending and has NOT been
+run" as open item 1. It had in fact been run and verified at **2026-09-20T01:14Z** (see that
+entry). The previous handoff was stale on this point, and audit 01's rewrite **copied the stale
+item forward without checking it** — a verification failure in a session whose whole purpose was
+verifying claims.
+
+**Trigger:** the user ran an ordinary `git push` and reported no issue, which is not what a
+diverged branch does.
+
+**Verified now, read-only:**
+- `git rev-list --left-right --count origin/master...HEAD` → **0 0**. Not diverged; nothing to force.
+- `git ls-remote origin master` → `9f8f78f`, identical to local `HEAD`. Audit 01 is published.
+- `git log --format='%an <%ae>' | sort | uniq -c` → **13 commits, one identity**,
+  `KevinArce <iav.kevinarce@ufg.edu.sv>`.
+- `git merge-base --is-ancestor 20c11ae origin/master` → **false**. The mis-attributed commit is
+  not in public history; it survives only as a dangling local reflog object.
+
+**Unchanged caveat:** GitHub still serves unreachable commits by direct SHA for a time. The
+attribution is off the branch, not cryptographically erased.
+
+**Updated:** `HANDOFF_PROMPT.md` — open items section now reads "there are none", with the
+verification recorded so the next session does not resurrect it a third time.
+**Jev spend this step:** $0.00 · **running total:** ~$0.0046
+**Next:** `HANDOFF_PROMPT.md` TASK A — pull the obsnotes corpus.
+---
