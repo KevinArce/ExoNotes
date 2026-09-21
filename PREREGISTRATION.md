@@ -1650,3 +1650,158 @@ reasons, each measured:
 4. **The corpus is heavily templated**, and its migration date (2020-11-02) is a single constant
    — stripped with the prefix, so it cannot act as a feature.
 5. **A corpus was withdrawn before this one was chosen** (40.0).
+
+### A-41 — What A-40 left open, filled in before the Step 5 run: the frozen question set, the G5 audit, the MDE at k = 6, S2, cost, and the analysis code
+
+**Written 2026-09-21, BEFORE the Step 5 run — the first full-corpus Kepler model call.** It fills
+in 40.11's five items and changes **none** of 40.1–40.10. Between A-40 and this amendment the only
+Kepler model calls were the question-design gate's (41.1).
+
+**41.0 — "First paid call" in 40.11 means the Step 5 run.** 40.11 also lists a ~$0.06
+question-design gate among A-41's contents; its calls necessarily come before A-41, because they
+are how the question set frozen here was chosen — as TASK B's gate preceded A-18 on TESS.
+
+#### 41.1 The question set — `kepler-2026-09-21.r3`, frozen, k = 6
+
+[`src/exonotes/questions_kepler.py`](src/exonotes/questions_kepler.py) — a **new module under a new
+version string**; `questions.py` (`2026-09-20.r6`) is untouched and stays frozen for TESS.
+
+**Chosen without any Kepler label** — a deliberate difference from TESS, which picked topics
+partly by each crude cue's |AUC| on its own evaluation corpus (A-19, A-23). Kepler topics come
+from **TESS's evidence** (what carried signal on a *different* corpus) and are kept or retired on
+**label-free prevalence** in CFOP against a 5%-of-rows floor (TESS retired everything ≤ 4.7%):
+
+| question | CFOP rows | |
+| :--- | ---: | :--- |
+| `imaging_reports_no_companion` | 62.8% | r6, re-cued for Robo-AO / ARIES / Lick / speckle |
+| `imaging_reports_companion_present` | 48.2% | r6, re-cued; guide-camera and slit-viewer sightings named |
+| `spectroscopy_indicates_nonplanetary_companion` | 7.1% | r6's evidence-agnostic scope; a catalogue listing alone does **not** count |
+| **`spectroscopy_reports_no_binary_signature`** | 14.0% | **new** — CFOP states the recon pass as "no significant velocity variation" / "Looks good", which r6's planet question answers **no** to by design |
+| `recon_reported_concluded` | 9.4% | r6's closure, widened to "time for more precise velocities" |
+| `author_certainty` | score | r6 |
+| ~~`host_star_described_as_evolved`~~ | **2.2%** | **retired** (24.6% on TESS) |
+
+Label-echo tier (never the headline): `indicates_false_positive_or_retired`,
+`indicates_confirmed_planet`. **No predictive question reads the `Possible false positive = …`
+or `Possible eclipsing binary = Yes (Kepler Eclipsing Binary Catalog …)` fields** — L7's
+disposition analogues — while `Possible nearby companion = Yes (…)`, an imaging observation, is
+read.
+
+**The gate, and the two things it did that TESS's did not.** Label-blinded cases selected
+programmatically (`scripts/046`), expectations written from text alone before any answer
+(`scripts/047`), §2.4 rule 6 bands:
+
+| round | main (30 cases) | holdout-1 (15, disjoint) | holdout-2 (15, disjoint from both) |
+| :--- | :--- | :--- | :--- |
+| r1 | 200/208 | — | — |
+| r2 | **208/208** | **95/103** — r2 was partly fitted | — |
+| r3 | 208/208 | 103/103 | **98/100 → FROZEN** |
+
+1. **Holdouts.** r2 passed the cases it was repaired on and failed unseen text (8 mid-band
+   answers on terse phrasings — "Recon: single lined", "BGEB", "reveals a single star" — and on
+   hedged closures). Passing a repair set is partly a fit; TESS's gate never tested for that.
+2. **The acceptance rule was fixed before any r3 answer existed:** freeze iff holdout-2 passes
+   ≥ 95% of asserted cells **and** no predictive question fails on more than one case; otherwise
+   delete the question (§2.4 rule 4), never reword it a fourth time. r3: **98/100, one failure
+   each in two questions → frozen, nothing deleted.**
+
+**Disclosed:** one expectation was changed **after** seeing its answer (r1, T14 / nonplanetary):
+its only SB2 sat inside a `Possible false positive = Yes (…)` field, which the module's own
+docstring — written before any call — says no predictive question reads. The cell contradicted
+that pre-run rule and was corrected toward it. **Caveat, not explained away:**
+`spectroscopy_reports_no_binary_signature` is the least robust question — mid-band on three
+holdout-2 texts (one asserted, two left unasserted as ambiguous). Gate total: **165 calls,
+$0.0239.**
+
+#### 41.2 `KEPLER_PATTERNS` — audited; the registered G5 arm is a different population on Kepler
+
+[`src/exonotes/leakage.py`](src/exonotes/leakage.py), appended; `OBSNOTES_PATTERNS` and
+`COMMENTS_PATTERNS` untouched (asserted — CI imports them).
+[`research/data/kepler_g5_audit_2026-09-21.json`](research/data/kepler_g5_audit_2026-09-21.json).
+
+| clause | n | P(y=1) | marginal |
+| :--- | ---: | ---: | ---: |
+| L3 confirmed / validated / published | 145 | 0.924 | 21 |
+| L4a catalogue designation | 110 | 0.864 | 69 |
+| **L7 `Possible X = Yes/No`** | **2,516 (53.3%)** | **0.362** | 2,366 |
+| L8 status line | 1 | 0.000 | 0 |
+| K10 `Kepler-N` | 116 | 0.966 | 9 |
+| **K11 confirmation statement** *(added)* | 67 | 0.716 | 14 |
+| **K12 accepted for publication** *(added)* | 8 | 1.000 | 0 |
+| **K13 dead / inactive** *(added)* | 20 | 0.100 | 1 |
+| L1, L2, L4b, L9 | 0 | — | — |
+| **L5 tripwire** | **0 ✓** | — | — |
+
+| arm | rows | kepid | base | minority |
+| :--- | ---: | ---: | ---: | ---: |
+| **KG5 — with L7 (registered headline)** | **2,036** | 1,574 | **0.811** | 384 |
+| KG5 sensitivity — without L7 | 4,402 | 3,654 | 0.557 | 1,949 |
+
+**L7 runs in the opposite direction on Kepler.** On TESS it stripped rows at P(y=1) = 0.941 —
+positive-label echo. On CFOP it strips **53% of rows at 0.362, below the 0.575 base**: the
+companion / EB / false-positive flags cluster on false positives. The registered headline KG5
+arm therefore **removes most FPs** and runs at base 0.811 on 43% of the corpus; **a KG5 verdict
+is not comparable to TESS's G5**, and the without-L7 arm is the representative one. Nothing is
+changed — both arms were registered in A-40 before this was known, and 40.6 already binds that a
+verdict flipping between them is reported as such.
+
+**Audit notes.** **L4a misfires on CFOP:** its 69 marginal rows are TRES spectrograph headers
+("TRES 20/21 Jun 2010 Teff=…") — `CATALOGUE_PREFIX` carries `TRES` for the TrES survey. The rule
+is add-only, so it stays; the over-strip is recorded. **Added:** K11 (narrow — "has been
+confirmed", "we confirm", "Confirmed via TTV … Ming et al. 2013", "confirmed BGEBs"; the bare
+verb is left, since "an observation at phase 0.75 to confirm the velocity variations" is a
+plan), K12 ("Accepted in ApJ"), K13 (the FOP's "This KOI is dead. Move to inactive."). **Not
+added:** "false positive" — 177 rows at 0.458, mostly speculation; A-26's precedent.
+
+#### 41.3 The MDE at k = 6 — the registered number
+
+`scripts/044_kepler_step2.py --corpus cfop --k 6` →
+[`research/data/kepler_cfop_step2_k6_2026-09-20.json`](research/data/kepler_cfop_step2_k6_2026-09-20.json):
+
+| | k = 7 (A-40, provisional) | **k = 6 (registered)** |
+| :--- | ---: | ---: |
+| dilution floor | −0.0044 | **−0.0036** |
+| bootstrap SE of ΔAUC | 0.0007 | **0.0007** |
+| **MDE (80%)** | +0.0021 | **+0.0019** |
+| true signal needed | 0.0064 | 0.0055 |
+
+**+0.0019 is the MDE criterion 1 of 40.9 is judged against.** `scripts/050` reads this file and
+asserts k = 6.
+
+#### 41.4 S2, realised by 40.5's rule
+
+Test = host ≥ 3865: **train 3,539 rows / 2,700 kepid, base 0.714; test 1,181 rows / 1,143
+kepid, base 0.158 (25.0%); 0 kepid straddle.** Later-identified KOIs are overwhelmingly false
+positives — a far larger base-rate shift than TESS's. Reported, not re-chosen; an S2 AUC is not
+an S1 AUC.
+
+#### 41.5 Cost, projected from measured tokens
+
+Tokens = 3621 + 0.4110 × chars, fitted on the 60 r3 gate calls (R² 0.970). Over **3,843 distinct
+host states: 14.9M tokens, $0.6265.** Tripwire **$0.80**. The longest state is ~17.8k tokens
+against the documented 32k limit — **no truncation.** KG3 adds ~400 calls (~$0.07).
+
+#### 41.6 The analysis code, fixed before any Kepler feature exists
+
+| script | role | fixed now |
+| :--- | :--- | :--- |
+| [`048_kepler_step3_features.py`](scripts/048_kepler_step3_features.py) | Step 5: the feature matrix | 034's machinery (A-4, A-5, A-38); refuses any question set but r3; **paid-run record write-once** |
+| [`049_kepler_kg3_stability.py`](scripts/049_kepler_kg3_stability.py) | KG3 | **the eight paraphrases are written here, now** — criteria unchanged, none identical |
+| [`050_kepler_gates.py`](scripts/050_kepler_gates.py) | KG2 / KG4 / KG5 / KG6 and **40.9's verdict, computed** | reads the registered MDE and asserts k = 6 |
+
+**`050` was tested in both directions before the run** — on a scratch copy of the database,
+with synthetic features in place of Jev's; `data/kepler.duckdb` and `research/data/` untouched:
+
+| synthetic features | D − B | D − B+meta | KG5 (with L7) | KG6 | KG4 | **computed reading** |
+| :--- | ---: | ---: | ---: | ---: | ---: | :--- |
+| pure noise, k = 6 | −0.0047 | −0.0304 | −0.0095 | −0.0040 | +0.0004 (incl. 0) | **DOES NOT TRANSFER** ✓ |
+| noise + one oracle column agreeing with y 95% of the time | +0.0335 | **+0.0078** | +0.0541 | +0.0339 | +0.0477 | **TRANSFERS** ✓ |
+
+A verifier that can only say no is not proven, so both branches were exercised. **The oracle row
+is also a calibration, recorded before the result: a single column that agrees with the label 95%
+of the time beats B+meta by only +0.0078.** Criterion 2 is demanding on this corpus — B+meta
+already reaches 0.9839 — and 40.10's statement that a null is a live outcome stands with a number
+beside it.
+
+**The sequence from here:** push this amendment → `048` (the paid run) → `050` → `049` →
+`RESULTS` section for Kepler, reading the outcome through 40.9's table and nothing else.

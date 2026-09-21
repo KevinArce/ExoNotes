@@ -1,0 +1,2042 @@
+{
+  "S1_short_1": {
+    "case": {
+      "cid": "S1_short_1",
+      "stratum": "S1_short",
+      "host": 2116,
+      "len": 115,
+      "text": "Robo-AO LP600-imaging of KOI-2116 on 2014-08-21 No companions detected within 4.0\" https://arxiv.org/abs/1605.03584"
+    },
+    "state": {
+      "notes": "Robo-AO LP600-imaging of KOI-2116 on 2014-08-21 No companions detected within 4.0\" https://arxiv.org/abs/1605.03584"
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "imaging_reports_no_companion": {
+          "type": "noul",
+          "noul": 0.98
+        },
+        "imaging_reports_companion_present": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "spectroscopy_indicates_nonplanetary_companion": {
+          "type": "noul",
+          "noul": 0.03
+        },
+        "spectroscopy_reports_no_binary_signature": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "recon_reported_concluded": {
+          "type": "noul",
+          "noul": 0.03
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 3.06,
+          "confidence": 0.78,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'perhaps', 'may be'; the conclusion is not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats or a request for more data",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.0,
+            "1": 0.0,
+            "2": 0.1,
+            "3": 0.74,
+            "4": 0.16
+          }
+        },
+        "indicates_false_positive_or_retired": {
+          "type": "noul",
+          "noul": 0.06
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.06
+        }
+      },
+      "usage": {
+        "input_tokens": 3038,
+        "output_tokens": 176
+      }
+    }
+  },
+  "S1_short_2": {
+    "case": {
+      "cid": "S1_short_2",
+      "stratum": "S1_short",
+      "host": 618,
+      "len": 108,
+      "text": "Robo-AO imaging of KOI-618 on 2013-10-22 No companions detected within 4.0\" https://arxiv.org/abs/1604.08604"
+    },
+    "state": {
+      "notes": "Robo-AO imaging of KOI-618 on 2013-10-22 No companions detected within 4.0\" https://arxiv.org/abs/1604.08604"
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "imaging_reports_no_companion": {
+          "type": "noul",
+          "noul": 0.98
+        },
+        "imaging_reports_companion_present": {
+          "type": "noul",
+          "noul": 0.03
+        },
+        "spectroscopy_indicates_nonplanetary_companion": {
+          "type": "noul",
+          "noul": 0.03
+        },
+        "spectroscopy_reports_no_binary_signature": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "recon_reported_concluded": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 3.05,
+          "confidence": 0.84,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'perhaps', 'may be'; the conclusion is not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats or a request for more data",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.0,
+            "1": 0.0,
+            "2": 0.07,
+            "3": 0.81,
+            "4": 0.12
+          }
+        },
+        "indicates_false_positive_or_retired": {
+          "type": "noul",
+          "noul": 0.07
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.07
+        }
+      },
+      "usage": {
+        "input_tokens": 3032,
+        "output_tokens": 176
+      }
+    }
+  },
+  "S1_short_3": {
+    "case": {
+      "cid": "S1_short_3",
+      "stratum": "S1_short",
+      "host": 1702,
+      "len": 109,
+      "text": "Robo-AO imaging of KOI-1702 on 2013-08-22 No companions detected within 4.0\" https://arxiv.org/abs/1604.08604"
+    },
+    "state": {
+      "notes": "Robo-AO imaging of KOI-1702 on 2013-08-22 No companions detected within 4.0\" https://arxiv.org/abs/1604.08604"
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "imaging_reports_no_companion": {
+          "type": "noul",
+          "noul": 0.98
+        },
+        "imaging_reports_companion_present": {
+          "type": "noul",
+          "noul": 0.03
+        },
+        "spectroscopy_indicates_nonplanetary_companion": {
+          "type": "noul",
+          "noul": 0.03
+        },
+        "spectroscopy_reports_no_binary_signature": {
+          "type": "noul",
+          "noul": 0.03
+        },
+        "recon_reported_concluded": {
+          "type": "noul",
+          "noul": 0.03
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 3.12,
+          "confidence": 0.8,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'perhaps', 'may be'; the conclusion is not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats or a request for more data",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.0,
+            "1": 0.0,
+            "2": 0.06,
+            "3": 0.76,
+            "4": 0.18
+          }
+        },
+        "indicates_false_positive_or_retired": {
+          "type": "noul",
+          "noul": 0.07
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.07
+        }
+      },
+      "usage": {
+        "input_tokens": 3033,
+        "output_tokens": 176
+      }
+    }
+  },
+  "S2_median_1": {
+    "case": {
+      "cid": "S2_median_1",
+      "stratum": "S2_median",
+      "host": 795,
+      "len": 224,
+      "text": "Possible nearby companion = Yes (3.39\" companion (UKIRT)) Robo-AO imaging of KOI-795 on 2013-08-22 No companions detected within 4.0\" https://arxiv.org/abs/1604.08604 Possible nearby companion = Yes (3.39\" companion (UKIRT))"
+    },
+    "state": {
+      "notes": "Possible nearby companion = Yes (3.39\" companion (UKIRT)) Robo-AO imaging of KOI-795 on 2013-08-22 No companions detected within 4.0\" https://arxiv.org/abs/1604.08604 Possible nearby companion = Yes (3.39\" companion (UKIRT))"
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "imaging_reports_no_companion": {
+          "type": "noul",
+          "noul": 0.96
+        },
+        "imaging_reports_companion_present": {
+          "type": "noul",
+          "noul": 0.66
+        },
+        "spectroscopy_indicates_nonplanetary_companion": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "spectroscopy_reports_no_binary_signature": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "recon_reported_concluded": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 1.07,
+          "confidence": 0.94,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'perhaps', 'may be'; the conclusion is not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats or a request for more data",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.0,
+            "1": 0.96,
+            "2": 0.01,
+            "3": 0.03,
+            "4": 0.0
+          }
+        },
+        "indicates_false_positive_or_retired": {
+          "type": "noul",
+          "noul": 0.06
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.06
+        }
+      },
+      "usage": {
+        "input_tokens": 3063,
+        "output_tokens": 176
+      }
+    }
+  },
+  "S2_median_2": {
+    "case": {
+      "cid": "S2_median_2",
+      "stratum": "S2_median",
+      "host": 6464,
+      "len": 264,
+      "text": "Nearby stars detected in Robo-AO LP600-imaging of KOI-6464 Separation: 0.75\" +/- 0.06\" Magnitude difference: 1.72 +/- 0.15 Position angle: 122 +/- 2 degrees https://arxiv.org/abs/1605.03584 Possible nearby companion = Yes (0.75\" companion (Palomar/Robo-AO, UKIRT))"
+    },
+    "state": {
+      "notes": "Nearby stars detected in Robo-AO LP600-imaging of KOI-6464 Separation: 0.75\" +/- 0.06\" Magnitude difference: 1.72 +/- 0.15 Position angle: 122 +/- 2 degrees https://arxiv.org/abs/1605.03584 Possible nearby companion = Yes (0.75\" companion (Palomar/Robo-AO, UKIRT))"
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "imaging_reports_no_companion": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "imaging_reports_companion_present": {
+          "type": "noul",
+          "noul": 0.97
+        },
+        "spectroscopy_indicates_nonplanetary_companion": {
+          "type": "noul",
+          "noul": 0.05
+        },
+        "spectroscopy_reports_no_binary_signature": {
+          "type": "noul",
+          "noul": 0.03
+        },
+        "recon_reported_concluded": {
+          "type": "noul",
+          "noul": 0.03
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 1.03,
+          "confidence": 0.97,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'perhaps', 'may be'; the conclusion is not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats or a request for more data",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.0,
+            "1": 0.99,
+            "2": 0.0,
+            "3": 0.01,
+            "4": 0.0
+          }
+        },
+        "indicates_false_positive_or_retired": {
+          "type": "noul",
+          "noul": 0.07
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.05
+        }
+      },
+      "usage": {
+        "input_tokens": 3088,
+        "output_tokens": 176
+      }
+    }
+  },
+  "S2_median_3": {
+    "case": {
+      "cid": "S2_median_3",
+      "stratum": "S2_median",
+      "host": 546,
+      "len": 133,
+      "text": "Robo-AO long-pass of 600nm (LP600) imaging of KOI-546 on 2012-09-01 No companions detected within 2.5\" http://arxiv.org/abs/1312.4958"
+    },
+    "state": {
+      "notes": "Robo-AO long-pass of 600nm (LP600) imaging of KOI-546 on 2012-09-01 No companions detected within 2.5\" http://arxiv.org/abs/1312.4958"
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "imaging_reports_no_companion": {
+          "type": "noul",
+          "noul": 0.98
+        },
+        "imaging_reports_companion_present": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "spectroscopy_indicates_nonplanetary_companion": {
+          "type": "noul",
+          "noul": 0.03
+        },
+        "spectroscopy_reports_no_binary_signature": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "recon_reported_concluded": {
+          "type": "noul",
+          "noul": 0.03
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 3.04,
+          "confidence": 0.84,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'perhaps', 'may be'; the conclusion is not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats or a request for more data",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.0,
+            "1": 0.0,
+            "2": 0.07,
+            "3": 0.81,
+            "4": 0.11
+          }
+        },
+        "indicates_false_positive_or_retired": {
+          "type": "noul",
+          "noul": 0.08
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.07
+        }
+      },
+      "usage": {
+        "input_tokens": 3045,
+        "output_tokens": 176
+      }
+    }
+  },
+  "S3_typical_1": {
+    "case": {
+      "cid": "S3_typical_1",
+      "stratum": "S3_typical",
+      "host": 3635,
+      "len": 334,
+      "text": "A close look at the unfolded light curve shows that alternating eclipses (odd and even) are of different depths, so this one is a clear stellar eclipsing binary at 4.2 days. Light curve also shows quarter to quarter depth variations, and inter-quarter trend in eclipses depth. Possible nearby companion = Yes (1.49\" companion (UKIRT))"
+    },
+    "state": {
+      "notes": "A close look at the unfolded light curve shows that alternating eclipses (odd and even) are of different depths, so this one is a clear stellar eclipsing binary at 4.2 days. Light curve also shows quarter to quarter depth variations, and inter-quarter trend in eclipses depth. Possible nearby companion = Yes (1.49\" companion (UKIRT))"
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "imaging_reports_no_companion": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "imaging_reports_companion_present": {
+          "type": "noul",
+          "noul": 0.88
+        },
+        "spectroscopy_indicates_nonplanetary_companion": {
+          "type": "noul",
+          "noul": 0.97
+        },
+        "spectroscopy_reports_no_binary_signature": {
+          "type": "noul",
+          "noul": 0.03
+        },
+        "recon_reported_concluded": {
+          "type": "noul",
+          "noul": 0.03
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 2.81,
+          "confidence": 0.75,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'perhaps', 'may be'; the conclusion is not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats or a request for more data",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.0,
+            "1": 0.1,
+            "2": 0.04,
+            "3": 0.81,
+            "4": 0.05
+          }
+        },
+        "indicates_false_positive_or_retired": {
+          "type": "noul",
+          "noul": 0.07
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.02
+        }
+      },
+      "usage": {
+        "input_tokens": 3059,
+        "output_tokens": 176
+      }
+    }
+  },
+  "S3_typical_2": {
+    "case": {
+      "cid": "S3_typical_2",
+      "stratum": "S3_typical",
+      "host": 667,
+      "len": 645,
+      "text": "I tried to observe this at Lick, and found four stars within 4 arcseconds. Each star is individually much fainter than the Kep_mag = 13.8. The individual magnitudes are probably closer to 15-16th magnitude. I did not take any spectra, but did take this screen capture from the guide camera. The bright star in the DSS is visible. Note that East is left, but North is down. Of the four stars, the top and bottom star are separated by about 8 arcseconds. 667Ic-hi20100802.jpg Possible nearby companion = Yes (2.92\" companion (UKIRT)) Possible false positive = No (disposition updated) Possible nearby companion = Yes (2.94\" companion (UBV, UKIRT))"
+    },
+    "state": {
+      "notes": "I tried to observe this at Lick, and found four stars within 4 arcseconds. Each star is individually much fainter than the Kep_mag = 13.8. The individual magnitudes are probably closer to 15-16th magnitude. I did not take any spectra, but did take this screen capture from the guide camera. The bright star in the DSS is visible. Note that East is left, but North is down. Of the four stars, the top and bottom star are separated by about 8 arcseconds. 667Ic-hi20100802.jpg Possible nearby companion = Yes (2.92\" companion (UKIRT)) Possible false positive = No (disposition updated) Possible nearby companion = Yes (2.94\" companion (UBV, UKIRT))"
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "imaging_reports_no_companion": {
+          "type": "noul",
+          "noul": 0.05
+        },
+        "imaging_reports_companion_present": {
+          "type": "noul",
+          "noul": 0.95
+        },
+        "spectroscopy_indicates_nonplanetary_companion": {
+          "type": "noul",
+          "noul": 0.06
+        },
+        "spectroscopy_reports_no_binary_signature": {
+          "type": "noul",
+          "noul": 0.03
+        },
+        "recon_reported_concluded": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 2.21,
+          "confidence": 0.3,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'perhaps', 'may be'; the conclusion is not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats or a request for more data",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.01,
+            "1": 0.29,
+            "2": 0.22,
+            "3": 0.45,
+            "4": 0.03
+          }
+        },
+        "indicates_false_positive_or_retired": {
+          "type": "noul",
+          "noul": 0.05
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.03
+        }
+      },
+      "usage": {
+        "input_tokens": 3157,
+        "output_tokens": 176
+      }
+    }
+  },
+  "S3_typical_3": {
+    "case": {
+      "cid": "S3_typical_3",
+      "stratum": "S3_typical",
+      "host": 1812,
+      "len": 996,
+      "text": "Recon spectrum 2011 Sept 7, 8:00 UT. McD K01812.01, 19:20:30.36 41:36:03.90, V=0.0, PM=0.0, J-K=0.35, Period=0.8 2011-09-07 MCDONALD, phase=1051.52, Teff=6000+/-125, log(g)=4.50+/-0.25, Vrot=4+/-2, [m/H]=0.00+/-0.25, Vrad=-15.341, ccf=0.701 Looks good but note this was taken at phase 0.52 Let's try for phase 0.75 or 0.25 1812C-AB20110930.ps Three bright stars (brighter than 15th mag) within 10 arcsec. Confusion and dilution troubles. Robo-AO i-band imaging of KOI-1812 on 2012-08-29 No companions detected within 2.5\" http://arxiv.org/abs/1312.4958 Possible eclipsing binary = Yes (Kepler Eclipsing Binary Catalog v2 (Slawson et al. 2011 AJ,142,160)) Possible nearby companion = Yes (2.30\", 2.70\" companion (Calar Alto/AstraLux, UKIRT)) No companion detected within 4 arcsec Companion detected @ 2.37 arcsec, see Wang et al. (2015), ApJ, 806, 248, http://iopscience.iop.org/0004-637X/806/2/248/ Possible nearby companion = Yes (2.33\", 2.70\" companion (Calar Alto/AstraLux, Keck/NIRC2, UKIRT))"
+    },
+    "state": {
+      "notes": "Recon spectrum 2011 Sept 7, 8:00 UT. McD K01812.01, 19:20:30.36 41:36:03.90, V=0.0, PM=0.0, J-K=0.35, Period=0.8 2011-09-07 MCDONALD, phase=1051.52, Teff=6000+/-125, log(g)=4.50+/-0.25, Vrot=4+/-2, [m/H]=0.00+/-0.25, Vrad=-15.341, ccf=0.701 Looks good but note this was taken at phase 0.52 Let's try for phase 0.75 or 0.25 1812C-AB20110930.ps Three bright stars (brighter than 15th mag) within 10 arcsec. Confusion and dilution troubles. Robo-AO i-band imaging of KOI-1812 on 2012-08-29 No companions detected within 2.5\" http://arxiv.org/abs/1312.4958 Possible eclipsing binary = Yes (Kepler Eclipsing Binary Catalog v2 (Slawson et al. 2011 AJ,142,160)) Possible nearby companion = Yes (2.30\", 2.70\" companion (Calar Alto/AstraLux, UKIRT)) No companion detected within 4 arcsec Companion detected @ 2.37 arcsec, see Wang et al. (2015), ApJ, 806, 248, http://iopscience.iop.org/0004-637X/806/2/248/ Possible nearby companion = Yes (2.33\", 2.70\" companion (Calar Alto/AstraLux, Keck/NIRC2, UKIRT))"
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "imaging_reports_no_companion": {
+          "type": "noul",
+          "noul": 0.96
+        },
+        "imaging_reports_companion_present": {
+          "type": "noul",
+          "noul": 0.9
+        },
+        "spectroscopy_indicates_nonplanetary_companion": {
+          "type": "noul",
+          "noul": 0.08
+        },
+        "spectroscopy_reports_no_binary_signature": {
+          "type": "noul",
+          "noul": 0.93
+        },
+        "recon_reported_concluded": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 1.54,
+          "confidence": 0.59,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'perhaps', 'may be'; the conclusion is not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats or a request for more data",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.0,
+            "1": 0.47,
+            "2": 0.52,
+            "3": 0.01,
+            "4": 0.0
+          }
+        },
+        "indicates_false_positive_or_retired": {
+          "type": "noul",
+          "noul": 0.07
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.05
+        }
+      },
+      "usage": {
+        "input_tokens": 3462,
+        "output_tokens": 176
+      }
+    }
+  },
+  "S4_long_1": {
+    "case": {
+      "cid": "S4_long_1",
+      "stratum": "S4_long",
+      "host": 579,
+      "len": 1717,
+      "text": "An image taken with the Lick Observatory 1-m Nickel Telescope is available in .pdf and .fits format. Each pdf has a 1.2'x1.2' view centered on the star, and a close-up view of the star in an 11\"x11\" field. The seeing is ~ 1.5\". No companions visible from 2\" to 5\" away from the star down to 19th magnitude. 579Ic-hi20100711.pdf McDonald 60K recon. phase = 0.74. No spectrum -- lost it to clouds! McD 31 Aug/1 Sep 2010 Teff=5000 K, log(g)=5.0, Vrot=0 km/s, Vrad=-39.270 km/s, phase=0.74 579C-sq20120727a.ps As Bill says, the spectrum was aborted due to clouds, but the short exposure before that happened isn't completely useless. The spectrum is weak and noisy and the correlation coefficient is only 0.326, but the velocity might still be good enough to reveal a stellar companion. I wouldn't put much stock in the results though, and we might decide later that we need to re-observe this phase. For now, let's get an observation at the opposite quadrature. KPNO 4-m spectrum added. Fluxes below 3690 and red-ward of 4950 are less reliable. WIYN speckle imaging was taken of KOI579 on 2012-10-05. The 3.2x3.2 arcsec FOV was centered on the target star. No secondary sources were detected. See separate plots/tables for the limiting magnitude of the field as a function of distance from the target star. Observed a spectrum at the KPNO 4m telescope on 2010-09-12. The S/N lies just below the threshold chosen for quality control by Everett, Howell, Silva & Szkody (2013), but the following spectral fitting results are probably still useful: Teff = 4821K log(g) = 4.44 [Fe/H] = -0.11 Robo-AO long-pass of 600nm (LP600) imaging of KOI-579 on 2012-08-05 No companions detected within 2.5\" http://arxiv.org/abs/1312.4958"
+    },
+    "state": {
+      "notes": "An image taken with the Lick Observatory 1-m Nickel Telescope is available in .pdf and .fits format. Each pdf has a 1.2'x1.2' view centered on the star, and a close-up view of the star in an 11\"x11\" field. The seeing is ~ 1.5\". No companions visible from 2\" to 5\" away from the star down to 19th magnitude. 579Ic-hi20100711.pdf McDonald 60K recon. phase = 0.74. No spectrum -- lost it to clouds! McD 31 Aug/1 Sep 2010 Teff=5000 K, log(g)=5.0, Vrot=0 km/s, Vrad=-39.270 km/s, phase=0.74 579C-sq20120727a.ps As Bill says, the spectrum was aborted due to clouds, but the short exposure before that happened isn't completely useless. The spectrum is weak and noisy and the correlation coefficient is only 0.326, but the velocity might still be good enough to reveal a stellar companion. I wouldn't put much stock in the results though, and we might decide later that we need to re-observe this phase. For now, let's get an observation at the opposite quadrature. KPNO 4-m spectrum added. Fluxes below 3690 and red-ward of 4950 are less reliable. WIYN speckle imaging was taken of KOI579 on 2012-10-05. The 3.2x3.2 arcsec FOV was centered on the target star. No secondary sources were detected. See separate plots/tables for the limiting magnitude of the field as a function of distance from the target star. Observed a spectrum at the KPNO 4m telescope on 2010-09-12. The S/N lies just below the threshold chosen for quality control by Everett, Howell, Silva & Szkody (2013), but the following spectral fitting results are probably still useful: Teff = 4821K log(g) = 4.44 [Fe/H] = -0.11 Robo-AO long-pass of 600nm (LP600) imaging of KOI-579 on 2012-08-05 No companions detected within 2.5\" http://arxiv.org/abs/1312.4958"
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "imaging_reports_no_companion": {
+          "type": "noul",
+          "noul": 0.99
+        },
+        "imaging_reports_companion_present": {
+          "type": "noul",
+          "noul": 0.05
+        },
+        "spectroscopy_indicates_nonplanetary_companion": {
+          "type": "noul",
+          "noul": 0.09
+        },
+        "spectroscopy_reports_no_binary_signature": {
+          "type": "noul",
+          "noul": 0.08
+        },
+        "recon_reported_concluded": {
+          "type": "noul",
+          "noul": 0.05
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 1.97,
+          "confidence": 0.92,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'perhaps', 'may be'; the conclusion is not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats or a request for more data",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.0,
+            "1": 0.06,
+            "2": 0.91,
+            "3": 0.03,
+            "4": 0.0
+          }
+        },
+        "indicates_false_positive_or_retired": {
+          "type": "noul",
+          "noul": 0.07
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.06
+        }
+      },
+      "usage": {
+        "input_tokens": 3548,
+        "output_tokens": 176
+      }
+    }
+  },
+  "S4_long_2": {
+    "case": {
+      "cid": "S4_long_2",
+      "stratum": "S4_long",
+      "host": 273,
+      "len": 4302,
+      "text": "TRES 24/25 Mar 2010 Teff=5500 K, log(g)=4.0, Vrot=2 km/s, Vrad=-70.661 km/s, phase=16.81 Phase 17.25 = 55285.63 = 29/30 Mar 2010 273C-dl20120727b.ps TRES 29/30 Mar 2010 Teff=5500 K, log(g)=4.0, Vrot=4 km/s, Vrad=-70.721 km/s, phase=17.28 273C-dl20120727b.ps McD 29/30 Mar 2010 Teff=5750 K, log(g)=4.5, Vrot=0 km/s, Vrad=-70.797 km/s, phase=17.28 273C-dl20120727a.ps 273Sr-WC55285.927656a.fits The classification looks good, the phase coverage is good, and the velocities are consistent with no variation. It's time for more precise velocities. No more recon is needed. Speckle imaging at WIYN has shown that KOI 273 is a single star as observed within a box of size 2.76 x 2.76 arcsec centered on the target. No companion is detected to a magnitude limit below the target star of 5.6 mags in 'R' and 4.1 mags in 'V'. An image taken with the Lick Observatory 1-m Nickel Telescope is available in .pdf and .fits format. Each pdf has a 1.2'x1.2' view centered on the star, and a close-up view of the star in an 11\"x11\" field. The seeing is ~ 1.5\". The companion star 5\" to the North is about 6 magnitudes fainter than the primary. 273Ic-hi20100709.pdf ARIES AO images show two distant, faint companions: one is 5.28\" away (delta J=4.8 mag, delta K=6.5), while the other is 13.3\" distant (delta J = 5.3 mag, delta K = 6.9 mag). (Note that the stars are smeared due to differential rotation.) Seeing was 0.13\" in Ks and 0.18 in J. 273Ia-ea20120727f.jpg 273Ia-ea20120727d.fits 273Ia-ea20120727e.jpg 273Ia-ea20120727c.fits ARIES AO observations for 00273 were taken on 20100503 in F/30 in J and Ks (plate scale = 0.02\" per pixel, FOV = 20.5\"). The seeing was 0.1\" in J and 0.1\" in Ks. 2 companion star(s) detected within 4.0\" of the target: Limits on additional companions: Ks , J PNG images: Ks , J FITS images: Ks , J High Precision Radial Velocites from Keck/HIRES, uploaded Dec 2011. Errors include internal errors added in quadrature to 2.0m/s of Jitter. For observations taken before JD=2455130 additional error was added in quadrature to account for lack of sky subtraction in the spectra. The additional errors due to lack of sky subraction are a function of magnitude. # KOI BJD-2.45e6 RV(m/s) Error(m/s) k00273 5431.809347 128.19 2.19 k00273 5782.924716 -37.72 2.25 k00273 5792.863793 -31.82 2.36 k00273 5792.895597 -35.45 2.21 k00273 5797.795127 -22.90 2.19 Radial Velocity Analysis for all available RVs from Keck/HIRES is avaialble below. Plots include RV vs time, RV vs phase, and mass determination from MCMC analysis. Eccentricity is fixed at zero. Only 4 RVs so far. 273Vp-hi20120123.pdf Spectroscopic results from a Keck-HIRES spectrum and SME analysis by Debra Fischer: K00273_rj131.696 Teff: 5664 +/- 44K Log g: 4.305 +/-0.060 Vsini: 0.4 +/- 0.5 km/s [Fe/H]: 0.242 +/-0.040 Vmac: 3.85 km/s Vmic: 0.85 Chisq: 11.8 Robo-AO i-band imaging of KOI-273 on 2012-07-18 No companions detected within 2.5\" http://arxiv.org/abs/1312.4958 High precision radial velocities (RVs) from Keck/HIRES. Errors include internal errors added in quadrature to 2.0 m/s of jitter. For observations taken before JD=2455130 additional error was added in quadrature to account for lack of sky subtraction in the spectra. The additional errors due to lack of sky subraction are a function of magnitude. ******************************************************* KOI BJD-2.45e6 RV(m/s) Error(m/s) ******************************************************* k00273 5431.8093 59.90 2.34 k00273 5782.9247 -107.58 2.41 k00273 5792.8638 -100.13 2.68 k00273 5792.8956 -104.40 2.42 k00273 5797.7951 -93.11 2.33 k00273 6110.9036 -37.85 2.32 k00273 6115.9345 -37.53 2.73 k00273 6147.8628 -73.98 2.33 k00273 6163.8217 -98.23 2.54 k00273 6164.9058 -96.30 2.67 k00273 6173.9081 -105.79 2.76 k00273 6451.0788 82.27 2.54 k00273 6474.9929 104.22 2.33 k00273 6475.9207 97.53 2.31 k00273 6485.0307 105.34 2.29 k00273 6489.9238 108.98 2.33 k00273 6523.0198 98.73 2.29 k00273 6532.7602 99.04 2.24 k00273 6547.8507 82.62 2.56 k00273 6613.7232 15.21 2.46 GeminiN speckle imaging was taken of KOI-273 on 20140725 at wavelengths 692 and 880nm. The 2.8x2.8 arcsec FOV was centered on the target star. No secondary sources were detected. See separate plots/tables for the limiting magnitude of the field as a function of distance from the target star."
+    },
+    "state": {
+      "notes": "TRES 24/25 Mar 2010 Teff=5500 K, log(g)=4.0, Vrot=2 km/s, Vrad=-70.661 km/s, phase=16.81 Phase 17.25 = 55285.63 = 29/30 Mar 2010 273C-dl20120727b.ps TRES 29/30 Mar 2010 Teff=5500 K, log(g)=4.0, Vrot=4 km/s, Vrad=-70.721 km/s, phase=17.28 273C-dl20120727b.ps McD 29/30 Mar 2010 Teff=5750 K, log(g)=4.5, Vrot=0 km/s, Vrad=-70.797 km/s, phase=17.28 273C-dl20120727a.ps 273Sr-WC55285.927656a.fits The classification looks good, the phase coverage is good, and the velocities are consistent with no variation. It's time for more precise velocities. No more recon is needed. Speckle imaging at WIYN has shown that KOI 273 is a single star as observed within a box of size 2.76 x 2.76 arcsec centered on the target. No companion is detected to a magnitude limit below the target star of 5.6 mags in 'R' and 4.1 mags in 'V'. An image taken with the Lick Observatory 1-m Nickel Telescope is available in .pdf and .fits format. Each pdf has a 1.2'x1.2' view centered on the star, and a close-up view of the star in an 11\"x11\" field. The seeing is ~ 1.5\". The companion star 5\" to the North is about 6 magnitudes fainter than the primary. 273Ic-hi20100709.pdf ARIES AO images show two distant, faint companions: one is 5.28\" away (delta J=4.8 mag, delta K=6.5), while the other is 13.3\" distant (delta J = 5.3 mag, delta K = 6.9 mag). (Note that the stars are smeared due to differential rotation.) Seeing was 0.13\" in Ks and 0.18 in J. 273Ia-ea20120727f.jpg 273Ia-ea20120727d.fits 273Ia-ea20120727e.jpg 273Ia-ea20120727c.fits ARIES AO observations for 00273 were taken on 20100503 in F/30 in J and Ks (plate scale = 0.02\" per pixel, FOV = 20.5\"). The seeing was 0.1\" in J and 0.1\" in Ks. 2 companion star(s) detected within 4.0\" of the target: Limits on additional companions: Ks , J PNG images: Ks , J FITS images: Ks , J High Precision Radial Velocites from Keck/HIRES, uploaded Dec 2011. Errors include internal errors added in quadrature to 2.0m/s of Jitter. For observations taken before JD=2455130 additional error was added in quadrature to account for lack of sky subtraction in the spectra. The additional errors due to lack of sky subraction are a function of magnitude. # KOI BJD-2.45e6 RV(m/s) Error(m/s) k00273 5431.809347 128.19 2.19 k00273 5782.924716 -37.72 2.25 k00273 5792.863793 -31.82 2.36 k00273 5792.895597 -35.45 2.21 k00273 5797.795127 -22.90 2.19 Radial Velocity Analysis for all available RVs from Keck/HIRES is avaialble below. Plots include RV vs time, RV vs phase, and mass determination from MCMC analysis. Eccentricity is fixed at zero. Only 4 RVs so far. 273Vp-hi20120123.pdf Spectroscopic results from a Keck-HIRES spectrum and SME analysis by Debra Fischer: K00273_rj131.696 Teff: 5664 +/- 44K Log g: 4.305 +/-0.060 Vsini: 0.4 +/- 0.5 km/s [Fe/H]: 0.242 +/-0.040 Vmac: 3.85 km/s Vmic: 0.85 Chisq: 11.8 Robo-AO i-band imaging of KOI-273 on 2012-07-18 No companions detected within 2.5\" http://arxiv.org/abs/1312.4958 High precision radial velocities (RVs) from Keck/HIRES. Errors include internal errors added in quadrature to 2.0 m/s of jitter. For observations taken before JD=2455130 additional error was added in quadrature to account for lack of sky subtraction in the spectra. The additional errors due to lack of sky subraction are a function of magnitude. ******************************************************* KOI BJD-2.45e6 RV(m/s) Error(m/s) ******************************************************* k00273 5431.8093 59.90 2.34 k00273 5782.9247 -107.58 2.41 k00273 5792.8638 -100.13 2.68 k00273 5792.8956 -104.40 2.42 k00273 5797.7951 -93.11 2.33 k00273 6110.9036 -37.85 2.32 k00273 6115.9345 -37.53 2.73 k00273 6147.8628 -73.98 2.33 k00273 6163.8217 -98.23 2.54 k00273 6164.9058 -96.30 2.67 k00273 6173.9081 -105.79 2.76 k00273 6451.0788 82.27 2.54 k00273 6474.9929 104.22 2.33 k00273 6475.9207 97.53 2.31 k00273 6485.0307 105.34 2.29 k00273 6489.9238 108.98 2.33 k00273 6523.0198 98.73 2.29 k00273 6532.7602 99.04 2.24 k00273 6547.8507 82.62 2.56 k00273 6613.7232 15.21 2.46 GeminiN speckle imaging was taken of KOI-273 on 20140725 at wavelengths 692 and 880nm. The 2.8x2.8 arcsec FOV was centered on the target star. No secondary sources were detected. See separate plots/tables for the limiting magnitude of the field as a function of distance from the target star."
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "imaging_reports_no_companion": {
+          "type": "noul",
+          "noul": 0.98
+        },
+        "imaging_reports_companion_present": {
+          "type": "noul",
+          "noul": 0.96
+        },
+        "spectroscopy_indicates_nonplanetary_companion": {
+          "type": "noul",
+          "noul": 0.07
+        },
+        "spectroscopy_reports_no_binary_signature": {
+          "type": "noul",
+          "noul": 0.95
+        },
+        "recon_reported_concluded": {
+          "type": "noul",
+          "noul": 0.98
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 2.61,
+          "confidence": 0.49,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'perhaps', 'may be'; the conclusion is not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats or a request for more data",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.0,
+            "1": 0.0,
+            "2": 0.48,
+            "3": 0.43,
+            "4": 0.09
+          }
+        },
+        "indicates_false_positive_or_retired": {
+          "type": "noul",
+          "noul": 0.08
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.05
+        }
+      },
+      "usage": {
+        "input_tokens": 5004,
+        "output_tokens": 176
+      }
+    }
+  },
+  "S4_long_3": {
+    "case": {
+      "cid": "S4_long_3",
+      "stratum": "S4_long",
+      "host": 490,
+      "len": 1377,
+      "text": "Observed at Lick, UT: 2 August 2010, phase: 0.21 An image taken with the Lick Observatory 1-m Nickel Telescope is available in .pdf and .fits format. Each pdf has a 1.2'x1.2' view centered on the star, and a close-up view of the star in an 11\"x11\" field. The seeing is ~ 1.5\". No companions visible from 2\" to 5\" away from the star down to 19th magnitude. 490Ic-hi20100711.pdf 2010-08-02 LICK, phase=92.18, Teff=4750, log(g)=4.0, Vrot=6, Vrad=-29.968, ccfPeak=0.921 The star is clearly a K-dwarf, as seen by the broad Na D lines. This is a multi, with a 4 day, 7 day, and long period (single transit) object. Let's try to fill out the phase coverage a bit. WIYN speckle imaging was taken of K00490 on 2011-09-08. The 2.8x2.8 arcsec FOV was centered on the target star. No secondary sources were detected. See separate plots/tables for the limiting magnitude of the field as a function of distance from the target star. Robo-AO long-pass of 600nm (LP600) imaging of KOI-490 on 2012-08-05 No companions detected within 2.5\" http://arxiv.org/abs/1312.4958 Possible nearby companion = Yes (2.13\" companion (UKIRT)) Possible nearby companion = Yes (2.18\" companion (Keck/NIRC2, Lick/IRCAL, UKIRT)) Partial transit of Kepler-167e observed by Spitzer-IRAC Ch. 1 on 2018-12-14. Transit ephemeris refined and future transit times predicted through 2030. https://arxiv.org/abs/1903.01478"
+    },
+    "state": {
+      "notes": "Observed at Lick, UT: 2 August 2010, phase: 0.21 An image taken with the Lick Observatory 1-m Nickel Telescope is available in .pdf and .fits format. Each pdf has a 1.2'x1.2' view centered on the star, and a close-up view of the star in an 11\"x11\" field. The seeing is ~ 1.5\". No companions visible from 2\" to 5\" away from the star down to 19th magnitude. 490Ic-hi20100711.pdf 2010-08-02 LICK, phase=92.18, Teff=4750, log(g)=4.0, Vrot=6, Vrad=-29.968, ccfPeak=0.921 The star is clearly a K-dwarf, as seen by the broad Na D lines. This is a multi, with a 4 day, 7 day, and long period (single transit) object. Let's try to fill out the phase coverage a bit. WIYN speckle imaging was taken of K00490 on 2011-09-08. The 2.8x2.8 arcsec FOV was centered on the target star. No secondary sources were detected. See separate plots/tables for the limiting magnitude of the field as a function of distance from the target star. Robo-AO long-pass of 600nm (LP600) imaging of KOI-490 on 2012-08-05 No companions detected within 2.5\" http://arxiv.org/abs/1312.4958 Possible nearby companion = Yes (2.13\" companion (UKIRT)) Possible nearby companion = Yes (2.18\" companion (Keck/NIRC2, Lick/IRCAL, UKIRT)) Partial transit of Kepler-167e observed by Spitzer-IRAC Ch. 1 on 2018-12-14. Transit ephemeris refined and future transit times predicted through 2030. https://arxiv.org/abs/1903.01478"
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "imaging_reports_no_companion": {
+          "type": "noul",
+          "noul": 0.98
+        },
+        "imaging_reports_companion_present": {
+          "type": "noul",
+          "noul": 0.78
+        },
+        "spectroscopy_indicates_nonplanetary_companion": {
+          "type": "noul",
+          "noul": 0.05
+        },
+        "spectroscopy_reports_no_binary_signature": {
+          "type": "noul",
+          "noul": 0.11
+        },
+        "recon_reported_concluded": {
+          "type": "noul",
+          "noul": 0.05
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 1.91,
+          "confidence": 0.23,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'perhaps', 'may be'; the conclusion is not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats or a request for more data",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.01,
+            "1": 0.45,
+            "2": 0.2,
+            "3": 0.32,
+            "4": 0.02
+          }
+        },
+        "indicates_false_positive_or_retired": {
+          "type": "noul",
+          "noul": 0.07
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.29
+        }
+      },
+      "usage": {
+        "input_tokens": 3484,
+        "output_tokens": 176
+      }
+    }
+  },
+  "S5_verylong_1": {
+    "case": {
+      "cid": "S5_verylong_1",
+      "stratum": "S5_verylong",
+      "host": 261,
+      "len": 10754,
+      "text": "McDonald 24/25 Mar 2010 Teff=5750 K, log(g)=4.5, Vrot=0 km/s, Vrad=-46.954 km/s, phase=11.05 Phase 11.25 = 55284.16 = 27/28 Mar 2010 261C-dl20120727a.ps 261Sr-WC55280.96467a.fits The spectrum was taken near the gamma crossing. Let's get an observation at quadrature. TRES 26/27 Mar 2010 Teff=5750 K, log(g)=4.5, Vrot=4 km/s, Vrad=-46.837 km/s, phase=11.18 Phase 11.75 = 55292.28 = 4/5 Apr 2010 261C-sq20120727b.ps The classification and velocity are consistent with the McD spectrum. Let's get an observation at the opposite quadrature. TRES 28/29 Mar 2010 Teff=5750 K, log(g)=4.5, Vrot=4 km/s, Vrad=-46.857 km/s, phase=11.30 Phase 11.75 = 55292.28 = 4/5 Apr 2010 261C-sq20120727b.ps This was observed near the same quadrature. Let's get one more spectrum at phase 0.75. TRES 3/4 Apr 2010 Teff=5750 K, log(g)=4.5, Vrot=2 km/s, Vrad=-46.736 km/s, phase=11.67 261C-sq20120727b.ps The phase coverage is now good and the velocities are consistent within the errors. No more recon is needed. It's time for precise velocities. An image taken with the Lick Observatory 1-m Nickel Telescope is available in .pdf and .fits format. Each pdf has a 1.2'x1.2' view centered on the star, and a close-up view of the star in an 11\"x11\" field. The seeing is ~ 1.5\". Companion star 3\" to the NE atleast 5 magnitudes fainter than primary. 261Ic-hi20100710.pdf Revised HIRES Radial Velocities for k00261 Julian Date, Radial Velocity, Error in RV -------------------------------------------------------- 2455405.030168 2.19 2.81 2455405.889943 0.71 2.38 2455413.976523 -2.02 2.97 2455431.794557 -0.62 2.32 2455436.986914 2.51 2.14 2455437.966384 1.88 1.46 2455438.829298 1.13 2.11 2455455.819605 -1.39 2.61 -------------------------------------------------------- 261Sp-hi20100922.pdf A HIRES guider snap is avaible in .pdf and .fits formats(orientations may differ). The pdf shows the field surrounding the KOI and a contour plot. The contours shown on the pdf may give a first order guess at the magnitudes of the surrounding stars. Magnitudes on the pdfs should be read as magnitudes fainter than the primary. Images are available in the finder_chart section. 261Fv-hi20100805.pdf KOI-261 Rp = 6.2 Re, Per = 16d. SME analysis of HIRES spectra: K00261 Teff=5692 [44] logg=4.4 [.1] [Fe/H]= +0.04 [.04] Vsini=0.5 [.5] km/s The star is a G2 V star with solar metalicity. HIRES RVs are remarkable, shown below. The fit (circular orbit) gives: Mp = 7.98 Me rho = 0.2 g/cc The mass (8.0 Me) is very low for 6.2 Re, yielding a low density of 0.2 g/cc. Either the planet is gaseous or this is a non-detection. The RVs suggest the former, as the RVs phase up. Kepmag = 10.3 ; Saturated on Kepler images. No difference image analysis possible. If the mass and radius are correct, this is a remarkable planet, with R = 6.2 Re, but only 8.0 Me. FOP KOI review Light Curve saturated noise varies by quarter eclipse sigma = 4.0 depth sigma = 1.9 Recon McD1: Teff=5750, log(g)=4.5, Vrot=0, Vrad=-46.954, phase=11.05 TRES1: Teff=5750, log(g)=4.5, Vrot=4, Vrad=-46.837, phase=11.18 TRES2: Teff=5750, log(g)=4.5, Vrot=4, Vrad=-46.857, phase=11.30 TRES3: Teff=5750, log(g)=4.5, Vrot=2, Vrad=-46.736, phase=11.67 the velocities are consistent within the errors Images Lick I band: Companion star 3\" to the NE atleast 5 magnitudes fainter than primary. No A/O or speckle. Centroid complicated by saturated pixels, but looks OK PRV On HIRES. RV variations OK! rating: 1 Hi Doug, During your presentation I pulled up a power spectrum of KOI-261 from Q5M3 to see if oscillations are evident. If the KIC parameters were true oscillations should be obvious from inspection. I do not see from a simple inspection any hint of stellar oscillations. This is consistent with the downward revision of stellar radius you noted based on the spectroscopy. Cheers, Ron ARIES AO images observed this object in bad seeing (0.47\" Ks, 0.68\" J), and found two faint, distant companions. Dist (\") Delta-Ks Delta-J 5.3\" 6.8 6.0 12.7\" 7.3 6.3 261Ia-ea20120727f.jpg 261Ia-ea20120727d.fits 261Ia-ea20120727e.jpg 261Ia-ea20120727c.fits Revised HIRES Radial Velocities for k00261 Julian Date, Radial Velocity, Error in RV -------------------------------------------------------- 2455405.030168 1.73 2.82 2455405.889943 0.92 2.34 2455413.976523 -1.45 3.05 2455431.794557 1.62 2.15 2455436.986914 3.69 2.45 2455437.967023 2.07 1.59 2455438.829298 1.95 2.23 2455439.855631 -6.42 2.12 2455455.819605 0.25 2.46 2455486.833994 -0.37 2.60 2455542.714646 -2.04 2.56 2455544.703444 -6.85 2.98 -------------------------------------------------------- filename hjd phase bs(m/s) bserr(m/s) k00261ScH1-hi55405.03016.crr 2455405.030492 24.695 -7.4 2.3 k00261ScH1-hi55405.88994.crr 2455405.889971 24.748 4.8 2.0 k00261ScH1-hi55413.97652.crr 2455413.976614 25.246 -2.0 2.0 k00261ScH1-hi55413.98901.crr 2455413.989140 25.247 5.3 2.1 k00261ScH1-hi55431.79455.crr 2455431.794491 26.343 -7.0 2.2 k00261ScH1-hi55436.98691.crr 2455436.987049 26.663 -2.7 1.6 k00261ScH1-hi55437.96092.crr 2455437.960872 26.723 10.0 2.0 k00261ScH1-hi55437.97174.crr 2455437.971858 26.724 9.3 1.8 k00261ScH1-hi55438.82929.crr 2455438.829400 26.777 3.0 4.3 k00261ScH1-hi55439.85563.crr 2455439.855518 26.840 1.2 2.8 k00261ScH1-hi55455.81960.crr 2455455.819713 27.823 -9.6 2.1 k00261ScH1-hi55486.83399.crr 2455486.834246 29.733 -4.8 1.5 bsMean RMS = 6.61 No bisector variations with phase. The two lastest spectra are not yet on the KFOP. Howard posted RVs for them below. ARIES AO observations for 00261 were taken on 20100925 in F/30 in J and Ks (plate scale = 0.02\" per pixel, FOV = 20.5\"). The seeing was 0.3\" in J and 0.2\" in Ks. 1 companion star(s) detected within 6.0\" of the target: 5.2\", delta-J=7.1 mag, delta-Ks=6.8 fainter Limits on additional companions: Ks , J PNG images: Ks , J FITS images: Ks , J Hi Avi, Thank you so much for this valuable comparison of active KOIs and EBs. I examined carefully your list: EB_KOI_match_active.txt to identify any KOIs for which we were obtaining precise RVs that were also thought to be EBs. The stars with precise RVs noted as being both a KOI and EB: 261 1661 (CBP, = Kepler 16) For KOI-261, our RVs show no evidence of a binary. The RVs span 400 days and have an RMS 3.0 m/s relative to the possible linear downward trend (~7 m/s during the past year) during the past year. In contrast, an eclipsing binary with P=16.24 d would have orbital speeds of ~100 km/s, 4 orders of magnitude faster than we measure. Thus, most of the light (99.9%) comes from a star that is *not* an eclipsing binary. High Precision Radial Velocites from Keck/HIRES, uploaded Dec 2011. Errors include internal errors added in quadrature to 2.0m/s of Jitter. For observations taken before JD=2455130 additional error was added in quadrature to account for lack of sky subtraction in the spectra. The additional errors due to lack of sky subraction are a function of magnitude. # KOI BJD-2.45e6 RV(m/s) Error(m/s) k00261 5405.030168 1.96 2.46 k00261 5405.889943 1.38 2.32 k00261 5413.976523 -0.15 2.50 k00261 5431.794557 2.35 2.30 k00261 5436.986914 4.51 2.34 k00261 5437.960924 2.00 2.27 k00261 5437.971745 6.32 2.29 k00261 5438.829298 2.79 2.30 k00261 5439.855631 -4.53 2.29 k00261 5455.819605 1.89 2.35 k00261 5486.833994 0.69 2.39 k00261 5542.714646 -0.35 2.46 k00261 5544.703444 -5.15 2.50 k00261 5723.092577 0.08 2.54 k00261 5787.903358 -4.26 2.51 k00261 5795.035974 -5.96 2.41 k00261 5795.835975 -6.75 2.56 Radial Velocity Analysis for all available RVs from Keck/HIRES is avaialble below. Plots include RV vs time, RV vs phase, and mass determination from MCMC analysis. Eccentricity is fixed at zero. 261Vp-hi20120123.pdf Robo-AO i-band imaging of KOI-261 on 2012-07-18 No companions detected within 2.5\" http://arxiv.org/abs/1312.4958 This system has precise RV measurements taken with Keck/HIRES from 2009-2012 summarized in Marcy et. al. (2014) http://adsabs.harvard.edu/abs/2014ApJS..210...20M The transiting planet has been validated having false a positive probability of Summary of planet properties. (table 2) Kepler # ___KOI Period(d) Radius(R_earth) Mass(M_earth) ******************************************************* Kepler-96b 261.01 16.2385 2.67 +/- 0.22 8.46 +/- 3.4 ******************************************************* RVs from Marcy et. al (2014), table 4 BJD-2.45e6 RV(m/s) RV_error(m/s) R'hk (stellar activity) ******************************************************* 5405.030168 2.55 2.47 -4.755 5405.889943 2.32 2.34 -4.745 5413.976523 0.62 2.48 -4.739 5431.794557 3.78 2.30 -4.765 5436.986914 5.95 2.35 -4.793 5437.960924 3.00 2.26 -4.765 5437.971745 7.19 2.30 -4.762 5438.829298 3.66 2.31 -4.758 5439.855631 -3.95 2.31 -4.758 5455.819605 2.30 2.38 -4.758 5486.833994 1.19 2.42 -4.775 5542.714646 0.82 2.46 -4.769 5544.703444 -5.41 2.55 -4.576 5723.092577 0.86 2.58 -4.663 5787.903358 -3.39 2.50 -4.758 5795.035974 -4.74 2.41 -4.755 5795.835975 -3.78 2.57 -4.775 6099.033843 5.65 2.59 -4.708 6111.925286 -12.19 2.59 -4.742 6145.907599 -6.48 2.52 -4.782 6148.981644 5.12 2.64 -4.779 6152.067220 -1.91 2.53 -4.797 6163.805762 2.65 2.43 -4.782 6164.846196 2.79 2.45 -4.786 6175.877276 -4.53 2.47 -4.797 6176.894658 -8.24 2.49 -4.786 ******************************************************* High precision radial velocities (RVs) from Keck/HIRES. Errors include internal errors added in quadrature to 2.0 m/s of jitter. For observations taken before JD=2455130 additional error was added in quadrature to account for lack of sky subtraction in the spectra. The additional errors due to lack of sky subraction are a function of magnitude. ******************************************************* KOI BJD-2.45e6 RV(m/s) Error(m/s) ******************************************************* k00261 5405.0302 1.71 2.45 k00261 5405.8899 1.31 2.32 k00261 5413.9765 -0.45 2.46 k00261 5431.7946 2.79 2.34 k00261 5436.9869 5.81 2.40 k00261 5437.9609 2.90 2.31 k00261 5437.9717 7.07 2.32 k00261 5438.8293 4.18 2.36 k00261 5439.8556 -4.33 2.34 k00261 5455.8196 2.52 2.38 k00261 5486.8340 0.83 2.42 k00261 5542.7146 -0.05 2.47 k00261 5544.7034 -4.69 2.53 k00261 5723.0926 1.22 2.57 k00261 5787.9034 -3.91 2.48 k00261 5795.0360 -5.31 2.47 k00261 5795.8360 -4.87 2.57 k00261 6099.0338 5.37 2.53 k00261 6111.9253 -12.82 2.51 k00261 6145.9076 -7.11 2.53 k00261 6148.9816 4.34 2.65 k00261 6152.0672 -3.54 2.56 k00261 6163.8058 1.61 2.45 k00261 6164.8462 3.27 2.53 k00261 6175.8773 -4.80 2.46 k00261 6176.8947 -8.17 2.52 k00261 6469.0048 3.37 2.53 k00261 6474.0463 -0.01 2.46 k00261 6475.8508 -8.32 2.52 k00261 6477.8355 -4.90 2.52 k00261 6482.7954 9.86 2.61 k00261 6485.9562 1.43 2.51 k00261 6487.0107 6.28 2.50 k00261 6490.0423 3.68 2.50 k00261 6494.0108 4.90 2.53 Possible nearby companion = Yes (3.36\" companion (Keck/NIRC2))"
+    },
+    "state": {
+      "notes": "McDonald 24/25 Mar 2010 Teff=5750 K, log(g)=4.5, Vrot=0 km/s, Vrad=-46.954 km/s, phase=11.05 Phase 11.25 = 55284.16 = 27/28 Mar 2010 261C-dl20120727a.ps 261Sr-WC55280.96467a.fits The spectrum was taken near the gamma crossing. Let's get an observation at quadrature. TRES 26/27 Mar 2010 Teff=5750 K, log(g)=4.5, Vrot=4 km/s, Vrad=-46.837 km/s, phase=11.18 Phase 11.75 = 55292.28 = 4/5 Apr 2010 261C-sq20120727b.ps The classification and velocity are consistent with the McD spectrum. Let's get an observation at the opposite quadrature. TRES 28/29 Mar 2010 Teff=5750 K, log(g)=4.5, Vrot=4 km/s, Vrad=-46.857 km/s, phase=11.30 Phase 11.75 = 55292.28 = 4/5 Apr 2010 261C-sq20120727b.ps This was observed near the same quadrature. Let's get one more spectrum at phase 0.75. TRES 3/4 Apr 2010 Teff=5750 K, log(g)=4.5, Vrot=2 km/s, Vrad=-46.736 km/s, phase=11.67 261C-sq20120727b.ps The phase coverage is now good and the velocities are consistent within the errors. No more recon is needed. It's time for precise velocities. An image taken with the Lick Observatory 1-m Nickel Telescope is available in .pdf and .fits format. Each pdf has a 1.2'x1.2' view centered on the star, and a close-up view of the star in an 11\"x11\" field. The seeing is ~ 1.5\". Companion star 3\" to the NE atleast 5 magnitudes fainter than primary. 261Ic-hi20100710.pdf Revised HIRES Radial Velocities for k00261 Julian Date, Radial Velocity, Error in RV -------------------------------------------------------- 2455405.030168 2.19 2.81 2455405.889943 0.71 2.38 2455413.976523 -2.02 2.97 2455431.794557 -0.62 2.32 2455436.986914 2.51 2.14 2455437.966384 1.88 1.46 2455438.829298 1.13 2.11 2455455.819605 -1.39 2.61 -------------------------------------------------------- 261Sp-hi20100922.pdf A HIRES guider snap is avaible in .pdf and .fits formats(orientations may differ). The pdf shows the field surrounding the KOI and a contour plot. The contours shown on the pdf may give a first order guess at the magnitudes of the surrounding stars. Magnitudes on the pdfs should be read as magnitudes fainter than the primary. Images are available in the finder_chart section. 261Fv-hi20100805.pdf KOI-261 Rp = 6.2 Re, Per = 16d. SME analysis of HIRES spectra: K00261 Teff=5692 [44] logg=4.4 [.1] [Fe/H]= +0.04 [.04] Vsini=0.5 [.5] km/s The star is a G2 V star with solar metalicity. HIRES RVs are remarkable, shown below. The fit (circular orbit) gives: Mp = 7.98 Me rho = 0.2 g/cc The mass (8.0 Me) is very low for 6.2 Re, yielding a low density of 0.2 g/cc. Either the planet is gaseous or this is a non-detection. The RVs suggest the former, as the RVs phase up. Kepmag = 10.3 ; Saturated on Kepler images. No difference image analysis possible. If the mass and radius are correct, this is a remarkable planet, with R = 6.2 Re, but only 8.0 Me. FOP KOI review Light Curve saturated noise varies by quarter eclipse sigma = 4.0 depth sigma = 1.9 Recon McD1: Teff=5750, log(g)=4.5, Vrot=0, Vrad=-46.954, phase=11.05 TRES1: Teff=5750, log(g)=4.5, Vrot=4, Vrad=-46.837, phase=11.18 TRES2: Teff=5750, log(g)=4.5, Vrot=4, Vrad=-46.857, phase=11.30 TRES3: Teff=5750, log(g)=4.5, Vrot=2, Vrad=-46.736, phase=11.67 the velocities are consistent within the errors Images Lick I band: Companion star 3\" to the NE atleast 5 magnitudes fainter than primary. No A/O or speckle. Centroid complicated by saturated pixels, but looks OK PRV On HIRES. RV variations OK! rating: 1 Hi Doug, During your presentation I pulled up a power spectrum of KOI-261 from Q5M3 to see if oscillations are evident. If the KIC parameters were true oscillations should be obvious from inspection. I do not see from a simple inspection any hint of stellar oscillations. This is consistent with the downward revision of stellar radius you noted based on the spectroscopy. Cheers, Ron ARIES AO images observed this object in bad seeing (0.47\" Ks, 0.68\" J), and found two faint, distant companions. Dist (\") Delta-Ks Delta-J 5.3\" 6.8 6.0 12.7\" 7.3 6.3 261Ia-ea20120727f.jpg 261Ia-ea20120727d.fits 261Ia-ea20120727e.jpg 261Ia-ea20120727c.fits Revised HIRES Radial Velocities for k00261 Julian Date, Radial Velocity, Error in RV -------------------------------------------------------- 2455405.030168 1.73 2.82 2455405.889943 0.92 2.34 2455413.976523 -1.45 3.05 2455431.794557 1.62 2.15 2455436.986914 3.69 2.45 2455437.967023 2.07 1.59 2455438.829298 1.95 2.23 2455439.855631 -6.42 2.12 2455455.819605 0.25 2.46 2455486.833994 -0.37 2.60 2455542.714646 -2.04 2.56 2455544.703444 -6.85 2.98 -------------------------------------------------------- filename hjd phase bs(m/s) bserr(m/s) k00261ScH1-hi55405.03016.crr 2455405.030492 24.695 -7.4 2.3 k00261ScH1-hi55405.88994.crr 2455405.889971 24.748 4.8 2.0 k00261ScH1-hi55413.97652.crr 2455413.976614 25.246 -2.0 2.0 k00261ScH1-hi55413.98901.crr 2455413.989140 25.247 5.3 2.1 k00261ScH1-hi55431.79455.crr 2455431.794491 26.343 -7.0 2.2 k00261ScH1-hi55436.98691.crr 2455436.987049 26.663 -2.7 1.6 k00261ScH1-hi55437.96092.crr 2455437.960872 26.723 10.0 2.0 k00261ScH1-hi55437.97174.crr 2455437.971858 26.724 9.3 1.8 k00261ScH1-hi55438.82929.crr 2455438.829400 26.777 3.0 4.3 k00261ScH1-hi55439.85563.crr 2455439.855518 26.840 1.2 2.8 k00261ScH1-hi55455.81960.crr 2455455.819713 27.823 -9.6 2.1 k00261ScH1-hi55486.83399.crr 2455486.834246 29.733 -4.8 1.5 bsMean RMS = 6.61 No bisector variations with phase. The two lastest spectra are not yet on the KFOP. Howard posted RVs for them below. ARIES AO observations for 00261 were taken on 20100925 in F/30 in J and Ks (plate scale = 0.02\" per pixel, FOV = 20.5\"). The seeing was 0.3\" in J and 0.2\" in Ks. 1 companion star(s) detected within 6.0\" of the target: 5.2\", delta-J=7.1 mag, delta-Ks=6.8 fainter Limits on additional companions: Ks , J PNG images: Ks , J FITS images: Ks , J Hi Avi, Thank you so much for this valuable comparison of active KOIs and EBs. I examined carefully your list: EB_KOI_match_active.txt to identify any KOIs for which we were obtaining precise RVs that were also thought to be EBs. The stars with precise RVs noted as being both a KOI and EB: 261 1661 (CBP, = Kepler 16) For KOI-261, our RVs show no evidence of a binary. The RVs span 400 days and have an RMS 3.0 m/s relative to the possible linear downward trend (~7 m/s during the past year) during the past year. In contrast, an eclipsing binary with P=16.24 d would have orbital speeds of ~100 km/s, 4 orders of magnitude faster than we measure. Thus, most of the light (99.9%) comes from a star that is *not* an eclipsing binary. High Precision Radial Velocites from Keck/HIRES, uploaded Dec 2011. Errors include internal errors added in quadrature to 2.0m/s of Jitter. For observations taken before JD=2455130 additional error was added in quadrature to account for lack of sky subtraction in the spectra. The additional errors due to lack of sky subraction are a function of magnitude. # KOI BJD-2.45e6 RV(m/s) Error(m/s) k00261 5405.030168 1.96 2.46 k00261 5405.889943 1.38 2.32 k00261 5413.976523 -0.15 2.50 k00261 5431.794557 2.35 2.30 k00261 5436.986914 4.51 2.34 k00261 5437.960924 2.00 2.27 k00261 5437.971745 6.32 2.29 k00261 5438.829298 2.79 2.30 k00261 5439.855631 -4.53 2.29 k00261 5455.819605 1.89 2.35 k00261 5486.833994 0.69 2.39 k00261 5542.714646 -0.35 2.46 k00261 5544.703444 -5.15 2.50 k00261 5723.092577 0.08 2.54 k00261 5787.903358 -4.26 2.51 k00261 5795.035974 -5.96 2.41 k00261 5795.835975 -6.75 2.56 Radial Velocity Analysis for all available RVs from Keck/HIRES is avaialble below. Plots include RV vs time, RV vs phase, and mass determination from MCMC analysis. Eccentricity is fixed at zero. 261Vp-hi20120123.pdf Robo-AO i-band imaging of KOI-261 on 2012-07-18 No companions detected within 2.5\" http://arxiv.org/abs/1312.4958 This system has precise RV measurements taken with Keck/HIRES from 2009-2012 summarized in Marcy et. al. (2014) http://adsabs.harvard.edu/abs/2014ApJS..210...20M The transiting planet has been validated having false a positive probability of Summary of planet properties. (table 2) Kepler # ___KOI Period(d) Radius(R_earth) Mass(M_earth) ******************************************************* Kepler-96b 261.01 16.2385 2.67 +/- 0.22 8.46 +/- 3.4 ******************************************************* RVs from Marcy et. al (2014), table 4 BJD-2.45e6 RV(m/s) RV_error(m/s) R'hk (stellar activity) ******************************************************* 5405.030168 2.55 2.47 -4.755 5405.889943 2.32 2.34 -4.745 5413.976523 0.62 2.48 -4.739 5431.794557 3.78 2.30 -4.765 5436.986914 5.95 2.35 -4.793 5437.960924 3.00 2.26 -4.765 5437.971745 7.19 2.30 -4.762 5438.829298 3.66 2.31 -4.758 5439.855631 -3.95 2.31 -4.758 5455.819605 2.30 2.38 -4.758 5486.833994 1.19 2.42 -4.775 5542.714646 0.82 2.46 -4.769 5544.703444 -5.41 2.55 -4.576 5723.092577 0.86 2.58 -4.663 5787.903358 -3.39 2.50 -4.758 5795.035974 -4.74 2.41 -4.755 5795.835975 -3.78 2.57 -4.775 6099.033843 5.65 2.59 -4.708 6111.925286 -12.19 2.59 -4.742 6145.907599 -6.48 2.52 -4.782 6148.981644 5.12 2.64 -4.779 6152.067220 -1.91 2.53 -4.797 6163.805762 2.65 2.43 -4.782 6164.846196 2.79 2.45 -4.786 6175.877276 -4.53 2.47 -4.797 6176.894658 -8.24 2.49 -4.786 ******************************************************* High precision radial velocities (RVs) from Keck/HIRES. Errors include internal errors added in quadrature to 2.0 m/s of jitter. For observations taken before JD=2455130 additional error was added in quadrature to account for lack of sky subtraction in the spectra. The additional errors due to lack of sky subraction are a function of magnitude. ******************************************************* KOI BJD-2.45e6 RV(m/s) Error(m/s) ******************************************************* k00261 5405.0302 1.71 2.45 k00261 5405.8899 1.31 2.32 k00261 5413.9765 -0.45 2.46 k00261 5431.7946 2.79 2.34 k00261 5436.9869 5.81 2.40 k00261 5437.9609 2.90 2.31 k00261 5437.9717 7.07 2.32 k00261 5438.8293 4.18 2.36 k00261 5439.8556 -4.33 2.34 k00261 5455.8196 2.52 2.38 k00261 5486.8340 0.83 2.42 k00261 5542.7146 -0.05 2.47 k00261 5544.7034 -4.69 2.53 k00261 5723.0926 1.22 2.57 k00261 5787.9034 -3.91 2.48 k00261 5795.0360 -5.31 2.47 k00261 5795.8360 -4.87 2.57 k00261 6099.0338 5.37 2.53 k00261 6111.9253 -12.82 2.51 k00261 6145.9076 -7.11 2.53 k00261 6148.9816 4.34 2.65 k00261 6152.0672 -3.54 2.56 k00261 6163.8058 1.61 2.45 k00261 6164.8462 3.27 2.53 k00261 6175.8773 -4.80 2.46 k00261 6176.8947 -8.17 2.52 k00261 6469.0048 3.37 2.53 k00261 6474.0463 -0.01 2.46 k00261 6475.8508 -8.32 2.52 k00261 6477.8355 -4.90 2.52 k00261 6482.7954 9.86 2.61 k00261 6485.9562 1.43 2.51 k00261 6487.0107 6.28 2.50 k00261 6490.0423 3.68 2.50 k00261 6494.0108 4.90 2.53 Possible nearby companion = Yes (3.36\" companion (Keck/NIRC2))"
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "imaging_reports_no_companion": {
+          "type": "noul",
+          "noul": 0.97
+        },
+        "imaging_reports_companion_present": {
+          "type": "noul",
+          "noul": 0.98
+        },
+        "spectroscopy_indicates_nonplanetary_companion": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "spectroscopy_reports_no_binary_signature": {
+          "type": "noul",
+          "noul": 0.91
+        },
+        "recon_reported_concluded": {
+          "type": "noul",
+          "noul": 0.98
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 2.81,
+          "confidence": 0.42,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'perhaps', 'may be'; the conclusion is not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats or a request for more data",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.0,
+            "1": 0.08,
+            "2": 0.26,
+            "3": 0.41000000000000003,
+            "4": 0.25
+          }
+        },
+        "indicates_false_positive_or_retired": {
+          "type": "noul",
+          "noul": 0.1
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.94
+        }
+      },
+      "usage": {
+        "input_tokens": 8728,
+        "output_tokens": 176
+      }
+    }
+  },
+  "S5_verylong_2": {
+    "case": {
+      "cid": "S5_verylong_2",
+      "stratum": "S5_verylong",
+      "host": 42,
+      "len": 9217,
+      "text": "Note from observation request: single transit; 0.23 R_j We saw, on the HIRES guider, a star about 3 mag fainter located 1.3 \" away. Steve Howell reports K42 has a fainter companion barely in our box at about 1.2\" away, no doubt the same companion seen on the HIRES guider (noted 2009-06-13). Spectroscopy is possible only in good seeing. Teff=6250, log(g)=4.0, Vrot=16, Vrad=-41.18 One McDonald 2.7-m coude spectrum from 2454989.9274 42Sp-DL090607.ps 42Lp-so090606.pdf Teff=6500, log(g)=4.0, Vrot=16, Vrad=-40.16 One TRES spectrum. What do the HIRES velocities show? If the HIRES template exposure can be uploaded, Lars can run his classification analysis. 42Sp-dl090614.ps Per FOP telecon: Waiting to see HIRES results. Possible trouble from nearby companion. No centroid data yet. Is bright so would be nice for a planet. Leave at FOP P2. HIRES RV using telluric lines (0.13 km/s): On BJD = 2454988.9797, RV = -39.966 km/s This RV is 0.2 km/s higher than from TRES, but 1.2 km/s higher than from McD. The companion 1.2\" away makes this KOI too seeing-dependent for reliable follow-up, in my view. P2 probably should become P3. Per FOP telecon of 090722: Star only 2.2 mag fainter within 1.2\" makes this a difficult star to get good HIRES measurements on. Keep at FOP priority 3 and wait for more photometry and centroid work. Consider Spitzer observations. This is on hold for now, but let's keep it on the active list, because it is so bright. We may decide it is worth a special effort some time in the future. NOTE: Out of time order TCERT 09Jul21: cdpp: 1 transit - two more in Q1 data another TCE event at hjd=91 modeling looks good; very bright star good candidate Move to high priority Speckle image shows close companion 2.2 mags fainter at 1\" separation Re-looking at the speckle two-color data taken in June 2009 and comparing it to the Oct data, KOI 42 _may_ have, in addition to its wide companion, a close (0.06\") companion. The data are not statistically significant, but both \"g\" and \"r\" reconstructed images show a suspicious looking thing at the same separation and PA. It is certainly on the re-observe list. So for now, it is a \"maybe\" for a very close companion and a for sure for the obvious one 1.6 or so arcsec away. I'll add this not to the FOP website. KOI-42 had Q1 SC data enabling an early asteroseismic analysis. J\u00f8rgen and Hans have exercised the KASOC pipeline on KOI-42 resulting in clear detection of 18 individual frequencies and clear identification of l = 0, 1, and 2 modes. Following computation of stellar evolution models over a suitable mass range, and assuming [Fe/H] = -0.3,0,0.3 it is possible to select models within 2 sigma of T_eff (6000 to 6800 K based on preliminary spectroscopic reports by Latham below) and constrain the mean stellar density, which is: 0.689 +/- 0.017 g/cm^3. Only relatively weak constraints on mass and radius separately follow: M = 1.2 +/- 0.2, R = 1.34 +/- 0.06 solar. Current modeling does not yet provide good solutions for the individual frequencies, the quoted stellar density is based on the observed large separation. Key information needed are improved quantities from spectroscopy: T_eff, [Fe/H] and Vsini is also important since in the 16 km/s range of the initial solution confusion of modes given the substantial influence of rotation is possible. KOI 42 has a close, faint companion according to a speckle observation obtained at WIYN. The companion reported here is _not_ the one shown in the DSS or the \"high res\" slit image. That star is also to the SW of KOI42 but is 6-7 arcsec away. The companion seen by speckle is 1.55 arcsec away at at PA of 200-202 degrees and is 4 mags fainter in R and 5 mags fainter in V. An image taken with the Lick Observatory 1-m Nickel Telescope is available in .pdf and .fits format. Each pdf has a 1.2'x1.2' view centered on the star, and a close-up view of the star in an 11\"x11\" field. The seeing is ~ 1.5\". The close companion found with speckle is difficult to see in this image, as the separation of the target and companion is only ~1.0\" 42Ic-hi20100710.pdf A HIRES guider snap is avaible in .pdf and .fits formats(orientations may differ). The pdf shows the field surrounding the KOI and a contour plot. The contours shown on the pdf may give a first order guess at the magnitudes of the surrounding stars. Magnitudes on the pdfs should be read as magnitudes fainter than the primary. Images are available in the finder_chart section. Star is on the slit, and magnitudes may not be accurate. 42Fv-hi091022.pdf MMT ARIES AO image in J and Ks shows companion star 1.6 arcsec separation 42Ir-ad20120727h.jpg 42Ir-ad20120727g.jpg Details for MMT ARIES AO images: Binary separation: 1.58\" Mag difference: 1.9 (Ks), 2.2 (J) Seeing: 0.12\" (Ks), 0.26\" (J) Limit on other objects: there is a faint star 13.8\" from the target, which is fainter than the bright binary component by 6.5 mag in Ks and 7.1 mag in J. This is about as faint as objects could reliably be detected. Debra Fischer's updated SME analysis Star Teff logg [Fe/H] vsini chisq K00042 6170 [250] 4.1 [.25] -0.04 [15] 13 [1] 9.9 ARIES AO observations for 00042 were taken on 20100503 in F/30 in J and Ks (plate scale = 0.02\" per pixel, FOV = 20.5\"). The seeing was 0.1\" in J and 0.1\" in Ks. 1 companion star(s) detected within 4.0\" of the target: 1.9 mag fainter in Ks at 1.58\". Limits on additional companions: Ks , J PNG images: Ks , J FITS images: Ks , J An asteroseismic grid-based solution has now been provided via a process orchestrated by Bill Chaplin with inputs from most members of the KASOC. The procedure is roughly this: 1) An SME or SPC solution for Teff and [Fe/H] was provided by Debra Fischer or Lars Buchhave using available spectroscopy. 2) The SC time series were analyzed by several members of KASOC returning the global oscillation parameters giving the mean separation between successive modes and the frequency of peak power. 3) The global oscillations parameters are used in a stellar evolution grid-based solution yielding most fundamentally the mean stellar density, but also radius, mass and in this case log(g). 4) The resulting asteroseismic based log(g) is then adopted by Debra (SME) or Lars (SPC) as a prior for a new spectroscopic solution for Teff and [Fe/H] in particular. 5) Using the new, iterated Teff and [Fe/H] the global oscillations parameters are again used in deriving mean stellar density, radius and mass in the context of stellar evolution constraints. These results follow as the median from several independent pipelines created by multiple KASOC members. Results for this star (solar or cgs units) are: KIC Radius Mass Mean Density 8866102 1.368 +/- 0.027 1.270 +/- 0.058 0.6947 +/- 0.0157 log(g) Teff [Fe/H] 4.2656 +/- 0.0069 6343 +/- 66 0.05 +/- 0.11 This KOI has been confirmed and is now named Kepler-410. Author: Van Eylen, Vincent, et. al. Title: \"What asteroseismology can do for exoplanets: Kepler-410A b is a Small Neptune around a bright star, in an eccentric orbit consistent with low obliquity\" link: http://adsabs.harvard.edu/abs/2013arXiv1312.4938V Abstract: We confirm the Kepler planet candidate Kepler-410b (KOI-42b) as a Neptune sized exoplanet on a 17.8 day, eccentric orbit around the bright (Kp = 9.4) star Kepler-410A. This is the third brightest confirmed planet host star in the Kepler field and one of the brightest hosts of all currently known transiting exoplanets. Kepler-410 consists of a blend between the fast rotating planet host star (Kepler-410A) and a fainter star (Kepler-410B), which has complicated the confirmation of the planetary candidate. Employing asteroseismology, using constraints from the transit light curve, adaptive optics and speckle images, and Spitzer transit observations, we demonstrate that the candidate can only be an exoplanet orbiting Kepler-410A. Via asteroseismology we determine the following stellar and planetary parameters with high precision; M$_\\\\star = 1.214 \\\\pm 0.033$ M$_\\\\odot$, R$_\\\\star = 1.352 \\\\pm 0.010$ R$_\\\\odot$, Age = $2.76 \\\\pm 0.54$ Gyr, planetary radius ($2.838 \\\\pm 0.054$ R$_\\\\oplus$), and orbital eccentricity ($0.17^{+0.07}_{-0.06}$). In addition, rotational splitting of the pulsation modes allows for a measurement of Kepler-410A's inclination and rotation rate. Our measurement of an inclination of $82.5^{+7.5}_{-2.5}$ [$^\\\\circ$] indicates a low obliquity in this system. Transit timing variations indicate the presence of at least one additional (non-transiting) planet in the system. Possible nearby companion = Yes (1.65\" companion; see Palomar AO Image ) Nearby stars detected in Robo-AO LP600-imaging of KOI-42 Separation: 1.74\" +/- 0.06\" Magnitude difference: 3.04 +/- 0.17 Position angle: 35 +/- 2 degrees https://arxiv.org/abs/1604.08604 Possible nearby companion = Yes (1.67\" companion (Keck/NIRC2, MMT/ARIES, Palomar/PHARO, Palomar/Robo-AO, WIYN/DSSI)) New analysis of TTVs of Kepler-410Ab (link: http://adsabs.harvard.edu/abs/2017MNRAS.469.2907G ). Kep410-ttv.dat 60 RV measurements (three years period) & TTVs re-analysis (possible explanation is Mars-size planet near to 2:3 MMR) (link: https://ui.adsabs.harvard.edu/#abs/2019MNRAS.484.4352G ) rv_ispec-ta3-v_std-corr.dat"
+    },
+    "state": {
+      "notes": "Note from observation request: single transit; 0.23 R_j We saw, on the HIRES guider, a star about 3 mag fainter located 1.3 \" away. Steve Howell reports K42 has a fainter companion barely in our box at about 1.2\" away, no doubt the same companion seen on the HIRES guider (noted 2009-06-13). Spectroscopy is possible only in good seeing. Teff=6250, log(g)=4.0, Vrot=16, Vrad=-41.18 One McDonald 2.7-m coude spectrum from 2454989.9274 42Sp-DL090607.ps 42Lp-so090606.pdf Teff=6500, log(g)=4.0, Vrot=16, Vrad=-40.16 One TRES spectrum. What do the HIRES velocities show? If the HIRES template exposure can be uploaded, Lars can run his classification analysis. 42Sp-dl090614.ps Per FOP telecon: Waiting to see HIRES results. Possible trouble from nearby companion. No centroid data yet. Is bright so would be nice for a planet. Leave at FOP P2. HIRES RV using telluric lines (0.13 km/s): On BJD = 2454988.9797, RV = -39.966 km/s This RV is 0.2 km/s higher than from TRES, but 1.2 km/s higher than from McD. The companion 1.2\" away makes this KOI too seeing-dependent for reliable follow-up, in my view. P2 probably should become P3. Per FOP telecon of 090722: Star only 2.2 mag fainter within 1.2\" makes this a difficult star to get good HIRES measurements on. Keep at FOP priority 3 and wait for more photometry and centroid work. Consider Spitzer observations. This is on hold for now, but let's keep it on the active list, because it is so bright. We may decide it is worth a special effort some time in the future. NOTE: Out of time order TCERT 09Jul21: cdpp: 1 transit - two more in Q1 data another TCE event at hjd=91 modeling looks good; very bright star good candidate Move to high priority Speckle image shows close companion 2.2 mags fainter at 1\" separation Re-looking at the speckle two-color data taken in June 2009 and comparing it to the Oct data, KOI 42 _may_ have, in addition to its wide companion, a close (0.06\") companion. The data are not statistically significant, but both \"g\" and \"r\" reconstructed images show a suspicious looking thing at the same separation and PA. It is certainly on the re-observe list. So for now, it is a \"maybe\" for a very close companion and a for sure for the obvious one 1.6 or so arcsec away. I'll add this not to the FOP website. KOI-42 had Q1 SC data enabling an early asteroseismic analysis. J\u00f8rgen and Hans have exercised the KASOC pipeline on KOI-42 resulting in clear detection of 18 individual frequencies and clear identification of l = 0, 1, and 2 modes. Following computation of stellar evolution models over a suitable mass range, and assuming [Fe/H] = -0.3,0,0.3 it is possible to select models within 2 sigma of T_eff (6000 to 6800 K based on preliminary spectroscopic reports by Latham below) and constrain the mean stellar density, which is: 0.689 +/- 0.017 g/cm^3. Only relatively weak constraints on mass and radius separately follow: M = 1.2 +/- 0.2, R = 1.34 +/- 0.06 solar. Current modeling does not yet provide good solutions for the individual frequencies, the quoted stellar density is based on the observed large separation. Key information needed are improved quantities from spectroscopy: T_eff, [Fe/H] and Vsini is also important since in the 16 km/s range of the initial solution confusion of modes given the substantial influence of rotation is possible. KOI 42 has a close, faint companion according to a speckle observation obtained at WIYN. The companion reported here is _not_ the one shown in the DSS or the \"high res\" slit image. That star is also to the SW of KOI42 but is 6-7 arcsec away. The companion seen by speckle is 1.55 arcsec away at at PA of 200-202 degrees and is 4 mags fainter in R and 5 mags fainter in V. An image taken with the Lick Observatory 1-m Nickel Telescope is available in .pdf and .fits format. Each pdf has a 1.2'x1.2' view centered on the star, and a close-up view of the star in an 11\"x11\" field. The seeing is ~ 1.5\". The close companion found with speckle is difficult to see in this image, as the separation of the target and companion is only ~1.0\" 42Ic-hi20100710.pdf A HIRES guider snap is avaible in .pdf and .fits formats(orientations may differ). The pdf shows the field surrounding the KOI and a contour plot. The contours shown on the pdf may give a first order guess at the magnitudes of the surrounding stars. Magnitudes on the pdfs should be read as magnitudes fainter than the primary. Images are available in the finder_chart section. Star is on the slit, and magnitudes may not be accurate. 42Fv-hi091022.pdf MMT ARIES AO image in J and Ks shows companion star 1.6 arcsec separation 42Ir-ad20120727h.jpg 42Ir-ad20120727g.jpg Details for MMT ARIES AO images: Binary separation: 1.58\" Mag difference: 1.9 (Ks), 2.2 (J) Seeing: 0.12\" (Ks), 0.26\" (J) Limit on other objects: there is a faint star 13.8\" from the target, which is fainter than the bright binary component by 6.5 mag in Ks and 7.1 mag in J. This is about as faint as objects could reliably be detected. Debra Fischer's updated SME analysis Star Teff logg [Fe/H] vsini chisq K00042 6170 [250] 4.1 [.25] -0.04 [15] 13 [1] 9.9 ARIES AO observations for 00042 were taken on 20100503 in F/30 in J and Ks (plate scale = 0.02\" per pixel, FOV = 20.5\"). The seeing was 0.1\" in J and 0.1\" in Ks. 1 companion star(s) detected within 4.0\" of the target: 1.9 mag fainter in Ks at 1.58\". Limits on additional companions: Ks , J PNG images: Ks , J FITS images: Ks , J An asteroseismic grid-based solution has now been provided via a process orchestrated by Bill Chaplin with inputs from most members of the KASOC. The procedure is roughly this: 1) An SME or SPC solution for Teff and [Fe/H] was provided by Debra Fischer or Lars Buchhave using available spectroscopy. 2) The SC time series were analyzed by several members of KASOC returning the global oscillation parameters giving the mean separation between successive modes and the frequency of peak power. 3) The global oscillations parameters are used in a stellar evolution grid-based solution yielding most fundamentally the mean stellar density, but also radius, mass and in this case log(g). 4) The resulting asteroseismic based log(g) is then adopted by Debra (SME) or Lars (SPC) as a prior for a new spectroscopic solution for Teff and [Fe/H] in particular. 5) Using the new, iterated Teff and [Fe/H] the global oscillations parameters are again used in deriving mean stellar density, radius and mass in the context of stellar evolution constraints. These results follow as the median from several independent pipelines created by multiple KASOC members. Results for this star (solar or cgs units) are: KIC Radius Mass Mean Density 8866102 1.368 +/- 0.027 1.270 +/- 0.058 0.6947 +/- 0.0157 log(g) Teff [Fe/H] 4.2656 +/- 0.0069 6343 +/- 66 0.05 +/- 0.11 This KOI has been confirmed and is now named Kepler-410. Author: Van Eylen, Vincent, et. al. Title: \"What asteroseismology can do for exoplanets: Kepler-410A b is a Small Neptune around a bright star, in an eccentric orbit consistent with low obliquity\" link: http://adsabs.harvard.edu/abs/2013arXiv1312.4938V Abstract: We confirm the Kepler planet candidate Kepler-410b (KOI-42b) as a Neptune sized exoplanet on a 17.8 day, eccentric orbit around the bright (Kp = 9.4) star Kepler-410A. This is the third brightest confirmed planet host star in the Kepler field and one of the brightest hosts of all currently known transiting exoplanets. Kepler-410 consists of a blend between the fast rotating planet host star (Kepler-410A) and a fainter star (Kepler-410B), which has complicated the confirmation of the planetary candidate. Employing asteroseismology, using constraints from the transit light curve, adaptive optics and speckle images, and Spitzer transit observations, we demonstrate that the candidate can only be an exoplanet orbiting Kepler-410A. Via asteroseismology we determine the following stellar and planetary parameters with high precision; M$_\\\\star = 1.214 \\\\pm 0.033$ M$_\\\\odot$, R$_\\\\star = 1.352 \\\\pm 0.010$ R$_\\\\odot$, Age = $2.76 \\\\pm 0.54$ Gyr, planetary radius ($2.838 \\\\pm 0.054$ R$_\\\\oplus$), and orbital eccentricity ($0.17^{+0.07}_{-0.06}$). In addition, rotational splitting of the pulsation modes allows for a measurement of Kepler-410A's inclination and rotation rate. Our measurement of an inclination of $82.5^{+7.5}_{-2.5}$ [$^\\\\circ$] indicates a low obliquity in this system. Transit timing variations indicate the presence of at least one additional (non-transiting) planet in the system. Possible nearby companion = Yes (1.65\" companion; see Palomar AO Image ) Nearby stars detected in Robo-AO LP600-imaging of KOI-42 Separation: 1.74\" +/- 0.06\" Magnitude difference: 3.04 +/- 0.17 Position angle: 35 +/- 2 degrees https://arxiv.org/abs/1604.08604 Possible nearby companion = Yes (1.67\" companion (Keck/NIRC2, MMT/ARIES, Palomar/PHARO, Palomar/Robo-AO, WIYN/DSSI)) New analysis of TTVs of Kepler-410Ab (link: http://adsabs.harvard.edu/abs/2017MNRAS.469.2907G ). Kep410-ttv.dat 60 RV measurements (three years period) & TTVs re-analysis (possible explanation is Mars-size planet near to 2:3 MMR) (link: https://ui.adsabs.harvard.edu/#abs/2019MNRAS.484.4352G ) rv_ispec-ta3-v_std-corr.dat"
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "imaging_reports_no_companion": {
+          "type": "noul",
+          "noul": 0.17
+        },
+        "imaging_reports_companion_present": {
+          "type": "noul",
+          "noul": 0.99
+        },
+        "spectroscopy_indicates_nonplanetary_companion": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "spectroscopy_reports_no_binary_signature": {
+          "type": "noul",
+          "noul": 0.08
+        },
+        "recon_reported_concluded": {
+          "type": "noul",
+          "noul": 0.07
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 2.42,
+          "confidence": 0.35,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'perhaps', 'may be'; the conclusion is not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats or a request for more data",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.0,
+            "1": 0.18,
+            "2": 0.43,
+            "3": 0.18,
+            "4": 0.21
+          }
+        },
+        "indicates_false_positive_or_retired": {
+          "type": "noul",
+          "noul": 0.09
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.98
+        }
+      },
+      "usage": {
+        "input_tokens": 5834,
+        "output_tokens": 176
+      }
+    }
+  },
+  "S5_verylong_3": {
+    "case": {
+      "cid": "S5_verylong_3",
+      "stratum": "S5_verylong",
+      "host": 274,
+      "len": 5640,
+      "text": "TRES 24/25 Mar 2010 Teff=6000 K, log(g)=3.5, Vrot=8 km/s, Vrad=-21.040 km/s, phase=18.03 Phase 18.25 = 55284.27 = 27/28 Mar 2010 Phase 18.75 = 55291.81 = 4/5 Apr 2010 274C-sq20120727b.ps McD 27/28 Mar 2010 Teff=6250 K, log(g)=4.0, Vrot=6 km/s, Vrad=-20.963 km/s, phase=18.22 Phase 18.75 = 55291.81 = 3/4 Apr 2010 274C-dl20120727a.ps 274Sr-WC55283.85406a.fits The McD spectrum agrees with the TRES spectrum. Now let's get an observation at the opposite quadrature. TRES 3/4 Apr 2010 Teff=6250 K, log(g)=4.0, Vrot=6 km/s, Vrad=-21.144 km/s, phase=18.69 274C-sq20120727b.ps The phase coverage is now good and the velocities show no variation. The recent TRES exposure supports the stronger gravity of the strong McD spectrum. No more recon is needed. It's time for more precise velocities. Speckle imaging at WIYN has shown that KOI 274 is a single star as observed within a box of size 2.76 x 2.76 arcsec centered on the target. No companion is detected to a magnitude limit below the target star of 5.2 mags in 'R' and 5.0 mags in 'V'. An image taken with the Lick Observatory 1-m Nickel Telescope is available in .pdf and .fits format. Each pdf has a 1.2'x1.2' view centered on the star, and a close-up view of the star in an 11\"x11\" field. The seeing is ~ 1.5\". No companions visible from 2\" to 5\" away from the star down to 19th magnitude. 274Ic-hi20100709.pdf Revised HIRES Radial Velocities for k00274 Julian Date, Radial Velocity, Error in RV -------------------------------------------------------- 2455403.946880 -2.82 3.30 2455404.883204 -0.04 3.48 2455405.011698 4.62 5.10 2455411.865726 -1.68 3.00 2455412.834001 -1.37 2.81 2455413.844080 1.48 3.71 -------------------------------------------------------- 274Sp-hi20100922.pdf AO images with ARIES find no companions down to at least 7 magnitudes fainter, in either J or Ks. Field of view is 20\"x20\", with seeing 0.14\" in Ks and 0.16\" in J. 274Ia-ea20120727f.jpg 274Ia-ea20120727d.fits 274Ia-ea20120727e.jpg 274Ia-ea20120727c.fits Debra Fischer's SME analysis: Star Teff logg [Fe/H] vsini chisq K00274 6090 [100] 4.1 [.1] -0.02 [08] 6.1 [1.] 8.2 ARIES AO observations for 00274 were taken on 20100503 in F/30 in J and Ks (plate scale = 0.02\" per pixel, FOV = 20.5\"). The seeing was 0.1\" in J and 0.1\" in Ks. No binary companions were detected. Limits on additional companions: Ks , J PNG images: Ks , J FITS images: Ks , J High Precision Radial Velocites from Keck/HIRES, uploaded Dec 2011. Errors include internal errors added in quadrature to 2.0m/s of Jitter. For observations taken before JD=2455130 additional error was added in quadrature to account for lack of sky subtraction in the spectra. The additional errors due to lack of sky subraction are a function of magnitude. # KOI BJD-2.45e6 RV(m/s) Error(m/s) k00274 5403.946880 -2.82 2.59 k00274 5404.883204 -0.04 2.65 k00274 5405.011698 4.62 3.24 k00274 5411.865726 -1.68 2.50 k00274 5412.834001 -1.37 2.44 k00274 5413.844080 1.48 2.73 Radial Velocity Analysis for all available RVs from Keck/HIRES is avaialble below. Plots include RV vs time, RV vs phase, and mass determination from MCMC analysis. Eccentricity is fixed at zero. Current fit does not make sense. 274Vp-hi20120123.pdf An asteroseismic grid-based solution has now been provided via a process orchestrated by Bill Chaplin with inputs from most members of the KASOC. The procedure is roughly this: 1) An SME or SPC solution for Teff and [Fe/H] was provided by Debra Fischer or Lars Buchhave using available spectroscopy. 2) The SC time series were analyzed by several members of KASOC returning the global oscillation parameters giving the mean separation between successive modes and the frequency of peak power. 3) The global oscillations parameters are used in a stellar evolution grid-based solution yielding most fundamentally the mean stellar density, but also radius, mass and in this case log(g). 4) The resulting asteroseismic based log(g) is then adopted by Debra (SME) or Lars (SPC) as a prior for a new spectroscopic solution for Teff and [Fe/H] in particular. 5) Using the new, iterated Teff and [Fe/H] the global oscillations parameters are again used in deriving mean stellar density, radius and mass in the context of stellar evolution constraints. These results follow as the median from several independent pipelines created by multiple KASOC members. Results for this star (solar or cgs units) are: KIC Radius Mass Mean Density 8077137 1.684 +/- 0.041 1.236 +/- 0.084 0.3654 +/- 0.0116 log(g) Teff [Fe/H] 4.0772 +/- 0.0130 6098 +/- 66 0.00 +/- 0.07 Gemini speckle imaging was taken of KOI274 on 2013-07-27. The 2.78x2.78 arcsec FOV was centered on the target star. No secondary sources were detected. See separate plots/tables for the limiting magnitude of the field as a function of distance from the target star. High precision radial velocities (RVs) from Keck/HIRES. Errors include internal errors added in quadrature to 2.0 m/s of jitter. For observations taken before JD=2455130 additional error was added in quadrature to account for lack of sky subtraction in the spectra. The additional errors due to lack of sky subraction are a function of magnitude. ******************************************************* KOI BJD-2.45e6 RV(m/s) Error(m/s) ******************************************************* k00274 5403.9469 -3.99 2.68 k00274 5404.8832 -1.12 2.77 k00274 5405.0117 2.12 3.36 k00274 5411.8657 -1.87 2.56 k00274 5412.8340 -2.54 2.55 k00274 5413.8441 0.15 2.78 k00274 6103.0185 8.71 2.77 k00274 6475.0219 -1.44 2.79 Robo-AO imaging of KOI-274 on 2013-07-28 No companions detected within 4.0\" https://arxiv.org/abs/1604.08604"
+    },
+    "state": {
+      "notes": "TRES 24/25 Mar 2010 Teff=6000 K, log(g)=3.5, Vrot=8 km/s, Vrad=-21.040 km/s, phase=18.03 Phase 18.25 = 55284.27 = 27/28 Mar 2010 Phase 18.75 = 55291.81 = 4/5 Apr 2010 274C-sq20120727b.ps McD 27/28 Mar 2010 Teff=6250 K, log(g)=4.0, Vrot=6 km/s, Vrad=-20.963 km/s, phase=18.22 Phase 18.75 = 55291.81 = 3/4 Apr 2010 274C-dl20120727a.ps 274Sr-WC55283.85406a.fits The McD spectrum agrees with the TRES spectrum. Now let's get an observation at the opposite quadrature. TRES 3/4 Apr 2010 Teff=6250 K, log(g)=4.0, Vrot=6 km/s, Vrad=-21.144 km/s, phase=18.69 274C-sq20120727b.ps The phase coverage is now good and the velocities show no variation. The recent TRES exposure supports the stronger gravity of the strong McD spectrum. No more recon is needed. It's time for more precise velocities. Speckle imaging at WIYN has shown that KOI 274 is a single star as observed within a box of size 2.76 x 2.76 arcsec centered on the target. No companion is detected to a magnitude limit below the target star of 5.2 mags in 'R' and 5.0 mags in 'V'. An image taken with the Lick Observatory 1-m Nickel Telescope is available in .pdf and .fits format. Each pdf has a 1.2'x1.2' view centered on the star, and a close-up view of the star in an 11\"x11\" field. The seeing is ~ 1.5\". No companions visible from 2\" to 5\" away from the star down to 19th magnitude. 274Ic-hi20100709.pdf Revised HIRES Radial Velocities for k00274 Julian Date, Radial Velocity, Error in RV -------------------------------------------------------- 2455403.946880 -2.82 3.30 2455404.883204 -0.04 3.48 2455405.011698 4.62 5.10 2455411.865726 -1.68 3.00 2455412.834001 -1.37 2.81 2455413.844080 1.48 3.71 -------------------------------------------------------- 274Sp-hi20100922.pdf AO images with ARIES find no companions down to at least 7 magnitudes fainter, in either J or Ks. Field of view is 20\"x20\", with seeing 0.14\" in Ks and 0.16\" in J. 274Ia-ea20120727f.jpg 274Ia-ea20120727d.fits 274Ia-ea20120727e.jpg 274Ia-ea20120727c.fits Debra Fischer's SME analysis: Star Teff logg [Fe/H] vsini chisq K00274 6090 [100] 4.1 [.1] -0.02 [08] 6.1 [1.] 8.2 ARIES AO observations for 00274 were taken on 20100503 in F/30 in J and Ks (plate scale = 0.02\" per pixel, FOV = 20.5\"). The seeing was 0.1\" in J and 0.1\" in Ks. No binary companions were detected. Limits on additional companions: Ks , J PNG images: Ks , J FITS images: Ks , J High Precision Radial Velocites from Keck/HIRES, uploaded Dec 2011. Errors include internal errors added in quadrature to 2.0m/s of Jitter. For observations taken before JD=2455130 additional error was added in quadrature to account for lack of sky subtraction in the spectra. The additional errors due to lack of sky subraction are a function of magnitude. # KOI BJD-2.45e6 RV(m/s) Error(m/s) k00274 5403.946880 -2.82 2.59 k00274 5404.883204 -0.04 2.65 k00274 5405.011698 4.62 3.24 k00274 5411.865726 -1.68 2.50 k00274 5412.834001 -1.37 2.44 k00274 5413.844080 1.48 2.73 Radial Velocity Analysis for all available RVs from Keck/HIRES is avaialble below. Plots include RV vs time, RV vs phase, and mass determination from MCMC analysis. Eccentricity is fixed at zero. Current fit does not make sense. 274Vp-hi20120123.pdf An asteroseismic grid-based solution has now been provided via a process orchestrated by Bill Chaplin with inputs from most members of the KASOC. The procedure is roughly this: 1) An SME or SPC solution for Teff and [Fe/H] was provided by Debra Fischer or Lars Buchhave using available spectroscopy. 2) The SC time series were analyzed by several members of KASOC returning the global oscillation parameters giving the mean separation between successive modes and the frequency of peak power. 3) The global oscillations parameters are used in a stellar evolution grid-based solution yielding most fundamentally the mean stellar density, but also radius, mass and in this case log(g). 4) The resulting asteroseismic based log(g) is then adopted by Debra (SME) or Lars (SPC) as a prior for a new spectroscopic solution for Teff and [Fe/H] in particular. 5) Using the new, iterated Teff and [Fe/H] the global oscillations parameters are again used in deriving mean stellar density, radius and mass in the context of stellar evolution constraints. These results follow as the median from several independent pipelines created by multiple KASOC members. Results for this star (solar or cgs units) are: KIC Radius Mass Mean Density 8077137 1.684 +/- 0.041 1.236 +/- 0.084 0.3654 +/- 0.0116 log(g) Teff [Fe/H] 4.0772 +/- 0.0130 6098 +/- 66 0.00 +/- 0.07 Gemini speckle imaging was taken of KOI274 on 2013-07-27. The 2.78x2.78 arcsec FOV was centered on the target star. No secondary sources were detected. See separate plots/tables for the limiting magnitude of the field as a function of distance from the target star. High precision radial velocities (RVs) from Keck/HIRES. Errors include internal errors added in quadrature to 2.0 m/s of jitter. For observations taken before JD=2455130 additional error was added in quadrature to account for lack of sky subtraction in the spectra. The additional errors due to lack of sky subraction are a function of magnitude. ******************************************************* KOI BJD-2.45e6 RV(m/s) Error(m/s) ******************************************************* k00274 5403.9469 -3.99 2.68 k00274 5404.8832 -1.12 2.77 k00274 5405.0117 2.12 3.36 k00274 5411.8657 -1.87 2.56 k00274 5412.8340 -2.54 2.55 k00274 5413.8441 0.15 2.78 k00274 6103.0185 8.71 2.77 k00274 6475.0219 -1.44 2.79 Robo-AO imaging of KOI-274 on 2013-07-28 No companions detected within 4.0\" https://arxiv.org/abs/1604.08604"
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "imaging_reports_no_companion": {
+          "type": "noul",
+          "noul": 0.99
+        },
+        "imaging_reports_companion_present": {
+          "type": "noul",
+          "noul": 0.05
+        },
+        "spectroscopy_indicates_nonplanetary_companion": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "spectroscopy_reports_no_binary_signature": {
+          "type": "noul",
+          "noul": 0.93
+        },
+        "recon_reported_concluded": {
+          "type": "noul",
+          "noul": 0.98
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 3.13,
+          "confidence": 0.53,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'perhaps', 'may be'; the conclusion is not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats or a request for more data",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.0,
+            "1": 0.0,
+            "2": 0.2,
+            "3": 0.45,
+            "4": 0.35
+          }
+        },
+        "indicates_false_positive_or_retired": {
+          "type": "noul",
+          "noul": 0.08
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.05
+        }
+      },
+      "usage": {
+        "input_tokens": 5225,
+        "output_tokens": 176
+      }
+    }
+  },
+  "T01_roboao_clean": {
+    "case": {
+      "cid": "T01_roboao_clean",
+      "stratum": "T01_roboao_clean",
+      "host": 5567,
+      "len": 231,
+      "text": "Possible nearby companion = Yes (3.21\" companion (UKIRT)) Robo-AO LP600-imaging of KOI-5567 on 2015-06-07 No companions detected within 4.0\" https://arxiv.org/abs/1605.03584 Possible nearby companion = Yes (3.21\" companion (UKIRT))"
+    },
+    "state": {
+      "notes": "Possible nearby companion = Yes (3.21\" companion (UKIRT)) Robo-AO LP600-imaging of KOI-5567 on 2015-06-07 No companions detected within 4.0\" https://arxiv.org/abs/1605.03584 Possible nearby companion = Yes (3.21\" companion (UKIRT))"
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "imaging_reports_no_companion": {
+          "type": "noul",
+          "noul": 0.96
+        },
+        "imaging_reports_companion_present": {
+          "type": "noul",
+          "noul": 0.73
+        },
+        "spectroscopy_indicates_nonplanetary_companion": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "spectroscopy_reports_no_binary_signature": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "recon_reported_concluded": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 1.07,
+          "confidence": 0.94,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'perhaps', 'may be'; the conclusion is not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats or a request for more data",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.0,
+            "1": 0.96,
+            "2": 0.02,
+            "3": 0.02,
+            "4": 0.0
+          }
+        },
+        "indicates_false_positive_or_retired": {
+          "type": "noul",
+          "noul": 0.07
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.06
+        }
+      },
+      "usage": {
+        "input_tokens": 3069,
+        "output_tokens": 176
+      }
+    }
+  },
+  "T03_nearby_stars": {
+    "case": {
+      "cid": "T03_nearby_stars",
+      "stratum": "T03_nearby_stars",
+      "host": 2032,
+      "len": 1685,
+      "text": "K02032.01, 19:22:06.42 38:08:34.72, V=12.5, PM=0.0, J-K=0.37, Period=14.1 2012-04-07 MCDONALD, pha=74.72, RV=-28.763, Teff=5250+/-125, log(g)=3.50+/-0.25, Vrot=8.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.827 Looks OK. Let's get another observation at phase 0.25 2032C-AB20120516.ps Observed with TRES on 20130624 UT with phase ~0.18 K02032 is a close double: sep = 1.5 arcsec, nearly equal brightness, as seen on the Keck/HIRES guide camera. No spectrum was acquired. GeminiN speckle imaging was taken of KOI-2032 on 20140724. The 2.8x2.8 arcsec FOV was centered on the target star. The source is found to be triple with the fainter, neighboring sources having the following astrometry/photometry relative to the KOI: First neighbor -------------- Filter (nm) = 692 Separation (arcsec) = 0.0632 Position angle (degr.) = 127.9 Mag. difference = 0.29 Filter (nm) = 880 Separation (arcsec) = 0.0631 Position angle (degr.) = 128.3 Mag. difference = 0.28 Second neighbor -------------- Filter (nm) = 692 Separation (arcsec) = 1.0856 Position angle (degr.) = 318.5 Mag. difference = 0.36 Filter (nm) = 880 Separation (arcsec) = 1.0884 Position angle (degr.) = 318.8 Mag. difference = 0.34 See separate plots/tables for the limiting magnitude of the field as a function of distance from the target star. Possible nearby companion = Yes (1.10\" companion; see Palomar AO Image ) Nearby stars detected in Robo-AO LP600-imaging of KOI-2032 Separation: 1.19\" +/- 0.06\" Magnitude difference: 0.34 +/- 0.05 Position angle: 317 +/- 2 degrees https://arxiv.org/abs/1604.08604 Possible nearby companion = Yes (0.06\", 1.09\", 1.15\" companion (Gemini/DSSI, Keck/NIRC2, Lick/IRCAL, Palomar/PHARO, Palomar/Robo-AO))"
+    },
+    "state": {
+      "notes": "K02032.01, 19:22:06.42 38:08:34.72, V=12.5, PM=0.0, J-K=0.37, Period=14.1 2012-04-07 MCDONALD, pha=74.72, RV=-28.763, Teff=5250+/-125, log(g)=3.50+/-0.25, Vrot=8.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.827 Looks OK. Let's get another observation at phase 0.25 2032C-AB20120516.ps Observed with TRES on 20130624 UT with phase ~0.18 K02032 is a close double: sep = 1.5 arcsec, nearly equal brightness, as seen on the Keck/HIRES guide camera. No spectrum was acquired. GeminiN speckle imaging was taken of KOI-2032 on 20140724. The 2.8x2.8 arcsec FOV was centered on the target star. The source is found to be triple with the fainter, neighboring sources having the following astrometry/photometry relative to the KOI: First neighbor -------------- Filter (nm) = 692 Separation (arcsec) = 0.0632 Position angle (degr.) = 127.9 Mag. difference = 0.29 Filter (nm) = 880 Separation (arcsec) = 0.0631 Position angle (degr.) = 128.3 Mag. difference = 0.28 Second neighbor -------------- Filter (nm) = 692 Separation (arcsec) = 1.0856 Position angle (degr.) = 318.5 Mag. difference = 0.36 Filter (nm) = 880 Separation (arcsec) = 1.0884 Position angle (degr.) = 318.8 Mag. difference = 0.34 See separate plots/tables for the limiting magnitude of the field as a function of distance from the target star. Possible nearby companion = Yes (1.10\" companion; see Palomar AO Image ) Nearby stars detected in Robo-AO LP600-imaging of KOI-2032 Separation: 1.19\" +/- 0.06\" Magnitude difference: 0.34 +/- 0.05 Position angle: 317 +/- 2 degrees https://arxiv.org/abs/1604.08604 Possible nearby companion = Yes (0.06\", 1.09\", 1.15\" companion (Gemini/DSSI, Keck/NIRC2, Lick/IRCAL, Palomar/PHARO, Palomar/Robo-AO))"
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "imaging_reports_no_companion": {
+          "type": "noul",
+          "noul": 0.05
+        },
+        "imaging_reports_companion_present": {
+          "type": "noul",
+          "noul": 0.98
+        },
+        "spectroscopy_indicates_nonplanetary_companion": {
+          "type": "noul",
+          "noul": 0.09
+        },
+        "spectroscopy_reports_no_binary_signature": {
+          "type": "noul",
+          "noul": 0.84
+        },
+        "recon_reported_concluded": {
+          "type": "noul",
+          "noul": 0.05
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 1.88,
+          "confidence": 0.55,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'perhaps', 'may be'; the conclusion is not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats or a request for more data",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.0,
+            "1": 0.32,
+            "2": 0.48,
+            "3": 0.18,
+            "4": 0.02
+          }
+        },
+        "indicates_false_positive_or_retired": {
+          "type": "noul",
+          "noul": 0.09
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.06
+        }
+      },
+      "usage": {
+        "input_tokens": 3684,
+        "output_tokens": 176
+      }
+    }
+  },
+  "T04_companion_flag": {
+    "case": {
+      "cid": "T04_companion_flag",
+      "stratum": "T04_companion_flag",
+      "host": 6756,
+      "len": 115,
+      "text": "Possible nearby companion = Yes (3.99\" companion (UKIRT)) Possible nearby companion = Yes (3.99\" companion (UKIRT))"
+    },
+    "state": {
+      "notes": "Possible nearby companion = Yes (3.99\" companion (UKIRT)) Possible nearby companion = Yes (3.99\" companion (UKIRT))"
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "imaging_reports_no_companion": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "imaging_reports_companion_present": {
+          "type": "noul",
+          "noul": 0.88
+        },
+        "spectroscopy_indicates_nonplanetary_companion": {
+          "type": "noul",
+          "noul": 0.05
+        },
+        "spectroscopy_reports_no_binary_signature": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "recon_reported_concluded": {
+          "type": "noul",
+          "noul": 0.03
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 1.0,
+          "confidence": 0.98,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'perhaps', 'may be'; the conclusion is not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats or a request for more data",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.01,
+            "1": 0.99,
+            "2": 0.0,
+            "3": 0.0,
+            "4": 0.0
+          }
+        },
+        "indicates_false_positive_or_retired": {
+          "type": "noul",
+          "noul": 0.07
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.02
+        }
+      },
+      "usage": {
+        "input_tokens": 3013,
+        "output_tokens": 176
+      }
+    }
+  },
+  "T05_speckle_double": {
+    "case": {
+      "cid": "T05_speckle_double",
+      "stratum": "T05_speckle_double",
+      "host": 987,
+      "len": 1921,
+      "text": "2011-03-26 TRES, phase=173.66, Teff=5500, log(g)=4.5, Vrot=4, Vrad=-4.275, ccfPeak=0.951 987C-SQ20110424.ps Let's get the opposite quadrature. K00987.01, 19:42:17.80 42:48:23.18, V=0.0, PM=0.0, J-K=0.46, Period=3.2 2011-03-26 TRES, phase=173.66, Teff=5500, log(g)=4.5, Vrot=4, Vrad=-4.275, ccfPeak=0.951 2011-05-13 TRES, phase=188.73, Teff=5500, log(g)=4.5, Vrot=4, Vrad=-4.330, ccfPeak=0.949 987C-SQ20110513.ps The phase coverage is not very good, but the period is short enough that if there were a stellar companion, we would have seen the velocity variation. No more recon is needed. WIYN speckle imaging was taken of K00987 on 2011-06-13. The 2.8x2.8 arcsec FOV was centered on the target star. No secondary sources were detected. See separate plots/tables for the limiting magnitude of the field as a function of distance from the target star. Robo-AO i-band imaging of KOI-987 on 2012-08-03 Secondary detected at SNR of 2.4. Lower-confidence detection. While likely to be real, the possibilty of being a spurious speckle cannot be excluded. Separation: 2.05\" pm 0.06\" Magnitude difference: 4.10 pm 0.66 Position angle: 225 pm 2 degrees http://arxiv.org/abs/1312.4958 GeminiN speckle imaging was taken of KOI-987 on 20140725. The 2.8x2.8 arcsec FOV was centered on the target star. The source is found to be double with the fainter, second source having the following astrometry/photometry relative to the KOI: Filter (nm) = 692 Separation (arcsec) = 1.9574 Position angle (degr.) = 225.6 Mag. difference = 5.97 Filter (nm) = 880 Separation (arcsec) = 1.9644 Position angle (degr.) = 225.9 Mag. difference = 4.73 See separate plots/tables for the limiting magnitude of the field as a function of distance from the target star. Possible nearby companion = Yes (1.91\" companion; see Lick AO Image ) Possible nearby companion = Yes (1.97\", 2.18\" companion (Gemini/DSSI, Keck/NIRC2, Lick/IRCAL, Palomar/Robo-AO, UKIRT))"
+    },
+    "state": {
+      "notes": "2011-03-26 TRES, phase=173.66, Teff=5500, log(g)=4.5, Vrot=4, Vrad=-4.275, ccfPeak=0.951 987C-SQ20110424.ps Let's get the opposite quadrature. K00987.01, 19:42:17.80 42:48:23.18, V=0.0, PM=0.0, J-K=0.46, Period=3.2 2011-03-26 TRES, phase=173.66, Teff=5500, log(g)=4.5, Vrot=4, Vrad=-4.275, ccfPeak=0.951 2011-05-13 TRES, phase=188.73, Teff=5500, log(g)=4.5, Vrot=4, Vrad=-4.330, ccfPeak=0.949 987C-SQ20110513.ps The phase coverage is not very good, but the period is short enough that if there were a stellar companion, we would have seen the velocity variation. No more recon is needed. WIYN speckle imaging was taken of K00987 on 2011-06-13. The 2.8x2.8 arcsec FOV was centered on the target star. No secondary sources were detected. See separate plots/tables for the limiting magnitude of the field as a function of distance from the target star. Robo-AO i-band imaging of KOI-987 on 2012-08-03 Secondary detected at SNR of 2.4. Lower-confidence detection. While likely to be real, the possibilty of being a spurious speckle cannot be excluded. Separation: 2.05\" pm 0.06\" Magnitude difference: 4.10 pm 0.66 Position angle: 225 pm 2 degrees http://arxiv.org/abs/1312.4958 GeminiN speckle imaging was taken of KOI-987 on 20140725. The 2.8x2.8 arcsec FOV was centered on the target star. The source is found to be double with the fainter, second source having the following astrometry/photometry relative to the KOI: Filter (nm) = 692 Separation (arcsec) = 1.9574 Position angle (degr.) = 225.6 Mag. difference = 5.97 Filter (nm) = 880 Separation (arcsec) = 1.9644 Position angle (degr.) = 225.9 Mag. difference = 4.73 See separate plots/tables for the limiting magnitude of the field as a function of distance from the target star. Possible nearby companion = Yes (1.91\" companion; see Lick AO Image ) Possible nearby companion = Yes (1.97\", 2.18\" companion (Gemini/DSSI, Keck/NIRC2, Lick/IRCAL, Palomar/Robo-AO, UKIRT))"
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "imaging_reports_no_companion": {
+          "type": "noul",
+          "noul": 0.91
+        },
+        "imaging_reports_companion_present": {
+          "type": "noul",
+          "noul": 0.97
+        },
+        "spectroscopy_indicates_nonplanetary_companion": {
+          "type": "noul",
+          "noul": 0.05
+        },
+        "spectroscopy_reports_no_binary_signature": {
+          "type": "noul",
+          "noul": 0.71
+        },
+        "recon_reported_concluded": {
+          "type": "noul",
+          "noul": 0.96
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 1.68,
+          "confidence": 0.43,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'perhaps', 'may be'; the conclusion is not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats or a request for more data",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.0,
+            "1": 0.53,
+            "2": 0.3,
+            "3": 0.14,
+            "4": 0.03
+          }
+        },
+        "indicates_false_positive_or_retired": {
+          "type": "noul",
+          "noul": 0.08
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.05
+        }
+      },
+      "usage": {
+        "input_tokens": 3758,
+        "output_tokens": 176
+      }
+    }
+  },
+  "T06_guider_only": {
+    "case": {
+      "cid": "T06_guider_only",
+      "stratum": "T06_guider_only",
+      "host": 316,
+      "len": 1284,
+      "text": "TRES 3/4 May 2010 Teff=5500 K, log(g)=4.5, Vrot=2 km/s, Vrad=-27.480 km/s, phase=0.21 316C-sq20120727a.ps Let's get an exposure at opposite quadrature. TRES 27/28 May 2010 Teff=5250 K, log(g)=4.0, Vrot=2 km/s, Vrad=-27.736 km/s, phase=0.74 316C-sq20120727b.ps The phase coverage is good and there's no velocity variation. It's time for more precise velocities. An image taken with the Lick Observatory 1-m Nickel Telescope is available in .pdf and .fits format. Each pdf has a 1.2'x1.2' view centered on the star, and a close-up view of the star in an 11\"x11\" field. The seeing is ~ 1.5\". No companions visible from 2\" to 5\" away from the star down to 19th magnitude. Equally bright star 10\" to the South. 316Ic-hi20100709.pdf Ao is also available: 316Ia-di20100630kt.jpg A HIRES guider snap is avaible in .pdf and .fits formats(orientations may differ). The pdf shows the field surrounding the KOI and a contour plot. The contours shown on the pdf may give a first order guess at the magnitudes of the surrounding stars. Magnitudes on the pdfs should be read as magnitudes fainter than the primary. Images are available in the finder_chart section. 316Fv-hi20100824.pdf Robo-AO i-band imaging of KOI-316 on 2012-08-02 No companions detected within 2.5\" http://arxiv.org/abs/1312.4958"
+    },
+    "state": {
+      "notes": "TRES 3/4 May 2010 Teff=5500 K, log(g)=4.5, Vrot=2 km/s, Vrad=-27.480 km/s, phase=0.21 316C-sq20120727a.ps Let's get an exposure at opposite quadrature. TRES 27/28 May 2010 Teff=5250 K, log(g)=4.0, Vrot=2 km/s, Vrad=-27.736 km/s, phase=0.74 316C-sq20120727b.ps The phase coverage is good and there's no velocity variation. It's time for more precise velocities. An image taken with the Lick Observatory 1-m Nickel Telescope is available in .pdf and .fits format. Each pdf has a 1.2'x1.2' view centered on the star, and a close-up view of the star in an 11\"x11\" field. The seeing is ~ 1.5\". No companions visible from 2\" to 5\" away from the star down to 19th magnitude. Equally bright star 10\" to the South. 316Ic-hi20100709.pdf Ao is also available: 316Ia-di20100630kt.jpg A HIRES guider snap is avaible in .pdf and .fits formats(orientations may differ). The pdf shows the field surrounding the KOI and a contour plot. The contours shown on the pdf may give a first order guess at the magnitudes of the surrounding stars. Magnitudes on the pdfs should be read as magnitudes fainter than the primary. Images are available in the finder_chart section. 316Fv-hi20100824.pdf Robo-AO i-band imaging of KOI-316 on 2012-08-02 No companions detected within 2.5\" http://arxiv.org/abs/1312.4958"
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "imaging_reports_no_companion": {
+          "type": "noul",
+          "noul": 0.97
+        },
+        "imaging_reports_companion_present": {
+          "type": "noul",
+          "noul": 0.66
+        },
+        "spectroscopy_indicates_nonplanetary_companion": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "spectroscopy_reports_no_binary_signature": {
+          "type": "noul",
+          "noul": 0.97
+        },
+        "recon_reported_concluded": {
+          "type": "noul",
+          "noul": 0.93
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 2.62,
+          "confidence": 0.64,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'perhaps', 'may be'; the conclusion is not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats or a request for more data",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.0,
+            "1": 0.02,
+            "2": 0.36,
+            "3": 0.59,
+            "4": 0.03
+          }
+        },
+        "indicates_false_positive_or_retired": {
+          "type": "noul",
+          "noul": 0.08
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.07
+        }
+      },
+      "usage": {
+        "input_tokens": 3448,
+        "output_tokens": 176
+      }
+    }
+  },
+  "T07_sb2_double": {
+    "case": {
+      "cid": "T07_sb2_double",
+      "stratum": "T07_sb2_double",
+      "host": 5814,
+      "len": 224,
+      "text": "Possible eclipsing binary = Yes (Kepler Eclipsing Binary Catalog v2 (Slawson et al. 2011 AJ,142,160)) We have 13 TRES observations and a nice double-lined orbital solution. Contact Dave Latham if you would like more details."
+    },
+    "state": {
+      "notes": "Possible eclipsing binary = Yes (Kepler Eclipsing Binary Catalog v2 (Slawson et al. 2011 AJ,142,160)) We have 13 TRES observations and a nice double-lined orbital solution. Contact Dave Latham if you would like more details."
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "imaging_reports_no_companion": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "imaging_reports_companion_present": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "spectroscopy_indicates_nonplanetary_companion": {
+          "type": "noul",
+          "noul": 0.68
+        },
+        "spectroscopy_reports_no_binary_signature": {
+          "type": "noul",
+          "noul": 0.03
+        },
+        "recon_reported_concluded": {
+          "type": "noul",
+          "noul": 0.09
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 1.39,
+          "confidence": 0.67,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'perhaps', 'may be'; the conclusion is not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats or a request for more data",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.0,
+            "1": 0.73,
+            "2": 0.15,
+            "3": 0.12,
+            "4": 0.0
+          }
+        },
+        "indicates_false_positive_or_retired": {
+          "type": "noul",
+          "noul": 0.07
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.04
+        }
+      },
+      "usage": {
+        "input_tokens": 3047,
+        "output_tokens": 176
+      }
+    }
+  },
+  "T08_large_var": {
+    "case": {
+      "cid": "T08_large_var",
+      "stratum": "T08_large_var",
+      "host": 414,
+      "len": 1611,
+      "text": "Lick exposure taken UT: 30 June 2010. McDonald 2.7m R=60k recon spectrum obtained at phase = 0.67. Faint star ~4\" to south is well off slit. Lick 29/30 Jun 2010 Teff=5750 K, log(g)=4.5, Vrot=0 km/s, Vrad=-30.179 km/s 414C-lb20100831.ps I have shifted the velocity by the HD 182488 offset from that night, so the velocity should be on an absolute scale. Let's see what the McDonald spectrum shows. McD 29/30 Sep 2010 Teff=6000 K, log(g)=4.5, Vrot=4 km/s, Vrad=-11.484 km/s 414C-sq20130313a.ps There is a large velocity variation (~20 km/s). I've double-checked the Lick observation to make sure I properly shifted the velocity. We'll have to take a closer look at this one. One comment right off the bat: the velocity variation is in phase with the ephemeris of the 5.9-day orbit but not the 20-day orbit. I would say this is bad news for the prospect of either event corresponding to a planetary companion. Here's why: the 5.9-day event is shallow (2.8 Rearth) while the 20-day event is deep (1.6 Rjup). If the shallow event is associated with a stellar companion to the primary star, then the deep event is unlikely to be a planet transiting a fainter background star. These are just initial musings, and two RVs are obviously far from conclusive evidence. Somebody should look at this system in detail. Since I'm assigned to review the multiples, I'll bring it up at the first FOP KOI review. Possible eclipsing binary = Yes (Kepler Eclipsing Binary Catalog v2 (Slawson et al. 2011 AJ,142,160)) Robo-AO LP600-imaging of KOI-414 on 2012-09-01 No companions detected within 4.0\" https://arxiv.org/abs/1605.03584"
+    },
+    "state": {
+      "notes": "Lick exposure taken UT: 30 June 2010. McDonald 2.7m R=60k recon spectrum obtained at phase = 0.67. Faint star ~4\" to south is well off slit. Lick 29/30 Jun 2010 Teff=5750 K, log(g)=4.5, Vrot=0 km/s, Vrad=-30.179 km/s 414C-lb20100831.ps I have shifted the velocity by the HD 182488 offset from that night, so the velocity should be on an absolute scale. Let's see what the McDonald spectrum shows. McD 29/30 Sep 2010 Teff=6000 K, log(g)=4.5, Vrot=4 km/s, Vrad=-11.484 km/s 414C-sq20130313a.ps There is a large velocity variation (~20 km/s). I've double-checked the Lick observation to make sure I properly shifted the velocity. We'll have to take a closer look at this one. One comment right off the bat: the velocity variation is in phase with the ephemeris of the 5.9-day orbit but not the 20-day orbit. I would say this is bad news for the prospect of either event corresponding to a planetary companion. Here's why: the 5.9-day event is shallow (2.8 Rearth) while the 20-day event is deep (1.6 Rjup). If the shallow event is associated with a stellar companion to the primary star, then the deep event is unlikely to be a planet transiting a fainter background star. These are just initial musings, and two RVs are obviously far from conclusive evidence. Somebody should look at this system in detail. Since I'm assigned to review the multiples, I'll bring it up at the first FOP KOI review. Possible eclipsing binary = Yes (Kepler Eclipsing Binary Catalog v2 (Slawson et al. 2011 AJ,142,160)) Robo-AO LP600-imaging of KOI-414 on 2012-09-01 No companions detected within 4.0\" https://arxiv.org/abs/1605.03584"
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "imaging_reports_no_companion": {
+          "type": "noul",
+          "noul": 0.98
+        },
+        "imaging_reports_companion_present": {
+          "type": "noul",
+          "noul": 0.09
+        },
+        "spectroscopy_indicates_nonplanetary_companion": {
+          "type": "noul",
+          "noul": 0.68
+        },
+        "spectroscopy_reports_no_binary_signature": {
+          "type": "noul",
+          "noul": 0.03
+        },
+        "recon_reported_concluded": {
+          "type": "noul",
+          "noul": 0.06
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 1.93,
+          "confidence": 0.93,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'perhaps', 'may be'; the conclusion is not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats or a request for more data",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.0,
+            "1": 0.08,
+            "2": 0.91,
+            "3": 0.01,
+            "4": 0.0
+          }
+        },
+        "indicates_false_positive_or_retired": {
+          "type": "noul",
+          "noul": 0.1
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.04
+        }
+      },
+      "usage": {
+        "input_tokens": 3520,
+        "output_tokens": 176
+      }
+    }
+  },
+  "T09_no_var": {
+    "case": {
+      "cid": "T09_no_var",
+      "stratum": "T09_no_var",
+      "host": 174,
+      "len": 2472,
+      "text": "Lick Recon: 174C-hi20120727b.pdf Secon Lick Recon: 174C-hi20120727c.pdf Rvs: JD = 2.45e6 + 5081.9 RV= -102.3 +- 0.1 km/s JD = 2.45e6 + 5082.9 RV= -101.6 +- 0.1 km/s Classification of two Lick spectra: Teff=5000, log(g)=5.0, Vrot=4, Vrad=-92.93 Teff=5000, log(g)=5.0, Vrot=0, Vrad=-92.61 Reconnaissance survived, ready for HIRES 174C-lb20090925.ps An image taken with the Lick Observatory 1-m Nickel Telescope is available in .pdf and .fits format. Each pdf has a 1.2'x1.2' view centered on the star, and a close-up view of the star in an 11\"x11\" field. The seeing is ~ 1.5\". No companions visible from 2\" to 5\" away from the star down to 19th magnitude. 174Ic-hi20100709.pdf SUMMARY updated 22 Sep 2010 This is on the Borucki HZ candidate list of 28 August 2010 Kep=13.78, J-K=0.64 Light Curves: P=56.3, Rp=3.0 Re 174Lp-jr20100922.pdf Recon: Lick, JD=55081.9, CCF=0.90, T=5000, g=5.0, met=0, Vrot=4, Vrad=-102.3 Lick, JD=55382.8, CCF=0.90, T=5000, g=5.0, met=0, Vrot=0, Vrad=-101.6 Need other quadrature HIRES: No observations reported. High Resolution images: Lick Nickel (see below); no positions and mags Centroid/DIA No analysis posted BLENDER No analysis posted TRES 23/24 Oct 2010 Teff=4750 K, log(g)=4.5, Vrot=4 km/s, Vrad=-98.755 km/s, phase=0.15 174C-sq20120727a.ps The phase coverage of the Lick spectra was poor, so we got the other quadrature with TRES. Here are the absolute Lick velocities (shifted by the HD 182488 offset from each night): 55081.9: Teff=5000 K, log(g)=5.0, Vrot=4, Vrad=-99.174 km/s, phase=0.85 55082.8: Teff=5000 K, log(g)=5.0, Vrot=0, Vrad=-98.877 km/s, phase=0.86 There is no significant velocity variation, and now no more recon is needed. Debra Fischer's SME analysis: Star Teff logg [Fe/H] vsini chisq K00174 4768 [100] 4.6 [.2] -0.28 [04] 0.5 [5] 2.9 ARIES AO observations for K00174 were taken on 20111008 in F/30 in Ks (plate scale = 0.02085\" per pixel, FOV = 21.4\"). The seeing was 0.42\" in Ks. 1 companion star(s) detected within 10.0\" of the target: 2.57 mag fainter in Ks at 0.51\". Limits on additional companions: Ks FITS image: Ks Robo-AO long-pass of 600nm (LP600) imaging of KOI-174 on 2012-07-18 Secondary detected at SNR of 7. Separation: 0.60\" pm 0.06\" Magnitude difference: 4.43 pm 0.44 Position angle: 77 pm 3 degrees http://arxiv.org/abs/1312.4958 Possible nearby companion = Yes (0.56\" companion (MMT/ARIES, Palomar/Robo-AO)) Possible nearby companion = Yes (0.57\" companion (Keck/NIRC2, MMT/ARIES, Palomar/Robo-AO))"
+    },
+    "state": {
+      "notes": "Lick Recon: 174C-hi20120727b.pdf Secon Lick Recon: 174C-hi20120727c.pdf Rvs: JD = 2.45e6 + 5081.9 RV= -102.3 +- 0.1 km/s JD = 2.45e6 + 5082.9 RV= -101.6 +- 0.1 km/s Classification of two Lick spectra: Teff=5000, log(g)=5.0, Vrot=4, Vrad=-92.93 Teff=5000, log(g)=5.0, Vrot=0, Vrad=-92.61 Reconnaissance survived, ready for HIRES 174C-lb20090925.ps An image taken with the Lick Observatory 1-m Nickel Telescope is available in .pdf and .fits format. Each pdf has a 1.2'x1.2' view centered on the star, and a close-up view of the star in an 11\"x11\" field. The seeing is ~ 1.5\". No companions visible from 2\" to 5\" away from the star down to 19th magnitude. 174Ic-hi20100709.pdf SUMMARY updated 22 Sep 2010 This is on the Borucki HZ candidate list of 28 August 2010 Kep=13.78, J-K=0.64 Light Curves: P=56.3, Rp=3.0 Re 174Lp-jr20100922.pdf Recon: Lick, JD=55081.9, CCF=0.90, T=5000, g=5.0, met=0, Vrot=4, Vrad=-102.3 Lick, JD=55382.8, CCF=0.90, T=5000, g=5.0, met=0, Vrot=0, Vrad=-101.6 Need other quadrature HIRES: No observations reported. High Resolution images: Lick Nickel (see below); no positions and mags Centroid/DIA No analysis posted BLENDER No analysis posted TRES 23/24 Oct 2010 Teff=4750 K, log(g)=4.5, Vrot=4 km/s, Vrad=-98.755 km/s, phase=0.15 174C-sq20120727a.ps The phase coverage of the Lick spectra was poor, so we got the other quadrature with TRES. Here are the absolute Lick velocities (shifted by the HD 182488 offset from each night): 55081.9: Teff=5000 K, log(g)=5.0, Vrot=4, Vrad=-99.174 km/s, phase=0.85 55082.8: Teff=5000 K, log(g)=5.0, Vrot=0, Vrad=-98.877 km/s, phase=0.86 There is no significant velocity variation, and now no more recon is needed. Debra Fischer's SME analysis: Star Teff logg [Fe/H] vsini chisq K00174 4768 [100] 4.6 [.2] -0.28 [04] 0.5 [5] 2.9 ARIES AO observations for K00174 were taken on 20111008 in F/30 in Ks (plate scale = 0.02085\" per pixel, FOV = 21.4\"). The seeing was 0.42\" in Ks. 1 companion star(s) detected within 10.0\" of the target: 2.57 mag fainter in Ks at 0.51\". Limits on additional companions: Ks FITS image: Ks Robo-AO long-pass of 600nm (LP600) imaging of KOI-174 on 2012-07-18 Secondary detected at SNR of 7. Separation: 0.60\" pm 0.06\" Magnitude difference: 4.43 pm 0.44 Position angle: 77 pm 3 degrees http://arxiv.org/abs/1312.4958 Possible nearby companion = Yes (0.56\" companion (MMT/ARIES, Palomar/Robo-AO)) Possible nearby companion = Yes (0.57\" companion (Keck/NIRC2, MMT/ARIES, Palomar/Robo-AO))"
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "imaging_reports_no_companion": {
+          "type": "noul",
+          "noul": 0.96
+        },
+        "imaging_reports_companion_present": {
+          "type": "noul",
+          "noul": 0.98
+        },
+        "spectroscopy_indicates_nonplanetary_companion": {
+          "type": "noul",
+          "noul": 0.05
+        },
+        "spectroscopy_reports_no_binary_signature": {
+          "type": "noul",
+          "noul": 0.93
+        },
+        "recon_reported_concluded": {
+          "type": "noul",
+          "noul": 0.96
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 2.41,
+          "confidence": 0.21,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'perhaps', 'may be'; the conclusion is not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats or a request for more data",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.0,
+            "1": 0.37,
+            "2": 0.03,
+            "3": 0.42,
+            "4": 0.18
+          }
+        },
+        "indicates_false_positive_or_retired": {
+          "type": "noul",
+          "noul": 0.14
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.09
+        }
+      },
+      "usage": {
+        "input_tokens": 4084,
+        "output_tokens": 176
+      }
+    }
+  },
+  "T10_looks_good": {
+    "case": {
+      "cid": "T10_looks_good",
+      "stratum": "T10_looks_good",
+      "host": 2342,
+      "len": 891,
+      "text": "2012-06-27 UT: McD 2.7m/coude recon obtained, phase=0.75 K02342.01, 19:34:54.21 47:14:49.34, V=13.2, PM=0.0, J-K=0.38, Period=15.0 Looks good. Let's go for opposite quadrature. 2342C-AB20120705.ps R=60k recon spectra taken at McDonald on 2012 Oct 2 at phase=0.20 K02342.01, 19:34:54.21 47:14:49.34, V=13.2, PM=0.0, J-K=0.38, Period=15.0 2012-06-27 MCDONALD, pha=75.75, RV=-42.686, Teff=6250+/-125, log(g)=4.50+/-0.25, Vrot=6.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.801 2012-10-02 MCDONALD, pha=82.19, RV=-43.130, Teff=6250+/-125, log(g)=4.50+/-0.25, Vrot=4.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.831 There are now two McDonald observations with good phase coverage. The single order velocities show variation consistent with a planetary companion. 2342C-AB20120705.ps 2342C-AB20121011.ps Robo-AO i-band imaging of KOI-2342 on 2012-08-31 No companions detected within 2.5\" http://arxiv.org/abs/1312.4958"
+    },
+    "state": {
+      "notes": "2012-06-27 UT: McD 2.7m/coude recon obtained, phase=0.75 K02342.01, 19:34:54.21 47:14:49.34, V=13.2, PM=0.0, J-K=0.38, Period=15.0 Looks good. Let's go for opposite quadrature. 2342C-AB20120705.ps R=60k recon spectra taken at McDonald on 2012 Oct 2 at phase=0.20 K02342.01, 19:34:54.21 47:14:49.34, V=13.2, PM=0.0, J-K=0.38, Period=15.0 2012-06-27 MCDONALD, pha=75.75, RV=-42.686, Teff=6250+/-125, log(g)=4.50+/-0.25, Vrot=6.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.801 2012-10-02 MCDONALD, pha=82.19, RV=-43.130, Teff=6250+/-125, log(g)=4.50+/-0.25, Vrot=4.0+/-2.0, [m/H]=0.00+/-0.25, ccf=0.831 There are now two McDonald observations with good phase coverage. The single order velocities show variation consistent with a planetary companion. 2342C-AB20120705.ps 2342C-AB20121011.ps Robo-AO i-band imaging of KOI-2342 on 2012-08-31 No companions detected within 2.5\" http://arxiv.org/abs/1312.4958"
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "imaging_reports_no_companion": {
+          "type": "noul",
+          "noul": 0.97
+        },
+        "imaging_reports_companion_present": {
+          "type": "noul",
+          "noul": 0.06
+        },
+        "spectroscopy_indicates_nonplanetary_companion": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "spectroscopy_reports_no_binary_signature": {
+          "type": "noul",
+          "noul": 0.59
+        },
+        "recon_reported_concluded": {
+          "type": "noul",
+          "noul": 0.21
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 2.72,
+          "confidence": 0.76,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'perhaps', 'may be'; the conclusion is not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats or a request for more data",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.0,
+            "1": 0.06,
+            "2": 0.15,
+            "3": 0.79,
+            "4": 0.0
+          }
+        },
+        "indicates_false_positive_or_retired": {
+          "type": "noul",
+          "noul": 0.08
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.15
+        }
+      },
+      "usage": {
+        "input_tokens": 3495,
+        "output_tokens": 176
+      }
+    }
+  },
+  "T11_recon_done": {
+    "case": {
+      "cid": "T11_recon_done",
+      "stratum": "T11_recon_done",
+      "host": 1629,
+      "len": 920,
+      "text": "2011-05-12 TRES, phase=165.19, Teff=5500, log(g)=4.0, Vrot=4, Vrad=-26.903, ccfPeak=0.955 1629C-SQ20110512.ps Let's get an observation at the opposite quadrature. 2011-05-12 TRES, phase=165.19, Teff=5500+/-125, log(g)=4.00+/-0.25, Vrot=4+/-2, [m/H]=0.00+/-0.25, Vrad=-26.903, ccf=0.955 2011-07-15 TRES, phase=179.70, Teff=5500+/-125, log(g)=4.00+/-0.25, Vrot=4+/-2, [m/H]=0.00+/-0.25, Vrad=-26.744, ccf=0.911 1629C-SQ20110727.ps The phase coverage is good and the multi-order velocities show no significant variation. No more recon is needed. WIYN speckle imaging was taken of KOI1629 on 2013-05-28. The 3.2x3.2 arcsec FOV was centered on the target star. No secondary sources were detected. See separate plots/tables for the limiting magnitude of the field as a function of distance from the target star. Robo-AO i-band imaging of KOI-1629 on 2012-08-29 No companions detected within 2.5\" http://arxiv.org/abs/1312.4958"
+    },
+    "state": {
+      "notes": "2011-05-12 TRES, phase=165.19, Teff=5500, log(g)=4.0, Vrot=4, Vrad=-26.903, ccfPeak=0.955 1629C-SQ20110512.ps Let's get an observation at the opposite quadrature. 2011-05-12 TRES, phase=165.19, Teff=5500+/-125, log(g)=4.00+/-0.25, Vrot=4+/-2, [m/H]=0.00+/-0.25, Vrad=-26.903, ccf=0.955 2011-07-15 TRES, phase=179.70, Teff=5500+/-125, log(g)=4.00+/-0.25, Vrot=4+/-2, [m/H]=0.00+/-0.25, Vrad=-26.744, ccf=0.911 1629C-SQ20110727.ps The phase coverage is good and the multi-order velocities show no significant variation. No more recon is needed. WIYN speckle imaging was taken of KOI1629 on 2013-05-28. The 3.2x3.2 arcsec FOV was centered on the target star. No secondary sources were detected. See separate plots/tables for the limiting magnitude of the field as a function of distance from the target star. Robo-AO i-band imaging of KOI-1629 on 2012-08-29 No companions detected within 2.5\" http://arxiv.org/abs/1312.4958"
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "imaging_reports_no_companion": {
+          "type": "noul",
+          "noul": 0.98
+        },
+        "imaging_reports_companion_present": {
+          "type": "noul",
+          "noul": 0.05
+        },
+        "spectroscopy_indicates_nonplanetary_companion": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "spectroscopy_reports_no_binary_signature": {
+          "type": "noul",
+          "noul": 0.95
+        },
+        "recon_reported_concluded": {
+          "type": "noul",
+          "noul": 0.96
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 3.32,
+          "confidence": 0.64,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'perhaps', 'may be'; the conclusion is not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats or a request for more data",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.0,
+            "1": 0.0,
+            "2": 0.05,
+            "3": 0.57,
+            "4": 0.38
+          }
+        },
+        "indicates_false_positive_or_retired": {
+          "type": "noul",
+          "noul": 0.08
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.09
+        }
+      },
+      "usage": {
+        "input_tokens": 3420,
+        "output_tokens": 176
+      }
+    }
+  },
+  "T12_precise_rv": {
+    "case": {
+      "cid": "T12_precise_rv",
+      "stratum": "T12_precise_rv",
+      "host": 369,
+      "len": 1528,
+      "text": "TRES 29/30 May 2010 Teff=6250 K, log(g)=4.0, Vrot=8 km/s, Vrad=-1.014 km/s, phase=0.69 369C-sq20120727a.ps Let's get an observation at opposite quadrature. TRES 1/2 Jun 2010 Teff=6500 K, log(g)=4.5, Vrot=8 km/s, Vrad=-1.093 km/s, phase=0.20 369C-sq20120727a.ps The phase coverage is good and the velocity doesn't vary. It's time for more precise velocities. An image taken with the Lick Observatory 1-m Nickel Telescope is available in .pdf and .fits format. Each pdf has a 1.2'x1.2' view centered on the star, and a close-up view of the star in an 11\"x11\" field. The seeing is ~ 1.5\". No companions visible from 2\" to 5\" away from the star down to 19th magnitude. 369Ic-hi20100710.pdf Lick 3m Spectrum taken with SN=50 UT: 23 September 2010 2010-05-30 TRES, phase=57.68, Teff=6250, log(g)=4.0, Vrot=8, Vrad=-1.237, ccfPeak=0.786 2010-06-02 TRES, phase=58.17, Teff=6500, log(g)=4.5, Vrot=8, Vrad=-1.136, ccfPeak=0.89 2010-09-23 LICK, phase=77.36, Teff=6500, log(g)=4.5, Vrot=8, Vrad=-2.124, ccfPeak=0.98 The Lick velocity is consistent with the others. No more recon is needed. Gemini speckle imaging was taken of KOI369 on 2013-07-27. The 2.78x2.78 arcsec FOV was centered on the target star. No secondary sources were detected. See separate plots/tables for the limiting magnitude of the field as a function of distance from the target star. No companion detected within 4 arcsec No companion detected within 4 arcsec Robo-AO imaging of KOI-369 on 2013-07-24 No companions detected within 4.0\" https://arxiv.org/abs/1604.08604"
+    },
+    "state": {
+      "notes": "TRES 29/30 May 2010 Teff=6250 K, log(g)=4.0, Vrot=8 km/s, Vrad=-1.014 km/s, phase=0.69 369C-sq20120727a.ps Let's get an observation at opposite quadrature. TRES 1/2 Jun 2010 Teff=6500 K, log(g)=4.5, Vrot=8 km/s, Vrad=-1.093 km/s, phase=0.20 369C-sq20120727a.ps The phase coverage is good and the velocity doesn't vary. It's time for more precise velocities. An image taken with the Lick Observatory 1-m Nickel Telescope is available in .pdf and .fits format. Each pdf has a 1.2'x1.2' view centered on the star, and a close-up view of the star in an 11\"x11\" field. The seeing is ~ 1.5\". No companions visible from 2\" to 5\" away from the star down to 19th magnitude. 369Ic-hi20100710.pdf Lick 3m Spectrum taken with SN=50 UT: 23 September 2010 2010-05-30 TRES, phase=57.68, Teff=6250, log(g)=4.0, Vrot=8, Vrad=-1.237, ccfPeak=0.786 2010-06-02 TRES, phase=58.17, Teff=6500, log(g)=4.5, Vrot=8, Vrad=-1.136, ccfPeak=0.89 2010-09-23 LICK, phase=77.36, Teff=6500, log(g)=4.5, Vrot=8, Vrad=-2.124, ccfPeak=0.98 The Lick velocity is consistent with the others. No more recon is needed. Gemini speckle imaging was taken of KOI369 on 2013-07-27. The 2.78x2.78 arcsec FOV was centered on the target star. No secondary sources were detected. See separate plots/tables for the limiting magnitude of the field as a function of distance from the target star. No companion detected within 4 arcsec No companion detected within 4 arcsec Robo-AO imaging of KOI-369 on 2013-07-24 No companions detected within 4.0\" https://arxiv.org/abs/1604.08604"
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "imaging_reports_no_companion": {
+          "type": "noul",
+          "noul": 0.99
+        },
+        "imaging_reports_companion_present": {
+          "type": "noul",
+          "noul": 0.05
+        },
+        "spectroscopy_indicates_nonplanetary_companion": {
+          "type": "noul",
+          "noul": 0.05
+        },
+        "spectroscopy_reports_no_binary_signature": {
+          "type": "noul",
+          "noul": 0.9
+        },
+        "recon_reported_concluded": {
+          "type": "noul",
+          "noul": 0.98
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 3.24,
+          "confidence": 0.58,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'perhaps', 'may be'; the conclusion is not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats or a request for more data",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.0,
+            "1": 0.0,
+            "2": 0.12,
+            "3": 0.51,
+            "4": 0.37
+          }
+        },
+        "indicates_false_positive_or_retired": {
+          "type": "noul",
+          "noul": 0.07
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.07
+        }
+      },
+      "usage": {
+        "input_tokens": 3622,
+        "output_tokens": 176
+      }
+    }
+  },
+  "T13_kebc_flag": {
+    "case": {
+      "cid": "T13_kebc_flag",
+      "stratum": "T13_kebc_flag",
+      "host": 6053,
+      "len": 101,
+      "text": "Possible eclipsing binary = Yes (Kepler Eclipsing Binary Catalog v2 (Slawson et al. 2011 AJ,142,160))"
+    },
+    "state": {
+      "notes": "Possible eclipsing binary = Yes (Kepler Eclipsing Binary Catalog v2 (Slawson et al. 2011 AJ,142,160))"
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "imaging_reports_no_companion": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "imaging_reports_companion_present": {
+          "type": "noul",
+          "noul": 0.03
+        },
+        "spectroscopy_indicates_nonplanetary_companion": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "spectroscopy_reports_no_binary_signature": {
+          "type": "noul",
+          "noul": 0.03
+        },
+        "recon_reported_concluded": {
+          "type": "noul",
+          "noul": 0.03
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 0.98,
+          "confidence": 0.96,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'perhaps', 'may be'; the conclusion is not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats or a request for more data",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.03,
+            "1": 0.96,
+            "2": 0.0,
+            "3": 0.01,
+            "4": 0.0
+          }
+        },
+        "indicates_false_positive_or_retired": {
+          "type": "noul",
+          "noul": 0.07
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.05
+        }
+      },
+      "usage": {
+        "input_tokens": 3020,
+        "output_tokens": 176
+      }
+    }
+  },
+  "T14_fp_yes": {
+    "case": {
+      "cid": "T14_fp_yes",
+      "stratum": "T14_fp_yes",
+      "host": 2311,
+      "len": 2494,
+      "text": "WIYN speckle imaging was taken of K02311 on 2011-09-11. The 2.8x2.8 arcsec FOV was centered on the target star. No secondary sources were detected. See separate plots/tables for the limiting magnitude of the field as a function of distance from the target star. K02311.01, 19:08:57.88 39:19:57.94, V=0.0, PM=0.0, J-K=0.40, Period=191.9 2011-08-04 FIES, phase=3.39, Teff=5739+/-50, log(g)=4.70+/-0.10, Vrot=14+/-1, [m/H]=0.15+/-0.08, Vrad=3.201, ccf=0.937, SNRe=40.2 2011-08-04 FIES, phase=3.39, Teff=5765+/-50, log(g)=4.72+/-0.10, Vrot=14+/-1, [m/H]=0.17+/-0.08, Vrad=3.124, ccf=0.962, SNRe=52.4 2011-08-05 FIES, phase=3.40, Teff=5760+/-56, log(g)=4.66+/-0.10, Vrot=14+/-1, [m/H]=0.12+/-0.08, Vrad=3.126, ccf=0.910, SNRe=33.0 2011-09-24 TRES, phase=3.65, Teff=5500+/-125, log(g)=4.50+/-0.25, Vrot=12+/-2, [m/H]=0.00+/-0.25, Vrad=3.500, ccf=0.915 The FIES and TRES observations look good. There is ~ 300m/s velocity variation which indicates a ~6.8Mjupter planet. I will tun the multi order cross correlation to see if that changes the velocity variations. The phase coverage is not great. We should try for phase 0.25 next 2311C-lb20110803.pdf 2311C-AB20110929.ps FROM Lars: K2311 is a 0.83 RJ planet with a period of 191 days (according to Jason's latest spreadsheet). With a simple guess of the mass, I find a an expected semi-amplitude of 24 m/s. With TRES or FIES, it is going to be extremely difficult to maintain such a precision for almost 200 days. I ran a multiorder RV for the two classification spectra I got with FIES and found around 60 m/s variation, but that is probably within the error because the spectra were rather faint for precise RVs and they were taken with the unstable medium fiber. * 0.8\" faint companion from Gemini-Speckle Speckle imaging at Gemini on 2013-07-25 reveals KOI2311 to be a double source. Separations, PA, delta magnitudes in one filter were: Filter Separation (\") PA (deg) Delta m 692nm 1.0295 69.03 5.47 The 880nm data on this night was noisy due to a scattered light problem rendering the second source undetectable. Possible false positive = Yes (Possible SB2 from Kolbl et al. 2014 AJ: (companion Teff, brightness ratio, and relative RV) from Table 9 ( 5600+/-400, >0.276+/-0.069, 11)) Possible nearby companion = Yes (1.03\" companion (Gemini/DSSI, Keck/NIRC2)) Robo-AO imaging of KOI-2311 on 2013-07-29 No companions detected within 4.0\" https://arxiv.org/abs/1604.08604 Possible nearby companion = Yes (1.03\" companion (Gemini/DSSI, Keck/NIRC2))"
+    },
+    "state": {
+      "notes": "WIYN speckle imaging was taken of K02311 on 2011-09-11. The 2.8x2.8 arcsec FOV was centered on the target star. No secondary sources were detected. See separate plots/tables for the limiting magnitude of the field as a function of distance from the target star. K02311.01, 19:08:57.88 39:19:57.94, V=0.0, PM=0.0, J-K=0.40, Period=191.9 2011-08-04 FIES, phase=3.39, Teff=5739+/-50, log(g)=4.70+/-0.10, Vrot=14+/-1, [m/H]=0.15+/-0.08, Vrad=3.201, ccf=0.937, SNRe=40.2 2011-08-04 FIES, phase=3.39, Teff=5765+/-50, log(g)=4.72+/-0.10, Vrot=14+/-1, [m/H]=0.17+/-0.08, Vrad=3.124, ccf=0.962, SNRe=52.4 2011-08-05 FIES, phase=3.40, Teff=5760+/-56, log(g)=4.66+/-0.10, Vrot=14+/-1, [m/H]=0.12+/-0.08, Vrad=3.126, ccf=0.910, SNRe=33.0 2011-09-24 TRES, phase=3.65, Teff=5500+/-125, log(g)=4.50+/-0.25, Vrot=12+/-2, [m/H]=0.00+/-0.25, Vrad=3.500, ccf=0.915 The FIES and TRES observations look good. There is ~ 300m/s velocity variation which indicates a ~6.8Mjupter planet. I will tun the multi order cross correlation to see if that changes the velocity variations. The phase coverage is not great. We should try for phase 0.25 next 2311C-lb20110803.pdf 2311C-AB20110929.ps FROM Lars: K2311 is a 0.83 RJ planet with a period of 191 days (according to Jason's latest spreadsheet). With a simple guess of the mass, I find a an expected semi-amplitude of 24 m/s. With TRES or FIES, it is going to be extremely difficult to maintain such a precision for almost 200 days. I ran a multiorder RV for the two classification spectra I got with FIES and found around 60 m/s variation, but that is probably within the error because the spectra were rather faint for precise RVs and they were taken with the unstable medium fiber. * 0.8\" faint companion from Gemini-Speckle Speckle imaging at Gemini on 2013-07-25 reveals KOI2311 to be a double source. Separations, PA, delta magnitudes in one filter were: Filter Separation (\") PA (deg) Delta m 692nm 1.0295 69.03 5.47 The 880nm data on this night was noisy due to a scattered light problem rendering the second source undetectable. Possible false positive = Yes (Possible SB2 from Kolbl et al. 2014 AJ: (companion Teff, brightness ratio, and relative RV) from Table 9 ( 5600+/-400, >0.276+/-0.069, 11)) Possible nearby companion = Yes (1.03\" companion (Gemini/DSSI, Keck/NIRC2)) Robo-AO imaging of KOI-2311 on 2013-07-29 No companions detected within 4.0\" https://arxiv.org/abs/1604.08604 Possible nearby companion = Yes (1.03\" companion (Gemini/DSSI, Keck/NIRC2))"
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "imaging_reports_no_companion": {
+          "type": "noul",
+          "noul": 0.97
+        },
+        "imaging_reports_companion_present": {
+          "type": "noul",
+          "noul": 0.96
+        },
+        "spectroscopy_indicates_nonplanetary_companion": {
+          "type": "noul",
+          "noul": 0.21
+        },
+        "spectroscopy_reports_no_binary_signature": {
+          "type": "noul",
+          "noul": 0.19
+        },
+        "recon_reported_concluded": {
+          "type": "noul",
+          "noul": 0.07
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 1.69,
+          "confidence": 0.67,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'perhaps', 'may be'; the conclusion is not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats or a request for more data",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.0,
+            "1": 0.35,
+            "2": 0.61,
+            "3": 0.03,
+            "4": 0.01
+          }
+        },
+        "indicates_false_positive_or_retired": {
+          "type": "noul",
+          "noul": 0.97
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.12
+        }
+      },
+      "usage": {
+        "input_tokens": 4027,
+        "output_tokens": 176
+      }
+    }
+  },
+  "T15_fp_no": {
+    "case": {
+      "cid": "T15_fp_no",
+      "stratum": "T15_fp_no",
+      "host": 4116,
+      "len": 50,
+      "text": "Possible false positive = No (disposition updated)"
+    },
+    "state": {
+      "notes": "Possible false positive = No (disposition updated)"
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "imaging_reports_no_companion": {
+          "type": "noul",
+          "noul": 0.06
+        },
+        "imaging_reports_companion_present": {
+          "type": "noul",
+          "noul": 0.05
+        },
+        "spectroscopy_indicates_nonplanetary_companion": {
+          "type": "noul",
+          "noul": 0.06
+        },
+        "spectroscopy_reports_no_binary_signature": {
+          "type": "noul",
+          "noul": 0.16
+        },
+        "recon_reported_concluded": {
+          "type": "noul",
+          "noul": 0.05
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 2.19,
+          "confidence": 0.0,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'perhaps', 'may be'; the conclusion is not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats or a request for more data",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.01,
+            "1": 0.45,
+            "2": 0.05,
+            "3": 0.32,
+            "4": 0.17
+          }
+        },
+        "indicates_false_positive_or_retired": {
+          "type": "noul",
+          "noul": 0.06
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.07
+        }
+      },
+      "usage": {
+        "input_tokens": 2993,
+        "output_tokens": 176
+      }
+    }
+  },
+  "T16_published": {
+    "case": {
+      "cid": "T16_published",
+      "stratum": "T16_published",
+      "host": 1457,
+      "len": 1589,
+      "text": "Possible nearby companion = Yes (2.96\" companion (UKIRT)) I happened to notice this star shows no starspot activity, despite being mid-G. Given the opportunity, I decided to check for phase variations (as in http://arxiv.org/abs/1106.2713, etc). I phased the data to the ephemeris and split it into 100 bins, averaged the data per bin, and plotted them. There is not much variation, and all three phase modulations have amplitudes compatible with zero. There is a slight tail of non-zero solutions for the doppler boosting amplitude, which is caused by a few moderate outliers towards phase 0.8; the rest of the data do not support this, and the distribution is not distinct from zero, so this is not significant. Due to the relatively long orbital period, doppler boosting is more constraining of the companion mass than ellipsoidal variations. If my calculations are correct, The boosting amplitude is Using the value of a/R given in the most recent DV report (16.46 \u00b1 0.42), one derives an implied stellar density of 1.31 \u00b1 0.10 g/cm^3 (assuming zero eccentricity and negligible companion mass), which is reasonably compatible with the KIC Teff. So, this seems like a good planet candidate. The star is very faint, so I imagine follow-up would be difficult, but presumably validation would be possible. Linked below is a plot of the binned phased lightcurve: http://i18.servimg.com/u/f18/18/12/03/06/koi14510.png Robo-AO LP600-imaging of KOI-1457 on 2014-09-02 No companions detected within 4.0\" https://arxiv.org/abs/1605.03584 Possible nearby companion = Yes (2.96\" companion (UKIRT))"
+    },
+    "state": {
+      "notes": "Possible nearby companion = Yes (2.96\" companion (UKIRT)) I happened to notice this star shows no starspot activity, despite being mid-G. Given the opportunity, I decided to check for phase variations (as in http://arxiv.org/abs/1106.2713, etc). I phased the data to the ephemeris and split it into 100 bins, averaged the data per bin, and plotted them. There is not much variation, and all three phase modulations have amplitudes compatible with zero. There is a slight tail of non-zero solutions for the doppler boosting amplitude, which is caused by a few moderate outliers towards phase 0.8; the rest of the data do not support this, and the distribution is not distinct from zero, so this is not significant. Due to the relatively long orbital period, doppler boosting is more constraining of the companion mass than ellipsoidal variations. If my calculations are correct, The boosting amplitude is Using the value of a/R given in the most recent DV report (16.46 \u00b1 0.42), one derives an implied stellar density of 1.31 \u00b1 0.10 g/cm^3 (assuming zero eccentricity and negligible companion mass), which is reasonably compatible with the KIC Teff. So, this seems like a good planet candidate. The star is very faint, so I imagine follow-up would be difficult, but presumably validation would be possible. Linked below is a plot of the binned phased lightcurve: http://i18.servimg.com/u/f18/18/12/03/06/koi14510.png Robo-AO LP600-imaging of KOI-1457 on 2014-09-02 No companions detected within 4.0\" https://arxiv.org/abs/1605.03584 Possible nearby companion = Yes (2.96\" companion (UKIRT))"
+    },
+    "response": {
+      "model": "jev-1.13.0",
+      "answers": {
+        "imaging_reports_no_companion": {
+          "type": "noul",
+          "noul": 0.97
+        },
+        "imaging_reports_companion_present": {
+          "type": "noul",
+          "noul": 0.87
+        },
+        "spectroscopy_indicates_nonplanetary_companion": {
+          "type": "noul",
+          "noul": 0.04
+        },
+        "spectroscopy_reports_no_binary_signature": {
+          "type": "noul",
+          "noul": 0.06
+        },
+        "recon_reported_concluded": {
+          "type": "noul",
+          "noul": 0.05
+        },
+        "author_certainty": {
+          "type": "score",
+          "score": 2.03,
+          "confidence": 0.85,
+          "legend": {
+            "0": "Purely speculative: raises a possibility with no supporting observation",
+            "1": "Tentative: hedged language such as 'possible', 'perhaps', 'may be'; the conclusion is not settled",
+            "2": "Qualified: a conclusion stated together with explicit caveats or a request for more data",
+            "3": "Confident: a clear conclusion supported by a described observation",
+            "4": "Definitive: stated as settled fact, case closed"
+          },
+          "probabilities": {
+            "0": 0.0,
+            "1": 0.07,
+            "2": 0.82,
+            "3": 0.11,
+            "4": 0.0
+          }
+        },
+        "indicates_false_positive_or_retired": {
+          "type": "noul",
+          "noul": 0.08
+        },
+        "indicates_confirmed_planet": {
+          "type": "noul",
+          "noul": 0.05
+        }
+      },
+      "usage": {
+        "input_tokens": 3415,
+        "output_tokens": 176
+      }
+    }
+  }
+}

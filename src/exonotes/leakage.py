@@ -134,3 +134,57 @@ def is_leaky(text: str, patterns: dict | None = None) -> bool:
 # Backwards compatibility: the Comments-era call site passed a comment and expected the
 # Comments clause set.
 LEAKAGE_PATTERNS = COMMENTS_PATTERNS
+
+
+# --------------------------------------------------------------------------------------
+# KEPLER_PATTERNS -- the G5 clause set for the Kepler CFOP corpus (PREREGISTRATION.md
+# section 11.10, A-40 40.6, registered BY RULE before it was measured):
+#
+#   OBSNOTES_PATTERNS, with L6 removed, plus K10.
+#
+# * L6 is removed. It exists because on TESS *being a Kepler/K2 star* predicted the label at
+#   0.948 (A-25). On CFOP every row has that provenance, so it cannot discriminate, and its
+#   `\bKOI[\s-]?\d` alternative would strip nearly every row -- the notes name their target.
+# * K10 is added. A `Kepler-N` system name exists only once a planet in the system has been
+#   confirmed or validated: L4a's role, un-anchored because an observer note is never *just*
+#   a designation (A-24).
+# * L7 is kept unchanged -- including where it fires on `Possible nearby companion = Yes`, an
+#   observation -- because over-stripping is the correct direction (section 5). The without-L7
+#   arm is registered beside it as a sensitivity arm (A-40 40.6).
+#
+# A-41 measures every clause and may ADD clauses, never remove one. OBSNOTES_PATTERNS and
+# COMMENTS_PATTERNS above are untouched: the TESS gates and CI import them.
+# --------------------------------------------------------------------------------------
+KEPLER_PATTERNS = {k: v for k, v in OBSNOTES_PATTERNS.items() if k != "L6_archive_provenance"}
+KEPLER_PATTERNS["K10_kepler_designation"] = re.compile(r"\bKepler-\d+")
+
+# The registered sensitivity arm: the same set without L7.
+KEPLER_PATTERNS_NO_L7 = {k: v for k, v in KEPLER_PATTERNS.items()
+                         if k != "L7_structured_disposition_field"}
+
+# --- A-41 additions (add-only, measured on kepler_cfop_corpus before any Kepler D was fit) ---
+# K11: a stated confirmation, in either direction. Narrow on purpose: the bare verb also
+#      appears as "an observation at phase 0.75 to confirm the velocity variations", which is
+#      a plan, not a disposition. Catches "has been confirmed", "we confirm", "Confirmed via
+#      TTV ... by Ming et al. 2013", and the FP-direction "these confirmed BGEBs".
+KEPLER_PATTERNS["K11_confirmation_statement"] = re.compile(
+    r"(?i)\b(?:has|have) been confirmed\b|\b(?:was|were|is now|now) confirmed\b|\bwe confirm\b"
+    r"|\bconfirmed (?:as|by|via|through|with)\b"
+    r"|\bconfirmed (?:planet|exoplanet|BGEB|BEB|NEB|EB|eclipsing binar)")
+# K12: "Accepted in ApJ, see Ballard et al 2011" -- publication, which L3's `published` misses.
+KEPLER_PATTERNS["K12_accepted_for_publication"] = re.compile(r"(?i)\baccepted (?:in|by|to|for)\b")
+# K13: the FOP retirement vocabulary -- "This KOI is dead. Move to inactive." -- L1's role
+#      (`retir`) in the words the Kepler follow-up program used.
+KEPLER_PATTERNS["K13_dead_or_inactive"] = re.compile(
+    r"(?i)\bKOI is dead\b|\bmove to inactive\b|\binactive list\b")
+KEPLER_PATTERNS_NO_L7 = {k: v for k, v in KEPLER_PATTERNS.items()
+                         if k != "L7_structured_disposition_field"}
+
+# NOT added, and why (A-26's precedent): "false positive" fires on 177 rows at P(y=1)=0.458,
+# below the 0.575 base, and outside L7's `Possible false positive = ...` field it is mostly
+# speculation ("it wouldn't surprise me to find that this is a false positive").
+#
+# RECORDED, not removable (add-only): L4a fires on 110 rows, and its 69 marginal rows are TRES
+# spectrograph headers -- "TRES 20/21 Jun 2010 Teff=6250 K ..." -- because CATALOGUE_PREFIX
+# carries `TRES` (for the TrES survey) and "20/21" satisfies the pattern. Over-strips pure
+# recon text; the direction section 5 names as correct.

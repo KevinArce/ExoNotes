@@ -4212,3 +4212,282 @@ restate this.
 **Next:** step 4 — design the Kepler question set against CFOP text (TypeSafe skill + the
 `jev-1.13` jaggedness page first; read TESS r6 and the §2.4 / A-18 / A-19 / A-23 rules).
 ---
+## [2026-09-21T02:58Z] KEPLER STEP 4a — STARTED: label-free content survey of the CFOP text
+**Doing:** read `jev-1.13` jaggedness (done: literal reading, no counting/numbers/dates,
+filter state), TESS r6 and the 031/032 gate mechanics (done). Now: per-note template census,
+**prevalence only** of each r6 topic's cues on CFOP, and reading notes by type.
+
+**A deliberate difference from TESS, fixed before it can matter.** TESS picked question topics
+partly by each crude cue's **|AUC| against the label on the same corpus** (r5 docstring, A-19,
+A-23). That is selection on the evaluation data. **For Kepler, no Kepler label is used in
+question design at all:** topics come from **TESS's evidence** (what was predictive on a
+*different* corpus — legitimate prior information) plus **label-free prevalence** on CFOP. The
+only label-touching step before the paid run remains the `KEPLER_PATTERNS` audit (40.6), as on
+TESS. Stricter than TESS, so it cannot flatter a "transfers" result.
+**Idempotent:** yes — read-only. **$0.00.**
+---
+## [2026-09-21T03:02Z] KEPLER STEP 4a — DONE: question set drafted, `kepler-2026-09-21.r1`, k = 6 — no label read
+**Artifact:** `src/exonotes/questions_kepler.py` — a **new module**; `questions.py` (r6) untouched.
+
+**CFOP text, label-free:** host texts are short (median **159** chars, p90 1,246, max 43,412 —
+TESS ~870); 12,173 notes reach the corpus. It is TESS's genre — imaging (Robo-AO, WIYN/Gemini
+speckle, ARIES/Lick AO, UKIRT) and recon spectroscopy by **the same community** (Latham, Quinn,
+Bieryla; TRES/McDonald/Lick) — with the **same header trap** (`RV=`/`Vrad=` absolute velocity,
+`ccf=`, `log(g)=` numbers on 23% of hosts).
+
+**Topics kept/retired on prevalence against a 5%-of-rows floor** (TESS retired all ≤ 4.7%):
+
+| question | rows | |
+| :--- | ---: | :--- |
+| `imaging_reports_no_companion` | 62.8% | r6, re-cued (Robo-AO, ARIES, Lick "no companions visible from 2\" to 5\"") |
+| `imaging_reports_companion_present` | 48.2% | r6, re-cued (UKIRT flag, "Nearby stars detected", "found to be double") |
+| `spectroscopy_indicates_nonplanetary_companion` | 7.1% | r6, re-cued (`=> SB2`, "large velocity variation"); **KEBC flag explicitly excluded** |
+| **`spectroscopy_reports_no_binary_signature`** | 14.0% | **new** — CFOP states the recon pass as "no significant velocity variation" / "Looks good", which r6's planet question answers **no** to by design |
+| `recon_reported_concluded` | 9.4% | r6 closure, widened to "time for more precise velocities" |
+| `author_certainty` | score | r6 |
+| ~~`host_star_described_as_evolved`~~ | **2.2%** | **retired** (24.6% on TESS) |
+
+Label-echo tier (never headline): `indicates_false_positive_or_retired` (7.9%),
+`indicates_confirmed_planet` (5.0%). `contains_object_designation` not carried — CFOP notes name
+their KOI, so it is near-universal. `Kepler-N` names: **116 rows (2.5%)** — measured properly
+now; the 0 at the A-40 entry was the shell-quoting artefact recorded there.
+
+**Design rule applied:** no predictive question reads the `Possible false positive = …` or
+`Possible eclipsing binary = Yes (Kepler Eclipsing Binary Catalog…)` fields — L7's disposition
+analogues — while `Possible nearby companion = Yes (…)`, an imaging observation, is read.
+**Jev spend this step:** $0.00 · **running total:** ~$0.674
+**Next:** 4b — label-blinded gate cases (programmatic), EXPECT written from text, run the gate.
+---
+## [2026-09-21T03:05Z] KEPLER STEP 4b — STARTED: question-design gate, `kepler-2026-09-21.r1` — FIRST Kepler model calls
+**Cases:** `scripts/046_kepler_gate_cases.py` → `research/data/gate_cases_kepler_2026-09-21.json`:
+**30 label-blinded cases** (15 by length stratum, 15 by over-broad topic regex, seed 20260921,
+one per host). Topic `T02_lick_mixed` was skipped by the script — no host carrying that pattern
+is under 2,500 chars; its trap (clean-over-a-range + a companion elsewhere) is still covered by
+S4_long_2, T06 and S5_verylong_1.
+**Expectations:** `scripts/047_kepler_question_gate.py` `EXPECT`, **written from the case text
+alone, before any answer existed — 208 assertions**; 2 cells deliberately left unasserted
+(S5_verylong_2 and T05 on `no_binary_signature`: the text only implies it, §2.4 rule 1).
+**One pre-call revision, from reading the cases:** `spectroscopy_indicates_nonplanetary_companion`
+had been narrowed to spectroscopy only, which r6 is not (r6 counts NEB/BEB and "is an eclipsing
+binary"). S3_typical_1 — *"alternating eclipses … so this one is a clear stellar eclipsing
+binary"* — exposed it. **r6's evidence-agnostic scope restored**; the KEBC-catalogue exclusion kept.
+**Idempotent:** yes — responses cached under `data/cache/gate_kepler/`; re-runs free.
+**Projected spend:** ~30 calls, well under the handoff's ~$0.06.
+---
+## [2026-09-21T03:07Z] KEPLER STEP 4b — r1 FAILED the gate: 200/208; repaired as r2
+**Result:** 30 new calls, **111,415 input tokens, $0.00468.** `research/data/gate_kepler_kepler-2026-09-21.r1_2026-09-20.json`.
+**8 failures, all in three questions, each with a stated cause:**
+
+| case / question | got | cause → r2 repair |
+| :--- | ---: | :--- |
+| S2_median_1, T06 / companion_present | 0.66, 0.66 | a companion report **beside** "No companions detected within 4.0\"" — conflicting observers split the model → r2 says a nothing-found report **does not cancel** a seen star (§2.4 rule 3) |
+| T08 / companion_present | **0.09** | *"Faint star ~4\" to south is well off slit"* — a slit-viewer sighting; r6 counted guider sightings but r1 said "in imaging" → r2 names guide camera and slit viewer, with this example |
+| T07, T08 / nonplanetary | 0.68, 0.68 | KEBC flag **plus** a real double-lined solution / ~20 km/s variation — the catalogue exclusion bled into conclusions stated elsewhere → r2: the listing counts for nothing **only when it is the only evidence**, and never cancels; "initial musings" hedges count |
+| T10, T14 / no_binary_signature | 0.59, 0.19 | "Looks good" beside *"variation consistent with a planetary companion"* — "variation" read as a binary signature → r2 names a planet-consistent variation as a yes |
+| **T14 / nonplanetary** | **0.21** | **my expectation was wrong** — see below |
+
+**Disclosed: one expectation changed AFTER seeing its answer.** T14's only SB2 is **inside**
+`Possible false positive = Yes (Possible SB2 from Kolbl et al. 2014 …)`. The module's own
+docstring — written **before** any call — says no predictive question reads the `Possible false
+positive` field (it is L7's disposition analogue); yet r1's wording listed "Possible SB2" as a
+cue and EXPECT asserted yes. **The cell contradicted a pre-run rule, and is corrected toward the
+rule** (yes → no), and r2 removes the cue and tells both spectroscopy questions to ignore that
+field. The model's r1 answer (0.21) happened to agree with the rule; that is recorded, not hidden.
+
+**Near-band passes that r2 also targets:** companion_present at 0.73 / 0.78 on Robo-AO + UKIRT
+texts (the same conflict); `indicates_confirmed_planet` 0.29 on a bare *"Kepler-167e"* → r2 adds
+it as a named non-example. Unasserted cells: S5_verylong_2 = 0.08, T05 = 0.71 (inference read as
+yes — remains unasserted). `author_certainty` spans 0.98–3.32.
+**Jev spend this step:** $0.0047 · **running total:** ~$0.679
+**Next:** run r2 (`kepler-2026-09-21.r2`) on the same 30 cases.
+---
+## [2026-09-21T03:09Z] KEPLER STEP 4b — r2 passes the main gate 208/208; a DISJOINT HOLDOUT is added before freezing
+**r2 on the 30 main cases:** **208/208, 0 mid-band**; 30 calls, 122,215 tokens, **$0.00513**.
+Every asserted cell clears its band by ≥ 0.10; the only near-band value is the unasserted T05
+(0.78). `research/data/gate_kepler_kepler-2026-09-21.r2_2026-09-20.json`.
+
+**Why that is not yet enough — and TESS's gate had the same gap.** r2 was repaired *on these 30
+cases*, so passing them is partly a fit. So before freezing: `046 --holdout` draws **15 fresh
+cases** (seed 20260922; 2 per length stratum + 5 trap topics; **every host disjoint** from the
+main set, asserted), and `047`'s `HOLDOUT_EXPECT` — **103 assertions** — was written from those
+texts **after r2 was frozen and before r2 saw them.** The main case file is byte-identical after
+the `046` refactor (`cmp`). Three holdout cells deliberately unasserted: H_S4_long_1/recon
+("This KOI is dead" never says recon is finished); H_S5_verylong_1/no_binary_signature (the text
+concludes both ways). Hard cells asserted on purpose: H_T08 (KEBC flag + "large velocity
+variations" — r1's failure mode on unseen text), H_T04 (an *imaging* <0.1" binary must NOT fire
+nonplanetary), H_S5_verylong_2 ("Kepler-5" + "ironclad support for the planet model" must NOT
+fire confirmed).
+**Jev spend this step:** $0.0051 · **running total:** ~$0.684
+**Next:** run r2 on the holdout. A pass freezes r2; failures are reported as generalisation
+failures and repaired only with a new version string.
+---
+## [2026-09-21T03:10Z] KEPLER STEP 4b — r2 FAILS the holdout, 95/103: it was partly fitted; r3 written, and its acceptance rule fixed FIRST
+**Result:** 15 calls, 61,491 tokens, **$0.00258**. `research/data/gate_kepler_holdout_kepler-2026-09-21.r2_2026-09-20.json`.
+**The holdout did exactly what it was added for:** 208/208 on the repair set, **95/103 on unseen
+text.** 8 failures, **all mid-band (0.32–0.63)**, three patterns:
+
+| pattern | case / question | got |
+| :--- | :--- | ---: |
+| unnamed terse phrasing | H_S3_1 no_binary_signature — *"Recon: single lined"* | 0.56 |
+| | H_S4_1 nonplanetary — *"Obvious **BGEB** … transit signal is from background star"* | 0.51 |
+| | H_S4_1 no_companion — *"WIYN speckle image **reveals a single star**"* | 0.32 |
+| verdict, then unrelated doubt | H_S4_2 no_binary_signature — *"Looks good."* … *"possible two different stars were observed"* | 0.43 |
+| hedged / misspelt closure | H_S5_1 recon — *"I don't think this warrants more recon right now"* | 0.63 |
+| | H_S5_2 recon — *"needs **nor** further Keck-HIRES spectra"* | 0.44 |
+| description read as classification (echo tier) | H_S1_2 FP — *"likely a background eclipsing binary"* | 0.53 |
+| | H_S5_1 FP — *"this is a small star eclipsing the target"* | 0.37 |
+
+**r3 (`kepler-2026-09-21.r3`)** adds each named phrasing to its question, a *"verdict anywhere →
+yes"* clause to no_binary_signature (the form no_companion and recon already use), BGEB and the
+difference-image conclusion to nonplanetary, and *"a description that implies a false positive is
+not a statement that it is one"* to the FP echo question.
+
+**Acceptance rule for r3 — FIXED NOW, before any r3 answer exists:**
+1. r3 must pass the main set (208) and holdout-1 (103) **in full** — both are now repair sets.
+2. r3 then meets **holdout-2**: 15 fresh cases, new seed, hosts disjoint from both earlier sets,
+   expectations written blind. **Freeze r3 iff ≥ 95% of asserted holdout-2 cells pass AND no
+   predictive question fails on more than one case.**
+3. **§2.4 rule 4 binds:** a predictive question that still fails on holdout-2 is **deleted, not
+   reworded a third time** (r1 → r2 → r3 is its last wording). k then drops, and the MDE is
+   re-measured at that k (A-40 40.8).
+**Jev spend this step:** $0.0026 · **running total:** ~$0.687
+**Next:** r3 on main + holdout-1; then build holdout-2 and write its expectations blind.
+---
+## [2026-09-21T03:10Z] CORRECTION — the previous entry says "r3 written"; at that moment r3 did NOT exist
+**What was wrong:** the Python patch that was meant to write r3 died on a **SyntaxError** (my
+quoting), but the log append and both gate runs were chained after it with `;`, not `&&`, so
+they ran anyway. **The runs re-served r2 from cache: 0 new calls, $0.00, and r2's filenames.**
+The previous entry's **acceptance rule** and its failure analysis are correct and stand; its
+statement that r3 had been written was false when appended.
+**Caught by reading the output, not the exit path:** "new API calls: 0" and
+`…r2_2026-09-20.json` on a run that should have been r3 — the handoff's standing warning that
+`0 calls, $0.00` is not evidence that anything changed.
+**Now:** r3 applied with six single-purpose edits; `QUESTION_SET_VERSION` verified to import as
+`kepler-2026-09-21.r3` **before** any run, and every r3 run below is gated on that with `&&`.
+**Jev spend this step:** $0.00 · **running total:** ~$0.687
+---
+## [2026-09-21T03:12Z] KEPLER STEP 4b — r3 passes both repair sets; holdout-2 built and its expectations written BEFORE r3 sees it
+**r3, verified to be r3** (imports as `kepler-2026-09-21.r3`; 45 new calls; r3 filenames):
+main **208/208, 0 mid-band** (130,735 tokens, $0.00549); holdout-1 **103/103** (65,751 tokens,
+$0.00276), one mid-band on an **unasserted** cell (H_S5_verylong_1 no_binary_signature 0.31 —
+the text concludes both ways).
+**Holdout-2:** `046 --holdout2` → 15 cases, seed 20260923, hosts disjoint from main **and**
+holdout-1 (asserted). `HOLDOUT2_EXPECT`: **100 asserted cells, 5 unasserted**, written from the
+texts before any r3 call on them. Unasserted, each for a stated reason: H2_S4_long_1 CL ("the
+spectra are so nice" is quality, not binarity); H2_S4_long_2 NP / CL / recon (hedged throughout);
+H2_S5_verylong_2 recon ("Ready for HIRES" means "move to precise RVs" only with domain knowledge —
+§2.4 rule 1). Includes two confirmed-planet texts (Kepler-22b "Published as" → yes; Kepler-4 bare
+name → no), and the KEBC-alone and FP-field traps again.
+**The acceptance rule is the one fixed in the entry before the correction: ≥ 95% of asserted
+cells AND no predictive question failing on > 1 case; otherwise delete, don't reword.**
+**Jev spend this step:** $0.00825 · **running total:** ~$0.695
+**Next:** run r3 on holdout-2 and apply the rule as written.
+---
+## [2026-09-21T03:13Z] KEPLER STEP 4b — DONE: r3 passes holdout-2 98/100 under the pre-fixed rule → FROZEN, k = 6
+**Result:** 15 calls, 77,281 tokens, **$0.00325**. `research/data/gate_kepler_holdout2_kepler-2026-09-21.r3_2026-09-20.json`.
+**98 of 100 asserted cells pass (98.0% ≥ 95%); the two failures are one case each in two different
+questions (≤ 1 per question).** Both clauses of the rule hold, so **`kepler-2026-09-21.r3` is frozen
+with k = 6**: `imaging_reports_no_companion`, `imaging_reports_companion_present`,
+`spectroscopy_indicates_nonplanetary_companion`, `spectroscopy_reports_no_binary_signature`,
+`recon_reported_concluded`, `author_certainty`. No question is deleted.
+
+| failure | text | got |
+| :--- | :--- | ---: |
+| H2_T07 / nonplanetary | *"The spectrum is double-lined, but the weak secondary may by sky contamination."* | 0.56 |
+| H2_S5_verylong_1 / no_binary_signature | Kepler-22b: *"velocity difference is a bit large, but within the uncertainties"* … *"no evidence of the lines of a secondary star"* | 0.57 |
+
+**Recorded as a caveat, not explained away:** `spectroscopy_reports_no_binary_signature` is the
+**least robust question** — on holdout-2 it went mid-band on three texts (the failure above plus
+two cells left unasserted as ambiguous: 0.37, 0.52). On hedged recon prose it returns
+uncertainty rather than a clean answer. As a CatBoost feature that is tolerable; as a claim that
+the question "works", it qualifies it.
+
+**The whole gate, for the record:** 5 rounds of calls (r1 main; r2 main + holdout-1; r3 main +
+holdout-1 + holdout-2) — **165 calls, 568,888 input tokens, $0.0239.** Handoff estimate for step
+4 was ~$0.06.
+**Jev spend this step:** $0.00325 · **running total:** ~$0.698
+**Next:** A-41's measurements — `KEPLER_PATTERNS` per-clause audit; MDE at k = 6; S2 sizes; cost
+projection; then write A-41 and ask before pushing.
+---
+## [2026-09-21T03:15Z] A-41 MEASUREMENT 1/4 — `KEPLER_PATTERNS` audited: the registered G5 arm is a different population on Kepler
+**Artifacts:** `src/exonotes/leakage.py` (appended; `OBSNOTES_PATTERNS`/`COMMENTS_PATTERNS`
+**untouched** — asserted, CI imports them); `research/data/kepler_g5_audit_2026-09-21.json`.
+**0 model calls.** The rule (A-40 40.6): OBSNOTES − L6 + K10, measured, then **add-only**.
+
+| clause | n | P(y=1) | marginal |
+| :--- | ---: | ---: | ---: |
+| L3 confirmed/validated/published | 145 | 0.924 | 21 |
+| L4a catalogue designation | 110 | 0.864 | 69 |
+| **L7 `Possible X = Yes/No`** | **2,516 (53.3%)** | **0.362** | **2,366** |
+| L8 status line | 1 | 0.000 | 0 |
+| K10 `Kepler-N` | 116 | 0.966 | 9 |
+| **K11 confirmation statement** *(added)* | 67 | 0.716 | 14 |
+| **K12 accepted for publication** *(added)* | 8 | 1.000 | 0 |
+| **K13 dead / inactive** *(added)* | 20 | 0.100 | 1 |
+| L1, L2, L4b, L9 | 0 | — | 0 |
+| **L5 tripwire** | **0 ✓** | — | — |
+
+| arm | rows | kepid | base | minority |
+| :--- | ---: | ---: | ---: | ---: |
+| **with L7 — the registered headline G5** | **2,036** | 1,574 | **0.811** | 384 |
+| without L7 — registered sensitivity | 4,402 | 3,654 | 0.557 | 1,949 |
+
+**The finding that matters: L7 behaves in the opposite direction on Kepler.** On TESS it stripped
+rows at P(y=1) = 0.941 — positive-label echo. On CFOP it strips **53% of rows at 0.362, below the
+0.575 base**: the `Possible nearby companion / eclipsing binary / false positive = …` flags cluster
+on false positives. So the registered headline G5 arm **removes most FPs** and runs at base 0.811
+on 43% of the corpus. **A G5 verdict here is not comparable to TESS's**, and the without-L7 arm is
+the representative one. **Nothing is changed** — both arms were registered in A-40 before this was
+known, and A-40 already binds that a flip between them is reported as such.
+
+**Audit notes.** **L4a misfires:** its 69 marginal rows are TRES spectrograph headers ("TRES
+20/21 Jun 2010 Teff=…") — `CATALOGUE_PREFIX` carries `TRES` for the TrES survey. Add-only, so
+it stays; over-strip recorded. **Added** K11 (narrow: "has been confirmed", "we confirm",
+"Confirmed via TTV … Ming et al. 2013", "confirmed BGEBs"; the bare verb is left, since
+"to confirm the velocity variations" is a plan), K12 ("Accepted in ApJ"), K13 (FOP's "This KOI
+is dead. Move to inactive."). **Not added:** "false positive" — 177 rows at 0.458, mostly
+speculation; A-26's precedent.
+**Jev spend this step:** $0.00 · **running total:** ~$0.698
+**Next:** MDE at k = 6 (background), S2 sizes, cost projection.
+---
+## [2026-09-21T03:20Z] A-41 MEASUREMENTS 2–4/4 — MDE at k = 6, S2 sizes, cost; and the analysis code written BEFORE the run
+**MDE (registered, k = 6):** `044 --corpus cfop --k 6` → `research/data/kepler_cfop_step2_k6_2026-09-20.json`:
+dilution floor **−0.0036**, bootstrap SE **0.0007**, **MDE +0.0019**, true signal needed 0.0055;
+single-feature oracle bar ≳ 0.66. (k = 7 gave +0.0021; the k = 7 JSON stays on disk.)
+**S2 (A-40 40.5 rule, host ≥ 3865):** train **3,539** rows / 2,700 kepid, base **0.714**; test
+**1,181** rows / 1,143 kepid, base **0.158** (25.0%); **0 kepid straddle.** Later-identified KOIs
+are overwhelmingly FPs — a far larger base-rate shift than TESS's; an S2 AUC is not an S1 AUC.
+**Cost:** tokens = 3621 + 0.4110 × chars, fitted on the 60 r3 gate calls (R² 0.970); over 3,843
+distinct host states → **14.9M tokens, $0.6265**. Tripwire set at **$0.80**. Longest state
+~17.8k tokens vs the 32k limit (docs: `models`) → **no truncation**. ~2.5× the handoff's
+~$0.25, because CFOP has 2.8× TESS's hosts.
+**Code written now, before any Kepler feature exists:**
+- `scripts/048_kepler_step3_features.py` — 034's machinery (A-4, A-5, A-38 per-key lock); refuses
+  to run unless the question set is `kepler-2026-09-21.r3`; paid-run record is **write-once**
+  (defect 24's fix made structural). `--dry-run`: 3,843 states, $0.6265, **0 calls**.
+- `scripts/049_kepler_kg3_stability.py` — **the 8 paraphrases are written now** (criteria
+  unchanged; verified none identical, none altering criteria), plus 036's repeat-noise arm.
+- `scripts/050_kepler_gates.py` — KG2/KG4/KG5/KG6, reference arms, and **the A-40 40.9 verdict
+  computed, not read off**; reads the registered MDE file and asserts k = 6.
+**Jev spend this step:** $0.00 · **running total:** ~$0.698
+**Next:** smoke-test 050 on NOISE features in a scratch DB copy (must read "DOES NOT TRANSFER");
+then write A-41, commit, ask before pushing.
+---
+## [2026-09-21T03:24Z] A-41 WRITTEN — the Kepler study is fully specified before its paid run
+**`050` tested in both directions** on a scratch DB copy with synthetic features (`data/kepler.duckdb`
+and `research/data/` untouched — verified): **pure noise → "DOES NOT TRANSFER"** (D − B −0.0047,
+≈ the −0.0043 dilution floor; every criterion false); **noise + one 95%-accurate oracle column →
+"TRANSFERS"** (all four criteria true). Calibration recorded before the result: **that oracle beats
+B+meta by only +0.0078** — criterion 2 is demanding here.
+**Appended `PREREGISTRATION.md` §11.10 A-41:** 41.0 the "first paid call" clarification; 41.1 the
+frozen r3 set, how it was chosen without labels, the gate with its two holdouts and pre-fixed
+acceptance rule, the disclosed expectation change, the weakest-question caveat; 41.2 the
+`KEPLER_PATTERNS` audit and **L7's reversed direction on Kepler**; 41.3 **MDE +0.0019 at k = 6**;
+41.4 S2 realised; 41.5 cost $0.6265 / tripwire $0.80 / no truncation; 41.6 scripts 048–050 fixed
+now, with the smoke tests. All 7 relative links in §11.10 resolve.
+**TESS untouched, verified by output:** `OBSNOTES_PATTERNS` still strips **368** of 1,482 rows
+(A-24's registered count); `leakage.py` diff is **54 insertions, 0 deletions**; TESS matrix
+checksum last verified `d7b5be5675778f44`.
+**Jev spend this step:** $0.00 · **running total:** ~$0.698
+**Next:** commit; **ask the user before pushing**; then, and only then, the Step 5 run (`048`).
+---

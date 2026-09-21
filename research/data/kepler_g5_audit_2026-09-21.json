@@ -1,0 +1,116 @@
+{
+  "corpus_sha": "f3c30d2daf460095",
+  "n": 4720,
+  "base": 0.575,
+  "clauses": [
+    {
+      "clause": "L1_retired",
+      "n": 0,
+      "pct": 0.0,
+      "p_y1": null,
+      "marginal": 0
+    },
+    {
+      "clause": "L2_tfop_disposition",
+      "n": 0,
+      "pct": 0.0,
+      "p_y1": null,
+      "marginal": 0
+    },
+    {
+      "clause": "L3_confirmed",
+      "n": 145,
+      "pct": 0.03072033898305085,
+      "p_y1": 0.9241379310344827,
+      "marginal": 21
+    },
+    {
+      "clause": "L4a_designation_catalogue",
+      "n": 110,
+      "pct": 0.023305084745762712,
+      "p_y1": 0.8636363636363636,
+      "marginal": 69
+    },
+    {
+      "clause": "L4b_designation_planet_letter",
+      "n": 0,
+      "pct": 0.0,
+      "p_y1": null,
+      "marginal": 0
+    },
+    {
+      "clause": "L5_explicit_disposition",
+      "n": 0,
+      "pct": 0.0,
+      "p_y1": null,
+      "marginal": 0
+    },
+    {
+      "clause": "L7_structured_disposition_field",
+      "n": 2516,
+      "pct": 0.5330508474576271,
+      "p_y1": 0.3616852146263911,
+      "marginal": 2366
+    },
+    {
+      "clause": "L8_status_line",
+      "n": 1,
+      "pct": 0.000211864406779661,
+      "p_y1": 0.0,
+      "marginal": 0
+    },
+    {
+      "clause": "L9_disposition_transition",
+      "n": 0,
+      "pct": 0.0,
+      "p_y1": null,
+      "marginal": 0
+    },
+    {
+      "clause": "K10_kepler_designation",
+      "n": 116,
+      "pct": 0.02457627118644068,
+      "p_y1": 0.9655172413793104,
+      "marginal": 9
+    },
+    {
+      "clause": "K11_confirmation_statement",
+      "n": 67,
+      "pct": 0.014194915254237288,
+      "p_y1": 0.7164179104477612,
+      "marginal": 14
+    },
+    {
+      "clause": "K12_accepted_for_publication",
+      "n": 8,
+      "pct": 0.001694915254237288,
+      "p_y1": 1.0,
+      "marginal": 0
+    },
+    {
+      "clause": "K13_dead_or_inactive",
+      "n": 20,
+      "pct": 0.00423728813559322,
+      "p_y1": 0.1,
+      "marginal": 1
+    }
+  ],
+  "arms": {
+    "with_L7_HEADLINE": {
+      "stripped": 2684,
+      "stripped_p_y1": 0.3956780923994039,
+      "rows": 2036,
+      "kepid": 1574,
+      "base": 0.8113948919449901,
+      "minority": 384
+    },
+    "without_L7_sensitivity": {
+      "stripped": 318,
+      "stripped_p_y1": 0.8207547169811321,
+      "rows": 4402,
+      "kepid": 3654,
+      "base": 0.5572467060427079,
+      "minority": 1949
+    }
+  }
+}
