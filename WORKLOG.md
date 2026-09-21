@@ -3679,3 +3679,56 @@ according to schema version 1.2.0"*, now rendering **`Arce Alfaro K.J. (2026). �
 **Next:** step 3 — Kepler cross-mission validation, threshold **pre-registered before the first
 Kepler model call** as §11.10 / A-40.
 ---
+## [2026-09-21T02:05Z] Kepler cross-mission step SCOUTED — `PLAN.md` §8 item 2 is not runnable as written
+**Doing:** plan the next task. Before writing a plan around a table, check it exists and contains
+what §8 assumes. **Idempotent:** yes — read-only archive queries, **0 model calls, $0.00.**
+
+**Three findings, each of which changes the task. Two of them would have cost a session.**
+
+**1. The target field is real; the access path is not resolved.** `fpwg_comment` in the Kepler
+Certified False Positive table is documented as a *"Free text field with FPWG comments"* — the
+right target. But:
+
+| route | result |
+| :--- | :--- |
+| TAP `select … from fpwg` | **absent from `TAP_SCHEMA.tables`**; the archive's TAP docs say fpwg is not served |
+| legacy API `table=fpwg` | **"not a valid table"**, likewise `keplerfpwg`, `fpwgtable`, `koifpwg` |
+| legacy API generally | **alive** — `table=cumulative` returned 95,651 bytes, so this is not a retired API |
+
+**The table is documented but not reachable by any obvious programmatic route.** That is task 0,
+and it is precisely the discovery that wrecks a session when it arrives at hour three.
+
+**2. `koi_comment` is a trap, and it is in TAP, and it is easy.** It is **not prose**:
+
+```
+K00966.01  FALSE POSITIVE  MOD_SEC_DV---MOD_SEC_ALT---HAS_SEC_TCE
+K00965.01  FALSE POSITIVE  DEEP_V_SHAPED---HAS_SEC_TCE---CENT_RESOLVED_OFFSET---EPHEM_MATCH
+```
+
+`---`-delimited Robovetter flag codes. Two independent disqualifications:
+- **Enumerable categorical, not language.** One-hot captures it *completely*, so bag-of-words is
+  **exact** — and the study's central comparison (structured judgments beat TF-IDF) becomes
+  **untestable**, not merely harder.
+- **Those codes ARE the vetting rationale.** The `Comments`-field leakage again, more direct.
+
+**Recorded loudly because the failure mode is predictable:** a session blocked on finding 1 will
+notice `koi_comment` sitting in TAP and reach for it.
+
+**3. There may be no positive class.** `fpwg_disp_status` ∈ *certified FP · certified FA · not
+examined · pending · possible planet*. **A table of certified false positives has no positives.**
+The label must come from a join, and the corpus becomes "KOIs the FPWG examined" — FP-skewed and
+**selected on the outcome**. Several defensible corpus definitions exist; **choosing one after
+seeing base rates is exactly what pre-registration exists to prevent.**
+
+**Artifacts:** `HANDOFF_PROMPT.md` rewritten around this task, with the ordered sequence — resolve
+access → characterise → measure MDE → **pre-register as §11.10/A-40 and push** → design questions
+→ **then** spend. Steps 0–3 cost **$0**; the pre-registration is free and comes before every paid
+call. Verified: all relative links resolve; the headline, gate values, checksum and DOI agree
+with `RESULTS.md` and `README.md`.
+
+**Also corrected in the handoff:** it still opened with "the study is DONE, §9 items 1–8 complete"
+and listed CI as needing a manual secret. Both stale — there is now a DOI, CI has run, and the
+next task is Kepler.
+**Jev spend this step:** $0.00 · **running total:** ~$0.674
+**Next:** Kepler task 0 — resolve access to the Certified False Positive table.
+---
