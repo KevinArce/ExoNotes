@@ -1404,3 +1404,249 @@ fail, and A-8 item 11's threshold was not relaxed to clear them (A-32).
 
 **Unchanged by any of this:** nothing external has checked the result. A green badge is this
 pipeline checking itself on borrowed hardware.
+
+---
+
+## 11.10 Kepler cross-mission validation. **Written 2026-09-21, BEFORE any Kepler model call.**
+
+This section registers a **second, separate study** — `PLAN.md` §8 item 2 — and changes **no**
+TESS number. §0–§11.9 stand as written for TESS. Where a Kepler rule differs from its TESS
+counterpart, the difference and its reason are stated here. Every number below was measured with
+**zero model calls**; the Kepler question set does not yet exist.
+
+### A-40 — The Kepler transfer test: corpus, label, arms, gates, MDE, and what counts as failing to transfer
+
+#### 40.0 How the corpus was arrived at — including one that was withdrawn
+
+`PLAN.md` §8 named the **Kepler Certified False Positive table** (`fpwg_comment`). It was
+obtained (not served by TAP or the legacy API; replayed through the archive viewer's own download
+path, `scripts/042_kepler_fpwg_pull.py`), a corpus was **defined and fixed in `WORKLOG.md` before
+any label was joined** — commented KOIs, y from cumulative `koi_disposition` — and its zero-cost
+baselines were measured (`scripts/043`, `044 --corpus fpwg`):
+
+| FPWG corpus, n = 1,993, base 0.0672 | AUC / ΔAUC |
+| :--- | :--- |
+| B (8 covariates) | 0.9084 |
+| **C — TF-IDF on the comment ALONE** | **0.9662 — above every covariate** |
+| B + one-hot FPWG verdict (diagnostic ceiling) | **+0.0740** over B — 5× that corpus's MDE of +0.0141 |
+| FPWG verdict vs the join label | agree on **1,956 of 1,993 rows (98.1%)** |
+
+**It is withdrawn as the transfer test and will not be run.** `fpwg_comment` is written by the
+FPWG *about its own certification* — the Kepler analogue of the `tfopwg` notes that §1.2 excluded
+from TESS, not of the observer notes it kept — and the numbers show the consequence: a transfer
+test on it **could not come out negative.** Any D that reads those comments clears the MDE.
+
+**The replacement was found by checking, not assumed.** ExoFOP's `cfop.php` now redirects to the
+unified ExoFOP, and the **Kepler Community Follow-up Observing Program's observer notes were
+migrated into the same `download_obsnotes.php` dump the TESS study uses**, each prefixed
+`Extracted KOI<n> observing note from ExoFOP-Kepler on 2020-11-02`. That is the like-for-like
+corpus: follow-up observers' notes, with the disposition made elsewhere.
+
+**Forking-paths disclosure, stated plainly.** The switch was made **after seeing the FPWG
+corpus's baselines** — not after seeing any *outcome*: no Jev call has been made on either
+corpus. The reason is a measured validity property (text alone beats the covariates; the verdict
+ceiling is 5× the MDE), not an effect size, and both decisions were the project owner's, recorded
+in `WORKLOG.md` with the rejected alternatives. The CFOP definition below copies §1.1/§1.3,
+leaving almost no free choices, and **was fixed in `WORKLOG.md` before any CFOP label was
+joined.** A reader who discounts the result for the switch has the whole record to do it with.
+
+#### 40.1 Corpus — CFOP observer notes
+
+| | |
+| :--- | :--- |
+| **Source** | ExoFOP `download_obsnotes.php?output=pipe`, bulk; parsed by `028`'s `parse_pipe` and cleaned by `028`'s `plain`, **imported unchanged** (`scripts/045_kepler_cfop_corpus.py`) |
+| **Notes in scope** | cleaned text begins with `Extracted KOI<n> observing note from ExoFOP-Kepler on <date>`. **Out of scope:** K2 notes, unprefixed notes, and every TESS-era note on the same star |
+| **`Groupname`** | must be empty on every in-scope note — **asserted; a non-empty value stops the build** (A-10's role) |
+| **Text** | the host's in-scope notes, **prefix stripped**, joined by one space in ascending `Lastmod`, ties by note `ID` (§1.1's order) |
+| **Unit** | one KOI (`kepoi_name`); per-host notes are attached to **every** KOI of that host, as §1.1 attached per-TIC notes to every TOI |
+| **Inclusion** | labelled (40.2) **and** ≥ 1 non-empty in-scope note |
+| **Groups** | `kepid` (host star). Every KOI host maps to exactly one TIC and one `kepid` — asserted |
+| **Power floor** | minority class < 100 → **stop, no model call** (fixed before n was known) |
+
+**Realised, measured before any model call:**
+
+| | CFOP | TESS (A-13) |
+| :--- | ---: | ---: |
+| in-scope notes / hosts / authors | 14,980 / 4,977 / 66 | — |
+| **n** | **4,720** | 1,482 |
+| y = 1 / y = 0 | 2,714 / 2,006 | — |
+| **base rate** | **0.5750** | 0.5378 |
+| groups | 3,843 `kepid`; 586 multi-KOI; max 7 | 1,388 TIC |
+| median chars / notes / authors, y=0 vs y=1 | 115 vs 370 · 2 vs 3 · **1 vs 3** | — |
+
+**Parse verified two independent ways over the same bytes:** `parse_pipe` and a record-anchored
+regex agree on **33,132 records, the same IDs, and identical note text on all 33,132.**
+
+**Checksums** — `kepler_cfop_corpus` sha256(to_csv)[:16] **`f3c30d2daf460095`**; obsnotes bulk
+dump (2026-09-21T02:44Z) **`475fc5dcafd43574`**; cumulative snapshot (02:23Z)
+**`962947427b3038a3`**. All in `data/kepler.duckdb` / `data/kepler/`, **a separate database from
+TESS** — `data/exonotes.duckdb` is never opened for write (matrix checksum re-verified
+`d7b5be5675778f44` after the Kepler pulls).
+
+#### 40.2 Label
+
+Cumulative KOI table, `koi_disposition`: **CONFIRMED → 1, FALSE POSITIVE → 0**; CANDIDATE and NOT
+DISPOSITIONED excluded (1,514 CANDIDATE KOIs with notes are out), as §1.3 excluded PC/APC. Per
+the archive's column documentation, **CONFIRMED is taken from the Confirmed Planet table (the
+literature)** and **FALSE POSITIVE from `koi_pdisposition`, the Kepler pipeline's disposition** —
+so the disposition is made **by neither the notes' authors nor from the notes themselves**, the
+§1 structure.
+
+#### 40.3 Excluded sources — named, so the easy path is closed in writing
+
+**`koi_comment` is excluded** from the text, from every baseline and from every feature. The
+archive documents it as *"a description of the reason why an object's disposition has been given
+as false positive"*, and it is `---`-delimited Robovetter codes (`MOD_SEC_DV---HAS_SEC_TCE`), so:
+(i) it **is** the vetting rationale — `Comments`-field leakage, more direct; and (ii) it is an
+enumerable categorical, so one-hot is exact and "structured judgments vs bag-of-words" becomes
+untestable. It is in TAP and easy to get; that is why it is named here.
+
+Also excluded, and **never pulled** by `043`/`045`: `koi_disposition` itself (label only),
+`koi_pdisposition`, `koi_score`, `koi_disp_prov`, every `koi_fpflag_*`; and **every `fpwg_*`
+field, `fpwg_comment` included** — the corpora are not mixed.
+
+#### 40.4 Models
+
+| | definition |
+| :--- | :--- |
+| **A** | prior only |
+| **B** | CatBoost (`026`'s `CB`, unchanged) on `koi_period, koi_depth, koi_duration, koi_prad, koi_kepmag, koi_steff, koi_srad, koi_slogg` — TESS B, column for column |
+| **B+meta** | B + note count, total characters, author count, top-8 author one-hot — **A-7 exactly** |
+| **B+N** | B + k pure-noise columns — the A-1 dilution floor |
+| **C** | TF-IDF + logistic on the text — reported, **never evidence** |
+| **D** | B + Kepler `TIER_PREDICTIVE` Jev features — **the headline model** |
+| **E** | B + all Kepler Jev features — reported as contaminated |
+
+**State:** `{"notes": cfop_text}` — A-4's form; no KOI or TIC identifier. **Model:** `jev-1.13.0`,
+the TESS pin (A-5), asserted per response; drift is A-33's, and is not re-litigated here. Note
+count, length and author count **never enter D** (§10.2, A-7) — only B+meta.
+
+#### 40.5 Splits
+
+- **S1:** `GroupKFold` on `kepid`, 5 folds × 3 repeats, seed 20260919, A-6 aggregation, paired
+  bootstrap 10,000 over `kepid` — `026`'s machinery imported unchanged.
+- **S2 (temporal):** KOI numbers are assigned in order of identification, so the **KOI host
+  number is Kepler's "alerted later"**. **Test = rows with host number ≥ 3865**, the 75th
+  percentile of host number over corpus rows — the rule mirrors §4's 25.0% test share; the
+  number is what the rule gives, and the realised split will be **reported, not re-chosen.**
+- **S2a** holds by construction: the split is on the host, which cannot straddle.
+- **S2b is not applicable and is not improvised:** it needs a date cutoff, and a host-number
+  split has none. Recorded as a difference from TESS, not a gap to be filled after the result.
+
+#### 40.6 The G5 clause set for Kepler — registered by rule now, audited in A-41
+
+`KEPLER_PATTERNS` = **`OBSNOTES_PATTERNS` (A-24) with `L6` removed, plus one clause:**
+
+- **`L6_archive_provenance` is removed.** It exists because, on TESS, *being a Kepler/K2 star*
+  predicted the label at 0.948 (A-25). **On CFOP every row has that provenance**, so it cannot
+  discriminate — and its `\bKOI[\s-]?\d` alternative would strip nearly every row, because the
+  notes name their target (*"Robo-AO imaging of KOI-4774"*).
+- **`K10_kepler_designation` = `\bKepler-\d+` is added.** A `Kepler-N` system name exists only
+  once a planet in the system is confirmed or validated — `L4a`'s role, un-anchored because an
+  observer note is never *just* a designation (A-24).
+- **`L7_structured_disposition_field` is kept unchanged** — it is the Kepler/K2 analogue of
+  `Master Disp:` (A-24: `Possible planetary candidate = Yes`, P = 0.957 on TESS). On CFOP it also
+  fires on `Possible nearby companion = Yes (…)`, which is an **observation**; **it still
+  strips**, per §5's rule that over-stripping is the correct direction.
+- **`L5` stays the tripwire:** it must fire on zero rows, or the build stops.
+
+**Two arms, both registered now, as A-25 did for `L6`:** the headline G5 is **with `L7`**; a
+**without-`L7`** sensitivity arm is reported beside it; **a verdict that flips between them is
+reported as such.** A-41 measures every clause's count, P(y=1) and marginal rows, with an eye
+audit. **A-41 may ADD clauses, never remove one** — the only direction that cannot manufacture a
+pass.
+
+#### 40.7 Gates — exact criteria, fixed now
+
+| gate | criterion | status |
+| :--- | :--- | :--- |
+| **KG1** | B ≥ 0.85 AUC under S1, group-bootstrap CI above 0.5 | ✅ **PASS, measured pre-Jev: 0.9582 [0.9524, 0.9638]** |
+| **KG2** | **D − B**, S1, `TIER_PREDICTIVE` only, paired bootstrap 10,000 over `kepid`: **CI excludes zero** | pending |
+| **KG3** | 200 rows, paraphrased question wording: **Spearman ρ ≥ 0.85 per feature and mean \|Δp\| ≤ 0.05**. §6's key-order permutation is vacuous with a one-key state (as on TESS) and is not run | pending |
+| **KG4** | D − B under **S2**, CI excludes zero | pending |
+| **KG5** | D − B on the **with-`L7`** `KEPLER_PATTERNS`-stripped arm, CI excludes zero | pending |
+| **KG6** | D − B survives explicit missingness indicators on B and D, CI excludes zero | pending |
+
+#### 40.8 Minimum detectable effect — measured, and k-dependent by rule
+
+`scripts/044_kepler_step2.py --corpus cfop`, k = 7 × 5 seeds, zero model calls:
+
+| | CFOP | TESS |
+| :--- | ---: | ---: |
+| B | 0.9582 | 0.9051 |
+| **B+meta** | **0.9839 (+0.0257 [+0.0208, +0.0306])** | +0.0212 |
+| C (TF-IDF, text only) | **0.9429 — below B** | 0.8766 — below B |
+| dilution floor (B+N) | −0.0044 | ≈ −0.011 |
+| bootstrap SE of ΔAUC | 0.0007 | — |
+| **MDE (80%)** | **+0.0021** | **+0.0082** |
+| single-feature AUC bar (oracle) | ≳ 0.66 | ≈ 0.68 |
+
+**The MDE is a function of k.** A-41 re-runs `044 --corpus cfop --k <frozen k>`, and **that
+output is the registered MDE** — mechanical, no discretion.
+
+#### 40.9 What counts as the effect transferring — decided before the run
+
+**TRANSFERS** requires **all four**:
+1. **KG2 passes, and its point estimate ≥ the registered MDE.** A CI that excludes zero on an
+   effect below the MDE is reported as *"detected, below the registered MDE"* — not as transfer.
+2. **D beats B+meta**, paired CI excluding zero — A-7's rule. On TESS it did (+0.0220).
+3. **KG5 passes** (with-`L7` arm).
+4. **KG6 passes.**
+
+| outcome | reading, fixed now |
+| :--- | :--- |
+| all four hold | **Transfers.** Structured reading of follow-up observers' notes adds signal beyond the covariates *and* beyond follow-up volume, on a second mission, era and observer community. A full paper becomes reasonable. |
+| KG2 CI includes zero, or its point estimate < MDE | **Does not transfer.** A real negative result: the TESS effect is specific to ExoFOP-TESS, and the framing becomes *"beware: this does not transfer."* |
+| KG2 holds, D does **not** beat B+meta | **Transfers only as follow-up volume.** On Kepler the prose adds nothing beyond how much follow-up a KOI received; since TESS D *did* beat B+meta, **the content claim does not transfer.** Negative for the claim that matters. |
+| KG2 holds, **KG5 fails** | **Label echo on Kepler.** Negative, as §8. |
+| KG2 holds, **KG6 fails** | Tracks missingness. Negative, as §8. |
+| all four hold, **KG4 fails** | **Qualified transfer:** holds under S1, not for later-identified KOIs. Reported with that qualifier in the first sentence. |
+| **KG3 fails** | The instability is the finding, as §8. |
+| KG1 fails | Pipeline bug (it has already passed). |
+
+**Magnitude is not a criterion.** B is higher here (0.958 vs 0.905), so headroom is 0.042 vs
+0.095. **Share of headroom captured, (D − B)/(1 − B)** — TESS: 0.0432 / 0.0949 = **0.455** — is
+reported as a description, never as a gate. Matching +0.0432 is not expected and not required.
+
+#### 40.10 The honest prior, recorded before the result
+
+**A null is a live outcome and §8.1's commitment to publish it applies unchanged.** Three
+reasons, each measured:
+1. **B+meta leaves 0.016 of headroom.** Follow-up volume alone is worth +0.0257 here — *more*
+   than on TESS — and criterion 2 requires D to beat it.
+2. **CFOP content is narrower than TESS obsnotes.** The most common openings are templated
+   imaging reports — `Possible nearby companion = Yes (…)` ×2,169, Robo-AO *"No companions
+   detected"* ×~2,440 — with far less of the spectroscopic prose TESS's strongest questions
+   read. And **`L7` strips the flag notes from the G5 arm**, so KG5 will run on less text.
+3. **C is below B**, as on TESS — so there is no easy textual shortcut to the label, which is
+   what makes this a test. It also means nothing here guarantees a gain.
+
+#### 40.11 Deferred to A-41 — which must be committed and pushed before the first paid call
+
+1. **The Kepler question set, under a NEW version string** — never an edit to `2026-09-20.r6`,
+   which stays frozen for TESS — designed against CFOP text, through a label-blinded
+   question-design gate (A-22's form, ~$0.06).
+2. **`KEPLER_PATTERNS` per-clause counts, P(y=1), marginal rows and eye audit** (40.6).
+3. **The MDE at the frozen k** (40.8).
+4. **The realised S2 sizes and base rates** (40.5).
+5. **A cost projection from measured tokens** (A-21's form).
+
+**None of these may change 40.1–40.10.** A-41 fills in what 40 leaves open; it does not revise it.
+
+#### 40.12 Limitations recorded before the result
+
+1. **Post-disposition follow-up cannot be filtered.** Confirmed KOIs plausibly drew follow-up
+   *after* validation, and the cumulative table gives no per-KOI disposition date, so S2b's
+   note-level filter has no Kepler analogue. `L3_confirmed` strips notes that *say*
+   validated/confirmed/published; **D vs B+meta** is the registered defence against volume; the
+   rest is a stated limitation.
+2. **The two label classes come from different processes** — FALSE POSITIVE from the pipeline
+   (light curves), CONFIRMED from the literature, which often used exactly this imaging (e.g.
+   statistical validation). That is the §1 structure — notes feed a disposition made elsewhere —
+   but it means the notes may be *inputs* to the positive label more directly than to the
+   negative one.
+3. **Multi-KOI hosts share one text** (586 groups) across KOIs that can carry different labels —
+   as on TESS; S1 keeps them in one fold.
+4. **The corpus is heavily templated**, and its migration date (2020-11-02) is a single constant
+   — stripped with the prefix, so it cannot act as a feature.
+5. **A corpus was withdrawn before this one was chosen** (40.0).

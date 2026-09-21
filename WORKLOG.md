@@ -3732,3 +3732,468 @@ next task is Kepler.
 **Jev spend this step:** $0.00 · **running total:** ~$0.674
 **Next:** Kepler task 0 — resolve access to the Certified False Positive table.
 ---
+## [2026-09-21T02:15Z] SESSION START — Claude Opus 5 (`claude-opus-5`), 2026-09-21 UTC
+Resumption: last entry (02:05Z) ends `DONE`, `Next:` Kepler task 0. Working tree clean at
+`412012f`. Read: `HANDOFF_PROMPT.md`, `WORKLOG.md` tail, `PLAN.md` §0.5/§1/§8,
+`PREREGISTRATION.md` §11 headings (last amendment **A-39a**, so the next is **§11.10 / A-40**),
+`RESULTS.md` §9.
+**Running total carried in:** ~$0.674.
+---
+## [2026-09-21T02:15Z] RESUMED — Kepler task 0: resolve access to the Certified False Positive table
+Picking up `PLAN.md` §8 item 2 per the handoff's ordered sequence. **Steps 0–3 make no model
+calls.** Guardrail restated for this session: if the FPWG table cannot be obtained, **stop and
+reconsider the corpus — do not substitute `koi_comment`.**
+---
+## [2026-09-21T02:16Z] KEPLER TASK 0 — STARTED
+**Doing:** find a route to the Kepler Certified False Positive table (`fpwg_comment`) that the
+02:05Z scout did not try: archive docs for the table's canonical name, the web-UI download
+path (`nstedAPI` / `ExoTables` bulk endpoints), and the KSCI-19093 document itself.
+**Idempotent:** yes — read-only HTTP GETs against the public archive, **0 model calls, $0.00**.
+---
+## [2026-09-21T02:24Z] KEPLER TASK 0 — DONE: the FPWG table is obtainable, and is now pulled by a script
+**Result:** the table is **not** served by TAP or the legacy API — the 02:05Z scout was right,
+and `program_interfaces.html` lists no API name for it either. **It IS served by the archive's
+interactive viewer**, and the viewer's Download button can be replayed exactly. Found by reading
+its JavaScript (`TblView10.4/tblView.js`, `IceTable10.4/iceTable.js`), not by guessing names:
+
+1. `GET nph-tblView?app=ExoTbls&config=fpwg` → server provisions a workspace, id embedded in page
+2. `GET FileDownload/nph-download?url=<ws>/fpwg_params.json` → `tblPaths['fpwg']`
+3. `GET IceTable/nph-iceTbl?…&cmd=newtable` → seeds the workspace; XML reports `total_count`
+4. `POST IceTable/nph-iceTblDownload format=CSV columns=all rows=all` → full table, `text/csv`
+
+**Artifacts:** `scripts/042_kepler_fpwg_pull.py` (stages `fetch`, `persist`; cache-first) →
+`data/kepler/fpwg.csv` + `data/kepler.duckdb::kepler_fpwg_raw`, **9,564 rows × 68 cols, all
+VARCHAR, unmodified**. **A separate database file on purpose** — the TESS
+`data/exonotes.duckdb` is never opened for write; its matrix checksum re-verified after the run:
+**`d7b5be5675778f44`, unchanged.**
+
+**Verified by output, not by exit code:**
+
+| check | result |
+| :--- | :--- |
+| data rows == server `total_count` | **9,564 == 9,564** |
+| field count per row (stdlib `csv`) | **68 on all 9,564** |
+| stdlib parser vs pandas | agree |
+| `kepoi_name` unique | yes (8,214 distinct `kepid`) |
+| HTML entities / non-ASCII in comments | 0 non-ASCII rows; 14 contain a literal `&` — to inspect at task 1 |
+| **re-download reproduces** | whole-file sha differs (`0cd11b96…` vs `3f5a6f00…`) **because the archive stamps the download time into a `#` line**; header-stripped body sha **`bb98aa706bc3ef4d` on both independent downloads** — that is the checksum to cite |
+| re-run | served from cache, no network |
+
+**What I saw while verifying — disclosed because it precedes the corpus registration.** To
+check the parse I printed `fpwg_disp_status` counts and its crosstab with comment presence:
+
+| `fpwg_disp_status` | n | non-empty `fpwg_comment` |
+| :--- | ---: | ---: |
+| NOT EXAMINED | 4,884 | **0** |
+| CERTIFIED FP | 3,590 | 1,559 |
+| POSSIBLE PLANET | 655 | 478 |
+| CERTIFIED FA | 339 | 216 |
+| DATA INCONCLUSIVE | 96 | 76 |
+
+**This is the FPWG's own disposition, not the study label** (which must come from a join, per the
+scout's finding 3), and **no label base rate under any candidate corpus has been computed.** But
+it does reveal the rough class balance of any "FPWG-examined" corpus, and a reader should know
+it was seen first. **Note a fifth status value, `DATA INCONCLUSIVE`, absent from the column docs'
+list of four.**
+
+**Three findings that bear on the design:**
+1. **Coverage: 2,329 of 9,564 rows (24%) carry a comment; of the 4,680 examined, 50%.**
+2. **The comments are short: median 62 chars, p10 18, p90 169.** The handoff's warning — "a
+   free text field can still be terse codes in practice" — is live. Hand-reading is mandatory.
+3. **Comment presence differs by FPWG status** (73% of POSSIBLE PLANET vs 43% of CERTIFIED FP),
+   so missingness is informative here — a G6-style ablation is not optional.
+
+**Jev spend this step:** $0.00 · **running total:** ~$0.674
+**Next:** task 1 — read 30 comments by hand (**label-blind**), then fix the corpus definition in
+writing **before** computing any label base rate.
+---
+## [2026-09-21T02:26Z] KEPLER TASK 1a — STARTED: read 30 `fpwg_comment` values by hand, label-blind
+**Doing:** uniform random sample (seed 20260921) of 30 non-empty comments, printed with **no
+status, flag or disposition column** — the question is "is this prose, and what does it talk
+about", and it should be answered before knowing which way each row went.
+**Idempotent:** yes — read-only, **0 model calls, $0.00**.
+---
+## [2026-09-21T02:34Z] KEPLER TASK 1a — DONE: it is prose — but it is certification RATIONALE, not an evidence record
+**Result (30 rows read by hand, label-blind, seed 20260921):** genuine natural language, not
+codes — "Clear multipixel offset, likely onto 9543297. Possible hint of weak secondary in model
+shift tests." But it differs in KIND from TESS obsnotes. **These are the FPWG's reasons for its
+own certification decision**, and some state the verdict outright:
+
+- #11 *"I would keep this as a planet."*  · #29 *"Too low SNR to trust catalog b. Not failing."*
+- #19 *"I am not prepared to certify this as a false positive based on the V shape."*
+- #21 *"Parent KIC 9851142 … is a certified FP (EB)."*
+
+TESS obsnotes are observers' notes produced **on the way to someone else's** decision (TFOPWG).
+`fpwg_comment` is written **by the deciding body, about its decision.**
+
+**Label-blind phrase census, all 2,329 non-empty comments** (text only, no label joined):
+
+| pattern | rows | share |
+| :--- | ---: | ---: |
+| EB-catalog lookup (`EB catalog`, `KEBC`, …) | 632 | 27.1% |
+| secondary / odd-even | 419 | 18.0% |
+| parent / period-epoch child | 339 | 14.6% |
+| offset / centroid | 311 | 13.4% |
+| the word `planet` | 210 | 9.0% |
+| `false positive` / `FP` / `FA` / `certif…` | 164 | 7.0% |
+| first person (`I`, `we`) | 95 | 4.1% |
+| verdict verbs (`keep`, `fail…`, `pass…`) | 61 | 2.6% |
+
+**22.0% of rows (512) are exact case-insensitive duplicates of another row's text**; 1,906
+distinct texts. Top: `listed in eb catalog.` ×112, `no q17 pdf.` ×54, `parent is rr lyrae.` ×31.
+**Heavily templated → TF-IDF will be a much stronger comparator here than on TESS.** That is a
+fair test, not a reason to avoid it, but it should be expected in writing.
+
+**Label provenance, from the archive's column docs** (`API_kepcandidate_columns.html`):
+`koi_disposition` takes **CONFIRMED from the Confirmed Planet table (literature)** and
+**FALSE POSITIVE from `koi_pdisposition`** ("Disposition Using Kepler Data", the pipeline).
+**Neither is documented as derived from the FPWG** — so a join label is nominally produced by a
+different process from the one writing the comment, which is the TESS structure. Also confirmed
+from the same page: `koi_comment` is *"a description of the reason why an object's disposition
+has been given as false positive"* — the scout's finding 2, now in the archive's own words.
+
+**Still not computed:** any label, any join, any base rate under any corpus.
+**Jev spend this step:** $0.00 · **running total:** ~$0.674
+**Next:** BLOCKED on a decision for the user — the corpus/label definition. Options and a
+recommendation are put to them; the choice is recorded in the next entry, **before** any label
+is joined.
+---
+## [2026-09-21T02:38Z] KEPLER CORPUS DEFINITION — FIXED by the user, recorded BEFORE any label is joined
+**Decision (user, from four options put at 02:34Z):** *"Join label, commented KOIs."* The other
+three, rejected: all FPWG-examined KOIs with missingness as a feature (the text arm would largely
+detect missingness — comment presence already varies by FPWG status); FPWG status as the label
+(the comment is the certifier's own reason for exactly that label — echo by construction); stop
+and reconsider (declined — a real test is available and both outcomes are publishable).
+
+**The definition, binding from here:**
+1. **Unit:** one KOI (`kepoi_name`).
+2. **Text:** `kepler_fpwg_raw.fpwg_comment`, whitespace-trimmed; **the row is in the corpus only
+   if it is non-empty.** No other text field. Duplicated texts are kept — the corpus is taken as
+   it is, not de-duplicated.
+3. **Label:** join on `kepoi_name` to the Exoplanet Archive **cumulative KOI table**, snapshot
+   pulled at task 1b with its date recorded. **y = 1 if `koi_disposition = 'CONFIRMED'`,
+   y = 0 if `'FALSE POSITIVE'`.** `CANDIDATE` and `NOT DISPOSITIONED` are **excluded**, as TESS
+   excluded PC/APC. FPWG rows with no cumulative match are excluded and counted.
+4. **Groups for the bootstrap and splits:** `kepid` (host star) — the analogue of TESS's TIC.
+5. **Power floor, fixed now, before n is known:** **if the minority class has fewer than 100
+   rows, the Kepler arm is declared underpowered and STOPS — no model call is made.** The
+   outcome is then reported as "not testable on this corpus", which is a result, not a failure
+   to hide.
+6. **`koi_comment` is an excluded source** — in the text, in any baseline, in any feature. As are
+   the label and its immediate derivatives: `koi_disposition`, `koi_pdisposition`, `koi_score`,
+   `koi_disp_prov`, every `koi_fpflag_*`, and every structured `fpwg_*` field (the FPWG's own
+   coded judgments). Baseline B's exact covariate list is fixed in the pre-registration (§11.10),
+   modelled on the TESS B.
+
+**This entry is the commitment; §11.10 / A-40 formalises it with the MDE**, which cannot be
+known until n is.
+**Jev spend this step:** $0.00 · **running total:** ~$0.674
+**Next:** task 1b — pull the cumulative table, join, characterise (n, base rate, length, groups).
+---
+## [2026-09-21T02:44Z] KEPLER TASK 1b — STARTED: pull cumulative, apply the 02:38Z definition, characterise
+**Doing:** `scripts/043_kepler_corpus.py` — TAP `CUMULATIVE` snapshot of **only** `kepid`,
+`kepoi_name`, `koi_disposition`, `koi_vet_date` and the eight covariates mirroring TESS B
+(`koi_period, koi_depth, koi_duration, koi_prad, koi_kepmag, koi_steff, koi_srad, koi_slogg`).
+**The excluded sources are never pulled**, so they cannot leak by accident. Then join, apply the
+definition, report n / base rate / power floor / groups / length, and the **FPWG-status × label
+crosstab** — the test of whether the join label is really independent of the comment's author.
+**Idempotent:** yes — cached raw CSV, CREATE OR REPLACE into `data/kepler.duckdb`. **$0.00.**
+---
+## [2026-09-21T02:24Z] CORRECTION — the timestamps on this session's entries from "02:24Z" to "02:44Z" are wrong
+**What was wrong:** I wrote those five headers (task 0 DONE, 1a STARTED, 1a DONE, CORPUS
+DEFINITION, 1b STARTED) from an **estimate** of elapsed time instead of reading the clock, and
+the estimate ran ahead. **Caught by the data, not by review:** `cumulative_fetch.json` recorded
+`pulled_utc 02:23Z` while the entry announcing that pull said 02:44Z.
+
+**The true bracket, from `date -u` and file mtimes:** session start **02:13Z** (checked);
+`data/kepler/fpwg.csv` written **02:17:23Z**; `data/kepler/cumulative.csv` written
+**02:23:37Z**; this entry **2026-09-21T02:24Z**. So every entry headed 02:24Z–02:44Z was actually written
+between **02:17Z and 02:23Z**.
+
+**What is NOT affected:** the **order** of entries is the true order — they are appended, and
+append order cannot be estimated wrongly. In particular **the CORPUS DEFINITION entry (headed
+"02:38Z") was appended before `043_kepler_corpus.py` existed, and so before the 02:23:37Z pull
+that first joined a label.** The claim "definition fixed before any label was joined" rests on
+append order and holds; the clock times attached to it do not.
+
+**From here, every header is taken from `date -u`.** Noted for the next session: an earlier
+entry pair in this log shows the same symptom (a "01:34Z" entry appended after a "01:52Z" one).
+**Jev spend this step:** $0.00 · **running total:** ~$0.674
+---
+## [2026-09-21T02:25Z] KEPLER TASK 1b — DONE: corpus clears the power floor; the label-independence diagnostic FAILS
+**Artifacts:** `scripts/043_kepler_corpus.py` → `data/kepler/cumulative.csv` (TAP
+`CUMULATIVE`, pulled **2026-09-21T02:23Z**, sha256[:16] `962947427b3038a3`) →
+`data/kepler.duckdb::kepler_corpus`, sha256(to_csv)[:16] **`f1f470aaf74ef3e1`**.
+
+| | |
+| :--- | :--- |
+| commented FPWG rows | 2,329 — **0** without a cumulative match, **0** `kepid` disagreements |
+| excluded as CANDIDATE | 336 |
+| **corpus n** | **1,993** |
+| y = 1 (CONFIRMED) / y = 0 (FALSE POSITIVE) | **134 / 1,859 — base rate 0.0672** |
+| power floor (minority ≥ 100, fixed 02:38Z-entry) | **134 — CLEARS, narrowly** |
+| groups (`kepid`) | 1,964; max 3 rows/group; 28 multi-KOI groups |
+| text length median (p10 / p90) | y=0 **65** (21 / 171) · y=1 **46** (13 / 168) — length alone differs by class |
+| covariate missingness | ≤ 1.6% on all eight |
+
+**The diagnostic — `fpwg_status` × y (`fpwg_status` is NEVER a feature):**
+
+| | y = 0 | y = 1 |
+| :--- | ---: | ---: |
+| CERTIFIED FP | 1,545 | **7** |
+| CERTIFIED FA | 215 | 0 |
+| DATA INCONCLUSIVE | 69 | 0 |
+| POSSIBLE PLANET | **30** | 127 |
+
+**The comment author's verdict matches the "independent" join label on 1,956 of 1,993 rows —
+98.1%.** The join label is independent in *provenance* (pipeline + literature, per the archive
+docs) but **not in content**: it is, to within 37 rows, the FPWG's own call.
+
+**Why this matters, stated against the TESS design rather than in the abstract.** The TESS pull
+deliberately **excluded** notes from `Groupname = 'tfopwg'` (`028_obsnotes_pull.py`,
+PREREGISTRATION §1.1) — the dispositioning body's summaries — and kept only observers' notes.
+**The FPWG is Kepler's dispositioning body. `fpwg_comment` is the analogue of the source TESS
+excluded, not of the one it used.** With a 98.1%-agreeing verdict behind every comment, any text
+feature that recovers "what did the FPWG decide" nearly determines y — so **ΔAUC(D − B) is at
+risk of being large for a reason unrelated to the TESS claim, and a test that cannot come out
+negative does not test transfer.**
+
+**Not yet shown — this is an argument until measured.** The zero-cost baselines (B, B+meta,
+TF-IDF) are step 2 anyway, and were computed pre-Jev on TESS too (A-23). If TF-IDF alone
+approaches the ceiling, the concern is confirmed with a number.
+**Jev spend this step:** $0.00 · **running total:** ~$0.674
+**Next:** step 2 — B / B+meta / TF-IDF / noise floor / MDE on `kepler_corpus`, then put the
+diagnostic and those numbers to the user before the pre-registration is drafted.
+---
+## [2026-09-21T02:25Z] KEPLER STEP 2 — STARTED: zero-cost baselines, dilution floor and MDE on `kepler_corpus`
+**Doing:** `scripts/044_kepler_step2.py`, importing `026_noise_floor.py`'s S1 machinery
+**unchanged** (GroupKFold 5×3, CatBoost `CB`, A-6 aggregation, paired group bootstrap 10,000),
+with groups = `kepid`. Arms: **B** (8 covariates, G1 analogue); **B+meta** (B + comment length —
+the only A-7 analogue that exists: one comment per KOI, no author field); **C** (TF-IDF + logistic,
+035's exact settings); **B+N** k = 7 × 5 seeds → dilution floor + bootstrap SE → **MDE**; graded
+**oracle**; and a DIAGNOSTIC arm **B+verdict** (B + one-hot `fpwg_status`) — the ceiling on what
+the text can add by restating the FPWG's call. **`fpwg_status` is never a candidate feature.**
+**k = 7 is provisional** — the MDE must be re-run at whatever k the Kepler question set freezes at.
+**Idempotent:** yes — no network, no API calls, fixed seeds, CREATE OR REPLACE. **$0.00.**
+---
+## [2026-09-21T02:29Z] KEPLER STEP 2 — DONE: the FPWG arm clears every power bar — and cannot come out negative
+**Artifacts:** `scripts/044_kepler_step2.py` → `research/data/kepler_step2_k7_2026-09-20.json`,
+`data/kepler.duckdb::kepler_step2`. 2 min 39 s, **0 model calls.** n = 1,993, 1,964 `kepid`
+groups, 134 positives, base 0.0672.
+
+| arm | AUC [95% group-bootstrap CI] | ΔAUC vs B [paired CI] | TESS analogue |
+| :--- | :--- | :--- | :--- |
+| **B** (8 covariates) | **0.9084** [0.8846, 0.9297] | — | 0.9051 — **G1-analogue PASSES** |
+| B+meta (comment length) | 0.9181 | **+0.0097** [+0.0019, +0.0176] | — |
+| **C** TF-IDF + logistic, **text only** | **0.9662** [0.9489, 0.9811] | (+0.058 by point estimate) | **0.8766, *below* B** |
+| B+verdict — **diagnostic ceiling** | 0.9824 | **+0.0740** [+0.0520, +0.0959] | — |
+| B+N, k = 7, 5 seeds | — | dilution floor **−0.0114**, SE **0.0050** | −0.011 / — |
+| **MDE (80%)** | — | **+0.0141** (true signal needed 0.0255) | +0.0082 |
+| oracle bar | single-feature AUC ≳ **0.68** | — | — |
+
+**What this establishes — measured, where 1b could only argue it.** On TESS, bag-of-words on
+the notes scored **below** the covariates; the whole finding was that *structured reading* got
+something bag-of-words could not. **On Kepler, bag-of-words on the comment ALONE beats every
+covariate by ~0.058**, and restating the FPWG's verdict is worth **+0.074 over B — 5× the MDE.**
+Any D that reads these comments at all clears the MDE. So **"effect survives" is close to
+foregone on this corpus, and therefore uninformative about transfer**; the handoff's reading of
+that outcome ("the finding is about follow-up prose in general") would not be warranted. This is
+the consequence of 1b's structural point: **`fpwg_comment` is the dispositioning body's
+rationale — the analogue of the `tfopwg` notes TESS excluded — not an observers' record.**
+
+**What the corpus CAN still test, and could fail:** whether structured Jev judgments add anything
+**over bag-of-words** when bag-of-words is strong (D vs a B+C stack). That is a different
+question from transfer, and would need registering as such.
+
+**Also noted:** comment length alone is informative (+0.0097) — y=1 comments are shorter
+(median 46 vs 65) — so B+meta, not B, is the floor any text arm must beat, as on TESS (A-23).
+**Jev spend this step:** $0.00 · **running total:** ~$0.674
+**Next:** scout a $0 alternative before putting options to the user — ExoFOP also hosts Kepler's
+CFOP; if it has **observer** notes per KOI, that is the like-for-like analogue of TESS obsnotes.
+---
+## [2026-09-21T02:31Z] SCOUT — the like-for-like Kepler corpus exists: CFOP observer notes, migrated into ExoFOP
+**Doing:** $0 check of whether Kepler has an **observers'** record, the true analogue of TESS
+obsnotes. **Idempotent:** yes — one read-only GET, parsed in the scratchpad; **nothing written
+to `data/`, no label joined.**
+
+`exofop.ipac.caltech.edu/cfop.php` and `/kepler/` both meta-refresh to `/tess/`: the Kepler
+Community Follow-up Observing Program was **merged into the unified ExoFOP**. Its notes are in
+the same `download_obsnotes.php` bulk dump the TESS study pulls per-TIC — 33,132 records,
+**20,005 dated before TESS launch (2018-04-18)**.
+
+**Parsed properly, not by `csv`:** the naive comma parse gives 7 fields on only 25,395 rows —
+unescaped `"` inside HTML breaks it (defect 15's family). Record boundaries were anchored on
+`^ID,TIC,user,group,tag,YYYY-MM-DD hh:mm:ss,` instead → 33,132 records, 33,132 distinct IDs.
+
+| | |
+| :--- | :--- |
+| notes carrying `Extracted KOI#### observing note from ExoFOP-Kepler on 2020-11-02` | **14,980** |
+| distinct KOI host stars | **4,977** — median 2 notes, max 45 |
+| KOI → TIC | **1:1, 0 conflicts** — the prefix itself is the join key; no KIC↔TIC crossmatch needed |
+| authors | 66 — Furlan, Ziegler, Everett, Dressing, Isaacson, … (imaging / spectroscopy observers) |
+| `Groupname` | **empty on all** — no dispositioning-body summaries among them |
+| K2 notes (`ExoFOP-K2`, EPIC) | ~5,000 — **out of scope**, a different mission |
+| pre-2018 notes with no migration prefix | 58 — to inspect before any definition uses them |
+
+**Content (12 read, label-blind):** observers reporting measurements —
+*"Robo-AO LP600-imaging of KOI-5952 on 2014-08-31 No companions detected within 4.0\""*,
+*"ARIES AO observations for K02805 … No companions were detected"*. **Templated** — top
+openings: `Possible nearby companion = Yes (#" companion (UKIRT))` ×2,169, Robo-AO
+"No companions detected" ×~2,440, `Possible eclipsing binary = Yes (Kepler Eclipsing Binary
+Cat…` ×609 (a catalog flag — will need a G5 decision). **Leakage risks to design against,
+before any label is seen:** the migration prefix (a constant, strip it); confirmed-planet names
+(`Kepler-###b` exists only for CONFIRMED); any disposition statement.
+
+**This is structurally the TESS design:** observers' notes → a disposition made elsewhere
+(pipeline for FP; literature, often using exactly this imaging, for CONFIRMED).
+
+**Not done, deliberately:** no join to `koi_disposition`, so **no CFOP base rate is known.**
+**Jev spend this step:** $0.00 · **running total:** ~$0.674
+**Next:** BLOCKED on the user — the 02:38Z-entry FPWG definition is registered in the log; whether
+to replace it as the transfer test is theirs to decide, with the step 2 numbers in front of them.
+---
+## [2026-09-21T02:43Z] KEPLER TRANSFER CORPUS SWITCHED TO CFOP — user decision; definition fixed BEFORE any CFOP label is joined
+**Decision (user, from four options):** *"Switch to CFOP."* **The FPWG definition (02:38Z-headed
+entry) is withdrawn as the transfer test and will NOT be run.** Recorded reason — measured at
+step 2, before any model call on either corpus: TF-IDF on `fpwg_comment` alone (0.9662) beats
+every covariate (B 0.9084), and the verdict-echo ceiling (+0.0740) is 5× the MDE, so a transfer
+test there **could not come out negative**; and structurally `fpwg_comment` is the
+dispositioning body's rationale — the analogue of the `tfopwg` notes TESS excluded (§1.2).
+Rejected alternatives: CFOP + FPWG as a secondary study; keep FPWG anyway; stop and write up.
+**Forking-paths disclosure:** the switch follows sight of FPWG's *baselines*, not of any
+*outcome*; no Jev call has been made on either corpus. §11.10 must carry this paragraph.
+
+**The CFOP definition — a copy of PREREGISTRATION §1.1/§1.3, binding from here:**
+1. **Source:** ExoFOP `download_obsnotes.php?output=pipe` (bulk), parsed by `028`'s own
+   `parse_pipe` and cleaned by `028`'s own HTML-cleaning function, **imported unchanged**.
+2. **Notes in scope:** only those whose cleaned text **begins with the migration prefix**
+   `Extracted KOI<n> observing note from ExoFOP-Kepler on <date>` — i.e. CFOP-era Kepler
+   observer notes. **Excluded:** K2 (`ExoFOP-K2`) notes; the 58 unprefixed pre-2018 notes;
+   and **every TESS-era note on the same star**, which is later follow-up about a different
+   mission's candidate. `Groupname` must be empty on every in-scope note — **asserted**, as A-10
+   asserted it on TESS; a non-empty value stops the build.
+3. **The prefix is stripped** before the text is used — it is migration boilerplate, identical
+   in form on every row.
+4. **Unit:** one KOI (`kepoi_name`). Notes are per host (`KOI<n>`) and are attached to **every**
+   KOI of that host — exactly as TESS attached per-TIC notes to every TOI on the TIC.
+5. **Text:** that host's in-scope notes, cleaned, concatenated with a single space in
+   **ascending `Lastmod`**, ties by note `ID` — §1.1's order.
+6. **Inclusion:** labelled (item 7) **and** ≥ 1 non-empty in-scope note after cleaning.
+7. **Label:** cumulative `koi_disposition`, the snapshot already pulled (2026-09-21T02:23Z,
+   sha256[:16] `962947427b3038a3`): **CONFIRMED → 1, FALSE POSITIVE → 0**; CANDIDATE and NOT
+   DISPOSITIONED excluded.
+8. **Groups:** `kepid`. **Power floor: minority class < 100 → STOP, no model call.**
+9. **Baseline B:** the same 8 covariates as the FPWG attempt (TESS B, column for column).
+   **Excluded sources, unchanged:** `koi_comment`, `koi_pdisposition`, `koi_score`,
+   `koi_disp_prov`, every `koi_fpflag_*`; and now **every `fpwg_*` field including
+   `fpwg_comment`** — the corpora are not mixed.
+
+**Leakage to design against before any Jev call (a G5 matter, not part of the definition):**
+confirmed-planet names (`Kepler-<n><letter>` exists only for CONFIRMED); any disposition
+statement; the `Possible eclipsing binary = Yes (Kepler Eclipsing Binary Catalog…)` flag note.
+**Jev spend this step:** $0.00 · **running total:** ~$0.674
+**Next:** `045_kepler_cfop_corpus.py` — pull, verify the parse two independent ways, build,
+**then** join labels and characterise.
+---
+## [2026-09-21T02:44Z] KEPLER CFOP BUILD — STARTED
+**Doing:** `scripts/045_kepler_cfop_corpus.py` (fetch bulk pipe dump → parse with `028.parse_pipe`
+→ verify against an independent anchored parser → filter/strip/aggregate with `028.plain` →
+join the 02:23Z cumulative snapshot → `kepler_cfop_notes`, `kepler_cfop_corpus` → report).
+**Idempotent:** yes — cached dump, CREATE OR REPLACE. **$0.00.**
+---
+## [2026-09-21T02:44Z] KEPLER CFOP BUILD — DONE: n = 4,720, base 0.5750, the power floor clears 20×
+**Artifacts:** `data/kepler/obsnotes_bulk.txt` (pulled/sha256[:16]: 2026-09-21T02:44Z 475fc5dcafd43574), `data/kepler.duckdb`
+`::kepler_cfop_notes` (14,980 notes) and `::kepler_cfop_corpus`, sha256(to_csv)[:16]
+**`f3c30d2daf460095`**.
+
+**Parse verified by two independent parsers over the same bytes** — `028.parse_pipe` vs a
+record-anchored regex: **33,132 = 33,132 records, identical ID sets, note text identical on
+33,132 of 33,132.** In scope: **14,980 notes on 4,977 hosts; non-empty `Groupname` 0; hosts with
+>1 TIC 0; empty after prefix strip 0** — every definition assertion holds.
+
+| | CFOP (Kepler) | TESS obsnotes (A-13) |
+| :--- | ---: | ---: |
+| KOIs with in-scope notes | 6,234 (1,514 CANDIDATE excluded) | — |
+| **corpus n** | **4,720** | 1,482 |
+| y = 1 / y = 0 | **2,714 / 2,006** | — |
+| **base rate** | **0.5750** | 0.5378 |
+| power floor (minority ≥ 100) | **2,006 — CLEARS** | — |
+| groups | 3,843 `kepid`; 586 multi-KOI; max 7 | 1,388 TIC |
+| median chars y=0 / y=1 | **115 / 370** | — |
+| median notes y=0 / y=1 | 2 / 3 | 2 / 3 (§1.4) |
+| median authors y=0 / y=1 | **1 / 3** | — |
+| covariate missingness | ≤ 2.2% | — |
+
+**The amount of follow-up is strongly label-correlated — as on TESS, more so.** Confirmed KOIs
+drew more observers and more text. **B+meta, not B, is the floor** (A-23's lesson), and the
+metadata arm must be A-7's exact construction: note count, total chars, author count, top-8
+author one-hot.
+**Jev spend this step:** $0.00 · **running total:** ~$0.674
+**Next:** step 2 on CFOP — B / B+meta / C / B+N / MDE / oracle.
+---
+## [2026-09-21T02:45Z] KEPLER CFOP STEP 2 — STARTED
+**Doing:** `044_kepler_step2.py --corpus cfop` (044 generalised with `--corpus {fpwg,cfop}`; the
+fpwg path is unchanged and is re-run afterwards to prove it still reproduces). B+meta = A-7's
+exact construction. k = 7 provisional. **Idempotent:** yes. **$0.00.**
+---
+## [2026-09-21T02:51Z] KEPLER CFOP STEP 2 — DONE: a real test — text alone is BELOW B, as on TESS — with thin headroom
+**Artifacts:** `research/data/kepler_cfop_step2_k7_2026-09-20.json`,
+`data/kepler.duckdb::kepler_cfop_step2`. 5 min 21 s, **0 model calls.**
+
+| arm | CFOP | FPWG (withdrawn) | TESS |
+| :--- | :--- | :--- | :--- |
+| **B** (8 covariates) | **0.9582** [0.9524, 0.9638] — G1-analogue **PASS** | 0.9084 | 0.9051 |
+| **B+meta** (A-7 exact, 11 cols) | **0.9839** — ΔAUC **+0.0257** [+0.0208, +0.0306] | +0.0097 | — |
+| **C** TF-IDF, text only | **0.9429** [0.9347, 0.9506] — **below B** | 0.9662, *above* B | 0.8766, *below* B |
+| dilution floor (k = 7, 5 seeds) | **−0.0044** | −0.0114 | ≈ −0.011 |
+| bootstrap SE of ΔAUC | **0.0007** | 0.0050 | — |
+| **MDE (80%)** | **+0.0021** (true signal needed 0.0064) | +0.0141 | +0.0082 |
+| oracle bar (single-feature AUC) | **≳ 0.66** | ≳ 0.68 | — |
+
+**Why this corpus is a real test where FPWG was not:** bag-of-words on the notes scores **below**
+the covariates here, exactly the TESS pattern. So a D − B gain cannot come from the text simply
+restating the label; if structured reading adds something, it is adding what TF-IDF could not.
+
+**What will make it hard, stated before any Jev call:**
+1. **Headroom is thin.** B leaves 0.042 of AUC; **B+meta leaves 0.016.** Follow-up *volume*
+   (notes, chars, authors — confirmed KOIs drew 3 authors vs 1) is worth +0.026 on its own.
+2. **Metadata is partly post-disposition.** Confirmed planets plausibly drew follow-up *after*
+   validation. TESS's S2 temporal split addressed the analogous risk; the Kepler analogue needs a
+   per-KOI disposition date, which the cumulative table does not directly give. **To be resolved
+   in §11.10 before any model call — either a temporal arm or a registered limitation.**
+3. **The MDE is k-dependent**; +0.0021 is at k = 7 and must be re-measured at the frozen k.
+**Jev spend this step:** $0.00 · **running total:** ~$0.674
+**Next:** confirm the fpwg path of the generalised 044 still reproduces; then draft §11.10 / A-40.
+---
+## [2026-09-21T02:55Z] PRE-REGISTRATION §11.10 / A-40 WRITTEN — before any Kepler model call
+**Doing/done:** appended `PREREGISTRATION.md` §11.10 / A-40: the FPWG withdrawal and the
+forking-paths disclosure (40.0); CFOP corpus with realised numbers and checksums (40.1); label
+and provenance (40.2); **`koi_comment` named as excluded** with both reasons (40.3); models
+(40.4); S1, and **S2 on KOI host number ≥ 3865** (75th percentile — the rule mirrors §4's 25%;
+S2a by construction; S2b recorded as not applicable) (40.5); `KEPLER_PATTERNS` by rule —
+OBSNOTES minus `L6`, plus `K10` `\bKepler-\d+`, `L7` kept with a without-`L7` sensitivity arm,
+**add-only** thereafter (40.6); gates KG1–KG6 (40.7); MDE +0.0021 at k = 7, re-measured
+mechanically at the frozen k (40.8); **the transfer criterion and the full outcome→reading table**
+(40.9); the honest prior (40.10); what A-41 must fix before any paid call (40.11); limitations
+(40.12).
+
+**Also verified since the last entry:** the generalised `044 --corpus fpwg` reproduces the
+original FPWG step 2 **exactly** — every number identical; the only diff is a label string
+(`"comment length"` → `"1 cols"`).
+
+**Discarded, not relied on:** a one-off `Kepler-\d+` row count returned 0 because shell quoting
+turned `\b` into a literal backspace. It is A-41's measurement to make properly.
+**Jev spend this step:** $0.00 · **running total:** ~$0.674
+**Next:** commit (scripts 042–045, research JSONs, PREREGISTRATION, WORKLOG); **ask the user
+before pushing** — the push is what makes the registration precede the first model call.
+---
+## [2026-09-21T02:55Z] A-40 numbers re-verified against the data before commit
+Every number A-40 states was re-read from the artifacts, not from this log: TESS matrix
+**`d7b5be5675778f44`** (re-checked **after** 043–045, which the 40.1 claim requires — the earlier
+check was after 042 only); CFOP sha `f3c30d2daf460095`, n 4,720, base 0.575, 586 multi-KOI groups;
+**S2 test share at host ≥ 3865 = 25.02%**; B 0.9582, B+meta +0.0257, C 0.9429, MDE +0.0021,
+floor −0.0044, SE 0.0007; FPWG corpus rebuilds to `f1f470aaf74ef3e1`. `043`'s docstring updated
+to say its definition is **withdrawn** (it had said "formalised as A-40").
+**Jev spend this step:** $0.00 · **running total:** ~$0.674
+**Next:** commit; ask before pushing.
+---
