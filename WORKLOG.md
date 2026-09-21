@@ -3334,3 +3334,23 @@ pipeline checking itself, by its own author, against the same archive. **It is n
 replication** and the handoff's gap 1 is untouched by it.
 **Next:** commit; ask before pushing (the repo is public).
 ---
+## [2026-09-21T00:52Z] PUSHED — origin/master verified · secret confirmed present
+`dbec09e..83d6251` pushed to https://github.com/KevinArce/ExoNotes on the user's confirmation.
+`HEAD` and `origin/master` both `83d62516ebbb81844541ccbc7bace008ce833394`; not diverged, tree
+clean. One commit: `83d6251` CI gate coverage (§11.9 A-39).
+
+**`TYPESAFE_API_KEY` is now set**, confirmed by the user against the repository settings page —
+as a **Repository secret**, which is the form `${{ secrets.TYPESAFE_API_KEY }}` resolves. An
+*Environment* secret would not have reached the job without an `environment:` key, and that
+page showed "This environment has no secrets", so the distinction mattered. `gates.yml` is
+therefore live and **able to run for the first time**.
+
+**Consequence now in effect, flagged rather than left to be discovered on an invoice:** the
+monthly cron (`41 7 1 * *`) will spend **~$0.33 unattended on the 1st of each month**, ~$4/year.
+Until today it would have failed free at the secret check. The user has been asked whether to
+keep the schedule or move to dispatch-only; **unanswered as of this entry, schedule retained.**
+
+**Still true, and the badge will imply otherwise:** this is the pipeline checking itself, by its
+author, against the same archive. **Not independent replication.** Handoff gap 1 stands.
+**Jev spend this step:** $0.00 · **session total: $0.00** · **running total:** ~$0.3539
+---
