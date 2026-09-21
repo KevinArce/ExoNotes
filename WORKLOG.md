@@ -4197,3 +4197,18 @@ to say its definition is **withdrawn** (it had said "formalised as A-40").
 **Jev spend this step:** $0.00 · **running total:** ~$0.674
 **Next:** commit; ask before pushing.
 ---
+## [2026-09-21T02:57Z] A-40 PUSHED — the Kepler pre-registration is public before any Kepler model call
+**Commit `503327c`** (user approved the push), `origin/master` updated `412012f..503327c` at
+**2026-09-21T02:55:55Z** (commit time). **No Kepler model call has been made.** Diff scanned for
+secret-shaped strings before pushing: none. `gates.yml` has no push trigger, so no CI spend.
+
+**Clarification of A-40's wording, recorded now so it cannot be read two ways later.** 40.11's
+heading says A-41 must land *"before the first paid call"*, while its item 1 includes a ~$0.06
+question-design gate that A-41 records. **"First paid call" there means the Step 5
+full-corpus run.** The question-design gate's calls necessarily precede A-41 — they are how the
+question set A-41 freezes gets chosen — as TASK B's gate preceded A-18 on TESS. A-41 will
+restate this.
+**Jev spend this step:** $0.00 · **running total:** ~$0.674
+**Next:** step 4 — design the Kepler question set against CFOP text (TypeSafe skill + the
+`jev-1.13` jaggedness page first; read TESS r6 and the §2.4 / A-18 / A-19 / A-23 rules).
+---
