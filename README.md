@@ -9,6 +9,15 @@
     <img src="https://github.com/KevinArce/ExoNotes/actions/workflows/reproduce.yml/badge.svg"
          alt="clean-clone reproduction">
   </a>
+  <a href="https://github.com/KevinArce/ExoNotes/actions/workflows/gates.yml">
+    <img src="https://github.com/KevinArce/ExoNotes/actions/workflows/gates.yml/badge.svg"
+         alt="full-pipeline gate check">
+  </a>
+  <a href="https://orcid.org/0000-0003-3453-6551">
+    <img src="https://img.shields.io/badge/ORCID-0000--0003--3453--6551-A6CE39?logo=orcid&logoColor=white"
+         alt="ORCID">
+  </a>
+  <!-- DOI badge goes here on the first Zenodo release. -->
 </p>
 
 **Do the free-text notes astronomers write on TESS Objects of Interest carry
@@ -51,6 +60,21 @@ headline](./RESULTS.md#8a-the-cold-cache-reproduction-measured);
 two label-echo features fail the stability gate; the study's own pre-registered prior predicted
 a null and was falsified. All of it is in [`RESULTS.md`](./RESULTS.md), not buried.
 
+### What this is, and what it is not
+
+**The label is a human judgment.** TFOPWG disposition is assigned by the TESS Follow-up
+Observing Program, and the observer notes are the *evidence record that same community produced
+on the way to it* — speckle imaging results, radial-velocity follow-up, seeing conditions. The
+numeric TOI columns are transit-derived and contain none of that.
+
+So this measures whether a model can **read the follow-up evidence trail and anticipate expert
+consensus**. It is **not** a planet detector, it is not a transit vetter, and it does not show
+the model found physics that people missed.
+
+**What is genuinely non-obvious is the comparison, not the gain:** TF-IDF on the *same text*
+scores **0.8766 — below** the numeric baseline's 0.9044, while structured semantic judgments
+over that same text add **+0.0432**. Whatever the signal is, bag-of-words does not reach it.
+
 ## Two findings that are already useful
 
 Both are things anyone pointing a language model at archive text will hit, so they are stated
@@ -92,7 +116,7 @@ plan specified it as the covariate source; that was wrong. Covariates come from 
 | File | What it is |
 | :--- | :--- |
 | **[RESULTS.md](./RESULTS.md)** | **The answer**, with reliability diagrams, every confidence interval, the falsified prior, and what was not done. |
-| **[PREREGISTRATION.md](./PREREGISTRATION.md)** | The criteria, fixed before the run. §11 is the append-only amendment log; §11.5 is the only section written after the result. |
+| **[PREREGISTRATION.md](./PREREGISTRATION.md)** | The criteria, fixed before the run. §11 is the append-only amendment log. **§11.1–§11.4 were written before any full-corpus model call; §11.5–§11.9 were written after the result and each says so in its own heading.** Later sections supersede earlier ones. |
 | **[PLAN.md](./PLAN.md)** | The build plan, the guardrails, and the pre-registered gates. §0.5 is the work-logging protocol; §2 is the validity threat; §11 covers public release. |
 | **[WORKLOG.md](./WORKLOG.md)** | Append-only record of every step, including every failure and every place the plan turned out to be wrong. **The most honest file here.** |
 | **[PROVENANCE.md](./PROVENANCE.md)** | SHA256 of each raw source. `data/` is not committed. |
@@ -190,6 +214,22 @@ upstream outage is never mistaken for a broken repository.
 > Administration under the Exoplanet Exploration Program.
 
 TOI table access uses [`etta`](https://pypi.org/project/etta/) (MIT).
+
+## How to cite
+
+**Kevin Javier Arce Alfaro** ([ORCID 0000-0003-3453-6551](https://orcid.org/0000-0003-3453-6551)),
+independent researcher.
+
+Machine-readable metadata is in [`CITATION.cff`](./CITATION.cff) — GitHub's *"Cite this
+repository"* button renders it in APA and BibTeX.
+
+<!-- DOI-PLACEHOLDER: replace on the first Zenodo release. Use the CONCEPT DOI (the one that
+     always resolves to the newest version), not the per-version DOI. Update CITATION.cff
+     (`doi:`) and .zenodo.json in the same commit so the three never diverge. -->
+> A DOI will appear here once the first release is archived on Zenodo.
+
+Please also cite the archives this work depends on — see
+[Acknowledgements](#acknowledgements) above.
 
 ## Licence
 

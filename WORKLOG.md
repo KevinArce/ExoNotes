@@ -3598,3 +3598,41 @@ together** — a divergence is invisible until a DOI is already minted.
 **Jev spend this step:** $0.00 · **running total:** ~$0.674
 **Next:** confirm Zenodo↔ORCID account link, then tag `v1.0.0` and publish the Release.
 ---
+## [2026-09-21T01:52Z] README fresh-eyes pass before tagging — one real accuracy defect found
+**Doing:** read `README.md` as someone arriving cold from a DOI, before it becomes the landing
+page for a permanent record. **Idempotent:** yes — documentation only.
+
+**DEFECT (accuracy, and it erred in the flattering direction).** Line 95 read:
+
+> *"§11 is the append-only amendment log; **§11.5 is the only section written after the
+> result**."*
+
+**False. FIVE sections are** — §11.5, §11.6, §11.7, §11.8 and §11.9 each carry *"written AFTER
+the result"* in their own heading. The claim **understated how much was written post-result**,
+which makes the study look **more** pre-registered than it is. On a repository whose entire
+credibility rests on the before/after line, that is the worst direction to be wrong in, and it
+sat on the landing page. Replaced with the accurate split: **§11.1–§11.4 before any full-corpus
+model call, §11.5–§11.9 after the result**, later superseding earlier.
+
+**GAP: no author anywhere in the README.** For an artifact about to receive a DOI, a reader
+arriving from that DOI found no name. Added a **How to cite** section — name, ORCID, a pointer
+to `CITATION.cff`, and a marked `DOI-PLACEHOLDER` to be filled on release.
+
+**GAP: the scope framing existed in `CITATION.cff` and `.zenodo.json` but NOT in the README** —
+the most-read document of the three. Added *"What this is, and what it is not"*: the label is a
+human TFOP judgment and the notes are the evidence record produced on the way to it, so this
+**anticipates expert consensus and is not a planet detector**; and the genuinely non-obvious part
+is the **comparison** — TF-IDF on the same text scores 0.8766, *below* B's 0.9044, while
+structured judgments add +0.0432.
+
+**Also:** added the `gates.yml` badge (only `reproduce.yml` was shown, so the paid full-gate
+workflow was invisible) and an ORCID badge.
+
+**Verified:** every relative link resolves and every in-page anchor matches a real heading.
+**My first link-checker reported two false positives** — `lstrip("./")` strips the leading dot
+from `.github`, so both workflow links looked broken. Re-checked with the bug fixed: **none
+broken.** Recorded because a checker that lies in the *other* direction would have passed a
+genuinely broken landing page.
+**Jev spend this step:** $0.00 · **running total:** ~$0.674
+**Next:** tag `v1.0.0` and publish the GitHub Release; Zenodo mints the DOI.
+---
