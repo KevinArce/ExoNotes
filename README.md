@@ -43,9 +43,11 @@ distribution, and astrophysics is maximally out of distribution for it.
 | ✅ G1 pipeline sanity | Numeric baseline **0.9051** AUC vs 0.4840 prior |
 | ✅ G2 headline · G3 stability · G4 temporal · G5 leakage-stripped · G6 missingness | **All pass.** [Every interval](./RESULTS.md#2-every-gate-with-its-interval) |
 | ⚠️ The pre-registered prior | **Falsified.** A null was predicted in advance and did not happen — [why](./RESULTS.md#5-the-pre-registered-prior-was-wrong) |
-| 💸 Spend to date | **~$0.3539** |
+| 💸 Spend to date | **~$0.674** (study ~$0.3539 · first CI gate run ~$0.32) |
 
-**The caveats travel with the number.** A cold-cache re-run lands *near* +0.0432, not on it;
+**The caveats travel with the number.** A cold-cache re-run lands *near* +0.0432, not on it —
+**measured at +0.0451** on a clean runner 28 hours later, which is drift, [not a new
+headline](./RESULTS.md#8a-the-cold-cache-reproduction-measured);
 two label-echo features fail the stability gate; the study's own pre-registered prior predicted
 a null and was falsified. All of it is in [`RESULTS.md`](./RESULTS.md), not buried.
 

@@ -1362,3 +1362,45 @@ the same append-only convention §11 states and §11.7 already used to supersede
 It does not address the gap `RESULTS.md` §9 and the handoff both name as the highest-value one:
 **nothing external has checked this.** A green badge is not independent replication and is not
 offered as one.
+
+### A-39a — The first run: all six gates pass from a cold cache, and the drift arm's prediction holds
+
+**`gates.yml` ran for the first time on 2026-09-21
+([35547134433](https://github.com/KevinArce/ExoNotes/actions/runs/35547134433)): `success`,
+10.9 minutes, 1,382 new Jev calls, ~$0.32, 12/12 criteria, no notice raised.** Full table in
+`RESULTS.md` §8a.
+
+**This is the first true cold-cache end-to-end reproduction in the project's history**, and it
+converts §8's central caveat from a prediction into a measurement. G2 came in at **+0.0451**
+against the published **+0.0432**.
+
+**The run separates three effects that had never been separated.** The corpus did not drift at
+all — 1,482 / 1,388 / 0.5378, with both **numeric-only** arms (G1's B, baseline C) reproducing
+to four decimals — so the movement cannot be attributed to ExoFOP. G2's B moved 0.0002 and uses
+no Jev feature, which is the documented macos/arm64 vs linux/x64 offset. Everything remaining —
+0.0009 to 0.0031, on every arm containing a Jev feature — is **model drift over ~28 hours**.
+
+**A-33 is confirmed against reality.** It simulated the 1-hour drift and predicted ΔAUC sd
+0.0010; at ~28 hours the observed shift is +0.0019, about 2× that, and far inside the 10× band
+where G2 still passed. A robustness arm built for a question nobody had yet posed answered it
+correctly when it was finally posed.
+
+**The headline remains +0.0432 and this amendment does not change it.** The cold run landed
+**higher**, which is the direction that flatters the study, and is exactly why it is being
+refused as a re-measurement: §11.8 recorded a correction that moved the headline *down* by
+0.0008 and declined to round it away. **+0.0451 is drift at 28 hours, not a better result.**
+A reproduction check asks whether a finding survives; it does not restate it.
+
+**Three operational facts, none of which local testing could have established.** The pinned
+`requirements.txt` installs clean on linux/x64 Python 3.14.7. A cold ExoFOP pull of 2,573 TIC
+completes in ~2.5 minutes from a GitHub IP with zero failures — the throttling that forced the
+`reproduce` workflow into existence did not recur. And **the A-38 per-key lock holds under real
+concurrency on different hardware: 1,382 calls for 1,382 distinct states, none failed**, where
+the defective version made 1,462 for the same 1,382.
+
+**Two registered failures reproduced as failures**, which is the correct outcome: G3's
+`indicates_retired_or_rejected` (ρ 0.806) and `contains_object_designation` (ρ 0.801) both still
+fail, and A-8 item 11's threshold was not relaxed to clear them (A-32).
+
+**Unchanged by any of this:** nothing external has checked the result. A green badge is this
+pipeline checking itself on borrowed hardware.

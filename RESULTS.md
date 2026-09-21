@@ -323,7 +323,7 @@ post-hoc knowledge — but it is not a reconstruction of what the note said in 2
 | **Questions** | [`src/exonotes/questions.py`](src/exonotes/questions.py) `2026-09-20.r6` — **7 `TIER_PREDICTIVE` + 3 `TIER_LABEL_ECHO`**, frozen before the run; gate score 219/221 assertions on 27 label-blinded real notes |
 | **Model** | `jev-1.13.0`, **pinned and asserted on every response**; one request per row, many questions per request |
 | **Predictor** | CatBoost (500 iterations, depth 4, lr 0.05), identical configuration in every arm |
-| **Spend** | Step 3: 1,462 calls · 5,763,547 input tokens · **$0.2421**. S2b: 203 calls · **$0.0338**. **Whole study: ~$0.3539** |
+| **Spend** | Step 3: 1,462 calls · 5,763,547 input tokens · **$0.2421**. S2b: 203 calls · **$0.0338**. **Whole study: ~$0.3539**, plus **~$0.32** for the first CI gate run ([§8a](#8a-the-cold-cache-reproduction-measured)) |
 
 The division of labour is the point: **the language model is the featurizer, gradient boosting
 is the predictor, grouped cross-validation by host star is the arbiter.** A model judgment is a
@@ -334,6 +334,8 @@ feature, never a conclusion.
 ## 8. The limit on reproducing this
 
 **A clean clone re-running the pipeline from a cold cache will land near +0.0432, not on it.**
+**This is no longer a prediction — it has been measured.** See
+[§8a](#8a-the-cold-cache-reproduction-measured) below.
 
 `jev-1.13.0` is effectively deterministic *within* a session but drifts slightly over time. Two
 byte-identical requests — same pinned model, same state, same questions, verified by a shared
@@ -417,6 +419,65 @@ robustness check on a claim this write-up makes, reported as one. The realised p
 comes in ~14% below target at 1×, because re-quantising to 0.01 rounds many small perturbations
 back to zero; the arm is therefore marginally *weaker* than the drift it simulates, which the
 10× row is there to cover.
+
+---
+
+## 8a. The cold-cache reproduction, measured
+
+**Everything above about drift was, until now, an argument from two small probe experiments and
+a simulation. On 2026-09-21 the whole pipeline was rebuilt from nothing and the answer measured.**
+
+[`gates.yml`](.github/workflows/gates.yml)
+[run 35547134433](https://github.com/KevinArce/ExoNotes/actions/runs/35547134433) — a fresh
+GitHub runner, no `data/`, no cache, ExoFOP re-pulled, **1,382 new Jev calls** — completed in
+**10.9 minutes** with **all six gates passing** and no notice raised.
+
+| arm | published | **cold re-run** | Δ |
+| :--- | ---: | ---: | ---: |
+| **G2 — the headline** | +0.0432 | **+0.0451** [+0.0344, +0.0567] | **+0.0019** |
+| **G4** S2 + S2a + S2b | +0.1296 | +0.1265 [+0.0911, +0.1642] | −0.0031 |
+| **G5** leakage-stripped | +0.0391 | +0.0403 [+0.0278, +0.0537] | +0.0012 |
+| **G6** missingness | +0.0425 | +0.0434 [+0.0326, +0.0549] | +0.0009 |
+| **D − B+meta** | +0.0220 | +0.0241 [+0.0147, +0.0342] | +0.0021 |
+| **B+N** dilution floor | −0.0073 | −0.0069 [−0.0129, −0.0011] | +0.0004 |
+| G1 ΔAUC · G1 B · baseline C | +0.4212 · 0.9051 · 0.8766 | **identical to 4 dp** | **0.0000** |
+| G2's B, numeric only | 0.9044 | 0.9042 | −0.0002 |
+
+**The last two rows are what make the rest interpretable**, and they separate three effects that
+would otherwise be indistinguishable:
+
+1. **The corpus did not drift.** 1,482 rows / 1,388 TIC / base 0.5378, and both **numeric-only**
+   arms reproduce to four decimals. ExoFOP served the same data a day later, so **none** of the
+   movement is corpus drift — which will not stay true over longer gaps.
+2. **The 0.0002 on G2's B is the platform**, not the model: B uses no Jev feature. That is the
+   documented macos/arm64 vs linux/x64 offset of ~5×10⁻⁴, reappearing exactly where
+   [`PLAN.md`](./PLAN.md) says it lives.
+3. **Everything left — 0.0009 to 0.0031, on every arm containing a Jev feature — is model
+   drift**, over roughly 28 hours.
+
+**[§8's](#8-the-limit-on-reproducing-this) drift arm predicted this before it was asked to.**
+A-33 perturbed the features by the *1-hour* drift and found ΔAUC sd **0.0010**. At ~28 hours a
+larger shift is expected, and the observed **+0.0019** is about twice that sd — comfortably
+inside the 10× band where G2 still passed at +0.0385. A simulation built to answer a question
+nobody had yet posed gave the right answer when the question finally arrived.
+
+> ### ⚠️ The headline is still +0.0432
+>
+> The cold run came in **higher**, at +0.0451. **That is not an improvement and it is not a new
+> headline.** A reproduction check measures whether the finding survives; it does not
+> re-measure the finding. [§8](#8-the-limit-on-reproducing-this) records a correction that moved
+> the headline **down** by 0.0008 and refused to round it away; adopting a drift-driven
+> +0.0019 because it points the other way would be the same error with the sign flipped.
+> **+0.0451 is what drift looks like at 28 hours.**
+
+**Three things this run establishes that no local test could.** The pinned `requirements.txt`
+installs clean on linux/x64 Python 3.14.7. A cold ExoFOP pull of 2,573 TIC finishes in ~2.5
+minutes from a GitHub IP with zero failures. And the A-38 per-key lock holds under real
+concurrency on different hardware: **1,382 calls for 1,382 distinct states, none failed** — the
+defective version made 1,462 for the same 1,382.
+
+**What it does not establish** is anything about independent replication. This is the same
+pipeline, by the same author, against the same archive, on someone else's computer.
 
 ---
 

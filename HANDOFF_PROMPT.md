@@ -24,7 +24,8 @@ approximation to it.
 | **G5** | leakage-stripped **+0.0391** [+0.0268, +0.0519] | ✅ PASS |
 | **G6** | missingness ablation **+0.0425** [+0.0314, +0.0540] | ✅ PASS |
 
-**Jev spend to date: ~$0.3539.** Everything is committed and pushed (`6beb0a1`).
+**Jev spend to date: ~$0.674** — ~$0.3539 for the study, plus **~$0.32** for the first CI
+gate run (2026-09-21). Everything is committed and pushed.
 
 ---
 
@@ -120,15 +121,18 @@ the project somewhere new; nothing here is blocking.
    (`RESULTS.md` §6a). Repeated-fit S2 aggregation would tighten it. Not registered; would be a
    new arm.
 
-### ⚠️ CI now covers the gates — and it needs one thing done by hand
+### ✅ CI now covers the gates, and it has passed once
 
 `.github/workflows/gates.yml` runs the full pipeline cold and asserts all six gates
 (`040_verify_gates.py`, mutation-tested by `041_test_verify_gates.py`). Registered as
-§11.9 **A-39**. **It has never been run.**
+§11.9 **A-39**.
 
-**ACTION REQUIRED before the first dispatch:** add `TYPESAFE_API_KEY` under
-*Settings → Secrets and variables → Actions*. Without it the workflow fails at the second step
-by design, having spent nothing.
+**It has run once, and it passed.**
+[35547134433](https://github.com/KevinArce/ExoNotes/actions/runs/35547134433) — 2026-09-21,
+`success`, **10.9 min**, 1,382 new Jev calls, **~$0.32**, **12/12 criteria, no notice**.
+`TYPESAFE_API_KEY` is set as a **Repository** secret. **G2 came in at +0.0451 vs the published
++0.0432** — that is 28 hours of model drift, **not** a new headline; see `RESULTS.md` §8a and
+A-39a, and do not adopt it.
 
 **It spends real money: ~$0.33 per run, cold every single time** (`data/` is gitignored, so a
 runner always starts empty — there is no warm path, deliberately). Triggers are manual dispatch
@@ -171,7 +175,8 @@ that turns normal archive drift into a red badge, which is how badges get ignore
 - `src/exonotes/leakage.py` — `OBSNOTES_PATTERNS` (10 clauses) is the registered set;
   `COMMENTS_PATTERNS` is kept for provenance only.
 - Environment: Python 3.14 venv at `.venv`. **Do not rebuild it.** Run `.venv/bin/python scripts/…`.
-- **Jev spend to date: ~$0.3539.**
+- **Jev spend to date: ~$0.674** (study ~$0.3539 · first CI gate run ~$0.32). **Each further
+  `gates.yml` dispatch adds ~$0.32, and the monthly cron adds it unattended.**
 
 ### Defects found and fixed — do not re-litigate
 1–16: see `WORKLOG.md` (pscomppars removed; corpus is 2,721 rows; S2 group leak; G2 dilution

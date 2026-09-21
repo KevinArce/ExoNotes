@@ -3354,3 +3354,94 @@ keep the schedule or move to dispatch-only; **unanswered as of this entry, sched
 author, against the same archive. **Not independent replication.** Handoff gap 1 stands.
 **Jev spend this step:** $0.00 · **session total: $0.00** · **running total:** ~$0.3539
 ---
+## [2026-09-21T00:56Z] FIRST `gates.yml` RUN — STARTED
+**Doing:** dispatch `gates.yml` for the first time. Everything to date was verified locally;
+only a real run exercises the runner path — cold ingest, the ExoFOP pull from a GitHub IP, the
+secret reaching the four paid steps, and the verifier's tolerances against a **genuinely
+re-pulled** corpus rather than the committed one.
+**Command:** `gh workflow run gates.yml --ref master`
+**Idempotent: NO.** Each dispatch spends **~$0.33** against a cold cache. Do not re-run to
+"see if it works" — read the run log instead.
+**Decision recorded:** the monthly cron is **kept** (~$0.33/mo, ~$4/yr) on the user's
+instruction. Rationale: on a finished study, unattended detection of *upstream* drift — ExoFOP
+changing the corpus, the API changing behaviour, `jev-1.13.0` being retired — is the main thing
+CI can still report.
+**Expected:** ~$0.33 · up to ~90 min · **all six gates PASS**, with point estimates *near* but
+not equal to publication. A **NOTICE** is an acceptable outcome and is not a failure.
+**Jev spend this step:** $0.00 so far · **running total:** ~$0.3539 (about to rise by ~$0.33)
+---
+## [2026-09-21T00:31Z] FIRST `gates.yml` RUN — DONE. **All six gates pass from a cold cache**
+**Run:** [35547134433](https://github.com/KevinArce/ExoNotes/actions/runs/35547134433) ·
+**conclusion `success`** · **10.9 min** of the 120 min cap · **12/12 criteria hold, no NOTICE.**
+
+**This is the first true cold-cache end-to-end reproduction the study has ever had.** `RESULTS.md`
+§8 could only *predict* where one would land ("near +0.0432, not on it"). It is now measured.
+
+| arm | published | **CI, cold, 2026-09-21** | Δ |
+| :--- | ---: | ---: | ---: |
+| **G2 — the headline** | +0.0432 | **+0.0451** [+0.0344, +0.0567] | **+0.0019** |
+| **G4** S2+S2a+S2b | +0.1296 | **+0.1265** [+0.0911, +0.1642] | −0.0031 |
+| **G5** with L6 | +0.0391 | **+0.0403** [+0.0278, +0.0537] | +0.0012 |
+| **G6** | +0.0425 | **+0.0434** [+0.0326, +0.0549] | +0.0009 |
+| **D − B+meta** | +0.0220 | **+0.0241** [+0.0147, +0.0342] | +0.0021 |
+| **B+N** dilution floor | −0.0073 | **−0.0069** [−0.0129, −0.0011] | +0.0004 |
+| G1 ΔAUC · G1 B · baseline C | +0.4212 · 0.9051 · 0.8766 | **identical to 4 dp** | **0.0000** |
+| G2's B (numeric only) | 0.9044 | 0.9042 | −0.0002 |
+
+**The decomposition is clean, and it is the point of the table.**
+1. **The corpus did not drift at all.** 1,482 rows / 1,388 TIC / base 0.5378, and the
+   **numeric-only** arms — G1's B, baseline C — reproduce to four decimals. ExoFOP served the
+   same data a day later. So none of the movement below is corpus drift.
+2. **G2's B moved 0.0002** — numeric-only, so not the model. That is the **documented
+   macos/arm64 vs linux/x64 offset** (~5×10⁻⁴), landing where PLAN says it does.
+3. **Every arm containing a Jev feature moved 0.0009–0.0031** — that is **model drift over ~28
+   hours**, and it is the only channel left once 1 and 2 are accounted for.
+
+**A-33 predicted this and the prediction holds.** A-33 simulated the *1-hour* drift (0.0049) and
+got ΔAUC sd **0.0010**; this run is ~28 h out, so a larger shift is expected, and **+0.0019** is
+about 2× that sd — far inside the 10× band where G2 still passed (+0.0385). The arm was built to
+answer exactly this question and it answered it correctly **before** the question was asked.
+
+**⚠️ The headline moved UP and that changes nothing. The published headline is +0.0432.** A cold
+re-run is a reproduction check, not a re-measurement; adopting +0.0451 because it flatters the
+study is precisely what §11.8 refused to do in the other direction. **+0.0451 is what drift looks
+like, not an improvement.**
+
+**Operational results, each of which was previously only asserted:**
+- **`requirements.txt` installs clean on a fresh linux/x64 Python 3.14.7 runner.**
+- **Cold ExoFOP pull: 2,573 TIC in ~2.5 min at 5 workers, 0 failures** — no throttling from a
+  GitHub IP. My earlier worry that the 120 min cap might be tight was **wrong**: 10.9 min total.
+- **The A-38 per-key lock is verified under real concurrency on different hardware:**
+  **1,382 calls for 1,382 distinct states, `failed=0`** — exactly one call per state. The buggy
+  version made 1,462 for the same 1,382. The 100 `cached` are within-run dedup hits.
+- **G3's two label-echo failures reproduce exactly** (`indicates_retired_or_rejected` ρ 0.806,
+  `contains_object_designation` ρ 0.801). Still FAIL, still not relaxed (A-32). G3 verdict PASS
+  on 7/7 predictive. G3(b) still correctly reported VACUOUS.
+- **S2b re-scored 203 states for 804,981 tokens — byte-identical token count to the original
+  run**, confirming the same states were constructed from the same text.
+
+**Cost:** Step 3 **$0.2285** (1,382 calls, 82 s) · S2b **$0.0338** (203 calls) · G3 ~$0.06
+(not itemised by `036`; bounded by `N_ROWS = 200` × 2 arms). **≈$0.32 this run**, against the
+~$0.33 projected. Preflight projected $0.2269 for Step 3 and it came in at $0.2285, **0.7% over**.
+**Jev spend this step: ~$0.32** · **running total: ~$0.674**
+
+**The verifier's tolerance design is vindicated by the one thing that did not happen: no NOTICE.**
+Every delta is under the 0.0050 threshold, so the run passed cleanly without the escape hatch —
+while an equality check would have failed on all six gates.
+**Next:** record the measurement in `RESULTS.md` §8 and A-39; the handoff says "never been run".
+---
+## [2026-09-21T00:38Z] First-run measurement recorded in the write-up — DONE
+**Artifacts:** `RESULTS.md` **§8a** (new section, the cold-cache reproduction with the
+three-way decomposition), `RESULTS.md` §8 opener and the §11.1 spend row, `PREREGISTRATION.md`
+**A-39a**, `HANDOFF_PROMPT.md` (CI section now reads "run once, and it passed"; spend to date),
+`README.md` (status table spend, and the cold-cache caveat now carries the measured +0.0451).
+**Idempotent:** yes — documentation only.
+
+**Verified after editing:** local matrix checksum still **`d7b5be5675778f44`** and
+`040_verify_gates.py` still **11/11** — the CI run is ephemeral and changed nothing here, which
+is what it should do. The published headline still reads **+0.0432** in `RESULTS.md`, `README.md`
+and `HANDOFF_PROMPT.md`; **the +0.0451 appears only as a reproduction measurement and nowhere as
+a headline.** No document still claims the workflow has never run.
+**Jev spend this step:** $0.00 · **running total:** ~$0.674
+**Next:** commit; ask before pushing.
+---
