@@ -1,22 +1,82 @@
 cff-version: 1.2.0
-title: "ExoNotes: do ExoFOP follow-up comments carry disposition signal beyond the numeric catalogue?"
-message: "If you use this work, please cite it, and cite the ExoFOP and NASA Exoplanet Archive sources it depends on."
+title: >-
+  ExoNotes: do ExoFOP observer notes carry disposition signal beyond the numeric
+  TOI catalogue?
+message: >-
+  If you use this work, please cite it. Please also cite the sources it depends on: the
+  Exoplanet Follow-up Observation Program (ExoFOP) and the NASA Exoplanet Archive, both
+  operated by the California Institute of Technology under contract with NASA under the
+  Exoplanet Exploration Program.
 type: software
+
 authors:
-  - name: "ExoNotes contributors"
+  # TODO-CONFIRM before minting the Zenodo DOI -- a DOI records this permanently.
+  #   1. Name split. Taken from the git identity `KevinArce <iav.kevinarce@ufg.edu.sv>`.
+  #      Spanish naming often carries two surnames; correct this if it is wrong.
+  #   2. ORCID. Free at https://orcid.org -- get one BEFORE the DOI, then uncomment.
+  #   3. Affiliation. Claim it only if it is accurate for this work; independent is fine.
+  - given-names: "Kevin"
+    family-names: "Arce"
+    email: "iav.kevinarce@ufg.edu.sv"
+    # orcid: "https://orcid.org/0000-0000-0000-0000"
+    # affiliation: "Universidad Francisco Gavidia, El Salvador"
+
 repository-code: "https://github.com/KevinArce/ExoNotes"
 license: MIT
+# Code is MIT; prose and figures are CC BY 4.0. CFF carries one license field, so it
+# records the software licence. See README.md for the full statement.
+
+# Uncomment and fill once Zenodo has minted it. Use the CONCEPT DOI (the one that always
+# resolves to the newest version), not the per-version DOI.
+# doi: "10.5281/zenodo.XXXXXXX"
+# version: "1.0.0"
+# date-released: "2026-09-21"
+
 keywords:
   - exoplanets
   - TESS
   - ExoFOP
+  - TFOP
   - text-mining
-  - calibration
+  - natural-language-processing
+  - machine-learning
+  - label-leakage
+  - preregistration
+  - reproducibility
   - negative-results
+
 abstract: >-
-  A pre-registered test of whether the free-text Comments astronomers write on TESS Objects of
-  Interest contain disposition-relevant information not already present in the numeric catalogue
-  columns. Free text is converted to numeric semantic features with a System One model (Jev,
-  TypeSafe AI) used strictly as a featurizer; gradient boosting is the predictor and grouped
-  cross-validation by host star is the arbiter. The study is designed so that a null result is
-  publishable, and documents a measured label-echo rate of 47.9% in the ExoFOP comment corpus.
+  A pre-registered test of whether the free-text observing notes astronomers write on TESS
+  Objects of Interest contain disposition-relevant information not already present in the
+  numeric catalogue columns. Free text is converted to numeric semantic features with a
+  System One model (Jev, TypeSafe AI) used strictly as a featurizer; gradient boosting is
+  the predictor and cross-validation grouped by host star is the arbiter. Model
+  probabilities are never thresholded into a decision.
+
+  On 1,482 labelled TOIs across 1,388 host stars, semantic features improve held-out
+  prediction of TFOPWG disposition by dAUC +0.0432 (95% CI +0.0324 to +0.0547; AUC 0.9044
+  to 0.9476), which is 5.3 times the minimum effect the study was pre-registered to detect.
+  All six pre-registered gates pass, including stability under paraphrase, a temporal
+  split, a leakage-stripped arm and a missingness ablation. The gain survives a metadata
+  control that captures note count, note length and author identity (+0.0220, CI +0.0126
+  to +0.0321), so it is not merely a record of which follow-up group wrote a note. A
+  TF-IDF baseline on the same text scores 0.8766, BELOW the numeric baseline, so whatever
+  the semantic features capture, bag-of-words does not reach it.
+
+  Two label-leakage findings are reported as cautions for anyone applying machine learning
+  to these catalogues. The ExoFOP Comments field restates the disposition in 47.9% of
+  2,725 labelled rows, where a TF-IDF classifier reaches 0.969 AUC almost entirely from
+  label echo; this is why the study moved to observer notes. Separately, membership in the
+  NASA Exoplanet Archive pscomppars table predicts the label at P=0.995 versus 0.074,
+  leaking through missingness alone.
+
+  Scope and limits are stated rather than implied. The label is a human judgment by the
+  TESS Follow-up Observing Program and the notes are the evidence record produced on the
+  way to it, so the study measures whether a model can anticipate expert consensus from
+  follow-up prose -- not whether it can detect planets. The result rests on one corpus,
+  one mission, one snapshot date and one pinned model version (jev-1.13.0), and has not
+  been externally replicated. The study was designed so that a null result would be
+  publishable; the pre-registered prior predicted a null and was falsified, which is
+  reported rather than dropped. Pre-registration, an append-only work log, a full account
+  of a defect that moved the published headline DOWN by 0.0008, and a measured cold-cache
+  reproduction are all included in the repository.

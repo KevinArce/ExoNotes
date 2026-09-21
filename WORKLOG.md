@@ -3493,3 +3493,42 @@ corpus or an outside runner remains the highest-value next step.
 **Jev spend this session: ~$0.32 · running total: ~$0.674.**
 **Pushed:** `83d6251`, `e64c250`, `d245892`. **Working tree clean.**
 ---
+## [2026-09-21T01:12Z] `CITATION.cff` rewritten — it described the ABANDONED corpus
+**Doing:** step 1 of the publication track. **Idempotent:** yes — metadata only, no API calls.
+
+**What was wrong, and it was not cosmetic.** The file still described the study the project
+**abandoned**:
+- **Title** read *"do ExoFOP follow-up **comments** carry disposition signal…"*. The study moved
+  off the `Comments` field precisely **because** it restates the label in 47.9% of rows. The
+  citation named the discredited corpus, not the one the result is on.
+- **`authors: - name: "ExoNotes contributors"`** — no real person, so no credit and no
+  discoverability. Rendered as an anonymous artifact.
+- **Abstract** described the `Comments` design and carried **no result at all** — no ΔAUC, no
+  interval, no corpus size, three sessions after all six gates passed.
+
+**Now:** correct title (**observer notes**, numeric **TOI** catalogue); a named author from the
+git identity; an abstract carrying the headline **+0.0432 [+0.0324, +0.0547]**, B 0.9044 → D
+0.9476, 5.3× the MDE, the B+meta control **+0.0220**, baseline C **0.8766 below B**, both
+leakage cautions (**47.9%** of 2,725 rows; `pscomppars` **P=0.995 vs 0.074**), the pinned model,
+and an explicit scope paragraph stating that **the label is a human judgment and the notes are
+the evidence record produced on the way to it** — so the study anticipates expert consensus and
+is **not** a planet detector. Keywords extended to 11 for discoverability.
+
+**Verified, not eyeballed:** `cffconvert --validate` → *"Citation metadata are valid according to
+schema version 1.2.0."* Renders as `Arce, Kevin` in APA and BibTeX. Validator installed to a
+**scratch** venv; `requirements.txt` untouched.
+
+**Three fields deliberately left as `TODO-CONFIRM`, because I cannot derive them and a DOI
+records them permanently:** the **name split** (`Kevin` / `Arce` is inferred from
+`KevinArce <iav.kevinarce@ufg.edu.sv>`; Spanish naming often carries two surnames), the
+**ORCID**, and whether to claim the **UFG affiliation** or publish as independent. `doi:`,
+`version:` and `date-released:` are commented pending the Zenodo release — which is why the
+rendered citation currently carries no year.
+
+**Not in the repo, by request:** the publication plan lives in `LOCAL_PLAN.md`, excluded via
+**`.git/info/exclude`** rather than `.gitignore` — `.gitignore` is itself committed, so listing
+it there would publish the filename. Verified invisible: `git status` clean with the file
+present.
+**Jev spend this step:** $0.00 · **running total:** ~$0.674
+**Next:** ORCID → confirm identity fields → Zenodo release → DOI back into this file.
+---
