@@ -3564,3 +3564,37 @@ later if a direct path is wanted.
 **Next:** step 2 — Zenodo: link GitHub + ORCID, tag `v1.0.0`, publish the Release, DOI back into
 `CITATION.cff` and the README badge.
 ---
+## [2026-09-21T01:38Z] `.zenodo.json` added — `CITATION.cff` alone would NOT have reached the DOI
+**Doing:** step 2 prep. **Idempotent:** yes — metadata only, no API calls.
+
+**The finding that made this necessary.** Zenodo's GitHub integration reads **`.zenodo.json`**,
+and where both exist **it takes precedence over `CITATION.cff` — the two are not merged**
+([Zenodo developer docs](https://developers.zenodo.org/), corroborated by
+[citation-file-format#374](https://github.com/citation-file-format/citation-file-format/issues/374)).
+**So the identity work at 01:12Z and 01:24Z would have been silently bypassed**: the minted
+record would have fallen back to GitHub-derived defaults — no ORCID, no "Independent
+Researcher", quite possibly the username rather than the name. The repo would have been correct
+and the permanent citation wrong.
+
+**Verified against Zenodo rather than assumed, because a bad field fails the whole release sync
+— not just that field:**
+
+| field | checked | result |
+| :--- | :--- | :--- |
+| `license` | `GET /api/vocabularies/licenses?q=mit` | canonical id is **`"mit"`** (lowercase, scheme `spdx`, tagged *recommended*) — **not** `"MIT"` |
+| `orcid` | docs | **bare** identifier `0000-0003-3453-6551`, not a URL |
+| `name` | docs | **"Family, Given"** → `"Arce Alfaro, Kevin Javier"` |
+| `description` HTML | parsed and diffed against Zenodo's allowed subset | uses only `p`, `strong`, `em`, `code` — **no heading tags, which Zenodo does not allow** |
+| required fields | docs | `upload_type`, `title`, `description`, `creators`, `license`, `access_right` all present |
+
+**`version` and `publication_date` are deliberately OMITTED** so Zenodo takes them from the git
+tag and release date. Hardcoding `"1.0.0"` would go stale at the next release — **which is
+exactly the failure just fixed in `CITATION.cff`**, and there is no reason to reintroduce it in
+a second file.
+
+**Both files are kept and say the same thing.** `.zenodo.json` drives the DOI; `CITATION.cff` is
+what GitHub's "Cite this repository" widget and most tooling read. **They must be updated
+together** — a divergence is invisible until a DOI is already minted.
+**Jev spend this step:** $0.00 · **running total:** ~$0.674
+**Next:** confirm Zenodo↔ORCID account link, then tag `v1.0.0` and publish the Release.
+---
