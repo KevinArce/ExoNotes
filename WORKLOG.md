@@ -3445,3 +3445,51 @@ a headline.** No document still claims the workflow has never run.
 **Jev spend this step:** $0.00 · **running total:** ~$0.674
 **Next:** commit; ask before pushing.
 ---
+## [2026-09-21T00:44Z] PUSHED — origin/master verified
+`e64c250..d245892` pushed to https://github.com/KevinArce/ExoNotes on the user's confirmation.
+`HEAD` and `origin/master` both `d2458927e023132c6f7e7e482cfb360424db5c15`; not diverged, tree
+clean. Three commits this session: `83d6251` CI gate coverage · `e64c250` push log + secret
+confirmation · `d245892` the first cold-cache reproduction.
+**Jev spend this step:** $0.00 · **running total:** ~$0.674
+---
+## [2026-09-21T00:45Z] SESSION END — Claude Opus 5
+**Completed:** the user's chosen direction — **CI now covers the gates** — plus the first run of
+it, which produced a measurement the study did not previously have.
+
+**`RESULTS.md` §9 item 5 is CLOSED.** Registered as §11.9 **A-39** (the design and its
+trade-offs) and **A-39a** (the first run). The study's definition of done was already complete
+before this session; nothing here changes a published number.
+
+**Built:** `.github/workflows/gates.yml` · `scripts/040_verify_gates.py` (11 criteria, 12 with
+`--require-paid`) · `scripts/041_test_verify_gates.py` (15 mutations, all caught) · `.env`
+loader fallback in 025/032/034.
+
+**First run:** [35547134433](https://github.com/KevinArce/ExoNotes/actions/runs/35547134433) —
+`success`, 10.9 min, 1,382 calls, ~$0.32, **12/12, no notice**. **G2 +0.0451 vs published
++0.0432**, decomposed in `RESULTS.md` §8a: corpus did not drift (numeric-only arms identical to
+4 dp), 0.0002 is the platform offset, the rest is ~28 h of model drift. **A-33 predicted the
+magnitude before the question was asked.**
+
+**Three things I got wrong during the session, each corrected as a new entry rather than edited
+away:** a symlinked scratch tree made the no-key test read the real `.env` and report a false
+pass (00:04Z); a cross-reference I wrote pointed at a `RESULTS.md` §9 item that does not exist;
+and I flagged the 120-minute CI cap as a schedule risk on the basis of a *warm* 6-minute figure —
+the real cold run took 10.9 minutes total.
+
+**Three documentation defects found and fixed, none of them CI:** the matrix checksum had no
+recorded recipe, making the handoff's "stop if this does not reproduce" unfollowable;
+`README.md` claimed no archival data is redistributed while 27 verbatim ExoFOP notes (66,804
+characters) sit in `research/data/`; and A-5's "the CI reproduction makes no API calls" is now
+superseded — left intact, with the supersession recorded, because §11 is append-only.
+
+**Decisions the user made this session:** API key in a CI secret (over a committed cache or a
+derived-numbers artifact); **monthly cron kept** at ~$0.33/run unattended; first run triggered
+immediately rather than left to fire unattended.
+
+**Unchanged and still the largest gap: nothing external has checked this.** CI is this pipeline
+checking itself on borrowed hardware. `PLAN.md` §8 lists the registered extensions; a second
+corpus or an outside runner remains the highest-value next step.
+
+**Jev spend this session: ~$0.32 · running total: ~$0.674.**
+**Pushed:** `83d6251`, `e64c250`, `d245892`. **Working tree clean.**
+---
