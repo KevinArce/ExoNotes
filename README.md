@@ -132,6 +132,7 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md).
 .venv/bin/python scripts/037_reliability.py           # ~1 min, $0 — the RESULTS.md figures
 .venv/bin/python scripts/038_drift_sensitivity.py     # ~1 min, $0 — the drift arm
 .venv/bin/python scripts/039_gate_g4_s2b.py           # ~1 min, ~$0.03 — G4 with S2b
+.venv/bin/python scripts/040_verify_gates.py          # $0 — asserts all six gates still hold
 ```
 
 > **⚠️ A cold-cache re-run lands near the published number, not exactly on it.** `jev-1.13.0`
@@ -143,14 +144,35 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md).
 > sd 0.0010, and G2 still passes at **ten times** the measured drift. Details:
 > [`PROVENANCE.md`](./PROVENANCE.md) and `PREREGISTRATION.md` §11.5 (A-31).
 
-**This is checked automatically.** The badge above runs the same three commands on a clean
-clone, on a fresh GitHub runner, weekly and on every change to `scripts/`, `src/` or
-`requirements.txt`. It asserts that baseline B still beats the prior by a wide margin.
+**This is checked automatically, by two workflows that do different jobs.**
 
-It does **not** assert the numbers match exactly, and it should not: ExoFOP updates
+[`reproduce.yml`](.github/workflows/reproduce.yml) — the badge above — runs ingest and baselines
+on a clean clone, on a fresh GitHub runner, weekly and on every change to `scripts/`, `src/` or
+`requirements.txt`. It makes **no API calls** and asserts that baseline B still beats the prior
+by a wide margin.
+
+[`gates.yml`](.github/workflows/gates.yml) goes the rest of the way: it rebuilds the corpus,
+re-scores it through Jev and asserts **all six gates** with
+[`040_verify_gates.py`](scripts/040_verify_gates.py). It **spends real money** — ~$0.33 per run,
+cold every time, because `data/` is gitignored and a runner starts empty — so it runs on manual
+dispatch and a monthly schedule, never on push. It also **demands that the run actually paid**:
+a cold-cache run reporting zero API calls has tested nothing, and would otherwise report six
+green gates. The verifier itself is mutation-tested by
+[`041_test_verify_gates.py`](scripts/041_test_verify_gates.py), which breaks one gate at a time
+and checks all 15 breakages are caught — it runs *before* the paid steps. Registered as
+`PREREGISTRATION.md` §11.9 (A-39).
+
+**Neither asserts that the numbers match exactly, and neither should**: ExoFOP updates
 continuously and the NASA Exoplanet Archive syncs weekly, so a later pull genuinely differs.
 What must survive is the finding, not the bytes — the committed checksums in
-[PROVENANCE.md](./PROVENANCE.md) are what pin the exact snapshot.
+[PROVENANCE.md](./PROVENANCE.md) are what pin the exact snapshot. `gates.yml` therefore checks
+each gate's **registered criterion** and reports every point estimate with its delta from
+publication; a delta larger than model drift alone explains raises a **notice for a human**, not
+a red build. Turning normal archive drift into a failing badge is how a badge gets ignored.
+
+**A green badge is not independent replication.** Both workflows run this pipeline, written by
+its author, against the same archive. Nobody outside this repository has checked the result —
+that is the study's largest open gap and CI does not close it.
 
 If ExoFOP is throttling or down, the run fails with a message saying so explicitly, so an
 upstream outage is never mistaken for a broken repository.
@@ -169,5 +191,11 @@ TOI table access uses [`etta`](https://pypi.org/project/etta/) (MIT).
 
 ## Licence
 
-Code is **MIT** ([LICENSE](./LICENSE)). Prose and figures are **CC BY 4.0**. No archival data is
-redistributed here.
+Code is **MIT** ([LICENSE](./LICENSE)). Prose and figures are **CC BY 4.0**.
+
+**No archival data is redistributed here, with one stated exception.** `data/` is gitignored, so
+neither the corpus nor the 1,382 cached model responses are in this repository. The exception is
+[`research/data/gate_cases_obsnotes_2026-09-20.json`](research/data/gate_cases_obsnotes_2026-09-20.json),
+which carries the **27 verbatim ExoFOP observing notes** of the hand-labelled question-design
+gate — they are quoted because the gate cannot be audited without the text that was judged.
+ExoFOP is credited under [Acknowledgements](#acknowledgements) above.

@@ -1288,3 +1288,77 @@ is still not a gate.
 
 **The correction moves the headline down.** Recorded in full rather than as a footnote: a study
 that publishes a falsified prior does not get to quietly round its own headline in its favour.
+
+---
+
+## 11.9 Post-study infrastructure — CI now covers the gates. **Written AFTER the result; changes no number.**
+
+### A-39 — The gates run in CI against a live API key, and the assertions are criteria, not equalities
+
+**`RESULTS.md` §9 item 5 recorded that CI did not cover the gates and "cannot without either an
+API key in CI or the response cache committed — both are real decisions with real trade-offs,
+neither has been made." The decision has now been made: an API key, in a GitHub Actions
+secret.** `.github/workflows/gates.yml` runs the full pipeline from a cold cache and
+`scripts/040_verify_gates.py` asserts every gate.
+
+**This amendment changes no published number.** It adds infrastructure and records why it takes
+the shape it does.
+
+**Why the alternative was not merely a preference.** Committing the response cache could not
+have worked on its own. `cache_key()` hashes `MODEL + QUESTION_SET_VERSION + state + questions`,
+and the state is `{"notes": <raw ExoFOP text>}` read live from `analysis_set_obsnotes`. **A cache
+hit therefore requires the note text to be byte-identical.** ExoFOP gains observing notes
+continuously — the reason `029_verify_reproduction.py` has always asserted tolerances rather
+than equality — so a committed cache would drift into misses and CI would silently begin paying
+anyway. Making it work would have required freezing and committing **1.9 MB of ExoFOP note
+text**, which collides with `README.md`'s statement that no archival data is redistributed here.
+A third option — committing only derived numbers (the feature matrix and numeric columns, no
+prose), which covers G2/G4/G5/G6 exactly for $0 but reaches neither G3 nor baseline C — was
+offered and declined in favour of full coverage.
+
+**What the choice costs, registered rather than discovered later.** ~$0.33 per cold run
+(Step 3 ~$0.24 · G3 ~$0.06 · S2b ~$0.03); CI becomes dependent on a paid third-party API's
+availability; and the workflow is deliberately **not** on `push`, because a paid job on push
+turns a five-commit afternoon into $1.65.
+
+**The assertions are registered criteria, not equalities, and this is a commitment.** A cold CI
+run differs from publication in two independent ways, and only one is small:
+
+| source | size | bounded? |
+| :--- | :--- | :--- |
+| **model drift** (A-31 → A-33) | ΔAUC sd **0.0010**; G2 survives 10× | yes, measured |
+| **corpus drift** — ExoFOP is a living archive | **unbounded**; CI re-pulls different rows, different text, some changed dispositions | **no** |
+
+Demanding +0.0432 exactly would therefore turn normal archive drift into a red build. The
+verifier asserts what the study committed to in §6 — each gate's criterion — and **reports**
+point estimates with their delta from publication. A delta beyond 5× the A-33 sd raises a
+**NOTICE, not a failure**, because corpus drift can legitimately produce one and the correct
+response is for a person to look, not for a badge to go red.
+
+**One thing is demanded exactly: that the run actually paid.** On a runner the cache is cold by
+construction (`data/` is gitignored), so Step 3 **must** make calls. `--require-paid` fails a
+run reporting zero new calls, and the cost preflight aborts on a `$0.00` projection. Without
+those, a pipeline that quietly did nothing would report six green gates — which is **defect 20**
+(a G3 arm scoring ρ = 1.000 because it never made a call) and **defect 24** (a cached re-run
+overwriting the record of the run that paid) in a new costume.
+
+**The verifier is proven able to fail.** `scripts/041_test_verify_gates.py` breaks one claim at
+a time — G2's CI crossing zero, G2 positive but under the MDE, G4/G5/G6 collapsing, G3 losing a
+`TIER_PREDICTIVE` feature, B falling under 0.85, the A-1 dilution floor flipping positive, prose
+ceasing to beat metadata, the corpus halving, a zero-call run, absent inputs — **15 mutations,
+all caught.** It runs in CI **before** the paid steps, since there is nothing to learn from
+paying to feed a check that cannot fail. This is `PLAN.md` §0.5's rule applied to the verifier
+itself: **verify by checking the output, not by checking that it ran.**
+
+**One earlier statement is superseded, and is left standing rather than rewritten.** A-5 (model
+pinning) says "The CI reproduction does not cover this — it makes no API calls." That was true
+of `reproduce.yml` and is **no longer true of the pipeline as a whole**: `gates.yml` runs Step 3
+against the pinned `jev-1.13.0`, so a model-pin regression would now surface in CI. A-5 is a
+record of what was registered when, so it keeps its original text; **§11.9 supersedes it**, on
+the same append-only convention §11 states and §11.7 already used to supersede A-36 item 2
+(later section wins: §11.9 > §11.8 > … > body text).
+
+**What CI still does not establish.** It is one more run of *this* pipeline by *this* author.
+It does not address the gap `RESULTS.md` §9 and the handoff both name as the highest-value one:
+**nothing external has checked this.** A green badge is not independent replication and is not
+offered as one.

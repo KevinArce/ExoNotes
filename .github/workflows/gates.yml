@@ -1,0 +1,219 @@
+# Full-pipeline gate check — RESULTS.md §9 item 5.
+#
+# The `reproduce` workflow next to this one covers ingest and G1 only, makes no API calls, and
+# never touches `analysis_set_obsnotes`, Step 3 or G2–G6. This one closes that gap: it rebuilds
+# the corpus, re-scores it through Jev and asserts every registered gate.
+#
+# THIS WORKFLOW SPENDS REAL MONEY. ~$0.33 per run against a cold cache:
+#   034 Step 3        ~$0.24   1,382 distinct states
+#   036 G3 stability  ~$0.06   bounded by N_ROWS = 200, two arms
+#   039 G4 / S2b      ~$0.03   203 re-scores
+# `data/` is gitignored and a runner starts empty, so EVERY run is cold. There is no warm path.
+# That is deliberate — a warm run would prove nothing — but it is why this is not on `push`.
+#
+# WHY NOT ON PUSH: the `reproduce` workflow already runs on push to master and is free. Putting
+# a paid job on push means a five-commit afternoon costs $1.65 and a stuck loop costs more. The
+# operator asks for this run, or the monthly schedule does.
+#
+# THE ASSERTIONS ARE TOLERANCE-BASED, NOT EQUALITY. A cold run differs from publication by
+# model drift (A-31/A-33: ΔAUC sd 0.0010) and, far more, by corpus drift — ExoFOP gains notes
+# continuously, so CI re-pulls genuinely different data. `040_verify_gates.py` asserts each
+# gate's *registered criterion* and reports point estimates with their delta. See its docstring.
+name: gates
+
+on:
+  workflow_dispatch:
+    inputs:
+      max_usd:
+        description: 'Ceiling for the Step 3 projection (USD). The run aborts before paying if the projection exceeds it.'
+        required: false
+        default: '0.50'
+  schedule:
+    - cron: '41 7 1 * *'      # 07:41 UTC on the 1st. Monthly, ~$4/year, catches upstream drift.
+
+concurrency:
+  group: gates
+  # NOT cancel-in-progress. Cancelling a paid run throws away money already spent and leaves a
+  # half-written cache on a runner that is about to be destroyed. Queue instead.
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  gates:
+    # Forks do not have the secret and must not burn 90 minutes discovering that. This also
+    # stops a fork's scheduled run from ever firing.
+    if: github.repository == 'KevinArce/ExoNotes'
+    runs-on: ubuntu-latest
+    timeout-minutes: 120      # 01 ingest alone is allowed 45; the paid steps add ~25 cold.
+
+    env:
+      MAX_USD: ${{ inputs.max_usd || '0.50' }}
+
+    defaults:
+      run:
+        # Explicit bash gets `-eo pipefail`. The implicit default is `bash -e` WITHOUT pipefail,
+        # under which `python verify.py | tee log` returns tee's exit code — a failed gate would
+        # be masked and this badge would go green on a broken study.
+        shell: bash
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.14'
+          cache: pip
+
+      - name: Install pinned dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          python -c "import catboost, duckdb, pandas, sklearn, matplotlib; print('imports OK')"
+
+      - name: Confirm the secret is present
+        # Fails in seconds rather than after the ingest. Tests emptiness only — the value is
+        # never echoed, never written to a file, and never passed on a command line.
+        env:
+          TYPESAFE_API_KEY: ${{ secrets.TYPESAFE_API_KEY }}
+        run: |
+          if [ -z "${TYPESAFE_API_KEY}" ]; then
+            echo "::error::TYPESAFE_API_KEY is not set. Add it under Settings → Secrets and variables → Actions."
+            exit 1
+          fi
+          echo "TYPESAFE_API_KEY is present (${#TYPESAFE_API_KEY} characters; value not shown)"
+
+      - name: Confirm this really is a cold start
+        run: |
+          if [ -e data/exonotes.duckdb ] || [ -d data/cache ]; then
+            echo "::error::data/ is present in a fresh clone — .gitignore has regressed."
+            exit 1
+          fi
+          test -f .env && { echo "::error::.env is tracked"; exit 1; } || echo "no .env — correct"
+          echo "no data/ — the cache is cold, as it must be"
+
+      - name: Prove the verifier can fail, BEFORE paying for anything
+        # Free, and it runs first on purpose: there is no point spending ~$0.33 to feed a
+        # verifier that passes unconditionally. Defect 20 and §11.8 A-38 are both that failure.
+        run: python scripts/041_test_verify_gates.py
+
+      - name: Ingest from scratch
+        id: ingest
+        run: python scripts/01_ingest.py 2>&1 | tee ingest.log
+
+      - name: Say WHY ingest failed
+        if: failure() && steps.ingest.outcome == 'failure'
+        run: |
+          if grep -qi 'THROTTLING\|did not return the TOI table' ingest.log; then
+            {
+              echo "## ⚠️ ExoFOP did not return the TOI table"
+              echo ""
+              echo "**Upstream availability, not a gate failure.** Nothing was charged to the"
+              echo "API — this step runs before any paid call. Re-run the workflow later."
+            } >> "$GITHUB_STEP_SUMMARY"
+            echo "::error::ExoFOP unavailable/throttled — upstream. No API spend. Re-run later."
+          else
+            echo "::error::Ingest failed for a reason that is NOT ExoFOP throttling — see the log."
+          fi
+
+      - name: Pull the observer notes
+        id: obsnotes
+        # Free (ExoFOP), but slow and throttle-prone. Still ahead of every paid step, so a
+        # throttle here costs nothing.
+        run: python scripts/028_obsnotes_pull.py 2>&1 | tee obsnotes.log
+
+      - name: Cost preflight — project Step 3 before spending
+        id: preflight
+        env:
+          TYPESAFE_API_KEY: ${{ secrets.TYPESAFE_API_KEY }}
+        run: |
+          python scripts/034_step3_features.py --dry-run 2>&1 | tee dryrun.log
+          USD=$(sed -n 's/.*projected \$\([0-9.]*\).*/\1/p' dryrun.log | tail -1)
+          if [ -z "$USD" ]; then
+            echo "::error::could not parse a projected cost from the dry run — refusing to spend blind."
+            exit 1
+          fi
+          echo "projected=$USD" >> "$GITHUB_OUTPUT"
+          echo "Step 3 projection: \$$USD · ceiling \$$MAX_USD"
+          if awk "BEGIN{exit !($USD > $MAX_USD)}"; then
+            echo "::error::projected \$$USD exceeds the \$$MAX_USD ceiling. Nothing was spent."
+            exit 1
+          fi
+          # A cold runner MUST have something to call. Zero here means the corpus is empty or
+          # the cache is somehow warm, and the run would 'pass' having tested nothing.
+          if awk "BEGIN{exit !($USD == 0)}"; then
+            echo "::error::projection is \$0.00 on a cold cache — the corpus is empty or the pipeline is wrong."
+            exit 1
+          fi
+
+      - name: Step 3 — score the corpus  (PAID, ~$0.24)
+        env:
+          TYPESAFE_API_KEY: ${{ secrets.TYPESAFE_API_KEY }}
+        run: python scripts/034_step3_features.py 2>&1 | tee step3.log
+
+      - name: Gates G2, G5, G6 and the controls
+        run: python scripts/035_gates_g2_g6.py 2>&1 | tee gates.log
+
+      - name: Gate G3 — paraphrase stability  (PAID, ~$0.06)
+        env:
+          TYPESAFE_API_KEY: ${{ secrets.TYPESAFE_API_KEY }}
+        run: python scripts/036_gate_g3_stability.py 2>&1 | tee g3.log
+
+      - name: Gate G4 — the registered temporal split  (PAID, ~$0.03)
+        env:
+          TYPESAFE_API_KEY: ${{ secrets.TYPESAFE_API_KEY }}
+        run: python scripts/039_gate_g4_s2b.py 2>&1 | tee g4.log
+
+      - name: Reliability and drift sensitivity
+        # Free, and not gates — reported so the artifacts match what RESULTS.md describes.
+        run: |
+          python scripts/037_reliability.py 2>&1 | tee reliability.log
+          python scripts/038_drift_sensitivity.py 2>&1 | tee drift.log
+
+      - name: Verify every gate
+        # --require-paid: on a cold cache Step 3 must have made calls. A zero-call run that
+        # still reports six green gates has tested nothing (defects 20 and 24).
+        run: python scripts/040_verify_gates.py --require-paid 2>&1 | tee verify.txt
+
+      - name: Summarise
+        if: always()
+        run: |
+          {
+            echo "## Full-pipeline gate check"
+            echo ""
+            echo "Cold cache by construction — \`data/\` is gitignored and the runner starts empty."
+            echo ""
+            if [ -n "${{ steps.preflight.outputs.projected }}" ]; then
+              echo "**Step 3 projection:** \$${{ steps.preflight.outputs.projected }} (ceiling \$$MAX_USD)"
+              echo ""
+            fi
+            if [ -f verify.txt ]; then
+              echo '```'
+              cat verify.txt
+              echo '```'
+            else
+              echo "The run did not reach the verification step — see the failing step above."
+            fi
+            echo ""
+            echo "### Why these are not exact comparisons"
+            echo "ExoFOP gains observing notes continuously, so a cold run re-pulls genuinely"
+            echo "different data; and \`jev-1.13.0\` drifts (A-31). The check asserts each gate's"
+            echo "**registered criterion** and reports point estimates with their delta from"
+            echo "publication. A NOTICE means a gate held but moved further than model drift"
+            echo "alone explains — look at the corpus, do not ignore it."
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload this run's results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: gate-results
+          # research/data/*.json are REGENERATED by this run, overwriting the committed values.
+          # They are uploaded, never committed back — the published numbers stay published.
+          path: |
+            research/data/*.json
+            verify.txt
+            *.log
+          if-no-files-found: warn
+          retention-days: 90

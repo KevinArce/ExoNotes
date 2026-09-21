@@ -39,6 +39,17 @@ Full account: `PREREGISTRATION.md` §11.8 A-38, `RESULTS.md` §8, `WORKLOG.md` 2
 
 **Matrix checksum to verify against:** `sha256(jev_features_obsnotes)[:16] = d7b5be5675778f44`,
 stable across zero-call rebuilds. **If a rebuild does not produce this, stop and find out why.**
+**The recipe — which no document recorded until now, making the instruction above unfollowable:**
+
+```python
+sha256(duckdb.connect("data/exonotes.duckdb", read_only=True)
+       .execute("select * from jev_features_obsnotes").fetchdf()
+       .to_csv(index=False).encode()).hexdigest()[:16]   # -> d7b5be5675778f44
+```
+
+**Row order is part of the checksum.** The stored table is already `toi`-sorted, so `to_csv` on
+it as-read matches; re-sorting by `['tic_id','toi']` yields `d952de67733cbfa8` on **identical
+data**. A-35 makes the same point about baseline B being worth 0.0008 AUC on row order.
 
 ---
 
@@ -98,19 +109,37 @@ is not evidence that nothing changed.
 §9's definition of done is **complete**. Everything below is optional. Pick from it, or take
 the project somewhere new; nothing here is blocking.
 
-### The three real gaps, in order of how much they would strengthen the study
+### The two remaining gaps, in order of how much they would strengthen the study
 
 1. **Nothing external has checked this.** The result rests entirely on one person's pipeline.
    The highest-value next step is not another arm — it is **someone else running it**, or a
-   second corpus. `PLAN.md` §8 lists the registered extensions.
-2. **`.github` CI still does not cover the gates.** It reruns ingest + baselines only, makes no
-   API calls, and never touches `analysis_set_obsnotes`, Step 3 or G2–G6. It **cannot** without
-   either an API key in CI or the response cache committed — both are real decisions with real
-   trade-offs, neither has been made. Stated in `RESULTS.md` §9 item 5.
-3. **The S2 arm is noisier than its interval suggests.** One train/test split, one CatBoost fit;
+   second corpus. `PLAN.md` §8 lists the registered extensions. **CI does not touch this gap:**
+   a green badge is this pipeline checking itself.
+2. **The S2 arm is noisier than its interval suggests.** One train/test split, one CatBoost fit;
    the paired bootstrap resamples test groups, not the fit. Measured: **~±0.005 of seed noise**
    (`RESULTS.md` §6a). Repeated-fit S2 aggregation would tighten it. Not registered; would be a
    new arm.
+
+### ⚠️ CI now covers the gates — and it needs one thing done by hand
+
+`.github/workflows/gates.yml` runs the full pipeline cold and asserts all six gates
+(`040_verify_gates.py`, mutation-tested by `041_test_verify_gates.py`). Registered as
+§11.9 **A-39**. **It has never been run.**
+
+**ACTION REQUIRED before the first dispatch:** add `TYPESAFE_API_KEY` under
+*Settings → Secrets and variables → Actions*. Without it the workflow fails at the second step
+by design, having spent nothing.
+
+**It spends real money: ~$0.33 per run, cold every single time** (`data/` is gitignored, so a
+runner always starts empty — there is no warm path, deliberately). Triggers are manual dispatch
+and a monthly cron; **there is no `push` trigger on purpose.** The cost preflight aborts above a
+`$0.50` ceiling, and also aborts on a `$0.00` projection — a run that pays nothing has tested
+nothing and would otherwise report six green gates.
+
+**It asserts registered criteria, not the published numbers**, because corpus drift is unbounded
+(ExoFOP is a living archive) and dwarfs the measured model drift. A point estimate moving more
+than 5× the A-33 sd raises a **NOTICE, not a failure**. Do not "tighten" this into equality —
+that turns normal archive drift into a red badge, which is how badges get ignored.
 
 ### Smaller, clearly-scoped things
 
@@ -194,4 +223,6 @@ pipes **silently**; HTML entities never decoded).
 - Rebuilding from a clean clone: `028_obsnotes_pull.py` (~6 min, $0) →
   `034_step3_features.py` (~7 min, ~$0.24) → `035_gates_g2_g6.py` (~2 min, $0) →
   `036_gate_g3_stability.py` (~2 min, ~$0.06) → `037_reliability.py` (~1 min, $0) →
-  `038_drift_sensitivity.py` (~2 min, $0) → `039_gate_g4_s2b.py` (~1 min, ~$0.03).
+  `038_drift_sensitivity.py` (~2 min, $0) → `039_gate_g4_s2b.py` (~1 min, ~$0.03) →
+  `040_verify_gates.py` (instant, $0 — asserts all six gates; add `--require-paid` on a cold
+  cache). `041_test_verify_gates.py` mutation-tests the verifier itself, also $0.

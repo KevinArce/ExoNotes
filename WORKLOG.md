@@ -3123,3 +3123,214 @@ diverged, working tree clean. The four commits: `3dadbf4` TASK D · `4b50b7e` TA
 `6beb0a1` the cache-race correction · `8cf95a6` the handoff rewrite.
 **Jev spend this step:** $0.00 · **running total:** ~$0.3539
 ---
+## [2026-09-20T23:52Z] SESSION START — Claude Opus 5
+**Picking up:** the completed study. `HANDOFF_PROMPT.md` states §9 items 1–8 are done and that
+**no work is required**. Last entry was `23:16Z PUSHED`, an outcome, not an orphan `STARTED`,
+so nothing was interrupted.
+**First action:** verify the inherited state against the handoff's four claims before proposing
+anything. Read-only, no API calls.
+**Jev spend this step:** $0.00 · **running total:** ~$0.3539
+---
+## [2026-09-20T23:52Z] INHERITED STATE VERIFIED — all four claims hold
+**Doing:** check the handoff's state claims against the repo rather than trusting them.
+**Idempotent:** yes — read-only, no writes to `data/`, no API calls.
+
+| claim in the handoff | measured | verdict |
+| :--- | :--- | :--- |
+| `data/cache/step3/` holds **exactly 1,382** responses | 1,382 | ✅ |
+| `data/cache/s2b/` holds **203** responses | 203 | ✅ |
+| corpus `analysis_set_obsnotes` = 1,482 rows | 1,482 | ✅ |
+| `jev_features_obsnotes` = 1,482 × 10 (+2 key cols) | 1,482 × 13 (`tic_id`, `toi`, 10 features, 1 `__conf`) | ✅ |
+| `jev_features_obsnotes_s2b` present | 1,482 | ✅ |
+| **`sha256(jev_features_obsnotes)[:16] = d7b5be5675778f44`** | **`d7b5be5675778f44`** | ✅ |
+
+Also present and matching: `analysis_set` 2,721 · `g5_arm_obsnotes` 1,114 · `obsnotes_text`
+1,388 · `leakage_obsnotes` 10 · `toi_snapshot` 8,148. Working tree clean at `dbec09e`.
+
+**GAP FOUND (documentation, not data): the checksum recipe was never recorded.** The handoff
+says "if a rebuild does not produce this, stop and find out why", but no committed script or
+document states *how* the 16 hex characters are produced, so a future session cannot actually
+perform that check without guessing. It was recovered here by trying candidate serialisations:
+
+```
+sha256(duckdb.execute("select * from jev_features_obsnotes").fetchdf()
+       .to_csv(index=False).encode()).hexdigest()[:16]   ->  d7b5be5675778f44
+```
+
+Load order matters, as A-35 already established for B: `to_csv(index=False)` on the table **as
+stored** matches, and so does an explicit `sort_values('toi')` (the stored order is already
+`toi`-sorted). Sorting by `['tic_id','toi']` instead gives `d952de67733cbfa8` — a **different**
+checksum on **identical data**. Recorded because the check is worthless if the next session
+sorts differently and concludes the matrix drifted.
+**Jev spend this step:** $0.00 · **running total:** ~$0.3539
+**Next:** await direction — the study has no required work; see the session's proposal.
+---
+## [2026-09-20T23:58Z] DECISION — CI will cover the gates via an API key in a GitHub secret
+**Context.** `RESULTS.md` §9 item 5 says CI does not cover the gates and "cannot without either
+an API key in CI or the response cache committed — both are real decisions with real trade-offs,
+neither has been made." **The user has now made it: API key in a CI secret.**
+
+**Two facts established before the choice, both of which the handoff's framing was missing.**
+
+1. **A committed cache would not have worked on its own.** `cache_key()` hashes
+   `MODEL + QUESTION_SET_VERSION + state + questions`, and the state is `{"notes": <raw text>}`
+   read live from `analysis_set_obsnotes` (`034_step3_features.py:88` and `:165`). A cache hit
+   therefore requires the note text to be **byte-identical**. ExoFOP gains notes continuously —
+   which is precisely why `029_verify_reproduction.py` asserts tolerances and not equality. So
+   "commit the cache" actually meant "commit the cache **and** freeze 1.9 MB of ExoFOP note
+   text", or CI drifts into misses and silently starts paying.
+2. **That would have collided with a stated position.** `README.md:173` — "No archival data is
+   redistributed here."
+
+**A third option was offered and declined:** commit only derived numbers (feature matrix +
+numeric columns, ~200 KB, no prose), covering G2/G4/G5/G6 exactly for $0. It does not cover G3
+or baseline C. The user chose full coverage with a live key instead.
+
+**What the choice costs, recorded so it is not a surprise later.** ~$0.33 per cold full run
+(step3 ~$0.24 + G3 ~$0.06 + S2b ~$0.03); CI becomes dependent on a paid third-party API's
+availability; and **the assertions must be tolerance-based, not exact** — A-31 established that
+a cold-cache run lands *near* +0.0432, not on it, and a CI run also re-pulls a drifted corpus.
+**Jev spend this step:** $0.00 · **running total:** ~$0.3539
+---
+## [2026-09-20T23:58Z] CI GATE COVERAGE — STARTED
+**Doing:** build CI that runs the full pipeline cold and asserts all six gates.
+1. make the `.env` loader fall back to the process environment (no `.env` exists on a runner);
+2. new `scripts/040_verify_gates.py` — asserts G1–G6 with drift-aware tolerances;
+3. new `.github/workflows/gates.yml` — manual/scheduled, cost-capped, fork-safe;
+4. update `RESULTS.md` §9 item 5, `README.md`, `PREREGISTRATION.md`.
+**Idempotent:** yes for 1/2/3/4 (source edits, re-runnable). **The workflow itself is NOT
+free to re-run** — each dispatch costs ~$0.33 against a cold cache.
+**Two traps this must avoid, both already paid for in this repo:**
+- **The result JSONs have hardcoded filenames** (`gates_g2_g6_2026-09-20.json`), so a CI run
+  **overwrites** them. Reference values must be **constants inside the verifier**, never read
+  from the committed JSON — otherwise the run clobbers the file it is about to be compared to
+  and the check passes vacuously. That is defect 24, and defect 20 in a different costume.
+- **G4's registered value is NOT in `gates_g2_g6*.json`.** That file's `G4` key is the pre-S2b
+  +0.0936. The registered +0.1296 is `gate_g4_s2b*.json → arms → "G4b S2+S2a+S2b (train 884)"`.
+  Reading the wrong one is what produced the contradictory forest plot last session.
+**Jev spend this step:** $0.00 · **running total:** ~$0.3539
+---
+## [2026-09-21T00:04Z] `.env` loader now falls back to the process environment — DONE
+**Doing:** `(ROOT / ".env").read_text()` raises `FileNotFoundError` on a runner, where there is
+no `.env` by construction (the `reproduce` workflow asserts `.env` is not tracked). Guarded with
+`_envfile.exists()`. An existing `.env` still wins, so a local run is bit-for-bit unchanged.
+**Files:** `scripts/034_step3_features.py`, `scripts/025_question_gate.py`,
+`scripts/032_question_gate_obsnotes.py`. 036 and 039 load 034 as a module, so they inherit it.
+**Idempotent:** yes.
+
+**Verified by output, three ways:**
+
+| path | result |
+| :--- | :--- |
+| `.env` present (local) | `already cached 1382 · to call: 0 · $0.0000` — unchanged |
+| no `.env`, `TYPESAFE_API_KEY` in env (**the CI path**) | same output, runs |
+| no `.env`, no key | **exit 1**, `no TYPESAFE_API_KEY found` — fails closed |
+
+**Correction to my own first attempt at that table.** The no-key case initially reported
+**exit 0**, which I nearly recorded as "fails closed" without looking. It was a **bad test**:
+the scratch tree used *symlinks* to `scripts/` and `src/`, and `ROOT` is
+`pathlib.Path(__file__).resolve().parent.parent` — **`.resolve()` follows the symlink**, so ROOT
+came back as the real repo and the loader read the real `.env`. Re-run with real copies, the
+no-key case exits 1 as it should. **The patch was fine; the test was measuring the wrong tree.**
+Recorded because it is the §11.8 lesson again: a green result from a test that never touched the
+thing under test is worth nothing.
+**Jev spend this step:** $0.00 · **running total:** ~$0.3539
+**Next:** `scripts/040_verify_gates.py`.
+---
+## [2026-09-21T00:22Z] VERIFIER + WORKFLOW — DONE
+**Artifacts:** `scripts/040_verify_gates.py`, `scripts/041_test_verify_gates.py`,
+`.github/workflows/gates.yml`.
+**Idempotent:** yes for the scripts (read-only). **The workflow is NOT** — each dispatch spends
+~$0.33 against a cold cache.
+
+**`040_verify_gates.py`** asserts G1–G6 plus two controls, 11 criteria. Reference values are
+**constants in the file**, not read from `research/data/` — a pipeline run overwrites those
+JSONs, so comparing a run against the file it just rewrote would pass vacuously (defect 24).
+Run against the current state: **11/11 PASS**, and every value it reads matches `RESULTS.md`
+exactly — G2 +0.0432, G4 +0.1296 (from the **S2b** arm, not `gates_g2_g6`'s pre-S2b +0.0936),
+G5 +0.0391, G6 +0.0425, B+N −0.0073, D−B+meta +0.0220, C 0.8766.
+
+**It asserts registered criteria, not equality**, because a cold CI run differs from publication
+by model drift (A-33, sd 0.0010) and, much more, by **corpus drift** — ExoFOP gains notes
+continuously, so CI re-pulls different data. A point estimate moving more than 5× the A-33 sd
+raises a **NOTICE**, not a failure: corpus drift can legitimately cause it, and a build that
+goes red on normal archive drift trains everyone to ignore it (`029`'s docstring, same reason).
+
+**`041_test_verify_gates.py` — the verifier is proven to FAIL.** 15 mutations, each breaking one
+claim: G2's CI crossing zero, G2 real but under the MDE, G4/G5/G6 collapsing, G3 losing a
+predictive feature, B dropping under 0.85, **the dilution floor flipping positive**, prose
+ceasing to beat metadata, the corpus halving, a zero-call run under `--require-paid`, and
+missing inputs. **All 15 behaved correctly.** This exists because a verifier only ever seen to
+pass is defect 20 in waiting. CI runs it **before** the paid steps — no point spending $0.33 to
+feed a check that cannot fail.
+
+**Workflow guards, each tested rather than assumed:**
+
+| guard | behaviour |
+| :--- | :--- |
+| `if: github.repository == 'KevinArce/ExoNotes'` | forks never burn 90 min discovering they lack the secret |
+| secret presence check | fails in seconds; prints **length only**, never the value |
+| cold-start assert | fails if `data/` or `.env` appears in a clean clone |
+| mutation test first | free, and gates the paid steps |
+| cost preflight | parsed **$0.2421** from real cold output; **aborts** over the `$0.50` ceiling, **aborts** at `$0.00` (a warm/empty cache means the run would test nothing), **aborts** if the projection cannot be parsed rather than spending blind |
+| `cancel-in-progress: false` | cancelling a paid run wastes money already spent |
+| no `push` trigger | a five-commit afternoon would otherwise cost $1.65 |
+| artifacts uploaded, never committed back | the published numbers stay published |
+
+**Triggers:** `workflow_dispatch` + monthly cron (~$4/year). YAML validated with pyyaml
+installed to a **scratch** dir — `requirements.txt` is the reproduction contract and was not
+touched.
+
+**Noted, not changed:** `036_gate_g3_stability.py` has **no cost tripwire of its own**; its spend
+is bounded structurally by `N_ROWS = 200` over two arms (~$0.06). Editing a study script to add
+one is not something to do quietly at this stage, so it is recorded here instead.
+**Jev spend this step:** $0.00 · **running total:** ~$0.3539
+**Next:** `RESULTS.md` §9 item 5, `README.md`, `PREREGISTRATION.md` §11.9.
+---
+## [2026-09-21T00:41Z] CI GATE COVERAGE — DONE. `RESULTS.md` §9 item 5 is closed
+**Artifacts:** `.github/workflows/gates.yml`, `scripts/040_verify_gates.py`,
+`scripts/041_test_verify_gates.py`, `.env` loader patch in 025/032/034,
+`PREREGISTRATION.md` §11.9 (**A-39**), `RESULTS.md` §9 item 5, `README.md`, `HANDOFF_PROMPT.md`.
+
+**Verification, by output:**
+
+| check | result |
+| :--- | :--- |
+| `041` mutation test | **15/15 mutations caught** — the verifier can fail |
+| `040` against current state | **11/11 criteria hold**, every value matching `RESULTS.md` |
+| matrix checksum after all edits | **`d7b5be5675778f44`** — unchanged |
+| `034 --dry-run`, `039 --dry-run` | run clean post-patch, **0 calls, $0.0000** |
+| both workflow YAMLs | parse (pyyaml in a scratch dir; `requirements.txt` untouched) |
+| all patched/new scripts | `py_compile` clean |
+| literal-secret scan over the whole diff | none; `.env` ignored and untracked |
+
+**Jev spend this step:** $0.00 · **session total: $0.00** · **running total:** ~$0.3539
+
+**Three documentation defects found and fixed while doing this, none of them CI:**
+1. **The checksum recipe was never recorded** (00:04Z entry). The handoff ordered the next
+   session to verify `d7b5be5675778f44` and **stop** on a mismatch, without saying how to
+   compute it. Now in `HANDOFF_PROMPT.md`, with the warning that row order changes the answer
+   (`['tic_id','toi']` gives `d952de67733cbfa8` on identical data).
+2. **`README.md:173` said "No archival data is redistributed here" and that was not true.**
+   `research/data/gate_cases_obsnotes_2026-09-20.json` carries **27 verbatim ExoFOP observing
+   notes, 66,804 characters** — counted, not estimated. The claim now states the exception and
+   why it exists (the gate cannot be audited without the text that was judged).
+3. **A cross-reference I wrote myself was wrong** and is corrected here as a new entry rather
+   than silently: the new §9 item 5 first ended "item 1 below stands untouched", but §9 item 1
+   is the struck-through S2b item and **§9 has no external-validation entry at all**. Replaced
+   with the plain statement instead of a pointer to nothing.
+
+**A-5 is superseded but was NOT rewritten.** It says "The CI reproduction does not cover this —
+it makes no API calls" about the model pin; `gates.yml` now does cover it. §11 is append-only,
+so A-5 keeps its text and §11.9 records the supersession, exactly as §11.7 did for A-36 item 2.
+
+**NOT DONE, and it is a hand step nobody else can do:** the `TYPESAFE_API_KEY` secret is **not
+set** on the GitHub repository, so `gates.yml` **has never run**. It fails at step two by design
+until someone adds it under *Settings → Secrets and variables → Actions*. Flagged at the top of
+the handoff's CI section.
+
+**What this does not achieve, stated because the badge will imply otherwise:** CI is this
+pipeline checking itself, by its own author, against the same archive. **It is not independent
+replication** and the handoff's gap 1 is untouched by it.
+**Next:** commit; ask before pushing (the repo is public).
+---

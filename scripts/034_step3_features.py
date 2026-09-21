@@ -54,12 +54,18 @@ USD_PER_MTOK = 0.042
 # Re-fitted here against the r6 question payload actually being sent.
 TOK_PER_CHAR = 0.4177
 
-for line in (ROOT / ".env").read_text().splitlines():
-    line = line.strip()
-    if not line or line.startswith("#") or "=" not in line:
-        continue
-    k, v = line.split("=", 1)
-    os.environ[k.strip()] = v.strip().strip('"').strip("'")
+# `.env` is the local path; CI has no `.env` (the reproduction workflow asserts it is not
+# tracked) and injects TYPESAFE_API_KEY as a process env var instead. Missing file is therefore
+# not an error -- an absent KEY still is, below. An existing `.env` keeps priority so that a
+# local run behaves exactly as before.
+_envfile = ROOT / ".env"
+if _envfile.exists():
+    for line in _envfile.read_text().splitlines():
+        line = line.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        k, v = line.split("=", 1)
+        os.environ[k.strip()] = v.strip().strip('"').strip("'")
 KEY = os.environ.get("TYPESAFE_API_KEY", "")
 if not KEY:
     raise SystemExit("no TYPESAFE_API_KEY found")

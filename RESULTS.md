@@ -437,8 +437,33 @@ Stated here rather than left implicit.
 3. **G3(b), the permuted state key order, is vacuous** (see [§6](#6-stability-under-paraphrase-g3)).
 4. **The two G3 label-echo failures were not explained away**, and A-8 item 11's threshold was
    not relaxed to clear them.
-5. **The CI pipeline does not cover any of this.** [`.github`](.github) reruns ingest and
-   baselines only, makes no API calls, and does not touch the corpus table, Step 3 or the gates.
+5. ~~**The CI pipeline does not cover any of this.**~~ **It does now.**
+   [`reproduce.yml`](.github/workflows/reproduce.yml) still covers ingest and G1 only;
+   [`gates.yml`](.github/workflows/gates.yml) rebuilds the corpus from scratch, re-scores it
+   through Jev and asserts every gate via
+   [`040_verify_gates.py`](scripts/040_verify_gates.py). Registered as
+   [`PREREGISTRATION.md`](./PREREGISTRATION.md) §11.9 A-39. **Three things about it matter more
+   than the badge:**
+
+   - **It asserts registered criteria, not the published numbers.** A cold run differs from
+     publication by model drift (sd 0.0010, [§8](#8-the-limit-on-reproducing-this)) and, far
+     more, by **corpus drift** — ExoFOP is a living archive, so CI re-pulls different data.
+     Demanding +0.0432 exactly would make normal drift a red build. Point estimates are
+     reported with their delta; a delta beyond 5× the drift sd raises a **notice, not a
+     failure**.
+   - **It demands that the run actually paid.** The cache is cold on a runner by construction,
+     so Step 3 must make calls; `--require-paid` and a `$0.00`-projection abort exist because a
+     pipeline that quietly did nothing would otherwise report six green gates — defects 20 and
+     24 in a new costume.
+   - **The verifier is proven able to fail.**
+     [`041_test_verify_gates.py`](scripts/041_test_verify_gates.py) breaks one claim at a time
+     — including the A-1 dilution floor flipping positive and D ceasing to beat B+meta — and
+     **all 15 mutations are caught.** It runs before the paid steps.
+
+   **This is still not external validation.** It is one more run of this pipeline by its own
+   author. A green badge says the pipeline still clears its own bars on today's archive; it
+   says nothing about whether anyone else can, and **nobody outside this repository has
+   checked any of it.** That remains the largest open gap in the study.
 
 ---
 
