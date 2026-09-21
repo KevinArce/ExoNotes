@@ -4491,3 +4491,24 @@ checksum last verified `d7b5be5675778f44`.
 **Jev spend this step:** $0.00 · **running total:** ~$0.698
 **Next:** commit; **ask the user before pushing**; then, and only then, the Step 5 run (`048`).
 ---
+## [2026-09-21T03:28Z] A-41 PUSHED; paid run deferred by the user; HANDOFF rewritten
+**Push (user-approved):** `origin/master` `503327c..b14a97e`, commit time **2026-09-21T03:24:31Z**.
+A-41 is public **before any full-corpus Kepler model call.**
+**User decision:** *"Push only, run next session."* **The Step 5 run (`048`, ~$0.63) was NOT made.**
+**`HANDOFF_PROMPT.md` rewritten** around the new state: TESS done; Kepler registered and pushed;
+the next task is the exact command sequence `048 --dry-run` → `048` → `050` → `049` → `050`,
+read through A-40 40.9 only; the three caveats known before the result (null is likelier —
+the 95% oracle beats B+meta by +0.0078; KG5's arm runs at base 0.811 because L7 reverses
+direction on Kepler; S2 test is 84% FPs); defects 27–33 from this session.
+**Jev spend this session:** $0.024 (question-design gate only) · **running total:** ~$0.698
+---
+## [2026-09-21T03:28Z] SESSION END — Claude Opus 5 (`claude-opus-5`)
+**Done this session, all before any full-corpus Kepler call:** Kepler task 0 (FPWG table obtained
+via the viewer's download path); the FPWG corpus defined, measured and **withdrawn** (text alone
+beats B; verdict agrees with the label 98.1%); CFOP observer notes found in the ExoFOP dump and
+built as the corpus (n 4,720, base 0.5750); zero-cost baselines and MDE; **A-40 pushed**
+(`503327c`); question set `kepler-2026-09-21.r3` frozen through a gate with two disjoint
+holdouts; `KEPLER_PATTERNS` audited; MDE +0.0019 at k = 6; scripts 048–050 written and 050
+smoke-tested both ways; **A-41 pushed** (`b14a97e`).
+**Next session starts at:** `scripts/048_kepler_step3_features.py --dry-run`, per HANDOFF.
+---
