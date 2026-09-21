@@ -3636,3 +3636,46 @@ genuinely broken landing page.
 **Jev spend this step:** $0.00 · **running total:** ~$0.674
 **Next:** tag `v1.0.0` and publish the GitHub Release; Zenodo mints the DOI.
 ---
+## [2026-09-21T01:34Z] DOI MINTED — the repository is now a citable artifact
+**Release:** https://github.com/KevinArce/ExoNotes/releases/tag/v1.0.0 at `4c95d6d`.
+**Zenodo minted in ~4 minutes**, despite its own degraded-service banner.
+
+| | DOI |
+| :--- | :--- |
+| version (v1.0.0 only) | `10.5281/zenodo.22866247` |
+| **concept (always newest)** | **`10.5281/zenodo.22866246`** ← the one cited everywhere |
+
+**A trap avoided by checking rather than copying.** `zenodo.org/badge/latestdoi/<repo_id>`
+returns the **version** DOI, not the concept DOI. Pasting the badge's value into `CITATION.cff`
+would have pinned every future citation to v1.0.0 forever. The record API (`conceptdoi` field)
+is what distinguishes them.
+
+**`.zenodo.json` was READ — verified against the live record, not assumed:**
+
+```
+name       : Arce Alfaro, Kevin Javier
+orcid      : 0000-0003-3453-6551
+affiliation: Independent Researcher
+version    : v1.0.0        <- taken from the git tag, exactly as intended by omitting it
+license    : mit-license   <- Zenodo normalised our "mit"; accepted
+keywords   : 11
+```
+
+**This is the confirmation that the 01:38Z finding was real and not theoretical.** Had
+`.zenodo.json` been absent, this record would carry GitHub-derived defaults — no ORCID, no
+affiliation, likely the username — and a DOI cannot be un-minted.
+
+**Wired in:** `CITATION.cff` (`doi`, `version`, `date-released`) and `README.md` (DOI badge +
+a formatted citation under **How to cite**). Revalidated: *"Citation metadata are valid
+according to schema version 1.2.0"*, now rendering **`Arce Alfaro K.J. (2026). … DOI:
+10.5281/zenodo.22866246`** — the year and DOI appear only now that the release exists.
+
+**Release checklist for every future version, because three files can silently diverge:**
+1. `CITATION.cff` — bump `version` and `date-released` (**these go stale; `.zenodo.json` omits
+   them on purpose so Zenodo reads the tag**).
+2. `README.md` — the badge keeps working untouched, since it uses the **concept** DOI.
+3. `.zenodo.json` — only if authorship, licence or description changed.
+**Jev spend this step:** $0.00 · **running total:** ~$0.674
+**Next:** step 3 — Kepler cross-mission validation, threshold **pre-registered before the first
+Kepler model call** as §11.10 / A-40.
+---

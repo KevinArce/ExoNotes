@@ -17,7 +17,9 @@
     <img src="https://img.shields.io/badge/ORCID-0000--0003--3453--6551-A6CE39?logo=orcid&logoColor=white"
          alt="ORCID">
   </a>
-  <!-- DOI badge goes here on the first Zenodo release. -->
+  <a href="https://doi.org/10.5281/zenodo.22866246">
+    <img src="https://zenodo.org/badge/DOI/10.5281/zenodo.22866246.svg" alt="DOI">
+  </a>
 </p>
 
 **Do the free-text notes astronomers write on TESS Objects of Interest carry
@@ -223,10 +225,15 @@ independent researcher.
 Machine-readable metadata is in [`CITATION.cff`](./CITATION.cff) — GitHub's *"Cite this
 repository"* button renders it in APA and BibTeX.
 
-<!-- DOI-PLACEHOLDER: replace on the first Zenodo release. Use the CONCEPT DOI (the one that
-     always resolves to the newest version), not the per-version DOI. Update CITATION.cff
-     (`doi:`) and .zenodo.json in the same commit so the three never diverge. -->
-> A DOI will appear here once the first release is archived on Zenodo.
+**DOI: [10.5281/zenodo.22866246](https://doi.org/10.5281/zenodo.22866246)**
+
+That is the **concept DOI** — it always resolves to the newest version, and it is the one to
+cite. Each release also gets its own version DOI (v1.0.0 is
+[10.5281/zenodo.22866247](https://doi.org/10.5281/zenodo.22866247)); use that only when you mean
+a specific version.
+
+> Arce Alfaro, K. J. (2026). *ExoNotes: do ExoFOP observer notes carry disposition signal beyond
+> the numeric TOI catalogue?* (v1.0.0). Zenodo. https://doi.org/10.5281/zenodo.22866246
 
 Please also cite the archives this work depends on — see
 [Acknowledgements](#acknowledgements) above.

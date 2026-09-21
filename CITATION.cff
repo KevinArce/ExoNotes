@@ -24,11 +24,14 @@ license: MIT
 # Code is MIT; prose and figures are CC BY 4.0. CFF carries one license field, so it
 # records the software licence. See README.md for the full statement.
 
-# Uncomment and fill once Zenodo has minted it. Use the CONCEPT DOI (the one that always
-# resolves to the newest version), not the per-version DOI.
-# doi: "10.5281/zenodo.XXXXXXX"
-# version: "1.0.0"
-# date-released: "2026-09-21"
+# The CONCEPT DOI -- always resolves to the newest version. The per-version DOI for v1.0.0 is
+# 10.5281/zenodo.22866247; cite the concept DOI below unless a specific version is meant.
+# NOTE: `version` and `date-released` go stale at the next release. On every release, update
+# this file AND the README badge together; `.zenodo.json` deliberately omits both so Zenodo
+# takes them from the git tag.
+doi: "10.5281/zenodo.22866246"
+version: "1.0.0"
+date-released: "2026-09-21"
 
 keywords:
   - exoplanets
