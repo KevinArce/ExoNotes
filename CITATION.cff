@@ -10,16 +10,14 @@ message: >-
 type: software
 
 authors:
-  # TODO-CONFIRM before minting the Zenodo DOI -- a DOI records this permanently.
-  #   1. Name split. Taken from the git identity `KevinArce <iav.kevinarce@ufg.edu.sv>`.
-  #      Spanish naming often carries two surnames; correct this if it is wrong.
-  #   2. ORCID. Free at https://orcid.org -- get one BEFORE the DOI, then uncomment.
-  #   3. Affiliation. Claim it only if it is accurate for this work; independent is fine.
-  - given-names: "Kevin"
-    family-names: "Arce"
-    email: "iav.kevinarce@ufg.edu.sv"
-    # orcid: "https://orcid.org/0000-0000-0000-0000"
-    # affiliation: "Universidad Francisco Gavidia, El Salvador"
+  # Name split verified against the public ORCID record, not inferred from the git identity.
+  # No institutional affiliation is claimed: this work was done independently.
+  # No email is recorded on purpose -- the ORCID is the durable identifier and routes contact,
+  # whereas an institutional address stops working when the affiliation does.
+  - given-names: "Kevin Javier"
+    family-names: "Arce Alfaro"
+    orcid: "https://orcid.org/0000-0003-3453-6551"
+    affiliation: "Independent Researcher"
 
 repository-code: "https://github.com/KevinArce/ExoNotes"
 license: MIT

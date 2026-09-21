@@ -3532,3 +3532,35 @@ present.
 **Jev spend this step:** $0.00 · **running total:** ~$0.674
 **Next:** ORCID → confirm identity fields → Zenodo release → DOI back into this file.
 ---
+## [2026-09-21T01:24Z] `CITATION.cff` author identity finalised — the work is now attributable
+**Doing:** resolve the three `TODO-CONFIRM` fields left at 01:12Z. **Idempotent:** yes.
+
+```yaml
+- given-names: "Kevin Javier"
+  family-names: "Arce Alfaro"
+  orcid: "https://orcid.org/0000-0003-3453-6551"
+  affiliation: "Independent Researcher"
+```
+
+**Verified rather than accepted, because a DOI records this permanently:**
+1. **ORCID checksum** `0000-0003-3453-6551` recomputed by ISO 7064 MOD 11-2 → check digit **1**,
+   matches. A transposed digit would have passed a visual read and failed here.
+2. **The public ORCID record was fetched and it returns `given-names: Kevin Javier` /
+   `family-name: Arce Alfaro`** — so the two-surname split is **confirmed against an external
+   source**, not inferred from the git identity. My earlier guess of `Kevin` / `Arce` was wrong
+   and would have dropped the second surname into a permanent citation.
+3. **`cffconvert --validate`** still passes schema 1.2.0; renders **`Arce Alfaro, Kevin Javier`**
+   in APA and BibTeX.
+
+**No affiliation claimed** — the work was done independently, stated explicitly rather than left
+blank so it reads as deliberate.
+
+**The institutional email was REMOVED, deliberately.** `iav.kevinarce@ufg.edu.sv` remains in the
+git history and is not being hidden, but it does not belong in a permanent citation record: no
+affiliation is being claimed, and an institutional address stops working when the affiliation
+does. **The ORCID is the durable identifier and routes contact.** A personal address can be added
+later if a direct path is wanted.
+**Jev spend this step:** $0.00 · **running total:** ~$0.674
+**Next:** step 2 — Zenodo: link GitHub + ORCID, tag `v1.0.0`, publish the Release, DOI back into
+`CITATION.cff` and the README badge.
+---
