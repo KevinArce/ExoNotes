@@ -243,8 +243,9 @@ repository"* button renders it in APA and BibTeX.
 
 That is the **concept DOI** — it always resolves to the newest version, and it is the one to
 cite. Each release also gets its own version DOI (v1.0.0 is
-[10.5281/zenodo.22866247](https://doi.org/10.5281/zenodo.22866247)); use that only when you mean
-a specific version.
+[10.5281/zenodo.22866247](https://doi.org/10.5281/zenodo.22866247); v1.1.0, which adds the Kepler
+study and corrects G3, is [10.5281/zenodo.22886178](https://doi.org/10.5281/zenodo.22886178)); use
+one only when you mean a specific version.
 
 > Arce Alfaro, K. J. (2026). *ExoNotes: do ExoFOP observer notes carry disposition signal beyond
 > the numeric TOI catalogue?* (v1.1.0). Zenodo. https://doi.org/10.5281/zenodo.22866246

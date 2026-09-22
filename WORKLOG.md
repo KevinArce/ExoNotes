@@ -4836,3 +4836,39 @@ deterministic-within-session conclusion and its 412× bullet withdrawn; A-33 and
 (creators, ORCID, version, description) — do not trust the badge endpoint (it returns the version DOI).
 **Idempotent:** no — a DOI cannot be un-minted. Checked before creating: tag `v1.1.0` absent.
 ---
+## [2026-09-22T03:00Z] v1.1.0 RELEASED on GitHub — awaiting the Zenodo DOI
+**Release:** https://github.com/KevinArce/ExoNotes/releases/tag/v1.1.0 — annotated tag `v1.1.0` →
+`2f9acef` (pushed), published 2026-09-22T03:00:30Z, marked Latest.
+**A first attempt failed harmlessly:** `gh release create --target 2f9acef` → *"Release.target_commitish
+is invalid"* (the API wants a full SHA or a branch); nothing was created (release list unchanged).
+Re-done as v1.0.0 was: annotated tag, push, `gh release create --verify-tag`.
+**Notes:** the Kepler negative first, then the v1.0.0 correction (412× → 4.4×; ~0.005 not 0.0001;
+no verdict changes), then what is unchanged.
+---
+## [2026-09-22T03:02Z] v1.1.0 DOI MINTED — verified through the Zenodo records API
+| | DOI |
+| :--- | :--- |
+| **v1.1.0 (this version)** | **`10.5281/zenodo.22886178`** (created 2026-09-22T03:00:35Z, ~5 s after release) |
+| v1.0.0 | `10.5281/zenodo.22866247` |
+| **concept (cite this)** | **`10.5281/zenodo.22866246`** — unchanged; both versions under it |
+**Record checked field by field** (`/api/records/22886178`): creator *Arce Alfaro, Kevin Javier*,
+ORCID 0000-0003-3453-6551, *Independent Researcher*; `version: v1.1.0` (from the tag, as intended);
+licence mit-license; 12 keywords incl. `Kepler`; description carries the Kepler paragraph and the
+4.4× correction; archive `KevinArce/ExoNotes-v1.1.0.zip`.
+**Wired in after the tag** (not in the v1.1.0 archive; the concept DOI resolves to it anyway):
+README *How to cite* lists the v1.1.0 version DOI; `CITATION.cff` comment likewise (revalidated,
+schema 1.2.0). `HANDOFF_PROMPT.md` rewritten for the next session.
+**Jev spend this step:** $0.00 · **running total:** ~$1.282
+---
+## [2026-09-22T03:02Z] SESSION END — Claude Opus 5 (`claude-opus-5`)
+**Done this session:** Kepler Step 5 paid run (3,192 calls, $0.5263, matrix `647a73578551b2b4`);
+gates → **TRANSFERS ONLY AS FOLLOW-UP VOLUME** (D − B +0.0234; D − B+meta −0.0023, CI excludes 0);
+KG3 **FAIL** (3/6); `RESULTS_KEPLER.md` + A-42. **Defect 34** found by reading `049`, fixed before
+KG3, then confirmed on TESS: G3 had the wrong baseline — fixed `036`, re-asked 4 calls ($0.00054),
+verdicts unchanged, 412× → 4.4×, drift 0.0001 → ~0.005; RESULTS/README/PROVENANCE corrected in
+place + A-43. **v1.1.0 released** and DOI `…22886178` verified. All pushes user-approved.
+**Jev spend this session:** $0.584 (Step 5 $0.5263 · KG3 $0.0569 · TESS re-ask $0.0005) ·
+**running total:** ~$1.282
+**Next session starts at:** nothing registered is pending — see HANDOFF "What is worth doing next"
+(first candidate: one CI dispatch to confirm the fixed `036` cold, ~$0.33, ask first).
+---
