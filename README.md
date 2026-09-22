@@ -55,7 +55,7 @@ distribution, and astrophysics is maximally out of distribution for it.
 | ✅ G2 headline · G3 stability · G4 temporal · G5 leakage-stripped · G6 missingness | **All pass.** [Every interval](./RESULTS.md#2-every-gate-with-its-interval) |
 | ⚠️ The pre-registered prior | **Falsified.** A null was predicted in advance and did not happen — [why](./RESULTS.md#5-the-pre-registered-prior-was-wrong) |
 | ❌ Kepler transfer test | **The content claim does not transfer.** Pre-registered separately; the features beat the covariates, but not a no-model follow-up-volume control, and 3 of 6 fail paraphrase stability — [`RESULTS_KEPLER.md`](./RESULTS_KEPLER.md) |
-| 💸 Spend to date | **~$1.281** (TESS study ~$0.3539 · first CI gate run ~$0.32 · Kepler study ~$0.6071) |
+| 💸 Spend to date | **~$1.282** (TESS study ~$0.3539 + a $0.0005 G3 re-ask · first CI gate run ~$0.32 · Kepler study ~$0.6071) |
 
 **The caveats travel with the number.** A cold-cache re-run lands *near* +0.0432, not on it —
 **measured at +0.0451** on a clean runner 28 hours later, which is drift, [not a new
@@ -247,7 +247,7 @@ cite. Each release also gets its own version DOI (v1.0.0 is
 a specific version.
 
 > Arce Alfaro, K. J. (2026). *ExoNotes: do ExoFOP observer notes carry disposition signal beyond
-> the numeric TOI catalogue?* (v1.0.0). Zenodo. https://doi.org/10.5281/zenodo.22866246
+> the numeric TOI catalogue?* (v1.1.0). Zenodo. https://doi.org/10.5281/zenodo.22866246
 
 Please also cite the archives this work depends on — see
 [Acknowledgements](#acknowledgements) above.

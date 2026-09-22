@@ -4821,3 +4821,18 @@ deterministic-within-session conclusion and its 412× bullet withdrawn; A-33 and
 **Jev spend this step:** $0.00 · **running total:** ~$1.282
 **Next:** commit; then v1.1.0 — `CITATION.cff`, `.zenodo.json` if the description changed, tag, release.
 ---
+## [2026-09-22T02:59Z] v1.1.0 RELEASE PREP — release checklist applied; STARTED the release
+**Checklist (2026-09-21T01:34Z entry):**
+1. `CITATION.cff` — `version: 1.1.0`, `date-released: 2026-09-22` (UTC, as v1.0.0 used); keyword
+   `Kepler`; abstract gains the Kepler transfer result and the v1.1.0 G3 correction, and its scope
+   line no longer says "one mission". **`uvx cffconvert --validate` → valid, schema 1.2.0**; renders
+   *"Arce Alfaro K.J. (2026) … (version 1.1.0). DOI: 10.5281/zenodo.22866246"*. (`uvx` = isolated
+   env; `requirements.txt` untouched.)
+2. `README.md` — badge untouched (concept DOI); example citation → `(v1.1.0)`; spend ~$1.282.
+3. `.zenodo.json` — **the description changed, so it is updated**: a Kepler paragraph, the
+   correction sentence, scope line; keyword `Kepler` (12). Still omits `version`/`publication_date`
+   so Zenodo takes them from the tag. Valid JSON; diff is the two changed lines only.
+**Next:** commit; push; `gh release create v1.1.0`; verify the minted Zenodo record by its API
+(creators, ORCID, version, description) — do not trust the badge endpoint (it returns the version DOI).
+**Idempotent:** no — a DOI cannot be un-minted. Checked before creating: tag `v1.1.0` absent.
+---
