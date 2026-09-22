@@ -37,7 +37,7 @@ Both scripts now lock the swap and stop if the globals are not restored. §11.12
 **Citable:** concept DOI **`10.5281/zenodo.22866246`** (cite this). Version DOIs: v1.0.0
 `…22866247`, **v1.1.0 `…22886178`** (tag `v1.1.0` → `2f9acef`, released 2026-09-22T03:00:30Z).
 
-**Jev spend to date: ~$1.282** (TESS ~$0.354 · first CI run ~$0.32 · Kepler ~$0.607).
+**Jev spend to date: ~$1.608** (TESS ~$0.354 · CI runs ~$0.32 + ~$0.326 · Kepler ~$0.607).
 
 ---
 
@@ -62,9 +62,11 @@ reproduce them, stop and find out why.
 
 ## What is worth doing next (none is registered; each is the owner's call)
 
-1. **Dispatch CI once** (`gates.yml`, ~$0.33). It has **not** run since `036` was fixed; a cold
-   run is the check that the fixed G3 passes from scratch on a clean machine. Expect G3 numbers
-   *near* the corrected ones, not on them (per-request variation ~0.005). **Ask first — it costs money.**
+1. ~~Dispatch CI once~~ **Done 2026-09-22, run `35682030220`: all 12 criteria hold cold.** G3's
+   repeat arm now reads **0.0055** (the previous CI run read 0.0000 — the defect), ratio 4.5×.
+   Corpus verified identical to publication by summed tokens (5,441,507). One NOTICE (G4 −0.0057)
+   = ~1 CatBoost seed-sd of a single S2 fit (seed sd 0.0047–0.0050), not corpus drift.
+   **Open follow-up:** make `040` assert the G3 repeat noise is > 0 — it passed the defective run.
 2. **External replication** — still the largest open gap. Nothing outside this repo has checked it.
 3. **An RNAAS note** — now with a stronger story: the leakage findings (TESS `Comments` restates
    the label in 47.9% of rows; `pscomppars` leaks at P = 0.995; Kepler FPWG comments track the

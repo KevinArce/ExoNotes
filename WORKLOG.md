@@ -4872,3 +4872,53 @@ place + A-43. **v1.1.0 released** and DOI `…22886178` verified. All pushes use
 **Next session starts at:** nothing registered is pending — see HANDOFF "What is worth doing next"
 (first candidate: one CI dispatch to confirm the fixed `036` cold, ~$0.33, ask first).
 ---
+## [2026-09-22T03:07Z] SESSION RESUMED — user asked for a CI gate run and its verification ("does not matter the cost")
+---
+## [2026-09-22T03:07Z] CI GATES RUN (gates.yml, cold) — STARTED: first cold run since `036` was fixed (defect 34)
+**Why:** confirm on a clean runner that the fixed `036` passes G3 from scratch, and that its
+same-wording repeat arm now measures real noise (~0.005, per A-43) rather than ~0.0001.
+**Command:** `gh workflow run gates.yml -f max_usd=1.00` on `master` @ `0827d86` (fixed `036`
+confirmed on origin). Ceiling raised from the $0.50 default to $1.00 so corpus growth cannot
+abort the run; the preflight still stops before paying if the projection exceeds it.
+**Expected cost:** ~$0.33 (Step 3 ~$0.24 · G3 ~$0.06 · G4/S2b ~$0.03). G3's cache misses are now
+serialised by the lock, so the run will be slower than the previous 10m56s.
+**Verify by output, not by the green badge:** `041` 15/15 before paying; Step 3 new calls > 0;
+G3 verdict and its repeat |Δp| (must be ~0.005, not ~0.0001 — the defect's signature); `040
+--require-paid` 11/11; NOTICE lines read, not skipped.
+**Idempotent:** no — each run is cold and paid; re-dispatching pays again.
+**Jev spend to date:** ~$1.282
+---
+## [2026-09-22T03:08Z] DEFECT 34 ALSO FIRED ON THE PREVIOUS CI RUN (35547134433, 2026-09-21) — in full
+Its artifact `g3.log`: repeat arm **ρ 1.000 and mean |Δp| 0.0000 on all 10 features** — *"same-wording
+repeat 0.0000 (repeat noise measured at 0)"*. That is `base` read entirely from the repeat arm's
+own files (the race left `s3.CACHE` on `data/cache/g3/`), the same failure A-43 corrected
+locally. Its G3 verdict (PASS; paraphrase 0.0241) was therefore also against the wrong baseline.
+**`040` passed it: the verifier checks G3's per-feature verdicts but not the repeat arm**, so a
+zero-noise repeat — defect 20's own signature — goes unflagged. Noted for the verification below.
+---
+## [2026-09-22T03:23Z] CI GATES RUN (35682030220) — DONE: all 12 criteria hold cold; the defect-34 fix is verified on a clean runner
+**Run:** https://github.com/KevinArce/ExoNotes/actions/runs/35682030220 — 03:08:00Z → 03:22:04Z, every
+step success; artifacts downloaded and read (not the badge).
+**Paid, verified by output:** `041` ran first (step success); preflight projected $0.2269 (1,382 to call);
+**Step 3: 1,382 new calls, 5,441,507 tokens, $0.2285**; G3: 394 calls (same states/questions as the
+local run → ~$0.0636); **G4/S2b: 203 new calls, $0.0338**. **Run total ≈ $0.326.**
+**`040 --require-paid`: all 12 criteria hold** (G1 B 0.9051 · G2 +0.0460 [+0.0350, +0.0578], 5.6× MDE ·
+G3 7/7 · G4 +0.1239 [+0.0893, +0.1610] · G5 +0.0396 · G6 +0.0444 · B+N −0.0069 · D − B+meta +0.0250).
+**G3 — the point of this run:** repeat arm **mean |Δp| 0.0055, ρ 0.863–0.997** (previous CI run:
+0.0000 / 1.000 — the defect); paraphrase 0.0245 → **4.5×** (local correction 4.4×). 7/7 predictive
+pass; the same two label-echo features fail. **The fixed `036` measures real noise from a cold start.**
+**The corpus is identical to publication — measured, not assumed:** the local `data/cache/step3/`
+(1,382 files, the published matrix) sums to **5,441,507** input tokens, exactly this run's (and the
+previous run's); C 0.8766 and G1 B 0.9051 reproduce exactly. B+N −0.0069 vs local −0.0073 is the
+documented linux/macOS CatBoost offset.
+**The one NOTICE (G4 +0.1239 vs +0.1296, Δ −0.0057 > 0.0050) is explained, and it is not corpus
+drift** (the notice's suggested cause is ruled out above): G4 is one S2 fit, and its own 10-seed
+spread is sd **0.0047** (published) / **0.0050** (this run); the 10-seed means agree to **0.0007**
+(0.1286 vs 0.1293). The move is ~1 seed-sd. `040`'s threshold (5 × A-33's S1 sd 0.0010) is tight for a
+single-fit gate — a NOTICE by design, not a failure; not tightened or loosened here.
+**Three runs on one corpus** — G2: published +0.0432 · CI-1 +0.0451 · CI-2 +0.0460. Both cold runs
+land above publication; model variation, verdict-irrelevant; **the headline stays +0.0432** (§8a).
+**Suggested, not done:** `040` should assert the G3 repeat arm's noise is > 0 — a zero repeat is
+defect 20's and defect 34's shared signature, and `040` passed CI-1 with it.
+**Jev spend this step:** ~$0.326 (CI) · **running total:** ~$1.608
+---
