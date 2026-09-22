@@ -208,10 +208,12 @@ exactly that. These facts are consistent with the result. They weren't tested as
   `b14a97e` by AST comparison), and the run was verified by output: every repeat-arm response has
   exactly Step 5's token count and every paraphrase-arm response a single constant offset
   (Δ 0 on 200 / 200 and −253 on 200 / 200).
-- **The same defect exists in TESS's G3 script (`036`), and it did fire there.** It doesn't
-  change any TESS gate verdict. It does change numbers in [`RESULTS.md`](./RESULTS.md) §6, which
-  are **not yet corrected**. See [`WORKLOG.md`](./WORKLOG.md) (2026-09-22, defect 34) and
-  [`PREREGISTRATION.md`](./PREREGISTRATION.md) §11.11.
+- **The same defect existed in TESS's G3 script (`036`), and it did fire there.** It changes no
+  TESS gate verdict. It did change numbers in [`RESULTS.md`](./RESULTS.md) §6 and §8, including a
+  "412×" noise ratio that is really 4.4× and a "0.0001 within a session" drift figure that is
+  really ~0.005. Those are **corrected in v1.1.0**, and each correction says so where it appears.
+  [`PREREGISTRATION.md`](./PREREGISTRATION.md) §11.11 (A-42) records the finding and §11.12 (A-43)
+  the correction.
 
 ---
 

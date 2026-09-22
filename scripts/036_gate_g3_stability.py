@@ -21,6 +21,7 @@ import hashlib
 import json
 import pathlib
 import sys
+import threading
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 import duckdb
@@ -49,6 +50,7 @@ PARAPHRASE_VERSION = "2026-09-20.r6-para"
 # paraphrase rho below 0.85 cannot be told apart from plain resampling noise. This salt only
 # changes the cache key, so the request payload is byte-identical to the Step 3 one.
 REPEAT_VERSION = "2026-09-20.r6-repeat2"
+_SWAP = threading.Lock()             # WORKLOG defect 34: serialises the s3 globals swap
 RHO_MIN, MAD_MAX, IQR_EXEMPT = 0.85, 0.05, 0.01
 
 # Paraphrases: same judgment, different words. Cues and the named forbidden inferences are
@@ -192,18 +194,25 @@ def main() -> int:
         # is byte-identical to Step 3's, it would find the Step 3 file and return it without
         # calling. That made the repeat arm report a trivially perfect rho=1.000 on the first
         # run. Pointing s3.CACHE at this script's directory forces a real call.
-        saved_q, saved_j, saved_c = s3.QUESTIONS, s3._QJSON, s3.CACHE
-        try:
-            s3.QUESTIONS, s3._QJSON, s3.CACHE = questions, qjson, CACHE
-            out, _ = s3.call(state)
-        finally:
-            s3.QUESTIONS, s3._QJSON, s3.CACHE = saved_q, saved_j, saved_c
+        # The swap rebinds s3's module globals, which every worker shares. Unlocked, a thread in
+        # the other arm could rebind them mid-call (4 of 197 paraphrase calls went out with the
+        # original wording) and a `finally` could restore another thread's values, which left
+        # s3.CACHE on data/cache/g3/ so `base` below was read from the repeat arm's own files
+        # (WORKLOG defect 34). So swap + call + restore is one step.
+        with _SWAP:
+            saved_q, saved_j, saved_c = s3.QUESTIONS, s3._QJSON, s3.CACHE
+            try:
+                s3.QUESTIONS, s3._QJSON, s3.CACHE = questions, qjson, CACHE
+                out, _ = s3.call(state)
+            finally:
+                s3.QUESTIONS, s3._QJSON, s3.CACHE = saved_q, saved_j, saved_c
         hit.write_text(json.dumps(out, indent=2))
         return out
 
     print(f"G3: {len(sample)} rows · paraphrase arm + same-wording repeat arm · "
           f"model {s3.MODEL}")
     base, para, rep = {}, {}, {}
+    s3_globals = s3.QUESTIONS, s3._QJSON, s3.CACHE
     with ThreadPoolExecutor(max_workers=s3.CONCURRENCY) as ex:
         futs = {}
         for tic, toi, n in sample:
@@ -216,6 +225,9 @@ def main() -> int:
             (para if kind == "para" else rep)[toi] = f.result()["answers"]
             if i % 100 == 0:
                 print(f"  {i}/{len(futs)}")
+    # base must come from the Step 3 cache, i.e. the features in the matrix (defect 34).
+    if (s3.QUESTIONS, s3._QJSON, s3.CACHE) != s3_globals:
+        raise SystemExit("s3 globals were not restored after the G3 calls. STOPPING.")
     for tic, toi, notes in sample:
         base[toi] = s3.call({"notes": notes})[0]["answers"]
 

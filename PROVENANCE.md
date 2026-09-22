@@ -83,14 +83,18 @@ Per-row Jev judgments behind `duckdb::jev_features_obsnotes`. Cached under
 
 ### ⚠️ A cold-cache re-run will NOT reproduce the headline number exactly
 
-`jev-1.13.0` is **effectively deterministic within a session** but **drifts slightly over
-time**. Two byte-identical requests — same model, same state, same questions, verified by a
-shared cache key — returned:
+`jev-1.13.0` is **not bit-stable**. Two byte-identical requests (same model, same state, same
+questions, verified by a shared cache key) returned:
 
-| gap between calls | mean \|Δ\| per feature |
+| gap between calls (from cache-file times) | mean \|Δ\| per feature |
 | :--- | ---: |
-| minutes | **0.0001** |
-| ~1 hour | **0.0049** |
+| 9–15 minutes (G3 repeat arm vs Step 3, 197 states) | **0.0056** |
+| 14–21 minutes (r6 gate vs Step 3, 27 cases) | **0.0050** |
+
+**Corrected in v1.1.0:** this table first read *"minutes: 0.0001"* and *"~1 hour: 0.0049"*,
+and called Jev "effectively deterministic within a session". The first row was an artefact of a
+concurrency defect (WORKLOG defect 34), and the second gap came from estimated log timestamps.
+`PREREGISTRATION.md` §11.12 (A-43).
 
 `data/` is gitignored, so **the 1,382 cached responses are not in this repository**. From that
 cache the pipeline is exactly reproducible; from a cold cache it is reproducible only
@@ -111,8 +115,8 @@ server-side drift, not a cold-cache re-run.
 The runner checked the cache at the top of `call()` and wrote at the bottom, so two workers
 on the same state both missed and both called: **1,462 calls for 1,382 distinct states.** For
 each of the **80 duplicated states** the in-memory result kept whichever response that row's own
-request returned while the cache file kept the **last** write — two different responses, ~0.0001
-apart. **The originally persisted matrix was a mixture of the two and was not reproducible from
+request returned while the cache file kept the **last** write — two different responses, ~0.005
+apart (first written here as ~0.0001; corrected above). **The originally persisted matrix was a mixture of the two and was not reproducible from
 this cache.**
 
 A **per-key lock** now serialises callers per state, and the rebuilt matrix is stable across

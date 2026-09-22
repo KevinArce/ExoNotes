@@ -1881,3 +1881,69 @@ Found by reading `049`, then checked against the TESS G3 cache at **$0, read-onl
 **Not yet acted on, and recorded as such:** `RESULTS.md` §6 and §11 are not corrected here, `036`
 is not yet fixed, and `.github/workflows/gates.yml` runs `036` cold, so every CI G3 carries the
 same exposure. Those are the project owner's decisions.
+
+## 11.12 TESS G3 and the drift table, corrected. **Written AFTER the result; changes no verdict.**
+
+### A-43 — Defect 34 fixed in `036`; G3 recomputed against the right baseline; A-31's drift table replaced
+
+A-42 42.4 recorded the defect and left the correction to the project owner, who approved it on
+2026-09-22. This section supersedes the numbers in A-31, A-32 and §11.5's G3 table where they
+differ; it changes **no** criterion and **no** gate verdict.
+
+#### 43.1 `036` fixed, and the 4 contaminated calls re-asked
+
+`036` gets `049`'s fix: a lock around swap + `s3.call` + restore, and a stop if the globals are not
+restored before `base` is read. The 4 outer paraphrase files that carried the original wording
+(identified by `usage.input_tokens` equal to Step 3's) were moved to
+`data/cache/g3_defect34_quarantine/`, and `036` re-run: **4 new calls, $0.00054**. After it, all 197
+paraphrase responses sit at Δ −198 tokens and all 197 repeat responses at Δ 0; `base` is read from
+`data/cache/step3/`, the features in the matrix.
+[`research/data/gate_g3_stability_2026-09-20.json`](research/data/gate_g3_stability_2026-09-20.json)
+is rewritten in place (CI's `040` reads the newest match); the published version is in git at
+`d23d32d`.
+
+#### 43.2 G3, recomputed — every verdict unchanged
+
+| feature | tier | ρ | mean \|Δp\| | same-wording ρ | verdict | first published |
+| :--- | :--- | ---: | ---: | ---: | :--- | :--- |
+| `imaging_reports_no_companion` | predictive | 0.866 | 0.0465 | 0.938 | ✅ | 0.884 / 0.0456 |
+| `imaging_reports_companion_present` | predictive | 0.890 | 0.0156 | 0.931 | ✅ | 0.888 / 0.0158 |
+| `spectroscopy_indicates_nonplanetary_companion` | predictive | 0.950 | 0.0208 | 0.982 | ✅ | 0.949 / 0.0196 |
+| `spectroscopy_consistent_with_planet` | predictive | 0.941 | 0.0326 | 0.988 | ✅ | 0.948 / 0.0309 |
+| `host_star_described_as_evolved` | predictive | 0.963 | 0.0128 | 0.976 | ✅ | 0.964 / 0.0130 |
+| `followup_reported_concluded` | predictive | 0.952 | 0.0123 | 0.983 | ✅ | 0.960 / 0.0128 |
+| `author_certainty` | predictive | 0.988 | 0.0147 | 0.996 | ✅ | 0.992 / 0.0135 |
+| `indicates_retired_or_rejected` | label-echo | 0.808 | 0.0092 | 0.883 | ❌ ρ | 0.812 / 0.0096 |
+| `indicates_confirmed_planet` | label-echo | 0.929 | 0.0193 | 0.973 | ✅ | 0.939 / 0.0189 |
+| `contains_object_designation` | label-echo | 0.840 | 0.0657 | 0.915 | ❌ both | 0.814 / 0.0626 |
+
+**G3 passes, 7/7 `TIER_PREDICTIVE`; the same two label-echo features fail, as A-32 recorded.** The
+IQR exemption is still not relaxed. Paraphrase mean |Δp| **0.0250** vs same-wording **0.0056**:
+the paraphrase effect is **4.4×** the noise, **not 412×** (A-31's last bullet is withdrawn). The 4
+re-asked rows are two days younger than the rest; dropping them instead (196 rows) gives the same
+verdicts (tightest ρ 0.870, |Δp| 0.0474).
+
+#### 43.3 A-31's drift table, replaced
+
+A-31's rows were *"minutes: 0.0001, ρ 0.996–1.000"* and *"~1 hour: 0.0049"*. The first was the G3
+repeat arm compared with copies of itself (43.1's wrong `base`); the second gap came from log
+timestamps that had been estimated. Gaps are now taken from cache-file modification times:
+
+| comparison (byte-identical payloads) | gap | mean \|Δ\| per feature | ρ per feature |
+| :--- | :--- | ---: | ---: |
+| G3 repeat arm vs Step 3, 197 states × 10 | 9.1–15.3 min | **0.0056** | 0.887–0.996 |
+| r6 gate vs Step 3, 27 cases × 10 | 14–21 min | **0.0050** | — |
+
+**196 of 197 states differ** between two identical requests ~12 minutes apart. A-31's conclusion
+— *"within a session Jev is effectively deterministic; over about an hour it drifts … rather than
+per-request sampling"* — **is withdrawn**: identical requests differ by ~0.005 at every gap
+measured, and the data cannot separate per-request sampling from server-side variation. **What
+A-31 got right stands:** the pipeline is exact only from a warm cache, and no gate verdict is at
+risk. A-33's drift arm simulated 0.0049, 0.88× the corrected 0.0056, and G2 passed at 10× it.
+A-38's *"two different responses, ~0.0001 apart"* becomes ~0.005; its fix and +0.0432 stand.
+
+#### 43.4 Documents corrected in the same commit
+
+`RESULTS.md` §6 (table, noise floor, a correction note), §8 (drift table, a correction note, the
+A-38 figure), §8a (the "1-hour" label), §11 (the 412× bullet); `README.md`'s cold-cache note;
+`PROVENANCE.md`'s drift table and A-38 figure. Each says in place that it was corrected and why.

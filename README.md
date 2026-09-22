@@ -131,7 +131,7 @@ plan specified it as the covariate source; that was wrong. Covariates come from 
 | :--- | :--- |
 | **[RESULTS.md](./RESULTS.md)** | **The answer**, with reliability diagrams, every confidence interval, the falsified prior, and what was not done. |
 | **[RESULTS_KEPLER.md](./RESULTS_KEPLER.md)** | **The Kepler transfer test**, a second pre-registered study: the content claim does not transfer. |
-| **[PREREGISTRATION.md](./PREREGISTRATION.md)** | The criteria, fixed before the run. §11 is the append-only amendment log. **§11.1–§11.4 were written before any full-corpus model call; §11.5–§11.9 were written after the result and each says so in its own heading. §11.10 registers the Kepler study before any Kepler model call; §11.11 is written after its result.** Later sections supersede earlier ones. |
+| **[PREREGISTRATION.md](./PREREGISTRATION.md)** | The criteria, fixed before the run. §11 is the append-only amendment log. **§11.1–§11.4 were written before any full-corpus model call; §11.5–§11.9 were written after the result and each says so in its own heading. §11.10 registers the Kepler study before any Kepler model call; §11.11–§11.12 were written after its result (§11.12 corrects TESS's G3 numbers).** Later sections supersede earlier ones. |
 | **[PLAN.md](./PLAN.md)** | The build plan, the guardrails, and the pre-registered gates. §0.5 is the work-logging protocol; §2 is the validity threat; §11 covers public release. |
 | **[WORKLOG.md](./WORKLOG.md)** | Append-only record of every step, including every failure and every place the plan turned out to be wrong. **The most honest file here.** |
 | **[PROVENANCE.md](./PROVENANCE.md)** | SHA256 of each raw source. `data/` is not committed. |
@@ -177,9 +177,10 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md).
 ```
 
 > **⚠️ A cold-cache re-run lands near the published number, not exactly on it.** `jev-1.13.0`
-> is effectively deterministic within a session (mean |Δ| **0.0001** between calls minutes
-> apart) but drifts slightly over longer gaps (**0.0049** at ~1 hour), measured on
-> byte-identical requests. `data/` is gitignored, so the 1,382 cached responses are not in this
+> is not bit-stable: byte-identical requests 9–21 minutes apart differ by mean |Δ| **≈ 0.005**
+> per feature (0.0056 over 197 states; 196 of them differ). An earlier version of this note said
+> "0.0001 within a session"; that figure was an artefact, corrected in v1.1.0
+> ([`RESULTS.md`](./RESULTS.md#8-the-limit-on-reproducing-this) §8). `data/` is gitignored, so the 1,382 cached responses are not in this
 > repository: from that cache the pipeline is exact, without it only approximate. No gate
 > verdict is at risk — measured, not argued: perturbing the features by the drift moves ΔAUC by
 > sd 0.0010, and G2 still passes at **ten times** the measured drift. Details:

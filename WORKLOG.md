@@ -4747,3 +4747,77 @@ no push (ask first); `RESULTS.md` not edited.
 **Jev spend this step:** $0.00 · **running total:** ~$1.281
 **Next:** commit; ask the user before pushing; ask about the TESS G3 correction and v1.1.0.
 ---
+## [2026-09-22T02:54Z] USER DECISIONS — push approved (done); TESS G3 correction approved; v1.1.0 approved after it
+**Pushed (user-approved):** `origin/master` `5b36a7a..18b7f59` — the 049 fix and the Kepler result.
+**Approved:** (2) fix `036` with the same lock, re-ask the 4 contaminated TESS paraphrase calls, correct
+`RESULTS.md` §6 and §11; (3) then release v1.1.0 (CITATION.cff bump + release checklist).
+---
+## [2026-09-22T02:54Z] TESS DRIFT MEASURED FROM FILE CLOCKS — the "minutes: 0.0001" row, and "~1 hour", are both wrong ($0, read-only)
+The TESS session's log timestamps were estimated (TASK C's G3 entry says 21:28Z; its commit
+`d23d32d` is 19:48Z), so gaps are taken from cache-file mtimes (UTC), not from the log.
+| comparison (same wording, byte-identical payload) | real gap | mean \|Δ\| per feature | ρ per feature |
+| :--- | :--- | ---: | ---: |
+| published "minutes" row (G3 repeat arm) | — | 0.0001 | 0.996–1.000 |
+| **G3 repeat2 vs Step 3**, 197 states × 10 | **9.1–15.3 min** (median 12.1) | **0.0056** | **0.887–0.996** |
+| published "~1 hour" row (r6 gate vs Step 3) | — | 0.0049 | — |
+| **r6 gate vs Step 3**, 27 shared keys | **14–21 min** (median 19) | **0.0050** | — |
+Step 3's cache was written 19:28:44–19:35:51Z. **196 of 197 states differ** between two identical
+requests ~12 min apart (max |Δ| 0.150). **So the "minutes" row was the repeat arm compared with
+copies of itself** (defect 34's wrong base; its 0.00006 residue is 3 duplicate-text states whose
+in-memory and on-disk responses differed — 034 had no per-key lock then), **and the "~1 hour" row
+was ~20 minutes.** What the data support: identical requests differ by ~0.005 mean |Δ| at every gap
+measured (9–21 min); **there is no evidence for "effectively deterministic within a session" nor
+for time-dependence.** Published in RESULTS §8, A-31, PROVENANCE, and cited by A-38's "~0.0001".
+**No verdict depends on it** (A-31's own "a 0.005 perturbation cannot move a gate" still holds —
+0.005 is now the measured per-request size). The 4 contaminated TESS paraphrase files are **not**
+byte-identical to Step 3's: they were fresh original-wording calls.
+---
+## [2026-09-22T02:54Z] TESS G3 CORRECTION — STARTED
+**Doing:** (a) fix `036` (lock + globals-restored stop, as `049`); (b) move the 4 contaminated
+outer paraphrase files to `data/cache/g3_defect34_quarantine/` (moved, not deleted); (c) re-run
+`036` — expected **exactly 4 new calls** (193 paraphrase + 197 repeat files hit; base hits Step 3);
+(d) verify by tokens; (e) correct RESULTS §6/§8/§11, PROVENANCE, register A-43.
+**Idempotent:** yes once (b) is done — the re-run fills only the 4 missing files.
+**Jev spend to date:** ~$1.281
+---
+## [2026-09-22T02:55Z] TESS G3 RE-RUN (fixed `036`) — DONE: verdict unchanged (PASS, 7/7); the numbers and the noise ratio change
+**Fix:** `036` gets `049`'s lock around swap + `s3.call` + restore, and stops if the globals are not
+restored before `base` is read. **Quarantine:** the 4 contaminated outer paraphrase files (key
+prefixes 781cb2b7, ce316f44, 3bf62b6f, 0afad9d0) moved to `data/cache/g3_defect34_quarantine/`.
+**Re-run:** `data/cache/g3/` 784 → 792 files (4 outer + 4 inner) = **4 new calls, 12,804 tokens,
+$0.00054**, all `jev-1.13.0`. **Verified by tokens:** repeat Δ 0 on 197/197, **paraphrase Δ −198 on
+197/197** — every paraphrase response now carries the paraphrase. `base` now read from `step3/`.
+| feature | tier | ρ | mean \|Δp\| | IQR | repeat ρ | repeat \|Δp\| | | published ρ / \|Δp\| |
+| :--- | :--- | ---: | ---: | ---: | ---: | ---: | :--- | :--- |
+| imaging_reports_no_companion | P | 0.866 | 0.0465 | 0.472 | 0.938 | 0.0053 | ok | 0.884 / 0.0456 |
+| imaging_reports_companion_present | P | 0.890 | 0.0156 | 0.030 | 0.931 | 0.0039 | ok | 0.888 / 0.0158 |
+| spectroscopy_indicates_nonplanetary_companion | P | 0.950 | 0.0208 | 0.092 | 0.982 | 0.0065 | ok | 0.949 / 0.0196 |
+| spectroscopy_consistent_with_planet | P | 0.941 | 0.0326 | 0.215 | 0.988 | 0.0122 | ok | 0.948 / 0.0309 |
+| host_star_described_as_evolved | P | 0.963 | 0.0128 | 0.105 | 0.976 | 0.0042 | ok | 0.964 / 0.0130 |
+| followup_reported_concluded | P | 0.952 | 0.0123 | 0.940 | 0.983 | 0.0034 | ok | 0.960 / 0.0128 |
+| author_certainty | P | 0.988 | 0.0147 | 0.279 | 0.996 | 0.0072 | ok | 0.992 / 0.0135 |
+| indicates_retired_or_rejected | E | 0.808 | 0.0092 | 0.010 | 0.883 | 0.0032 | FAIL ρ | 0.812 / 0.0096 |
+| indicates_confirmed_planet | E | 0.929 | 0.0193 | 0.050 | 0.973 | 0.0075 | ok | 0.939 / 0.0189 |
+| contains_object_designation | E | 0.840 | 0.0657 | 0.010 | 0.915 | 0.0031 | FAIL both | 0.814 / 0.0626 |
+**Paraphrase mean |Δp| 0.0250 vs same-wording 0.0056 → 4.4×** (published: 0.0242 vs 0.0001, "412×").
+Same verdicts feature by feature. `research/data/gate_g3_stability_2026-09-20.json` rewritten in
+place (040 globs the newest; the published version is in git at `d23d32d`). **Caveat:** the 4
+re-asked rows are 2 days younger than the rest; excluding them instead (196 rows, computed
+earlier) gives the same verdict — tightest ρ 0.870, |Δp| 0.0474.
+**Jev spend this step:** $0.00054 · **running total:** ~$1.282
+**Next:** correct RESULTS §6/§8/§11 and PROVENANCE; register A-43; update RESULTS_KEPLER §6 pointer.
+---
+## [2026-09-22T02:58Z] TESS G3 CORRECTION — DONE: documents corrected in place, each saying so; A-43 registered
+**Corrected:** `RESULTS.md` §6 (correction note, recomputed table with a same-wording ρ column, the
+4.4× noise paragraph, 0.0092), §8 (drift table from file clocks + correction note; the A-38
+"~0.0001" → ~0.005), §8a ("1-hour" label), §11 (412× bullet); `README.md` cold-cache note and
+the §11.12 mention; `PROVENANCE.md` drift table + A-38 figure; `RESULTS_KEPLER.md` §6 pointer.
+**Registered:** `PREREGISTRATION.md` §11.12, A-43 (written after; no verdict changes; A-31's
+deterministic-within-session conclusion and its 412× bullet withdrawn; A-33 and A-38 stand).
+**Verified:** `040` locally — **all 11 criteria hold** (G3 7/7 from the rewritten JSON); `041` —
+15/15 mutations behave; every relative link and anchor in the five edited docs resolves.
+**Not changed:** A-31/A-32/A-38 text (append-only — A-43 supersedes); `036`'s output filename (CI's
+`040` globs the newest).
+**Jev spend this step:** $0.00 · **running total:** ~$1.282
+**Next:** commit; then v1.1.0 — `CITATION.cff`, `.zenodo.json` if the description changed, tag, release.
+---

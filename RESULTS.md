@@ -199,28 +199,43 @@ the write-up.
 
 ## 6. Stability under paraphrase (G3)
 
+> **Corrected in v1.1.0 (2026-09-22). Every verdict below is unchanged; the numbers are not
+> the ones first published.** A thread race in
+> [`scripts/036_gate_g3_stability.py`](scripts/036_gate_g3_stability.py) (WORKLOG defect 34) sent
+> 4 of 197 paraphrase calls with the *original* wording, and left the script reading its baseline
+> from the repeat arm's own responses instead of the Step 3 features. The first version of this
+> table was computed against that wrong baseline, and its noise floor compared the repeat arm with
+> copies of itself: the published 0.0001 and "412×" were artefacts. Found while running the
+> Kepler study, which has the same code. The script is fixed, the 4 calls were re-asked, and the
+> table is recomputed against the features in the matrix.
+> [`PREREGISTRATION.md`](./PREREGISTRATION.md) §11.12 (A-43).
+
 200 rows, fixed seed, every question re-worded and re-asked. Registered criterion: **Spearman
 ρ ≥ 0.85 per feature and mean |Δp| ≤ 0.05.**
 
-| feature | tier | ρ | mean \|Δp\| | IQR | verdict |
-| :--- | :--- | ---: | ---: | ---: | :--- |
-| `imaging_reports_no_companion` | predictive | 0.884 | 0.0456 | 0.475 | ✅ |
-| `imaging_reports_companion_present` | predictive | 0.888 | 0.0158 | 0.030 | ✅ |
-| `spectroscopy_indicates_nonplanetary_companion` | predictive | 0.949 | 0.0196 | 0.093 | ✅ |
-| `spectroscopy_consistent_with_planet` | predictive | 0.948 | 0.0309 | 0.200 | ✅ |
-| `host_star_described_as_evolved` | predictive | 0.964 | 0.0130 | 0.100 | ✅ |
-| `followup_reported_concluded` | predictive | 0.960 | 0.0128 | 0.940 | ✅ |
-| `author_certainty` | predictive | 0.992 | 0.0135 | 0.268 | ✅ |
-| `indicates_retired_or_rejected` | label-echo | **0.812** | 0.0096 | 0.010 | ❌ **fails ρ** |
-| `indicates_confirmed_planet` | label-echo | 0.939 | 0.0189 | 0.050 | ✅ |
-| `contains_object_designation` | label-echo | **0.814** | **0.0626** | 0.010 | ❌ **fails both** |
+| feature | tier | ρ | mean \|Δp\| | IQR | same-wording ρ | verdict |
+| :--- | :--- | ---: | ---: | ---: | ---: | :--- |
+| `imaging_reports_no_companion` | predictive | 0.866 | 0.0465 | 0.472 | 0.938 | ✅ |
+| `imaging_reports_companion_present` | predictive | 0.890 | 0.0156 | 0.030 | 0.931 | ✅ |
+| `spectroscopy_indicates_nonplanetary_companion` | predictive | 0.950 | 0.0208 | 0.092 | 0.982 | ✅ |
+| `spectroscopy_consistent_with_planet` | predictive | 0.941 | 0.0326 | 0.215 | 0.988 | ✅ |
+| `host_star_described_as_evolved` | predictive | 0.963 | 0.0128 | 0.105 | 0.976 | ✅ |
+| `followup_reported_concluded` | predictive | 0.952 | 0.0123 | 0.940 | 0.983 | ✅ |
+| `author_certainty` | predictive | 0.988 | 0.0147 | 0.279 | 0.996 | ✅ |
+| `indicates_retired_or_rejected` | label-echo | **0.808** | 0.0092 | 0.010 | 0.883 | ❌ **fails ρ** |
+| `indicates_confirmed_planet` | label-echo | 0.929 | 0.0193 | 0.050 | 0.973 | ✅ |
+| `contains_object_designation` | label-echo | **0.840** | **0.0657** | 0.010 | 0.915 | ❌ **fails both** |
+
+The tightest predictive feature, `imaging_reports_no_companion`, is at ρ 0.866 and |Δp| 0.0465
+against bars of 0.85 and 0.05. The 4 re-asked rows are two days younger than the rest. Dropping
+them instead (196 rows) gives the same verdicts, with that feature at ρ 0.870 and |Δp| 0.0474.
 
 **G3 passes because §7 puts only `TIER_PREDICTIVE` in the headline, and all seven clear both
 halves.** But two features do fail, and they are reported as failures:
 
 - `contains_object_designation` fails **both** halves. It is the near-constant column (mean
   0.929 across the corpus), so this is genuine instability, not a tie artefact.
-- `indicates_retired_or_rejected` fails ρ only; its mean |Δp| of 0.0096 is five times inside
+- `indicates_retired_or_rejected` fails ρ only; its mean |Δp| of 0.0092 is five times inside
   the bar.
 - **Both have IQR exactly 0.010**, so A-8 item 11's exemption — *"inter-quartile range below one
   quantisation step (0.01)"* — misses on a strict reading of *below*. **Relaxing `<` to `<=`
@@ -229,9 +244,12 @@ halves.** But two features do fail, and they are reported as failures:
 
 **The paraphrase effect is measured against a noise floor, not against an assumed zero.** A
 same-wording repeat arm was added when the model turned out not to be bit-stable over time
-([§8](#8-the-limit-on-reproducing-this)). Mean |Δp| under paraphrase is **0.0242**; under an
-identical re-ask minutes later it is **0.0001**. The paraphrase effect is **412× the
-within-session noise**, so G3 measures wording sensitivity rather than jitter.
+([§8](#8-the-limit-on-reproducing-this)). Mean |Δp| under paraphrase is **0.0250**. Under an
+identical re-ask 9–15 minutes after Step 3 it is **0.0056**. The paraphrase effect is
+**4.4× the same-wording noise**, so G3 does measure wording sensitivity rather than jitter, but
+by a margin of about four, not the 412 first published. The ρ half of the criterion is judged
+against a noise floor that isn't 1 either: the same wording asked twice gives ρ 0.883–0.996 per
+feature.
 
 **G3(b) is vacuous and that is registered rather than skipped.** §6 asks for a permuted state
 key order; A-4 reduced the state to the single key `notes`, so there is nothing to permute.
@@ -337,19 +355,25 @@ feature, never a conclusion.
 **This is no longer a prediction — it has been measured.** See
 [§8a](#8a-the-cold-cache-reproduction-measured) below.
 
-`jev-1.13.0` is effectively deterministic *within* a session but drifts slightly over time. Two
-byte-identical requests — same pinned model, same state, same questions, verified by a shared
-content-addressed cache key — returned:
+`jev-1.13.0` is not bit-stable. Two byte-identical requests (same pinned model, same state, same
+questions, verified by a shared content-addressed cache key) returned:
 
-| gap between the two calls | mean \|Δ\| per feature | Spearman ρ |
+| gap between the two calls (from cache-file times) | mean \|Δ\| per feature | Spearman ρ per feature |
 | :--- | ---: | ---: |
-| **minutes** (200 rows × 10 features) | **0.0001** | 0.996 – 1.000 |
-| **~1 hour** (27 cases × 10 features) | **0.0049** | — |
+| **9–15 minutes** (G3 repeat arm vs Step 3, 197 states × 10 features) | **0.0056** | 0.887 – 0.996 |
+| **14–21 minutes** (r6 gate vs Step 3, 27 cases × 10 features) | **0.0050** | — |
 
-This is consistent with server-side variation — a serving fleet, batching, a rolling deployment
-— rather than per-request sampling. It **corrects** [`PLAN.md`](./PLAN.md) §0.5's claim that
-re-running a judging step "returns byte-identical results": that holds only from a **warm**
-cache. `data/` is gitignored, so the 1,382 cached responses are **not** in this repository. From
+> **Corrected in v1.1.0.** This table first said *"minutes: 0.0001, ρ 0.996–1.000"* and
+> *"~1 hour: 0.0049"*, and concluded that Jev is "effectively deterministic within a session but
+> drifts over time". The first row was the G3 repeat arm compared with copies of itself (the defect
+> in [§6](#6-stability-under-paraphrase-g3)'s note). The second gap came from log timestamps that
+> had been estimated, not read off a clock. Measured properly, **identical requests differ by about
+> 0.005 per feature at every gap available (9–21 minutes)**, with 196 of 197 states differing.
+> The data show no time dependence, and they cannot separate per-request sampling from
+> server-side variation. [`PREREGISTRATION.md`](./PREREGISTRATION.md) §11.12 (A-43).
+
+It **corrects** [`PLAN.md`](./PLAN.md) §0.5's claim that re-running a judging step "returns
+byte-identical results": that holds only from a **warm** cache. `data/` is gitignored, so the 1,382 cached responses are **not** in this repository. From
 that cache the pipeline is exact; without it, approximate.
 
 ### The first published headline was +0.0440. It is +0.0432, and here is why
@@ -362,7 +386,8 @@ not noticed is worse:
 
 > For each of the 80 duplicated states, the in-memory result kept **whichever response that
 > row's own request returned**, while the cache file kept the **last** write. Those are two
-> different responses, differing by the within-session drift of ~0.0001. **So the matrix that
+> different responses, differing by the per-request variation of ~0.005 measured above (first
+> published here as ~0.0001; see the note above). **So the matrix that
 > produced the first numbers was a mixture of in-memory and on-disk responses, and rebuilding
 > it from the very cache it came from did not reproduce it.**
 
@@ -456,9 +481,10 @@ would otherwise be indistinguishable:
    drift**, over roughly 28 hours.
 
 **[§8's](#8-the-limit-on-reproducing-this) drift arm predicted this before it was asked to.**
-A-33 perturbed the features by the *1-hour* drift and found ΔAUC sd **0.0010**. At ~28 hours a
-larger shift is expected, and the observed **+0.0019** is about twice that sd — comfortably
-inside the 10× band where G2 still passed at +0.0385. A simulation built to answer a question
+A-33 perturbed the features by the measured same-wording variation (0.0049, first labelled a
+"1-hour" drift; see §8's correction note) and found ΔAUC sd **0.0010**. The observed **+0.0019**
+after ~28 hours is about twice that sd, comfortably inside the 10× band where G2 still passed
+at +0.0385. A simulation built to answer a question
 nobody had yet posed gave the right answer when the question finally arrived.
 
 > ### ⚠️ The headline is still +0.0432
@@ -588,8 +614,9 @@ hypothetical.
 - D failing to beat B+meta. **It did not** (+0.0220, CI excluding zero).
 - Baseline C scoring *above* B, which would have said the label is readable in the raw text.
   **It did not** (0.8766 vs 0.9044).
-- Any `TIER_PREDICTIVE` feature failing G3. **None did**, against a noise floor 412× smaller
-  than the effect being measured.
+- Any `TIER_PREDICTIVE` feature failing G3. **None did** (tightest: ρ 0.866, |Δp| 0.0465),
+  and the paraphrase effect is 4.4× the same-wording noise. (First published as "412×"; corrected
+  in v1.1.0, [§6](#6-stability-under-paraphrase-g3).)
 - S2b, once applied, collapsing the G4 gain. **It did not** (+0.1296, up from +0.0936 —
   [§6a](#6a-the-temporal-split-g4-and-s2b)).
 
