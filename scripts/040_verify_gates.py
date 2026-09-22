@@ -8,8 +8,9 @@ WHAT IT ASSERTS, AND WHY IT IS NOT EQUALITY
 -------------------------------------------
 A CI run differs from the published run in two independent ways, and only one of them is small:
 
-  1. **Model drift.** A-31: byte-identical requests an hour apart differ by mean |d| 0.0049.
-     A-33 mapped that to the headline: dAUC moves by sd 0.0010, and G2 still passes at 10x.
+  1. **Model drift.** A-43 (correcting A-31): byte-identical requests 9-21 minutes apart differ
+     by mean |d| ~0.005. A-33 mapped 0.0049 to the headline: dAUC moves by sd 0.0010, and G2
+     still passes at 10x.
   2. **Corpus drift.** ExoFOP gains observing notes continuously. A cold CI run re-pulls the
      archive, so the rows, the note text and some dispositions are simply *different data*.
      This is unbounded and is NOT covered by (1).
@@ -27,6 +28,14 @@ THE ONE THING IT DOES DEMAND EXACTLY
 reporting 0 new calls against an empty cache has not tested anything -- that is defect 20 (a
 G3 arm scored a perfect rho because it never made a call) and defect 24 (a cached re-run
 silently overwrote the record of the run that paid). Without this flag those pass as green.
+
+AND ONE FLOOR IT DEMANDS ALWAYS
+-------------------------------
+G3's same-wording repeat arm must measure real noise. Its job is to show the paraphrase effect
+is more than resampling, which only works if it was compared with the Step 3 features. Defect
+34 made `036` read its baseline from the repeat arm's own files, and the arm then reported
+0.0000 (CI run 35547134433) or 0.00006 (v1.0.0's published figure). Both passed this verifier.
+Measured real noise is 0.0050-0.0056, so the floor sits at 0.001, between the two.
 
 Exit 0 = every gate holds.  Exit 1 = a gate failed.  Exit 2 = inputs missing.
 
@@ -66,6 +75,8 @@ AUC_FLOOR = 0.85      # G1's registered floor on baseline B.
 ROW_TOLERANCE = 0.25  # archive drift, same allowance as 029_verify_reproduction.py.
 DRIFT_SD = 0.0010     # A-33: sd of dAUC under the measured model drift.
 NOTICE_AT = 5 * DRIFT_SD  # a shift this large is not model drift alone -- look at the corpus.
+# G3's repeat arm vs Step 3: measured 0.0050-0.0056 (A-43); defect 34 produced 0.0000 and 0.00006.
+REPEAT_NOISE_FLOOR = 0.001
 
 # G4's registered arm. The `G4` key in gates_g2_g6_*.json is the PRE-S2b +0.0936; reading it
 # instead of this one is what produced a forest plot contradicting the table beside it.
@@ -177,6 +188,18 @@ def main() -> int:
     r.check("G3", f"all {npred} TIER_PREDICTIVE stable under paraphrase", not fails,
             f"{npass}/{npred} pass"
             + (f"; failing: {', '.join(fails)}" if fails else ""))
+    rep, par = g3.get("mean_abs_delta_repeat"), g3.get("mean_abs_delta_paraphrase")
+    if rep is None:
+        detail = "repeat arm not reported"
+    elif rep >= REPEAT_NOISE_FLOOR:
+        detail = f"repeat {rep:.5f} vs paraphrase {par:.4f} ({par / rep:.1f}x)"
+    else:
+        detail = (f"repeat {rep:.5f} vs paraphrase {par:.4f}. Below the floor, 036 almost "
+                  f"certainly compared the repeat arm with its own responses (defect 34), so G3 "
+                  f"was not measured against the matrix. The only other explanation is that "
+                  f"jev-1.13.0 became deterministic; check that before lowering the floor.")
+    r.check("G3", f"repeat arm measured real noise (mean |dp| >= {REPEAT_NOISE_FLOOR})",
+            rep is not None and rep >= REPEAT_NOISE_FLOOR, detail)
 
     # ---- G4, the registered temporal split ------------------------------------------------
     if G4_ARM not in g4.get("arms", {}):

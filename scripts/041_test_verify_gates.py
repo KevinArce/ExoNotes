@@ -89,6 +89,21 @@ def _(root):
     _edit(root, G3, f)
 
 
+@case("G3 repeat arm compared with itself: 0.0000 (defect 34, CI run 35547134433)", 1,
+      "G3: repeat arm measured real noise")
+def _(root):
+    def f(d):
+        d["mean_abs_delta_repeat"] = 0.0
+        for v in d["features"].values():
+            v.update(repeat_rho=1.0, repeat_mean_abs_delta=0.0)
+    _edit(root, G3, f)
+
+
+@case("G3 repeat arm at v1.0.0's published 0.00006 (defect 34, local)", 1,
+      "G3: repeat arm measured real noise")
+def _(root): _edit(root, G3, lambda d: d.update(mean_abs_delta_repeat=0.00006))
+
+
 @case("G1 baseline B falls below the 0.85 floor", 1, "baseline B >= 0.85")
 def _(root): _edit(root, G1, lambda d: d["arms"][0].update(auc_B=0.72))
 

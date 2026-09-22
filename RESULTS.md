@@ -545,7 +545,11 @@ Stated here rather than left implicit.
    - **The verifier is proven able to fail.**
      [`041_test_verify_gates.py`](scripts/041_test_verify_gates.py) breaks one claim at a time
      — including the A-1 dilution floor flipping positive and D ceasing to beat B+meta — and
-     **all 15 mutations are caught.** It runs before the paid steps.
+     **all 17 mutations are caught.** It runs before the paid steps.
+   - **G3's repeat arm must measure real noise** (added after v1.1.0). The verifier requires
+     its mean |Δp| to be at least 0.001, against a measured 0.0050–0.0056. The G3 defect in
+     [§6](#6-stability-under-paraphrase-g3) produced 0.0000 on a CI run and 0.00006 in v1.0.0's
+     published file. The verifier passed both before this check existed, and fails both now.
 
    **This is still not external validation.** It is one more run of this pipeline by its own
    author. A green badge says the pipeline still clears its own bars on today's archive; it

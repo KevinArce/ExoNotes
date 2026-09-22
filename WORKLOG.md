@@ -4922,3 +4922,32 @@ land above publication; model variation, verdict-irrelevant; **the headline stay
 defect 20's and defect 34's shared signature, and `040` passed CI-1 with it.
 **Jev spend this step:** ~$0.326 (CI) · **running total:** ~$1.608
 ---
+## [2026-09-22T03:30Z] PUSHED + 040 REPEAT-NOISE CHECK — STARTED (user-approved: "push it and add the 040 check")
+**Pushed:** `origin/master` `0827d86..00f7e8e` (the CI-run log; `ef9c3e9` was amended with the README
+spend line before the push, hence the new hash).
+**Doing:** `040` gains a criterion: G3's same-wording repeat arm must measure real noise —
+`mean_abs_delta_repeat ≥ 0.001`. **Why a floor, not "> 0":** "> 0" catches CI-1's 0.0000 but passes
+v1.0.0's published 0.00006, which was the same defect. Real noise measured 0.0050 / 0.0056 / 0.0055
+(r6 gate, A-43 local, CI-2); 0.001 is ~5× below the smallest and 17× above the artefact. `041`
+gains two mutations (0.0000 and 0.00006) that must FAIL. Then verify `040` against both CI runs'
+artifacts: CI-1 (defective) must FAIL, CI-2 must PASS.
+**Idempotent:** yes — code + read-only verification, $0.
+---
+## [2026-09-22T03:31Z] 040 REPEAT-NOISE CHECK — DONE: fails both defective runs, passes the fixed one
+**`040`:** new criterion *"G3: repeat arm measured real noise (mean |dp| >= 0.001)"* (constant
+`REPEAT_NOISE_FLOOR`); a below-floor message names defect 34 and the one alternative (Jev became
+deterministic — check before lowering the floor). Docstring's drift line updated to A-43's ~0.005.
+**`041`:** two mutations — repeat 0.0000 with ρ 1.000 (CI-1's signature) and 0.00006 (v1.0.0's) —
+both must exit 1. **17/17 behave.**
+**Verified on real artifacts, not just mutations:**
+| input | repeat \|Δp\| | new `040` |
+| :--- | ---: | :--- |
+| CI run 35547134433 (2026-09-21, defective) | 0.00000 | **exit 1 — FAIL** on this check only |
+| v1.0.0's published G3 file (`d23d32d`) | 0.0000587 | **exit 1 — FAIL** |
+| CI run 35682030220 (today, fixed `036`) | 0.00550 | exit 0 — **13/13** with `--require-paid` |
+| local corrected results | 0.00565 | exit 0 — 12/12 |
+**Docs:** `RESULTS.md` §9 — "17 mutations" and a bullet for the new check; HANDOFF follow-up
+marked done. `PREREGISTRATION.md` §11.9's "15 mutations" left as written (append-only, true then).
+Takes effect in CI on the next run (both scripts run from the repo; no workflow change needed).
+**Jev spend this step:** $0.00 · **running total:** ~$1.608
+---

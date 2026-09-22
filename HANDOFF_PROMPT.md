@@ -66,7 +66,9 @@ reproduce them, stop and find out why.
    repeat arm now reads **0.0055** (the previous CI run read 0.0000 — the defect), ratio 4.5×.
    Corpus verified identical to publication by summed tokens (5,441,507). One NOTICE (G4 −0.0057)
    = ~1 CatBoost seed-sd of a single S2 fit (seed sd 0.0047–0.0050), not corpus drift.
-   **Open follow-up:** make `040` assert the G3 repeat noise is > 0 — it passed the defective run.
+   **Follow-up done:** `040` now requires G3's repeat mean |Δp| ≥ 0.001 (measured 0.0050–0.0056);
+   it FAILS the defective CI run's artifacts (0.0000) and v1.0.0's file (0.00006), PASSES this
+   run's (0.0055). `041` has a mutation for each → 17/17.
 2. **External replication** — still the largest open gap. Nothing outside this repo has checked it.
 3. **An RNAAS note** — now with a stronger story: the leakage findings (TESS `Comments` restates
    the label in 47.9% of rows; `pscomppars` leaks at P = 0.995; Kepler FPWG comments track the
@@ -140,7 +142,7 @@ Environment: Python 3.14 venv at `.venv`. **Do not rebuild it.** Run `.venv/bin/
 `gates.yml` runs the TESS pipeline cold and asserts all six gates (`040`, mutation-tested by
 `041`). **~$0.33 per run**, dispatch + monthly cron, **no `push` trigger**. Drift beyond 5× the
 A-33 sd is a NOTICE, not a failure — do not tighten it into equality. `040` passes all 11
-criteria locally against the corrected G3 file; `041` 15/15.
+criteria locally against the corrected G3 file (13 with `--require-paid`, incl. the repeat-noise floor); `041` 17/17.
 
 ### Release checklist — three files can silently diverge
 
