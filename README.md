@@ -54,7 +54,8 @@ distribution, and astrophysics is maximally out of distribution for it.
 | ✅ G1 pipeline sanity | Numeric baseline **0.9051** AUC vs 0.4840 prior |
 | ✅ G2 headline · G3 stability · G4 temporal · G5 leakage-stripped · G6 missingness | **All pass.** [Every interval](./RESULTS.md#2-every-gate-with-its-interval) |
 | ⚠️ The pre-registered prior | **Falsified.** A null was predicted in advance and did not happen — [why](./RESULTS.md#5-the-pre-registered-prior-was-wrong) |
-| 💸 Spend to date | **~$0.674** (study ~$0.3539 · first CI gate run ~$0.32) |
+| ❌ Kepler transfer test | **The content claim does not transfer.** Pre-registered separately; the features beat the covariates, but not a no-model follow-up-volume control, and 3 of 6 fail paraphrase stability — [`RESULTS_KEPLER.md`](./RESULTS_KEPLER.md) |
+| 💸 Spend to date | **~$1.281** (TESS study ~$0.3539 · first CI gate run ~$0.32 · Kepler study ~$0.6071) |
 
 **The caveats travel with the number.** A cold-cache re-run lands *near* +0.0432, not on it —
 **measured at +0.0451** on a clean runner 28 hours later, which is drift, [not a new
@@ -76,6 +77,17 @@ the model found physics that people missed.
 **What is genuinely non-obvious is the comparison, not the gain:** TF-IDF on the *same text*
 scores **0.8766 — below** the numeric baseline's 0.9044, while structured semantic judgments
 over that same text add **+0.0432**. Whatever the signal is, bag-of-words does not reach it.
+
+**On Kepler it does not transfer as content, and that was tested, not assumed.** A second,
+separately pre-registered study ([`RESULTS_KEPLER.md`](./RESULTS_KEPLER.md);
+[`PREREGISTRATION.md`](./PREREGISTRATION.md) §11.10, pushed before any Kepler model call) ran the
+same design on **4,720 KOIs** with the Kepler Community Follow-up Observing Program's observer
+notes. The features again beat the covariates, **+0.0234 [+0.0186, +0.0282]**. But a control that
+makes no model call and only counts how much follow-up a KOI received (notes, characters, authors)
+beats the features: **D − B+meta = −0.0023 [−0.0041, −0.0004]**. On TESS the prose added beyond
+that control (+0.0220). On Kepler it does not, and three of the six Kepler features also fail the
+paraphrase-stability gate. **Treat the TESS result as specific to ExoFOP-TESS observer notes until
+something else replicates it.**
 
 ## Two findings that are already useful
 
@@ -118,7 +130,8 @@ plan specified it as the covariate source; that was wrong. Covariates come from 
 | File | What it is |
 | :--- | :--- |
 | **[RESULTS.md](./RESULTS.md)** | **The answer**, with reliability diagrams, every confidence interval, the falsified prior, and what was not done. |
-| **[PREREGISTRATION.md](./PREREGISTRATION.md)** | The criteria, fixed before the run. §11 is the append-only amendment log. **§11.1–§11.4 were written before any full-corpus model call; §11.5–§11.9 were written after the result and each says so in its own heading.** Later sections supersede earlier ones. |
+| **[RESULTS_KEPLER.md](./RESULTS_KEPLER.md)** | **The Kepler transfer test**, a second pre-registered study: the content claim does not transfer. |
+| **[PREREGISTRATION.md](./PREREGISTRATION.md)** | The criteria, fixed before the run. §11 is the append-only amendment log. **§11.1–§11.4 were written before any full-corpus model call; §11.5–§11.9 were written after the result and each says so in its own heading. §11.10 registers the Kepler study before any Kepler model call; §11.11 is written after its result.** Later sections supersede earlier ones. |
 | **[PLAN.md](./PLAN.md)** | The build plan, the guardrails, and the pre-registered gates. §0.5 is the work-logging protocol; §2 is the validity threat; §11 covers public release. |
 | **[WORKLOG.md](./WORKLOG.md)** | Append-only record of every step, including every failure and every place the plan turned out to be wrong. **The most honest file here.** |
 | **[PROVENANCE.md](./PROVENANCE.md)** | SHA256 of each raw source. `data/` is not committed. |

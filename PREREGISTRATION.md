@@ -1805,3 +1805,79 @@ beside it.
 
 **The sequence from here:** push this amendment → `048` (the paid run) → `050` → `049` →
 `RESULTS` section for Kepler, reading the outcome through 40.9's table and nothing else.
+
+## 11.11 Kepler — the result. **Written AFTER the result.**
+
+Changes **no** criterion of §11.10 and **no** TESS number. The full write-up is
+[`RESULTS_KEPLER.md`](RESULTS_KEPLER.md); this section records the reading, what the run did
+differently from A-41's projection, and a defect found on the way.
+
+### A-42 — The Kepler reading; 3,192 states, not 3,843; and a concurrency defect in both G3 scripts
+
+#### 42.1 The reading, computed by `050`: **TRANSFERS ONLY AS FOLLOW-UP VOLUME**
+
+[`research/data/kepler_gates.json`](research/data/kepler_gates.json). n 4,720 · 3,843 `kepid` ·
+base 0.5750 · MDE +0.0019 (k = 6).
+
+| A-40 40.9 criterion | result | |
+| :--- | :--- | :--- |
+| 1. KG2 excludes 0, point ≥ MDE | **+0.0234** [+0.0186, +0.0282] | ✅ |
+| **2. D beats B+meta** | **−0.0023** [−0.0041, −0.0004] | ❌ — D is significantly *below* B+meta (0.9816 vs 0.9839) |
+| 3. KG5 (with `L7`) | +0.0198 [+0.0092, +0.0315], n 2,036, base 0.811 | ✅ |
+| 4. KG6 | +0.0241 [+0.0194, +0.0290] | ✅ |
+| KG4 (S2) | +0.0348 [+0.0206, +0.0496], test base 0.158 | ✅ |
+| KG5 without `L7` | +0.0234 [+0.0186, +0.0284], n 4,402, base 0.557 | ✅ — **no flip** |
+| KG3 | 3 of 6 `TIER_PREDICTIVE` miss ρ ≥ 0.85 — `spectroscopy_indicates_nonplanetary_companion` 0.841, `spectroscopy_reports_no_binary_signature` 0.828, `recon_reported_concluded` 0.651; every mean \|Δp\| ≤ 0.0224; same-wording repeat ρ 0.91–0.93 on all three | ❌ **FAIL** |
+
+**40.9 row 3 applies: the content claim does not transfer. 40.9's KG3 row also applies: the
+instability is a finding in its own right**, reported beside the reading, not instead of it. The
+IQR exemption (A-8 item 11, *below* 0.01) is not applied to `recon_reported_concluded`, whose IQR is
+exactly 0.01 — TESS's precedent — and would not change the verdict (the other two failures have
+IQR 0.020 and 0.040). B, B+meta, C and the dilution arm
+reproduce their pre-run values (0.9582, +0.0257, 0.9429, −0.0043). No arm beyond those registered
+in A-40 / A-41 was computed; in particular **D + meta vs B+meta was never registered and has not
+been run.**
+
+#### 42.2 3,192 distinct states, not 3,843
+
+A-41 41.5 projected cost over "3,843 distinct host states". That is the host count: **3,843 hosts
+carry 3,192 distinct texts** (802 hosts share byte-identical text with another; 277 carry only
+`Possible eclipsing binary = Yes (Kepler Eclipsing Binary Catalog v2 …`). Identical text is one
+state and one cache key, so `048` made **3,192 calls, $0.5263** (projection $0.6265). The
+write-once record `research/data/kepler_step3_paid_run.json` names the host count
+`distinct_states`; it is not edited. No feature is affected: every KOI carries its host's answers
+either way. Matrix checksum **`647a73578551b2b4`**.
+
+#### 42.3 Defect 34 in `049` — fixed before KG3's first call
+
+`049` (committed with A-41) swapped `s3.QUESTIONS / s3._QJSON / s3.CACHE` — module globals shared
+by every thread — from 8 workers at once, with paraphrase and repeat jobs interleaved. A thread in
+one arm could send its request with the other arm's wording, and a `finally` could "restore"
+another thread's values, leaving the globals pointing at the wrong cache when the baseline is read.
+**Fixed before any KG3 call:** a lock around swap + call + restore, and a stop if the globals are
+not restored after the threaded phase. **Unchanged, verified by AST comparison with `b14a97e`:**
+all 8 paraphrases, the sample size and seed, both cache salts, and the criteria. **Verified by
+output:** `usage.input_tokens` per host against Step 5 — repeat arm Δ 0 on 200 / 200, paraphrase
+arm Δ −253 on 200 / 200 — so every KG3 call carried its own arm's wording; the globals-restored
+check passed. KG3: 362 calls, $0.0569.
+
+#### 42.4 The same defect in TESS's `036` — it fired; the G3 verdict holds; published numbers do not
+
+Found by reading `049`, then checked against the TESS G3 cache at **$0, read-only**:
+
+1. **4 of 197 TESS paraphrase-arm calls carried the original wording** (their `usage.input_tokens`
+   equal Step 3's; the other 193 sit at a constant −198). The repeat arm is clean (197 / 197).
+2. **The published G3 table was computed against the wrong baseline.** It reproduces exactly
+   (`imaging_reports_no_companion` ρ 0.8843, |Δp| 0.0456) only when base is read from
+   `data/cache/g3/` — the repeat arm's own same-session re-ask — not from `data/cache/step3/`, the
+   features in the matrix. The race left `s3.CACHE` on the G3 directory when `036` read its base.
+3. **Consequence:** [`RESULTS.md`](RESULTS.md) §6's repeat-arm figure (mean |Δp| 0.0001) and the
+   claim that the paraphrase effect is **"412× the within-session noise"** (§6, §11) are artefacts.
+   Against Step 3, same-wording noise is **0.0057**, so the paraphrase effect (0.0242) is **~4×**.
+4. **The G3 verdict does not change.** Against Step 3, all 7 `TIER_PREDICTIVE` features pass on all
+   200 rows (tightest: ρ 0.865, |Δp| 0.0465) and on the 196 rows without the contaminated TOIs
+   (ρ 0.870, |Δp| 0.0474); the same two label-echo features fail.
+
+**Not yet acted on, and recorded as such:** `RESULTS.md` §6 and §11 are not corrected here, `036`
+is not yet fixed, and `.github/workflows/gates.yml` runs `036` cold, so every CI G3 carries the
+same exposure. Those are the project owner's decisions.

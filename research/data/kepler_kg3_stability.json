@@ -1,0 +1,99 @@
+{
+  "n_states": 200,
+  "seed": 20260921,
+  "paraphrase_version": "kepler-2026-09-21.r3-para",
+  "repeat_version": "kepler-2026-09-21.r3-repeat",
+  "criterion": {
+    "rho_min": 0.85,
+    "mad_max": 0.05,
+    "iqr_exempt": 0.01
+  },
+  "features": {
+    "imaging_reports_no_companion": {
+      "rho": 0.9252201510419202,
+      "mean_abs_delta": 0.0102,
+      "iqr": 0.95,
+      "repeat_rho": 0.9834691646305451,
+      "repeat_mean_abs_delta": 0.0013000000000000006,
+      "iqr_exempt": false,
+      "passed": true,
+      "tier": "predictive"
+    },
+    "imaging_reports_companion_present": {
+      "rho": 0.9429923646408396,
+      "mean_abs_delta": 0.010549999999999999,
+      "iqr": 0.89,
+      "repeat_rho": 0.9684032057733108,
+      "repeat_mean_abs_delta": 0.0032999999999999974,
+      "iqr_exempt": false,
+      "passed": true,
+      "tier": "predictive"
+    },
+    "spectroscopy_indicates_nonplanetary_companion": {
+      "rho": 0.8409231160395602,
+      "mean_abs_delta": 0.017750000000000002,
+      "iqr": 0.019999999999999997,
+      "repeat_rho": 0.9240630533845148,
+      "repeat_mean_abs_delta": 0.004800000000000001,
+      "iqr_exempt": false,
+      "passed": false,
+      "tier": "predictive"
+    },
+    "spectroscopy_reports_no_binary_signature": {
+      "rho": 0.8280049587198023,
+      "mean_abs_delta": 0.022399999999999996,
+      "iqr": 0.04,
+      "repeat_rho": 0.9098026232959675,
+      "repeat_mean_abs_delta": 0.003650000000000001,
+      "iqr_exempt": false,
+      "passed": false,
+      "tier": "predictive"
+    },
+    "recon_reported_concluded": {
+      "rho": 0.651463921264362,
+      "mean_abs_delta": 0.0103,
+      "iqr": 0.010000000000000002,
+      "repeat_rho": 0.9335340474991168,
+      "repeat_mean_abs_delta": 0.0016499999999999998,
+      "iqr_exempt": false,
+      "passed": false,
+      "tier": "predictive"
+    },
+    "author_certainty": {
+      "rho": 0.9690915132810155,
+      "mean_abs_delta": 0.014850000000000007,
+      "iqr": 0.51,
+      "repeat_rho": 0.979191609334672,
+      "repeat_mean_abs_delta": 0.005325000000000004,
+      "iqr_exempt": false,
+      "passed": true,
+      "tier": "predictive"
+    },
+    "indicates_false_positive_or_retired": {
+      "rho": 0.7322324449771548,
+      "mean_abs_delta": 0.0072000000000000015,
+      "iqr": 0.010000000000000002,
+      "repeat_rho": 0.7798901101207711,
+      "repeat_mean_abs_delta": 0.0031999999999999997,
+      "iqr_exempt": false,
+      "passed": false,
+      "tier": "label_echo"
+    },
+    "indicates_confirmed_planet": {
+      "rho": 0.8569060253349708,
+      "mean_abs_delta": 0.007450000000000001,
+      "iqr": 0.030000000000000006,
+      "repeat_rho": 0.9276633026707751,
+      "repeat_mean_abs_delta": 0.00545,
+      "iqr_exempt": false,
+      "passed": true,
+      "tier": "label_echo"
+    }
+  },
+  "verdict": "FAIL",
+  "failing_predictive": [
+    "spectroscopy_indicates_nonplanetary_companion",
+    "spectroscopy_reports_no_binary_signature",
+    "recon_reported_concluded"
+  ]
+}

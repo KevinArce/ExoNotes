@@ -4512,3 +4512,238 @@ holdouts; `KEPLER_PATTERNS` audited; MDE +0.0019 at k = 6; scripts 048–050 wri
 smoke-tested both ways; **A-41 pushed** (`b14a97e`).
 **Next session starts at:** `scripts/048_kepler_step3_features.py --dry-run`, per HANDOFF.
 ---
+## [2026-09-22T02:12Z] SESSION START — Claude Opus 5 (`claude-opus-5`), 2026-09-22 UTC
+**Read:** HANDOFF_PROMPT.md; WORKLOG tail from 2026-09-21T02:15Z; PREREGISTRATION.md §11.10 (A-40, A-41);
+scripts 048, 049, 050. **Working tree clean, `master` even with `origin/master` at `5b36a7a`** — the
+handoff commit the previous session flagged as possibly unpushed is already pushed.
+**Verified before any call:** `src/` and `scripts/` byte-identical to the A-41 commit `b14a97e`
+(`git diff --quiet`); question set `kepler-2026-09-21.r3`; **Kepler corpus checksum reproduces,
+`f3c30d2daf460095`** (4,720 rows / 3,843 hosts / base 0.575); no `kepler_jev_features` table, no
+`data/cache/kepler_step3/` file, no `research/data/kepler_step3_paid_run.json` — the paid run has
+not happened.
+**Jev spend to date:** ~$0.698
+---
+## [2026-09-22T02:12Z] RESUMED — Kepler Step 5 (the paid run), per the last entry's `Next:` and the handoff
+**Sequence (A-41 41.6):** `048 --dry-run` → `048` → `050` → `049` → `050`; result read through
+A-40 40.9 only.
+**Found on reading, before any run — `049` has a concurrency defect** (entry to follow, fixed before
+`049` runs; `048`/`050` unaffected). Proceeding with `048` first, as registered.
+---
+## [2026-09-22T02:12Z] KEPLER STEP 5 — STARTED: the paid run, `kepler-2026-09-21.r3` over the CFOP corpus
+**Doing:** the Jev feature matrix, 3,843 distinct host states × 8 questions, one request per state
+→ `kepler.duckdb::kepler_jev_features` (4,720 KOI rows); write-once
+`research/data/kepler_step3_paid_run.json`.
+**Command:** `.venv/bin/python scripts/048_kepler_step3_features.py`
+**Dry run just now (0 calls):** 4,720 rows · 3,843 states · 0 cached · **projected 14,915,774 tokens,
+$0.6265**, tripwire $0.80 — matches A-41 41.5.
+**Live docs checked before the call** (docs.typesafe.ai/models): `jev-1.13.0` is the active model
+(`jev-latest` / `jev-preview` alias it), none deprecated; $0.042/Mtok input; 32k tokens for state +
+longest question. Pin asserted per response by `048` (A-5).
+**Idempotent:** yes — cached per state on sha256(model + version + state + questions) under
+`data/cache/kepler_step3/`; an interrupted run resumes at no cost for completed states. **Caveat:** if
+any state FAILS, `048` exits without writing the paid-run record, and the re-run that completes it
+would record only the retried calls as "the paid run" — so a failure must be logged here with the
+first pass's counts before re-running.
+**Jev spend to date:** ~$0.698
+---
+## [2026-09-22T02:13Z] DEFECT 34 FOUND — `049` (KG3) can send one arm's request with the other arm's wording; fixing BEFORE it runs
+**Found by reading, before `049` has run — no KG3 call exists.** `049.call_variant` swaps the
+module globals `s3.QUESTIONS`, `s3._QJSON`, `s3.CACHE` to its arm's values, calls `s3.call`, and
+restores them in `finally` — **from 8 worker threads at once, with paraphrase and repeat jobs
+interleaved** (`max_workers=s3.CONCURRENCY`). Those globals are shared by every thread:
+- `s3.call` reads `_QJSON` (for the key) and `CACHE` (for the path), then does file-existence
+  syscalls, which release the GIL, and only then `_fetch` reads `QUESTIONS` for the request body.
+  A thread in another arm can rebind the globals in that window → a **paraphrase-arm call sent
+  with the original wording** (or the reverse), cached under the paraphrase key. Nothing in the
+  response records which wording was sent, so **it cannot be detected afterwards.**
+- `saved = s3.QUESTIONS, …` captures whatever another thread last swapped in, not the original,
+  so a `finally` can "restore" another arm's values; the resting state drifts.
+**Direction:** a paraphrase answer that was really an original-wording answer pulls ρ toward the
+repeat arm's — **it flatters KG3.** The same class as A-38's cache race.
+**The fix (049 only; `048` and `050` untouched):** a lock held around swap + `s3.call` + restore,
+so cache-missing calls run one at a time (~400 calls; slower, not costlier). Cache hits return
+before the lock. No paraphrase, sample, seed, criterion or cache salt changes.
+**TESS:** `scripts/036_gate_g3_stability.py` has **the same pattern** (8 workers, same swap). The
+published G3 (7/7 stable, `RESULTS.md`) may carry it. **Not acted on now** — the task is Kepler; a
+$0 read-only look at the TESS G3 cache follows the Kepler run, and is reported, not "fixed".
+**Jev spend this step:** $0.00 · **running total:** ~$0.698 (+ Step 5 in flight)
+---
+## [2026-09-22T02:15Z] DEFECT 34 — CONFIRMED ON TESS by a $0 read-only check: 4 of 197 G3 paraphrase calls carried the ORIGINAL wording
+**Method (no API call, nothing written to `data/`):** `usage.input_tokens` is a function of state +
+question text, so for one state an original-wording response has exactly Step 3's count and a
+paraphrase response is offset by the (state-independent) difference in question length. For each
+of the 197 distinct states in 036's registered 200-row sample, the outer cached response of each
+arm was compared with the Step 3 response for the same state
+(scratchpad `g3_wording_forensics.py`; also used below to verify Kepler's KG3).
+| arm | tokens − Step 3 tokens | reading |
+| :--- | :--- | :--- |
+| repeat | **0 on 197 / 197** | correct — original wording |
+| paraphrase | **−198 on 193**, **0 on 4** | **4 paraphrase-arm calls went out with the original wording** |
+**So the race did fire on TESS**, in the flattering direction: those 4 states compare Step 3 with a
+same-wording re-ask (TESS repeat |Δp| ≈ 0.0001) instead of a paraphrase. Magnitude is small
+(~2% of rows), and the tightest predictive feature is `imaging_reports_no_companion`
+(mean |Δp| 0.0456 vs the 0.05 bar; ρ 0.884 vs 0.85). **Not acted on yet:** a $0 recomputation of
+G3 excluding the contaminated rows follows the Kepler run; re-asking the 4 is a TESS paid action
+and is the user's call. `RESULTS.md` is not edited here.
+**Jev spend this step:** $0.00 · **running total:** ~$0.698 (+ Step 5 in flight)
+---
+## [2026-09-22T02:17Z] DEFECT 34, SECOND MECHANISM — the published TESS G3 table was computed against the WRONG BASELINE; verdict still PASSES
+**$0, read-only** (scratchpad `g3_tess_recompute.py`, `g3_which_base.py`). Recomputing G3 from the cache
+with base = Step 3 (036's intent) did **not** reproduce the published table
+(`imaging_reports_no_companion` ρ 0.8655 vs published 0.8843). Trying every candidate base file:
+| base read from | ρ (imaging_no_companion) | \|Δp\| | repeat \|Δp\| |
+| :--- | ---: | ---: | ---: |
+| **published** | **0.8843** | **0.0456** | **0.00006** |
+| `data/cache/step3/` (Step 3 features — what 036 intends) | 0.8655 | 0.0465 | **0.00565** |
+| `data/cache/g3/` original-wording inner file | **0.8843** | **0.0456** | 0.00000 |
+**The published numbers reproduce exactly only from `data/cache/g3/`'s original-wording file — the
+repeat arm's own same-session re-ask.** Mechanism: 036 reads `base = s3.call(state)` AFTER the
+threaded phase, through `s3.CACHE`; the race left that global pointing at `data/cache/g3/` (a
+`finally` "restored" another thread's swapped value), so base was silently read from the wrong
+directory. Sequential code cannot leave `s3.CACHE` there.
+**Consequences for published TESS text (`RESULTS.md` §6):**
+1. The G3 table compares paraphrase with a same-session re-ask, not with the features in the matrix.
+2. **"mean |Δp| under an identical re-ask is 0.0001 … 412× the within-session noise" is an
+   artefact** — it is the repeat arm compared with (nearly) itself. Against Step 3 the same-wording
+   noise is **0.0057** (consistent with the 0.0049 measured at 2026-09-20T21:06Z) → paraphrase
+   0.0242 is **~4×** the noise, not 412×.
+3. **The G3 verdict does not change.** Against the correct base (Step 3), all 7 `TIER_PREDICTIVE`
+   pass on all 200 rows (tightest: `imaging_reports_no_companion` ρ 0.865, |Δp| 0.0465) and on the
+   196 rows without the 4 contaminated TOIs (ρ 0.870, |Δp| 0.0474); the same 2 label-echo features fail.
+**Not acted on:** `RESULTS.md` / `README.md` / Zenodo are untouched; the correction is the user's
+decision. Also affects `049`'s design (it reads base through `s3.CACHE` too) — covered by the lock
+fix; an assertion that the globals are restored is added to `049` next.
+**Jev spend this step:** $0.00 · **running total:** ~$0.698 (+ Step 5 in flight)
+---
+## [2026-09-22T02:18Z] KEPLER STEP 5 — DONE: the matrix exists; 3,192 calls, $0.5263, 0 failed
+**Result (by output, not exit code):** `3843/3843 new=3192 cached=651 failed=0 269s $0.5263`;
+12,530,716 input tokens; `persisted 4,720 rows x 8 questions`.
+**Why 3,192 and not 3,843 — explained, not assumed:** the cache was empty at start (dry run
+"already cached 0"; 0 files). **3,843 hosts carry only 3,192 distinct texts** — 802 hosts share
+their text with another host (277 carry the identical single line `Possible eclipsing binary = Yes
+(Kepler Eclipsing Binary Catalog v2 …`, 45 `Possible false positive = No (disposition updated)`).
+Identical text → identical state → one cache key → one call (A-38's per-key lock doing its job).
+3,192 new calls = 3,192 distinct texts = 3,192 cache files. **A-41 41.5's "3,843 distinct host
+states" counted hosts; the distinct-state count is 3,192**, which is why spend came in 16% under
+the $0.6265 projection. The write-once record's `distinct_states: 3843` field has the same
+meaning (hosts); it is **not edited** — this entry is the correction.
+**Verified:** 3,192 / 3,192 cached responses carry `model = jev-1.13.0` and 8 answers;
+`kepler_jev_features` 4,720 rows / 4,720 distinct KOIs, **0 nulls** in every column;
+**matrix sha256(to_csv)[:16] = `647a73578551b2b4`**, recomputed from the table (matches 048's print);
+`research/data/kepler_step3_paid_run.json` written (recorded 2026-09-22T02:17Z).
+**Artifacts:** `data/kepler.duckdb::kepler_jev_features`; `data/cache/kepler_step3/` (3,192);
+`research/data/kepler_step3_paid_run.json` (write-once); `research/data/kepler_step3_features_latest.json`.
+**Jev spend this step:** $0.5263 · **running total:** ~$1.224
+**Next:** `050` (KG2/KG4/KG5/KG6 + the 40.9 reading, $0).
+---
+## [2026-09-22T02:18Z] KEPLER GATES (050, first pass) — STARTED
+**Command:** `.venv/bin/python scripts/050_kepler_gates.py` — no network, fixed seeds; KG3 "NOT YET RUN".
+**Idempotent:** yes — deterministic; rewrites `research/data/kepler_gates.json` identically except the KG3 field.
+---
+## [2026-09-22T02:22Z] KEPLER GATES (050, first pass) — DONE: **TRANSFERS ONLY AS FOLLOW-UP VOLUME — the content claim does not transfer**
+**Computed by `050`, read through A-40 40.9 and nothing else.** n 4,720 · kepid 3,843 · base 0.5750 ·
+registered MDE +0.0019 (k = 6). `research/data/kepler_gates.json`.
+| arm | ΔAUC | 95% CI | |
+| :--- | ---: | :--- | :--- |
+| B (KG1) | AUC 0.9582 | — | = pre-Jev KG1 ✓ |
+| B+N (dilution) | −0.0043 | [−0.0058, −0.0029] | = the smoke test's −0.0043 |
+| B+meta | +0.0257 | [+0.0208, +0.0306] | = A-40 40.8 ✓ |
+| C TF-IDF | AUC 0.9429 | — | = A-40 ✓ (below B) |
+| **KG2 D − B** | **+0.0234** | **[+0.0186, +0.0282]** | ✅ excludes 0; **12.3× the MDE** |
+| **criterion 2: D − B+meta** | **−0.0023** | **[−0.0041, −0.0004]** | ❌ **D is significantly WORSE than B+meta** |
+| E − B (contaminated) | +0.0245 | [+0.0196, +0.0295] | reported only |
+| KG5 with L7 (registered) | +0.0198 | [+0.0092, +0.0315] | ✅ n 2,036, base 0.811 |
+| KG5 without L7 | +0.0234 | [+0.0186, +0.0284] | ✅ n 4,402, base 0.557 — **no flip** |
+| KG6 missingness | +0.0241 | [+0.0194, +0.0290] | ✅ |
+| KG4 S2 | +0.0348 | [+0.0206, +0.0496] | ✅ train 3,539 (0.714) / test 1,181 (0.158); B 0.9363, D 0.9712 |
+**Criteria:** 1 ✅ · **2 ❌** · 3 ✅ · 4 ✅ · KG4 ✅ · KG3 not yet run. **Reading (40.9 row 3):** the
+structured features add signal over the covariates (KG2 holds, and survives stripping, missingness
+and S2), but **not beyond how much follow-up a KOI received** — B+meta (note count, characters,
+authors, top-8 author one-hot) beats D, significantly. Since TESS D beat B+meta (+0.0220),
+**the content claim does not transfer.** Registered as negative for the claim that matters.
+Share of headroom (descriptive, never a gate): **0.560** (TESS 0.455).
+**Known before the result and stated beside it:** A-41 41.6's 95%-oracle beat B+meta by only
++0.0078 — a null on criterion 2 was the likelier outcome. **No other arm is computed** (in
+particular D+meta vs B+meta was never registered and is not run now).
+**Jev spend this step:** $0.00 · **running total:** ~$1.224
+**Next:** KG3 (`049`, ~400 calls) — after adding a globals-restored assertion to `049`.
+---
+## [2026-09-22T02:23Z] DEFECT 34 — FIXED in `049` before KG3's first call
+**Diff (`049` only; `048`, `050`, `036` untouched):** (1) a module lock `_SWAP` held around swap +
+`s3.call` + restore, so cache-missing KG3 calls run one at a time; (2) after the threaded phase,
+`049` **stops** if `s3.QUESTIONS/_QJSON/CACHE` differ from their values before it — the TESS
+failure (base read from the wrong directory) now halts instead of passing silently.
+**Verified unchanged by AST comparison with `b14a97e`:** `PARA` (all 8 paraphrases), `N_STATES`,
+`SEED`, `PARAPHRASE_VERSION`, `REPEAT_VERSION`, `RHO_MIN/MAD_MAX/IQR_EXEMPT`. Compiles.
+**Will be verified by output after the run:** per-state `usage.input_tokens` against Step 5 — repeat
+arm must be Δ 0 on every state, paraphrase arm a single non-zero Δ on every state.
+---
+## [2026-09-22T02:23Z] KEPLER KG3 (049) — STARTED
+**Command:** `.venv/bin/python scripts/049_kepler_kg3_stability.py`
+**Projected:** 200 hosts (seed 20260921) → **181 distinct texts** → ~362 calls (paraphrase + repeat),
+~700k tokens per arm, **~$0.059** (A-41 said ~$0.07 on 200 states). Cache `data/cache/kepler_kg3/` empty.
+**Idempotent:** yes — salted cache per arm; re-run costs nothing.
+**Jev spend to date:** ~$1.224
+---
+## [2026-09-22T02:27Z] KEPLER KG3 (049) — DONE: **FAIL** — 3 of 6 `TIER_PREDICTIVE` features miss ρ ≥ 0.85 under paraphrase
+**Result (exit 0; `research/data/kepler_kg3_stability.json`):** 200 hosts, seed 20260921.
+| feature | tier | ρ | mean \|Δp\| | IQR | repeat ρ | repeat \|Δp\| | verdict |
+| :--- | :--- | ---: | ---: | ---: | ---: | ---: | :--- |
+| imaging_reports_no_companion | P | 0.925 | 0.0102 | 0.950 | 0.983 | 0.0013 | ok |
+| imaging_reports_companion_present | P | 0.943 | 0.0105 | 0.890 | 0.968 | 0.0033 | ok |
+| **spectroscopy_indicates_nonplanetary_companion** | P | **0.841** | 0.0178 | 0.020 | 0.924 | 0.0048 | **FAIL ρ** |
+| **spectroscopy_reports_no_binary_signature** | P | **0.828** | 0.0224 | 0.040 | 0.910 | 0.0037 | **FAIL ρ** |
+| **recon_reported_concluded** | P | **0.651** | 0.0103 | 0.010 | 0.934 | 0.0016 | **FAIL ρ** |
+| author_certainty | P | 0.969 | 0.0149 | 0.510 | 0.979 | 0.0053 | ok |
+| indicates_false_positive_or_retired | E | 0.732 | 0.0072 | 0.010 | 0.780 | 0.0032 | FAIL (label-echo) |
+| indicates_confirmed_planet | E | 0.857 | 0.0075 | 0.030 | 0.928 | 0.0054 | ok |
+All three predictive failures are on ρ only (every \|Δp\| ≤ 0.0224, well inside 0.05) and on
+near-constant columns (IQR 0.010–0.040). **The same-wording repeat ρ is 0.91–0.93 on all three**, so
+this is wording sensitivity, not resampling noise. **The IQR exemption is not applied and is not
+relaxed:** `recon_reported_concluded`'s IQR is exactly one quantisation step (0.01), and A-8 item 11
+says *below* — TESS's precedent (RESULTS §6) was not to turn `<` into `<=` after seeing numbers.
+It would not change the verdict anyway: the other two failures have IQR 0.020 / 0.040.
+A-41 41.1 already named `spectroscopy_reports_no_binary_signature` the least robust question.
+**Defect-34 fix verified by output:** per-host `usage.input_tokens` against Step 5 — **repeat arm
+Δ 0 on 200 / 200, paraphrase arm Δ −253 on 200 / 200**: every call carried its own arm's wording;
+`049`'s globals-restored check passed (it would have stopped). 362 responses, all `jev-1.13.0`.
+**Reading (A-40 40.9):** "KG3 fails → the instability is the finding, as §8." It stands beside the
+40.9 reading (follow-up volume); it does not rescue or replace it.
+**Jev spend this step:** $0.0569 (362 calls, 1,354,979 tokens) · **running total:** ~$1.281
+**Next:** `050` second pass (picks up KG3's verdict), then the write-up.
+---
+## [2026-09-22T02:27Z] KEPLER GATES (050, second pass) — STARTED
+**Idempotent:** yes — deterministic; only the KG3 field of `kepler_gates.json` should change.
+---
+## [2026-09-22T02:31Z] KEPLER GATES (050, second pass) — DONE: reading unchanged; KG3 = FAIL recorded
+**Diffed against the first pass's JSON:** the only changed field is `verdict.KG3` (`NOT YET RUN` →
+`FAIL`) — every arm reproduced bit-for-bit. **Final reading (A-40 40.9): TRANSFERS ONLY AS
+FOLLOW-UP VOLUME — the content claim does not transfer; and KG3 fails (3 of 6 predictive features
+unstable under paraphrase).** Share of headroom 0.560 (descriptive).
+**Kepler spend:** gate $0.0239 + Step 5 $0.5263 + KG3 $0.0569 = **$0.6071**.
+**Jev spend this step:** $0.00 · **running total:** ~$1.281
+**Next:** fill KG3 into `RESULTS_KEPLER.md` and `PREREGISTRATION.md` §11.11 (A-42, drafted while
+KG3 ran); README updated; commit; ask before pushing.
+---
+## [2026-09-22T02:32Z] KEPLER WRITE-UP — DONE: `RESULTS_KEPLER.md`, `PREREGISTRATION.md` §11.11 (A-42), README
+**`RESULTS_KEPLER.md` (new, sibling to `RESULTS.md`, which is TESS's and stays as published):** the
+40.9 reading in its first sentence; the four criteria; every gate with its interval; KG3 per
+feature; the three pre-run caveats beside the number (A-40 40.10's "a null is a live outcome" and
+the 95%-oracle's +0.0078; KG5's L7 arm at base 0.811; S2 test 84% FPs); what is and is not
+established (D + meta vs B+meta named as **not registered, not run**); Kepler beside TESS;
+disclosures (3,192 states; defect 34 and its fix; TESS G3 pointer); cost; reproduce commands and
+checksums. All relative links and anchors resolve.
+**`PREREGISTRATION.md` §11.11, A-42 — "Written AFTER the result":** 42.1 the reading + KG3;
+42.2 3,192 vs 3,843; 42.3 defect 34 fixed in `049` before KG3, verified by tokens; 42.4 defect 34 on
+TESS — 4/197 contaminated, published G3 computed against the wrong baseline, "412×" an artefact
+(~4×), verdict holds; **`RESULTS.md`, `036` and CI recorded as NOT yet corrected — owner's call.**
+**`README.md`:** a Kepler row in the status table; a "What this is" paragraph (content claim does
+not transfer; KG3 fails); `RESULTS_KEPLER.md` in the repository guide; the §11.10/§11.11 note on
+the `PREREGISTRATION.md` row; spend ~$1.281.
+**Verified after writing:** TESS matrix checksum **`d7b5be5675778f44`** (unchanged; TESS DB only
+ever opened read-only); `src/`, `036`, `048`, `050` untouched; only `049` changed among scripts.
+**Not done, deliberately:** no tag / release / `CITATION.cff` bump (v1.1.0 is the owner's decision);
+no push (ask first); `RESULTS.md` not edited.
+**Jev spend this step:** $0.00 · **running total:** ~$1.281
+**Next:** commit; ask the user before pushing; ask about the TESS G3 correction and v1.1.0.
+---

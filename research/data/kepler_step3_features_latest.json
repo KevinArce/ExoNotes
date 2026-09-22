@@ -1,0 +1,39 @@
+{
+  "question_set_version": "kepler-2026-09-21.r3",
+  "model": "jev-1.13.0",
+  "rows": 4720,
+  "distinct_states": 3843,
+  "this_run": {
+    "new_calls": 3192,
+    "cached_calls": 651,
+    "input_tokens": 12530716,
+    "usd": 0.526290072,
+    "elapsed_s": 268.9
+  },
+  "paid_run": {
+    "recorded_utc": "2026-09-22T02:17Z",
+    "question_set_version": "kepler-2026-09-21.r3",
+    "model": "jev-1.13.0",
+    "distinct_states": 3843,
+    "projected_usd": 0.6264625185,
+    "new_calls": 3192,
+    "cached_calls": 651,
+    "input_tokens": 12530716,
+    "usd": 0.526290072,
+    "elapsed_s": 268.9,
+    "matrix_sha256_16": "647a73578551b2b4"
+  },
+  "tier_predictive": [
+    "imaging_reports_no_companion",
+    "imaging_reports_companion_present",
+    "spectroscopy_indicates_nonplanetary_companion",
+    "spectroscopy_reports_no_binary_signature",
+    "recon_reported_concluded",
+    "author_certainty"
+  ],
+  "tier_label_echo": [
+    "indicates_false_positive_or_retired",
+    "indicates_confirmed_planet"
+  ],
+  "matrix_sha256_16": "647a73578551b2b4"
+}
