@@ -18,7 +18,7 @@ Run (after scripts/048_kepler_step3_features.py):
       .venv/bin/python scripts/049_kepler_kg3_stability.py
 Idempotent: yes. Cached under data/cache/kepler_kg3/ on a salted key; re-runs cost nothing.
 """
-import hashlib, importlib.util, json, pathlib, sys
+import hashlib, importlib.util, json, pathlib, sys, threading
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 import duckdb, numpy as np
@@ -38,6 +38,7 @@ N_STATES, SEED = 200, 20260921
 PARAPHRASE_VERSION = "kepler-2026-09-21.r3-para"
 REPEAT_VERSION = "kepler-2026-09-21.r3-repeat"
 RHO_MIN, MAD_MAX, IQR_EXEMPT = 0.85, 0.05, 0.01
+_SWAP = threading.Lock()             # WORKLOG defect 34: serialises the s3 globals swap
 
 PARA = {
     "imaging_reports_no_companion":
@@ -181,16 +182,22 @@ def main() -> int:
         # Redirect s3.CACHE as well as its questions: the repeat arm's payload is byte-identical
         # to Step 5's, so s3.call would otherwise find the Step 5 file and never call -- the
         # rho = 1.000 that WORKLOG defect 20 was.
-        saved = s3.QUESTIONS, s3._QJSON, s3.CACHE
-        try:
-            s3.QUESTIONS, s3._QJSON, s3.CACHE = questions, qj, CACHE / salt
-            out = s3.call(state)
-        finally:
-            s3.QUESTIONS, s3._QJSON, s3.CACHE = saved
+        # The swap rebinds s3's module globals, which every worker shares: unlocked, a thread
+        # in the other arm can rebind them between s3.call's key and its request body, sending
+        # one arm's call with the other arm's wording -- 4 of 197 on TESS (WORKLOG defect 34).
+        # So swap + call + restore is one step; cache hits above still return in parallel.
+        with _SWAP:
+            saved = s3.QUESTIONS, s3._QJSON, s3.CACHE
+            try:
+                s3.QUESTIONS, s3._QJSON, s3.CACHE = questions, qj, CACHE / salt
+                out = s3.call(state)
+            finally:
+                s3.QUESTIONS, s3._QJSON, s3.CACHE = saved
         hit.write_text(json.dumps(out, indent=2))
         return out
 
     print(f"KG3: {len(sample)} host states · paraphrase + same-wording repeat · model {s3.MODEL}")
+    s3_globals = s3.QUESTIONS, s3._QJSON, s3.CACHE
     para, rep = {}, {}
     with ThreadPoolExecutor(max_workers=s3.CONCURRENCY) as ex:
         futs = {}
@@ -200,6 +207,10 @@ def main() -> int:
         for f in as_completed(futs):
             kind, host = futs[f]
             (para if kind == "para" else rep)[host] = f.result()["answers"]
+    # base is read through s3.CACHE below. On TESS, 036's unlocked swap left that global on the
+    # G3 directory, so its base was silently the repeat arm's re-ask (WORKLOG defect 34).
+    if (s3.QUESTIONS, s3._QJSON, s3.CACHE) != s3_globals:
+        raise SystemExit("s3 globals were not restored after the KG3 calls. STOPPING.")
     base = {}
     for host, notes in sample:
         hit = s3.CACHE / f"{s3.cache_key({'notes': notes})}.json"
