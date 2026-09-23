@@ -22,6 +22,9 @@ research/
 └── 03_jev_astrophysics_evidence_based_assessment.md  # ⚠️ CRITICAL RE-ASSESSMENT — supersedes 01/02 where they conflict
 ```
 
+> **2026-09-23:** a post-study critical reassessment and research roadmap is in
+> [`06_reassessment/`](./06_reassessment/README.md). It changes no registered verdict.
+
 > **⚠️ Read document 03 first.** Documents 01 and 02 contain claims that do not survive
 > verification against the live TypeSafe docs and independent third-party evaluations.
 > The most consequential: Jev's calibration is **not** near-zero-ECE out of distribution
