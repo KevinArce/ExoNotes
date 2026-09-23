@@ -74,9 +74,16 @@ So this measures whether a model can **read the follow-up evidence trail and ant
 consensus**. It is **not** a planet detector, it is not a transit vetter, and it does not show
 the model found physics that people missed.
 
-**What is genuinely non-obvious is the comparison, not the gain:** TF-IDF on the *same text*
-scores **0.8766 — below** the numeric baseline's 0.9044, while structured semantic judgments
-over that same text add **+0.0432**. Whatever the signal is, bag-of-words does not reach it.
+**On its own, the text does not give the label away:** TF-IDF on the *same text*, with no
+numeric columns, scores **0.8766 — below** the numeric baseline's 0.9044. That is a leakage
+check, and it passes. It is **not** evidence that bag-of-words cannot reach the signal. *This
+sentence was corrected on 2026-09-23 (`PREREGISTRATION.md` §11.13, A-44).* It used to say
+"whatever the signal is, bag-of-words does not reach it". An exploratory check, not registered,
+put TF-IDF on top of the numeric columns: it reaches **80%** of the headline gain, and 62% on
+the leakage-stripped arm. The structured judgments add a real but modest **+0.009 to +0.017**
+beyond it
+([`research/06_reassessment/02_exploratory_checks.md`](./research/06_reassessment/02_exploratory_checks.md)
+E2).
 
 **On Kepler it does not transfer as content, and that was tested, not assumed.** A second,
 separately pre-registered study ([`RESULTS_KEPLER.md`](./RESULTS_KEPLER.md);

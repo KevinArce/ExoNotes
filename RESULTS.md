@@ -152,9 +152,29 @@ stop — a pipeline bug, not a finding. It fired on **0 of 1,482 rows**. The
 
 **3. Baseline C is *below* B.** C scores **0.8766** against B's 0.9044. On `Comments` the same
 baseline scored 0.9691 and was pure echo. Here, **raw text alone is weaker than the numeric
-columns** — there is no readable label lying in the prose — yet structured judgments over that
-same text add +0.0432. **Whatever D is using, TF-IDF cannot find it.** That is the opposite of
-a leakage signature.
+columns**: there is no readable label lying in the prose. That is the opposite of a leakage
+signature.
+
+> **Corrected 2026-09-23, after v1.1.0 (`PREREGISTRATION.md` §11.13, A-44). No verdict
+> changes.** This paragraph used to continue: *"yet structured judgments over that same text add
+> +0.0432. Whatever D is using, TF-IDF cannot find it."* The evidence does not support that
+> sentence. C is **text-only**, so C below B shows the label is not readable from the words
+> alone. That is the leakage check this section is about, and it still passes. It does not
+> show that bag-of-words misses what D finds, because C never had the numeric columns under
+> it. An **exploratory, unregistered** check gave TF-IDF those columns, as a stacked
+> out-of-fold score on top of B, using the same folds, CatBoost and bootstrap
+> ([`research/06_reassessment/02_exploratory_checks.md`](./research/06_reassessment/02_exploratory_checks.md)
+> E2):
+>
+> | arm | full S1 arm | G5 leakage-stripped arm |
+> | :--- | :--- | :--- |
+> | B+TF-IDF − B | +0.0345 [+0.0237, +0.0457] | +0.0244 [+0.0146, +0.0341] |
+> | D − B+TF-IDF | +0.0088 [+0.0004, +0.0174] | +0.0147 [+0.0042, +0.0246] |
+>
+> So bag-of-words on top of the catalogue reaches **80%** of the headline gain, and **62%** on
+> the leakage-stripped arm. The structured judgments add a real but modest increment beyond
+> it. Those are 2,000-resample intervals from an arm chosen after the result. They are
+> hypotheses, not a gate, and the registered test of them is left to a future registration.
 
 ### What this does **not** establish
 
@@ -596,6 +616,27 @@ describe this corpus:
 And the three added in A-8 — the corpus-size projection was a point estimate from n = 30 and
 came in 19% low; `Groupname != 'tfopwg'` is in practice `Groupname IS NULL`; G3's Spearman
 criterion is undefined on low-variance features.
+
+**And one added after the result (2026-09-23, `PREREGISTRATION.md` §11.13 A-44). The question
+*topics* were chosen with outcome information.** Before the r5/r6 questions were written, each
+candidate topic was ranked by the |AUC| of a crude regex cue against the disposition, measured
+on **all 1,482 labelled rows** (A-19, A-23). The `questions.py` docstring says as much: the
+questions were *"chosen by measured prevalence and directional AUC"*. That is feature selection
+outside the cross-validation loop. The *gate cases* were label-blinded (A-22). The *topics* were
+not. A-41 already recorded the difference when Kepler chose its topics without labels. It was
+never listed here.
+
+- **Direction:** optimistic, so G2 and the other TESS gains may be biased upward.
+- **Size:** unmeasured, probably small. The crude cues were weak (|AUC| 0.51–0.64) and the pool
+  was modest. It is the same order as the structured features' increment over bag-of-words
+  (§4.3's correction note), so it is not negligible for *that* comparison.
+- **What would measure it:** repeat the topic selection inside each training fold. A
+  prospective holdout would remove it altogether: TOIs dispositioned after the question set
+  was frozen. That test is registered separately in `PREREGISTRATION.md` §11.14 (A-45).
+- **Context, not a test:** the one study in this repository that chose topics without labels,
+  Kepler, failed its content criterion. That comparison is confounded by corpus differences
+  (`RESULTS_KEPLER.md` §4), so it is not evidence of bias here. It is a reason not to assume
+  the bias is zero.
 
 **Above all: this is one corpus, one archive, one model version, one snapshot date.** 1,482
 rows of ExoFOP observer notes, pulled 2026-09-19, scored by `jev-1.13.0`. ExoFOP updates

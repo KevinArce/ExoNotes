@@ -63,8 +63,10 @@ abstract: >-
   split, a leakage-stripped arm and a missingness ablation. The gain survives a metadata
   control that captures note count, note length and author identity (+0.0220, CI +0.0126
   to +0.0321), so it is not merely a record of which follow-up group wrote a note. A
-  TF-IDF baseline on the same text scores 0.8766, BELOW the numeric baseline, so whatever
-  the semantic features capture, bag-of-words does not reach it.
+  TF-IDF baseline on the text alone scores 0.8766, BELOW the numeric baseline, so the
+  label cannot be read from the words alone. Stacked on the numeric columns, TF-IDF does
+  reach most of the gain, and the semantic features add a modest increment beyond it. That
+  is an exploratory check, and this sentence was corrected on 2026-09-23.
 
   Two label-leakage findings are reported as cautions for anyone applying machine learning
   to these catalogues. The ExoFOP Comments field restates the disposition in 47.9% of

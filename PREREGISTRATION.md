@@ -1947,3 +1947,55 @@ A-38's *"two different responses, ~0.0001 apart"* becomes ~0.005; its fix and +0
 `RESULTS.md` §6 (table, noise floor, a correction note), §8 (drift table, a correction note, the
 A-38 figure), §8a (the "1-hour" label), §11 (the 412× bullet); `README.md`'s cold-cache note;
 `PROVENANCE.md`'s drift table and A-38 figure. Each says in place that it was corrected and why.
+
+## 11.13 A public claim corrected, and a limitation added. **Written AFTER the result; changes no verdict.**
+
+### A-44 — "Bag-of-words does not reach it" is withdrawn; question-topic selection is listed as a limitation
+
+Written 2026-09-23, after v1.1.0, following the reassessment in
+[`research/06_reassessment/`](research/06_reassessment/README.md). **It changes no criterion, no
+gate and no registered number.** A-30 is left as written. It was true of the comparison then in
+hand, and this section is append-only.
+
+#### 44.1 The claim, and why it goes
+
+A-30's third point, `RESULTS.md` §4.3, the README, `CITATION.cff` and `.zenodo.json` all read
+C (TF-IDF + logistic, **text only**) scoring 0.8766 < B 0.9044 as *"whatever D is using,
+TF-IDF cannot find it."* C never had the numeric columns under it. C < B shows that **the label
+is not readable from the words alone**, and that leakage check still passes. It does not
+compare bag-of-words with the structured features **on top of B**, which is the comparison the
+sentence claims.
+
+An **exploratory, unregistered** arm made that comparison. It was run with `026`'s folds,
+CatBoost configuration and paired bootstrap, imported unchanged, and 2,000 resamples. It used
+C's pipeline as a stacked out-of-fold column on top of B, with inner GroupKFold(5) on the
+training rows only
+([`research/06_reassessment/02_exploratory_checks.md`](research/06_reassessment/02_exploratory_checks.md)
+E2, code included):
+
+| arm | full S1 arm (n 1,482) | G5 arm (n 1,114) |
+| :--- | :--- | :--- |
+| B+TF-IDF − B | +0.0345 [+0.0237, +0.0457] | +0.0244 [+0.0146, +0.0341] |
+| D − B+TF-IDF | +0.0088 [+0.0004, +0.0174] | +0.0147 [+0.0042, +0.0246] |
+
+Bag-of-words on top of B reaches 80% of G2 and 62% of G5. The claim is replaced, in every
+document that carried it, by the narrower statement the evidence supports: **the structured
+judgments add a modest increment beyond bag-of-words.** That increment is itself exploratory. It
+was not chosen before the result, and it is **not** a gate. A future registration that wants it
+as a claim must register D − B+TF-IDF as an arm.
+
+#### 44.2 The limitation, and why it was missing
+
+A-19 and A-23 ranked candidate topics by the |AUC| of crude regex cues against the disposition,
+**measured on all 1,482 labelled rows**, before the r5/r6 questions were written. That is
+feature selection outside the CV loop. Its direction is optimistic and its size is unmeasured.
+A-22 blinded the gate *cases*, not the *topics*. A-41 41.1 recorded the difference when it chose
+Kepler's topics without labels. `RESULTS.md` §10 never listed it, and now does.
+
+#### 44.3 Where it was changed
+
+- `README.md`, *"What this is, and what it is not"*: the sentence was replaced, with a note saying so.
+- `RESULTS.md` §4.3: a correction note with the table above. §10 gains the limitation.
+- `CITATION.cff` abstract (validated with `cffconvert`) and `.zenodo.json` description: the
+  sentence was replaced. Zenodo takes the new text only at the next release.
+- `PREREGISTRATION.md` A-30 and `WORKLOG.md`: unchanged, because both are append-only.
