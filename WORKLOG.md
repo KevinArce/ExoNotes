@@ -5054,3 +5054,16 @@ handoff. The README's P1 row now reads "registered; predictions not yet made". T
 **Not done:** the paid `052` run. The owner approved the push, not the spend.
 **Idempotent:** yes. Git only, $0.
 ---
+## [2026-09-23T02:11Z] PUSH — DONE: 4 commits on origin/master; A-45 is public; CI green
+**Pushed:** `90a15b6..ffe2aa7`: `5deb58e` (reassessment docs), `ab97bd5` (A-44), **`c0d32a5`: the
+A-45 registration commit** (committed 2026-09-23T02:09:26Z; script sha256s match A-45 45.12),
+`ffe2aa7` (log). `HANDOFF_PROMPT.md` stays uncommitted, as the owner asked.
+**Verified by output:** `052`'s guards, called without the paid path, accept `c0d32a5`: it is on
+origin/master, it contains A-45, and its manifest equals the local freeze (`a09259340a06ac63` /
+`285d1aa3cf7d199b` / `060a8307…`). CI run 35809239050 (`reproduce.yml`, triggered by `scripts/`)
+**success**. CodeQL success.
+**Next, owner's call:** back up `data/prospective*`, then run
+`052 --registration-commit c0d32a5` (~$0.55). Then push the predictions within 24 h.
+**Lapse 2026-10-23.**
+**Jev spend this step:** $0.00 · **running total:** ~$1.608
+---
