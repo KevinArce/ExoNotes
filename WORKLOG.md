@@ -4951,3 +4951,106 @@ marked done. `PREREGISTRATION.md` §11.9's "15 mutations" left as written (appen
 Takes effect in CI on the next run (both scripts run from the repo; no workflow change needed).
 **Jev spend this step:** $0.00 · **running total:** ~$1.608
 ---
+## [2026-09-23T01:17Z] SESSION START — Claude Opus 5.5, critical reassessment + research roadmap
+**Asked for:** a ground-up critical reassessment of both studies plus a research roadmap, written
+only as `.md` files. **Nothing is to be pushed.**
+---
+## [2026-09-23T01:17Z] REASSESSMENT — STARTED (logged late, see below)
+**Doing:** writing `research/06_reassessment/`: critique, exploratory checks, prior art, research
+questions, project proposals, ecosystem and roadmap.
+**Logged late:** two exploratory scripts ran before this entry. They are unregistered, read-only on
+`data/*.duckdb`, and made $0 of Jev calls. Results were written at 01:09Z and 01:11Z (file mtimes)
+to the session scratchpad, not to the repo. The second made two public NEA TAP reads (`pscomppars`,
+`cumulative`). Nothing in `data/` was written. The code is in `research/06_reassessment/02_*`.
+**Idempotent:** yes. Docs only, $0, and no registered number changes.
+---
+## [2026-09-23T01:28Z] REASSESSMENT — DONE: research/06_reassessment/ written; nothing committed or pushed
+**Artifacts:** `research/06_reassessment/` with README, 01 critique, 02 exploratory checks (with
+code), 03 prior art, 04 research questions, 05 thirteen proposals, 06 ecosystem and roadmap. There
+is a one-line pointer in `research/README.md`.
+**Exploratory, unregistered findings (for the owner, not verdicts):**
+- **Bag-of-words on top of B reaches 80% of G2** (+0.0345) and **62% of G5** (+0.0244). D beats
+  B+TFIDF by +0.0088 [+0.0004, +0.0174] full and +0.0147 [+0.0042, +0.0246] G5. The README's
+  "bag-of-words does not reach it" compares against text-only C and is not supported.
+- **Robustness:** a stronger B (adds multiplicity, sectors, distance, insol) gives +0.0354;
+  KP excluded gives +0.0342; stripping 17 survey-name rows (P=0.941) from G5 gives +0.0383.
+- **Beyond volume** is carried by the spectroscopy/evolved family (+0.0130 vs B+meta). Imaging
+  adds +0.0009 vs B+meta. Kepler's features are volume-correlated (rho up to 0.73). rv_flag:
+  TESS CP 0.76 vs Kepler CP 0.05.
+- 148 of 357 text-"evolved" hosts have TIC logg >= 4.1.
+**Not done:** no Jev calls, no Kepler D+meta arm (needs registration; P5), no edits to
+PREREGISTRATION, RESULTS*, README, scripts/, src/ or data/.
+**Jev spend this step:** $0.00 · **running total:** ~$1.608
+---
+## [2026-09-23T01:28Z] SESSION END — Claude Opus 5.5
+---
+## [2026-09-23T01:43Z] SESSION START — Claude Opus 5.5, reassessment items 1 and 2 (user: "proceed with item 1 and 2")
+**Still binding:** do not push.
+---
+## [2026-09-23T01:43Z] ITEM 1 (claim correction + limitation) — STARTED
+**Doing:** correct the "bag-of-words does not reach it" sentence wherever it is public (README,
+`RESULTS.md` §4.3, `CITATION.cff`, `.zenodo.json`), and add the question-topic selection
+limitation to `RESULTS.md` §10. Recorded append-only as `PREREGISTRATION.md` §11.13 **A-44**,
+written after the result, changing no verdict. `PREREGISTRATION.md` A-30's wording stays as it
+was: append-only, and it was true of the evidence then in hand.
+**Idempotent:** yes. Docs only, $0.
+---
+## [2026-09-23T01:44Z] ITEM 1 — DONE: the claim is corrected in 4 public places; the limitation is in RESULTS §10; A-44 appended
+**Changed:** `README.md` (the sentence is replaced and says so), `RESULTS.md` §4.3 (correction note
+with the E2 table) and §10 (the topic-selection limitation), `CITATION.cff` (cffconvert: valid),
+`.zenodo.json` (a one-line diff, and the JSON still parses), `PREREGISTRATION.md` §11.13 A-44.
+**Unchanged:** A-30 and past WORKLOG entries, which are append-only.
+**Jev spend this step:** $0.00 · **running total:** ~$1.608
+---
+## [2026-09-23T01:44Z] ITEM 2 (P1 prospective registry: freeze T0 and register) — STARTED
+**Plan:** (1) `scripts/051_prospective_freeze.py` pulls ExoFOP TOI + NEA toi + every open or
+labelled TIC's notes into `data/prospective/` and `data/prospective.duckdb`, then writes checksums.
+$0. (2) `052` (predict) and `053` (evaluate) are written and tested in dry-run or smoke
+mode only. (3) The registration is `PREREGISTRATION.md` §11.14 **A-45**.
+**Not done this session, deliberately:** the paid scoring (`052` for real). The project rule is
+registration public before the first paid call, and the user said do not push. `052` refuses to
+run for real until the registration commit is on `origin/master`.
+**Pre-registration inputs measured before writing A-45 ($0):** (a) an upper-bound proxy for the
+resolution rate. Labelled TICs whose TFOPWG Master-Disp note was last modified 2025-09-19..2026-09-19:
+**283**; by year 2021 560, 2022 329, 2023 300, 2024 206, 2025 353. (b) The MDE of a prospective
+D − B test by eval size, subsampling TESS out-of-fold predictions: n=150 +0.0496, **n=200 +0.0432**,
+n=300 +0.0345, n=400 +0.0301. n=200 is where the retrospective effect is detectable at 80%.
+**Idempotent:** the freeze is idempotent cache-first. A re-pull with --refresh would make a NEW
+T0 and must not be done once A-45 records the checksums.
+---
+## [2026-09-23T02:04Z] ITEM 2 — DONE: T0 frozen, 052/053 tested at $0, A-45 written. NOT committed, NOT pushed, NO paid call
+**Freeze (`051`, $0):** TOI tables fetched 01:45:37Z, notes pulled 01:45:43Z and verified
+02:00:31Z. 7,818 TICs, 0 failed; 2,937 empty, all confirmed empty on re-fetch. **T0 =
+2026-09-23T02:00:31Z.** `train_t0` 1,552 rows / 1,458 TIC / base 0.5361 (`a09259340a06ac63`);
+`predict_t0` 2,080 open TOIs / 2,003 TIC (`285d1aa3cf7d199b`); obsnotes manifest `060a8307…`.
+**Check:** all 1,482 published rows reproduce with identical labels and byte-identical text. The
+70 extra rows are labelled TOIs with an empty `Comments` field, which `analysis_set`'s filter dropped.
+**`052 --dry-run`:** 3,399 distinct texts, projected **$0.5496** (tripwire $1.50); 5 arms × 10 seeds
+fitted on mock features. **`053 --smoke`:** signal → CONFIRMED (+0.0240 [+0.0077, +0.0417]),
+null → NOT CONFIRMED (+0.0115 [−0.0087, +0.0320]); the underpowered, inconclusive and reversed
+branches were checked. Guards: `052` refuses HEAD (no A-45) and a commit not on origin; `053` refuses
+before its date.
+**Registration:** `PREREGISTRATION.md` §11.14 **A-45**. Primary D − B; content test Dmeta − Bmeta;
+N_MIN 200 (MDE 0.043 at n=200); checkpoints 2027-03-23 / 2027-09-23 / **2028-03-23** / 2028-09-23;
+lapse 2026-10-23. Script sha256s are pinned there. Also: README status row, HANDOFF box,
+PROVENANCE block, `research/06` status note.
+**Regression check:** `040_verify_gates.py`: all 12 criteria still hold.
+**Owner's next step:** back up `data/prospective*`, then commit and push the registration, then run `052`.
+See the HANDOFF box.
+**Jev spend this step:** $0.00 · **running total:** ~$1.608
+---
+## [2026-09-23T02:04Z] SESSION END — Claude Opus 5.5
+---
+## [2026-09-23T02:08Z] PUSH — STARTED (owner-approved: "push this, except the handoff prompt")
+**Doing:** commit and push this session's work in four commits: (1) the reassessment docs;
+(2) A-44, the claim correction and the limitation; (3) the **A-45 registration commit**: A-45,
+the freeze manifest and `scripts/051`–`053`, together as A-45 45.1 requires; (4) this log.
+**`HANDOFF_PROMPT.md` is deliberately not committed.** The owner keeps it local. Earlier
+entries in this session point to "the HANDOFF box". The binding P1 sequence is A-45 §45.1 in
+`PREREGISTRATION.md`, which is public. **Pre-push edits:** the reassessment docs no longer
+refer to an unpublished brief. `research/06`'s status note points to A-45 §45.1 instead of the
+handoff. The README's P1 row now reads "registered; predictions not yet made". The P1 sketch in
+`05` notes that A-45 supersedes it.
+**Not done:** the paid `052` run. The owner approved the push, not the spend.
+**Idempotent:** yes. Git only, $0.
+---
