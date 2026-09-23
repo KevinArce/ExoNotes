@@ -166,3 +166,24 @@ legitimate hit (an identical request costs nothing) but only ever *writes* to
 ```
 
 <!-- END s2b -->
+
+---
+
+<!-- BEGIN prospective (scripts/051_prospective_freeze.py) -->
+## Prospective T₀ snapshot (P1, `PREREGISTRATION.md` §11.14 A-45)
+
+Frozen 2026-09-23 (T₀ = `2026-09-23T02:00:31Z`) into `data/prospective/` and
+`data/prospective.duckdb`. Both are gitignored and **cannot be re-pulled**: ExoFOP is live. The
+authoritative record is [`research/data/prospective_freeze_manifest.json`](research/data/prospective_freeze_manifest.json)
+and A-45 45.2:
+
+| artifact | sha256 |
+| :--- | :--- |
+| `exofop_toi_T0.csv` | `7f442aa01cf19a6aa0e093e97736286347fc3e9ddb81d633d3115b6353056390` |
+| `nea_toi_T0.csv` | `8e90ae4b0795eef5b4c0ea3c4ac3d890dd3ed56d78ae4dfeb5cdc61da727c4d1` |
+| 7,818 per-TIC note files (manifest) | `060a830718e7609a046c299408626544833d9c130f5aac22157fc04404bf2380` |
+| `train_t0` / `predict_t0` (sha16) | `a09259340a06ac63` / `285d1aa3cf7d199b` |
+
+`scripts/01_ingest.py` rewrites this file wholesale, which would drop this block. The manifest
+and A-45 are unaffected by that.
+<!-- END prospective -->

@@ -1999,3 +1999,212 @@ Kepler's topics without labels. `RESULTS.md` §10 never listed it, and now does.
 - `CITATION.cff` abstract (validated with `cffconvert`) and `.zenodo.json` description: the
   sentence was replaced. Zenodo takes the new text only at the next release.
 - `PREREGISTRATION.md` A-30 and `WORKLOG.md`: unchanged, because both are append-only.
+
+## 11.14 Prospective validation (P1). **Written 2026-09-23, BEFORE any prospective model call. The T₀ snapshot it pins was frozen first, at $0.**
+
+### A-45 — ExoNotes-Prospective: predictions for open TESS candidates, frozen now and scored only against dispositions assigned after they are published
+
+Written by a working session at the owner's request, following
+[`research/06_reassessment/05_project_proposals.md`](research/06_reassessment/05_project_proposals.md)
+P1. **It binds only once the owner has committed it and pushed it to `origin/master`.** Until
+then it is a draft, and `scripts/052_prospective_predict.py` refuses to make a paid call.
+
+#### 45.0 Why
+
+Every TESS number in this repository is retrospective. Three weaknesses named after the result
+cannot be removed retrospectively:
+
+- **Topic selection.** Question topics were chosen with outcome information (A-44 44.2).
+- **Survivorship.** S2's test set contains only candidates that had been resolved by 2026
+  (reassessment W7).
+- **Post-disposition text.** Some observer text postdates the verdict. The loose proxies say
+  at least 3–8% (reassessment E8).
+
+A prospective test removes all three. It is also the only test of the word the README uses:
+does reading the follow-up trail *anticipate* the consensus?
+
+#### 45.1 Order of operations (binding)
+
+1. **Freeze T₀.** Done: 45.2.
+2. **Register.** This amendment, `research/data/prospective_freeze_manifest.json` and
+   `scripts/051`–`053` are committed and pushed together. That commit is the *registration commit*.
+3. **Predict.** Run `052 --registration-commit <sha>`. It refuses unless `<sha>` is an ancestor of
+   `origin/master`, contains this amendment, and carries a manifest equal to the local frozen
+   corpus.
+4. **Publish.** `research/data/prospective_predictions_t0.csv` and `.json` are committed and
+   pushed **within 24 hours** of the `052` run. The push time is **T_pub**. `053` checks the
+   window and flags a violation in the reading. It does not hide it.
+5. **Evaluate.** Run `053` at the checkpoints in 45.7.
+
+**Lapse:** if step 4 has not happened by **2026-10-23**, this registration lapses. A new T₀
+needs a new amendment. No step may be reordered, and no step may be repeated with changed code.
+
+#### 45.2 The frozen T₀ snapshot
+
+`scripts/051_prospective_freeze.py`, run 2026-09-23, $0. The TOI tables were fetched at
+**01:45:37Z**. The per-TIC note pull ran **01:45:43Z → verified 02:00:31Z**, with 0 failures and
+0 false empties on re-fetch. **T₀ = 2026-09-23T02:00:31Z**: all frozen text is as of a moment in
+that window.
+
+| artifact | value |
+| :--- | :--- |
+| `exofop_toi_T0.csv` sha256 | `7f442aa01cf19a6aa0e093e97736286347fc3e9ddb81d633d3115b6353056390` |
+| `nea_toi_T0.csv` sha256 (label + covariate source) | `8e90ae4b0795eef5b4c0ea3c4ac3d890dd3ed56d78ae4dfeb5cdc61da727c4d1` |
+| per-TIC note files / manifest sha256 | 7,818 / `060a830718e7609a046c299408626544833d9c130f5aac22157fc04404bf2380` |
+| notes parsed (TFOPWG / observer) | 12,380 (3,677 / 8,703); the Groupname domain is asserted `{tfopwg, NULL}` |
+| NEA dispositions at T₀ | PC 4,823 · APC 485 · FP 1,301 · CP 818 · KP 607 · FA 100 · blank 14 |
+| **`train_t0`**: labelled at T₀, with observer text | **1,552 rows / 1,458 TIC / base 0.5361** · sha16 `a09259340a06ac63` |
+| **`predict_t0`**: PC or APC at T₀, with observer text | **2,080 rows / 2,003 TIC** (of 5,308 open TOIs) · sha16 `285d1aa3cf7d199b` · 36 share a TIC with a labelled TOI |
+
+**Checked against the published corpus:** all 1,482 rows of `analysis_set_obsnotes` are in
+`train_t0`, with **identical labels and byte-identical text**. The freeze rebuilds the TESS
+corpus exactly. The **70 extra rows** are labelled TOIs whose `Comments` field is empty.
+`analysis_set` required a non-empty `Comments`, which was a leftover of the corpus switch and is
+not applied here. This is a deliberate definitional difference, stated now.
+
+**ExoFOP cannot re-serve T₀.** `data/prospective/` and `data/prospective.duckdb` are gitignored
+and must be **backed up by the owner** before step 2. The checksums above are the public record.
+
+#### 45.3 Corpus and label: the TESS study's definitions, unchanged
+
+The corpus is observer notes only (`Groupname IS NULL`, §1.1, A-10), text from `028`'s
+`plain()`, concatenated per TIC in ascending `Lastmod`. The label is NEA `toi.tfopwg_disp`, with
+CP/KP = 1 and FP/FA = 0 (§1.3). **Text and numeric covariates are those frozen at T₀ and are
+never refreshed**, for training and prediction rows alike.
+
+#### 45.4 Featurizer, arms, comparisons
+
+- **Featurizer:** `jev-1.13.0` (asserted on every response, A-5), question set `2026-09-20.r6`
+  unchanged, state `{"notes": text}` (A-4). **Every distinct text, training and prediction, is
+  scored in one session** into `data/cache/prospective/`, so the two sides share any model
+  drift. The published Step 3 matrix is **not** reused, and the retrospective features are not
+  claimed to be comparable.
+- **Arms**, each CatBoost with `026`'s configuration, fit on all of `train_t0`, **10 seeds**
+  (20260919 + i) with the predicted probabilities averaged:
+  - `B`: the 8 numeric columns.
+  - `Bmeta`: B + note count, characters, authors, top-8 author one-hot (top-8 fixed on
+    training notes only).
+  - `BTFIDF`: B + C's TF-IDF + logistic pipeline as a stacked column (inner GroupKFold(5)
+    out-of-fold on training rows; for prediction rows, fit on all training rows).
+  - `D`: B + the 7 `TIER_PREDICTIVE` features.
+  - `Dmeta`: D + meta.
+- **Primary:** ΔAUC(**D − B**) on the evaluation set, paired bootstrap, **10,000 resamples over
+  TIC groups** (`026`, unchanged).
+- **Secondary** (reported with intervals, read as in 45.8, never the headline):
+  - **Dmeta − Bmeta**, the content test. This is the logical form of "text beyond volume"
+    (reassessment W6).
+  - **D − BTFIDF**, structure beyond words (A-44).
+  - **D − Bmeta**, continuity with the retrospective control.
+- Brier scores for every arm, descriptive.
+- **No other arm will be reported as a result of this registration.**
+
+#### 45.5 Evaluation set
+
+These TOIs are scored:
+
+- in `predict_t0`;
+- **PC or APC in the NEA snapshot `052` takes when it runs** (`open_at_prediction`);
+- **CP, KP, FP or FA in the NEA snapshot `053` takes at the checkpoint**, with CP/KP = 1.
+
+TOIs that become blank or another value, or that leave the table, are counted and not scored.
+TOIs resolved between T₀ and the `052` run are not scored (`open_at_prediction` is false).
+
+#### 45.6 Sensitivity arms (reported beside the reading, never the reading)
+
+**(a)** Drop TOIs whose TIC carried a labelled TOI at T₀. A sibling's label is legitimate
+information in a forecast, but it inflates every arm. This is the S2a analogue.
+
+**(b)** Drop rows whose frozen text fires `OBSNOTES_PATTERNS` or the TESS analogue of Kepler's
+`K10` (reassessment E5):
+
+```
+\b(?:WASP|HAT-P|HATS|KELT|XO|TrES|Qatar|NGTS|WTS|CoRoT|K2|Kepler|MASCARA|KPS)-\d+
+```
+
+#### 45.7 Checkpoints
+
+**6m = 2027-03-23** and **12m = 2027-09-23**: descriptive only. They cannot stop, extend or
+alter the study, so no α is spent. **18m = 2028-03-23**: confirmatory. **24m = 2028-09-23**:
+run only if 18m returns n < 200, and then it is final. `053` refuses to run before each date.
+
+#### 45.8 The reading, computed by `053`
+
+| condition at the confirmatory checkpoint | reading |
+| :--- | :--- |
+| n < 200 at 18m | **UNDERPOWERED**: extend once to 24m |
+| n < 200 at 24m | **INCONCLUSIVE**: report estimates, claim nothing |
+| n ≥ 200, primary CI lower bound > 0 | **CONFIRMED PROSPECTIVELY** |
+| n ≥ 200, primary CI includes 0 | **NOT CONFIRMED PROSPECTIVELY**, a negative result, published as such |
+| n ≥ 200, primary CI upper bound < 0 | **REVERSED** |
+| appended to any of the above | *content beyond volume confirmed* iff Dmeta − Bmeta's CI lower bound > 0 |
+
+**N_MIN = 200** is where the retrospective effect is detectable at 80% power. It was measured
+before this registration by subsampling the TESS out-of-fold predictions (45.9).
+
+#### 45.9 Power, cost, and the prior, stated before any prospective call
+
+**MDE of the primary test at 80% power**, measured 2026-09-23 at $0 by subsampling n TICs from
+the TESS out-of-fold B and D predictions (20 draws each, paired bootstrap SE × 2.802):
+
+| eval n | 100 | 150 | **200** | 250 | 300 | 400 | 600 |
+| :--- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| MDE | 0.065 | 0.050 | **0.043** | 0.039 | 0.035 | 0.030 | 0.024 |
+
+**Expected n: unknown, stated as a range.** An upper-bound proxy puts dispositions at roughly
+200–350 per year across all TICs: labelled TICs whose TFOPWG `Master Disp` note was last
+modified in the preceding 12 months numbered 283, and ranged 206–560 per year from 2021 to 2025.
+Only the 2,080 candidates with observer text are eligible, so **the realised n at 18m could land
+anywhere from about 150 to 450.**
+
+**Cost:** `052 --dry-run` projects 3,399 distinct texts, 13,085,257 tokens, **$0.5496**. The
+tripwire is **$1.50**. `053` makes no model call.
+
+**The prior (this session's, recorded so that neither outcome can later be called obvious):**
+
+- D − B prospectively is **positive but smaller** than the retrospective +0.0432. Open
+  candidates have thinner, less decisive notes, and the first to resolve are the easy ones.
+  Central guess about +0.02.
+- The content test (Dmeta − Bmeta) is **more likely than not to include zero**. Its
+  retrospective margin, carried by three spectroscopy features (reassessment E6), is +0.013,
+  well below any achievable MDE here.
+- **So the most likely registered outcome is NOT CONFIRMED, even if a real effect of about +0.02
+  exists.** That is stated now, so a null is read as "not detected at this power", never as
+  "absent". The report always carries the point estimate and interval.
+
+#### 45.10 Contingencies
+
+- **`jev-1.13.0` retired or mismatched before `052` completes:** no substitute model without a
+  new amendment registered before its first call.
+- **The NEA `toi` schema or `tfopwg_disp` vocabulary changes:** `053` fails loudly, and an
+  amendment maps the change before any checkpoint is read.
+- **The owner cannot run `052` before the lapse date:** the registration lapses (45.1).
+- **A defect found after predictions are published:** fixed only in `053`, with the fix
+  registered as an amendment *before* the checkpoint it affects, and reported. The published
+  predictions are never regenerated.
+
+#### 45.11 What this does not test
+
+- **Resolution order.** Candidates that resolve early are still a selected subset.
+  Checkpoint-by-checkpoint reporting shows the trajectory. It does not remove the selection.
+- **Independence.** TFOP decides with much of the same information, so a confirmation shows
+  that the notes *anticipate* TFOP. It does not show they beat TFOP.
+- **Featurizer independence.** One featurizer. That is P2's question.
+- **Scope.** Candidates without observer text (3,228 of 5,308 open TOIs) are out of scope.
+
+#### 45.12 Frozen code (sha256 at registration)
+
+| file | sha256 |
+| :--- | :--- |
+| `scripts/051_prospective_freeze.py` | `21ce8e25ac4cf075e934d505ad93b283c04e7293784b21aaeab3e2ba295f023b` |
+| `scripts/052_prospective_predict.py` | `ff28a895adb986a4e40ac32be128e8cb689c22e224c771cae77a2606902eab66` |
+| `scripts/053_prospective_evaluate.py` | `492051676ce5e0c74ea48b0b0ac387ba095954dfea2c90d113c2546526557e89` |
+| imported, unchanged: `026` · `01_ingest` · `028` · `questions.py` · `leakage.py` | `1a685d6e…` · `080b99c5…` · `2fa25b06…` · `58ad0637…` · `9c1bebf0…` |
+
+**Tested before registration, at $0:**
+
+- `052 --dry-run` ran every arm on mock features (no API call).
+- `053 --smoke signal` read **CONFIRMED** (D − B +0.0240 [+0.0077, +0.0417], n 300).
+- `053 --smoke null` read **NOT CONFIRMED** (+0.0115 [−0.0087, +0.0320]).
+- The underpowered, inconclusive and reversed branches were checked directly.
+- `052` refuses a commit without A-45 and a commit that is not on `origin/master`.
+- `053` refuses before its date.

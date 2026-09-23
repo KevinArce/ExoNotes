@@ -1,0 +1,45 @@
+{
+  "registration": "PREREGISTRATION.md \u00a711.14 (A-45)",
+  "persisted_utc": "2026-09-23T02:00:36+00:00",
+  "toi_fetched_utc": "2026-09-23T01:45:37+00:00",
+  "pull_started_utc": "2026-09-23T01:45:43+00:00",
+  "pull_verified_utc": "2026-09-23T02:00:31+00:00",
+  "raw_sha256": {
+    "exofop_toi_T0.csv": "7f442aa01cf19a6aa0e093e97736286347fc3e9ddb81d633d3115b6353056390",
+    "nea_toi_T0.csv": "8e90ae4b0795eef5b4c0ea3c4ac3d890dd3ed56d78ae4dfeb5cdc61da727c4d1"
+  },
+  "obsnotes_cache_files": 7818,
+  "obsnotes_manifest_sha256": "060a830718e7609a046c299408626544833d9c130f5aac22157fc04404bf2380",
+  "notes_parsed": 12380,
+  "groupname_domain": {
+    "tfopwg": 3677,
+    "null": 8703
+  },
+  "toi_rows_joined": 8148,
+  "disposition_counts": {
+    "PC": 4823,
+    "FP": 1301,
+    "CP": 818,
+    "KP": 607,
+    "APC": 485,
+    "FA": 100,
+    "<blank>": 14
+  },
+  "tic_targeted": 7818,
+  "tic_with_observer_text": 3434,
+  "train_t0": {
+    "rows": 1552,
+    "tic": 1458,
+    "base_rate": 0.5360824742268041,
+    "sha16": "a09259340a06ac63"
+  },
+  "predict_t0": {
+    "rows": 2080,
+    "tic": 2003,
+    "tic_shared_with_labelled": 36,
+    "sha16": "285d1aa3cf7d199b"
+  },
+  "open_tois_total": 5308,
+  "open_tois_with_observer_text": 2080,
+  "digest_convention": "sha16 = sha256(DataFrame.to_csv(index=False))[:16], rows by toi"
+}

@@ -55,6 +55,7 @@ distribution, and astrophysics is maximally out of distribution for it.
 | ✅ G2 headline · G3 stability · G4 temporal · G5 leakage-stripped · G6 missingness | **All pass.** [Every interval](./RESULTS.md#2-every-gate-with-its-interval) |
 | ⚠️ The pre-registered prior | **Falsified.** A null was predicted in advance and did not happen — [why](./RESULTS.md#5-the-pre-registered-prior-was-wrong) |
 | ❌ Kepler transfer test | **The content claim does not transfer.** Pre-registered separately; the features beat the covariates, but not a no-model follow-up-volume control, and 3 of 6 fail paraphrase stability — [`RESULTS_KEPLER.md`](./RESULTS_KEPLER.md) |
+| ⏳ Prospective test (P1) | **Registered; the predictions have not been made yet.** The T₀ snapshot of every open TESS candidate is frozen (2026-09-23). Frozen predictions will be scored only against dispositions assigned after they are published. [`PREREGISTRATION.md`](./PREREGISTRATION.md) §11.14 (A-45) |
 | 💸 Spend to date | **~$1.608** (TESS study ~$0.3539 + a $0.0005 G3 re-ask · two CI gate runs ~$0.32 + ~$0.326 · Kepler study ~$0.6071) |
 
 **The caveats travel with the number.** A cold-cache re-run lands *near* +0.0432, not on it —
@@ -138,7 +139,7 @@ plan specified it as the covariate source; that was wrong. Covariates come from 
 | :--- | :--- |
 | **[RESULTS.md](./RESULTS.md)** | **The answer**, with reliability diagrams, every confidence interval, the falsified prior, and what was not done. |
 | **[RESULTS_KEPLER.md](./RESULTS_KEPLER.md)** | **The Kepler transfer test**, a second pre-registered study: the content claim does not transfer. |
-| **[PREREGISTRATION.md](./PREREGISTRATION.md)** | The criteria, fixed before the run. §11 is the append-only amendment log. **§11.1–§11.4 were written before any full-corpus model call; §11.5–§11.9 were written after the result and each says so in its own heading. §11.10 registers the Kepler study before any Kepler model call; §11.11–§11.12 were written after its result (§11.12 corrects TESS's G3 numbers).** Later sections supersede earlier ones. |
+| **[PREREGISTRATION.md](./PREREGISTRATION.md)** | The criteria, fixed before the run. §11 is the append-only amendment log. **§11.1–§11.4 were written before any full-corpus model call; §11.5–§11.9 were written after the result and each says so in its own heading. §11.10 registers the Kepler study before any Kepler model call; §11.11–§11.12 were written after its result (§11.12 corrects TESS's G3 numbers). §11.13 (after the result) withdraws one claim and adds a limitation; §11.14 registers the prospective study before any prospective model call.** Later sections supersede earlier ones. |
 | **[PLAN.md](./PLAN.md)** | The build plan, the guardrails, and the pre-registered gates. §0.5 is the work-logging protocol; §2 is the validity threat; §11 covers public release. |
 | **[WORKLOG.md](./WORKLOG.md)** | Append-only record of every step, including every failure and every place the plan turned out to be wrong. **The most honest file here.** |
 | **[PROVENANCE.md](./PROVENANCE.md)** | SHA256 of each raw source. `data/` is not committed. |
